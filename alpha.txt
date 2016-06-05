@@ -1,0 +1,3 @@
+Pyxis ......... EXE - メインアセンブリ
+
+Pyxis.Alpha ... DLL - pixiv Webスクレイピングライブラリ
