@@ -1,3 +1,11 @@
 Pyxis ......... EXE - メインアセンブリ
 
-Pyxis.Alpha ... DLL - pixiv Webスクレイピングライブラリ
+Pyxis.Alpha ... DLL - pixiv API ラッパーライブラリ
+
+Pyxis.Beta .... DLL - Interfaces
+
+Pyxis.Gamma ... DLL - pixiv Web スクレイピングライブラリ
+
+
+
+* pixiv の API はそれなりの頻度で更新されているため、 Web スクレイピングでも対応できるようにしておく。
