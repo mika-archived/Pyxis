@@ -107,9 +107,50 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\InterfaceToConcreate.cs" />
     <Compile Include="Endpoints.cs" />
+    <Compile Include="Models\v1\Account.cs" />
+    <Compile Include="Models\v1\ApplicationInfo.cs" />
+    <Compile Include="Models\v1\AutoComplete.cs" />
+    <Compile Include="Models\v1\Bookmark.cs" />
+    <Compile Include="Models\v1\Comment.cs" />
+    <Compile Include="Models\v1\Comments.cs" />
+    <Compile Include="Models\v1\Illust.cs" />
+    <Compile Include="Models\v1\Illusts.cs" />
+    <Compile Include="Models\v1\ImageUrls.cs" />
+    <Compile Include="Models\v1\Novel.cs" />
+    <Compile Include="Models\v1\Novels.cs" />
+    <Compile Include="Models\v1\Profile.cs" />
+    <Compile Include="Models\v1\ProfileImageUrls.cs" />
+    <Compile Include="Models\v1\RankingLabelIllust.cs" />
+    <Compile Include="Models\v1\RankingLabelNovel.cs" />
+    <Compile Include="Models\v1\RecommendedIllusts.cs" />
+    <Compile Include="Models\v1\RecommendedNovels.cs" />
+    <Compile Include="Models\v1\Response.cs" />
+    <Compile Include="Models\v1\Series.cs" />
+    <Compile Include="Models\v1\SpotlightArticle.cs" />
+    <Compile Include="Models\v1\SpotlightArticles.cs" />
+    <Compile Include="Models\v1\Tag.cs" />
+    <Compile Include="Models\v1\TrendingTags.cs" />
+    <Compile Include="Models\v1\TrendTag.cs" />
+    <Compile Include="Models\v1\User.cs" />
+    <Compile Include="Models\v1\UserBase.cs" />
+    <Compile Include="Models\v1\UserDetail.cs" />
+    <Compile Include="Models\v1\UserPreview.cs" />
+    <Compile Include="Models\v1\UserPreviews.cs" />
+    <Compile Include="Models\v1\Workspace.cs" />
+    <Compile Include="Pixiv.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Pyxis.Alpha.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Pyxis.Beta\Pyxis.Beta.csproj">
+      <Project>{8fa1f127-a3ab-4cd4-9054-a9302828fb79}</Project>
+      <Name>Pyxis.Beta</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\v2\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

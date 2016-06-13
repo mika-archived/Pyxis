@@ -107,43 +107,45 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\Internal\IIdentity.cs" />
-    <Compile Include="Interfaces\Internal\IIndex.cs" />
-    <Compile Include="Interfaces\v1\IAccount.cs" />
-    <Compile Include="Interfaces\v1\IApplicationInfo.cs" />
-    <Compile Include="Interfaces\v1\IAutoComplete.cs" />
-    <Compile Include="Interfaces\v1\IBookmark.cs" />
-    <Compile Include="Interfaces\v1\IComment.cs" />
-    <Compile Include="Interfaces\v1\IComments.cs" />
-    <Compile Include="Interfaces\v1\IIllust.cs" />
-    <Compile Include="Interfaces\v1\IIllusts.cs" />
-    <Compile Include="Interfaces\v1\IImageUrls.cs" />
-    <Compile Include="Interfaces\v1\INovel.cs" />
-    <Compile Include="Interfaces\v1\INovels.cs" />
-    <Compile Include="Interfaces\v1\IProfile.cs" />
-    <Compile Include="Interfaces\v1\IProfileImageUrls.cs" />
-    <Compile Include="Interfaces\v1\IRankingLabelIllust.cs" />
-    <Compile Include="Interfaces\v1\IRankingLabelNovel.cs" />
-    <Compile Include="Interfaces\v1\IRecommendedIllusts.cs" />
-    <Compile Include="Interfaces\v1\IRecommendedNovels.cs" />
-    <Compile Include="Interfaces\v1\IResponse.cs" />
-    <Compile Include="Interfaces\v1\ISeries.cs" />
-    <Compile Include="Interfaces\v1\ISpotlightArticle.cs" />
-    <Compile Include="Interfaces\v1\ISpotlightArticles.cs" />
-    <Compile Include="Interfaces\v1\ITag.cs" />
-    <Compile Include="Interfaces\v1\ITrendingTags.cs" />
-    <Compile Include="Interfaces\v1\ITrendTag.cs" />
-    <Compile Include="Interfaces\v1\IUser.cs" />
-    <Compile Include="Interfaces\v1\IUserBase.cs" />
-    <Compile Include="Interfaces\v1\IUserDetail.cs" />
-    <Compile Include="Interfaces\v1\IUserPreview.cs" />
-    <Compile Include="Interfaces\v1\IUserPreviews.cs" />
-    <Compile Include="Interfaces\v1\IWorkspace.cs" />
+    <Compile Include="Interfaces\Models\Internal\IIdentity.cs" />
+    <Compile Include="Interfaces\Models\Internal\IIndex.cs" />
+    <Compile Include="Interfaces\Models\v1\IAccount.cs" />
+    <Compile Include="Interfaces\Models\v1\IApplicationInfo.cs" />
+    <Compile Include="Interfaces\Models\v1\IAutoComplete.cs" />
+    <Compile Include="Interfaces\Models\v1\IBookmark.cs" />
+    <Compile Include="Interfaces\Models\v1\IComment.cs" />
+    <Compile Include="Interfaces\Models\v1\IComments.cs" />
+    <Compile Include="Interfaces\Models\v1\IIllust.cs" />
+    <Compile Include="Interfaces\Models\v1\IIllusts.cs" />
+    <Compile Include="Interfaces\Models\v1\IImageUrls.cs" />
+    <Compile Include="Interfaces\Models\v1\INovel.cs" />
+    <Compile Include="Interfaces\Models\v1\INovels.cs" />
+    <Compile Include="Interfaces\Models\v1\IProfile.cs" />
+    <Compile Include="Interfaces\Models\v1\IProfileImageUrls.cs" />
+    <Compile Include="Interfaces\Models\v1\IRankingLabelIllust.cs" />
+    <Compile Include="Interfaces\Models\v1\IRankingLabelNovel.cs" />
+    <Compile Include="Interfaces\Models\v1\IRecommendedIllusts.cs" />
+    <Compile Include="Interfaces\Models\v1\IRecommendedNovels.cs" />
+    <Compile Include="Interfaces\Models\v1\IResponse.cs" />
+    <Compile Include="Interfaces\Models\v1\ISeries.cs" />
+    <Compile Include="Interfaces\Models\v1\ISpotlightArticle.cs" />
+    <Compile Include="Interfaces\Models\v1\ISpotlightArticles.cs" />
+    <Compile Include="Interfaces\Models\v1\ITag.cs" />
+    <Compile Include="Interfaces\Models\v1\ITrendingTags.cs" />
+    <Compile Include="Interfaces\Models\v1\ITrendTag.cs" />
+    <Compile Include="Interfaces\Models\v1\IUser.cs" />
+    <Compile Include="Interfaces\Models\v1\IUserBase.cs" />
+    <Compile Include="Interfaces\Models\v1\IUserDetail.cs" />
+    <Compile Include="Interfaces\Models\v1\IUserPreview.cs" />
+    <Compile Include="Interfaces\Models\v1\IUserPreviews.cs" />
+    <Compile Include="Interfaces\Models\v1\IWorkspace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Pyxis.Beta.rd.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Interfaces\v2\" />
+    <Folder Include="Interfaces\Models\v2\" />
+    <Folder Include="Interfaces\Rest\v1\" />
+    <Folder Include="Interfaces\Rest\v2\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

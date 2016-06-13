@@ -182,6 +182,16 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Pyxis.Alpha\Pyxis.Alpha.csproj">
+      <Project>{35a2be79-6626-4659-b4c0-bf328dca1a20}</Project>
+      <Name>Pyxis.Alpha</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Pyxis.Beta\Pyxis.Beta.csproj">
+      <Project>{8fa1f127-a3ab-4cd4-9054-a9302828fb79}</Project>
+      <Name>Pyxis.Beta</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
