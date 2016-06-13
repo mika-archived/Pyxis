@@ -139,13 +139,27 @@
     <Compile Include="Interfaces\Models\v1\IUserPreview.cs" />
     <Compile Include="Interfaces\Models\v1\IUserPreviews.cs" />
     <Compile Include="Interfaces\Models\v1\IWorkspace.cs" />
+    <Compile Include="Interfaces\Rest\IPixivClient.cs" />
+    <Compile Include="Interfaces\Rest\v1\IApplicationInfoApi.cs" />
+    <Compile Include="Interfaces\Rest\v1\IIllustApi.cs" />
+    <Compile Include="Interfaces\Rest\v1\IIllustBookmarkApi.cs" />
+    <Compile Include="Interfaces\Rest\v1\IMangaApi.cs" />
+    <Compile Include="Interfaces\Rest\v1\INovelApi.cs" />
+    <Compile Include="Interfaces\Rest\v1\ISearchApi.cs" />
+    <Compile Include="Interfaces\Rest\v1\ISpotlightApi.cs" />
+    <Compile Include="Interfaces\Rest\v1\ITrendingTagsApi.cs" />
+    <Compile Include="Interfaces\Rest\v1\IUserApi.cs" />
+    <Compile Include="Interfaces\Rest\v1\IUserBookmarksApi.cs" />
+    <Compile Include="Interfaces\Rest\v1\IUserBookmarkTags.cs" />
+    <Compile Include="Interfaces\Rest\v1\IUserBrowsingHistoryApi.cs" />
+    <Compile Include="Interfaces\Rest\v1\IUserBrowsingHistoryIllustApi.cs" />
+    <Compile Include="Interfaces\Rest\v1\IUserFollowApi.cs" />
+    <Compile Include="Interfaces\Rest\v2\IIllustApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Pyxis.Beta.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Interfaces\Models\v2\" />
-    <Folder Include="Interfaces\Rest\v1\" />
-    <Folder Include="Interfaces\Rest\v2\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

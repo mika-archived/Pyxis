@@ -9,7 +9,7 @@ namespace Pyxis.ViewModels
     {
         public CompositeDisposable CompositeDisposable { get; }
 
-        public ViewModel()
+        protected ViewModel()
         {
             CompositeDisposable = new CompositeDisposable();
         }
