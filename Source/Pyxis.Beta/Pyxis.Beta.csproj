@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8fa1f127-a3ab-4cd4-9054-a9302828fb79}</ProjectGuid>
+    <ProjectGuid>{8FA1F127-A3AB-4CD4-9054-A9302828FB79}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Pyxis.Beta</RootNamespace>
@@ -107,9 +107,43 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Interfaces\Internal\IIdentity.cs" />
+    <Compile Include="Interfaces\Internal\IIndex.cs" />
+    <Compile Include="Interfaces\v1\IAccount.cs" />
+    <Compile Include="Interfaces\v1\IApplicationInfo.cs" />
+    <Compile Include="Interfaces\v1\IAutoComplete.cs" />
+    <Compile Include="Interfaces\v1\IBookmark.cs" />
+    <Compile Include="Interfaces\v1\IComment.cs" />
+    <Compile Include="Interfaces\v1\IComments.cs" />
+    <Compile Include="Interfaces\v1\IIllust.cs" />
+    <Compile Include="Interfaces\v1\IIllusts.cs" />
+    <Compile Include="Interfaces\v1\IImageUrls.cs" />
+    <Compile Include="Interfaces\v1\INovel.cs" />
+    <Compile Include="Interfaces\v1\INovels.cs" />
+    <Compile Include="Interfaces\v1\IProfile.cs" />
+    <Compile Include="Interfaces\v1\IProfileImageUrls.cs" />
+    <Compile Include="Interfaces\v1\IRankingLabelIllust.cs" />
+    <Compile Include="Interfaces\v1\IRankingLabelNovel.cs" />
+    <Compile Include="Interfaces\v1\IRecommendedIllusts.cs" />
+    <Compile Include="Interfaces\v1\IRecommendedNovels.cs" />
+    <Compile Include="Interfaces\v1\IResponse.cs" />
+    <Compile Include="Interfaces\v1\ISeries.cs" />
+    <Compile Include="Interfaces\v1\ISpotlightArticle.cs" />
+    <Compile Include="Interfaces\v1\ISpotlightArticles.cs" />
+    <Compile Include="Interfaces\v1\ITag.cs" />
+    <Compile Include="Interfaces\v1\ITrendingTags.cs" />
+    <Compile Include="Interfaces\v1\ITrendTag.cs" />
+    <Compile Include="Interfaces\v1\IUser.cs" />
+    <Compile Include="Interfaces\v1\IUserBase.cs" />
+    <Compile Include="Interfaces\v1\IUserDetail.cs" />
+    <Compile Include="Interfaces\v1\IUserPreview.cs" />
+    <Compile Include="Interfaces\v1\IUserPreviews.cs" />
+    <Compile Include="Interfaces\v1\IWorkspace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Pyxis.Beta.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Interfaces\v2\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
