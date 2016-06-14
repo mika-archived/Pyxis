@@ -191,6 +191,10 @@
       <Project>{8fa1f127-a3ab-4cd4-9054-a9302828fb79}</Project>
       <Name>Pyxis.Beta</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Pyxis.Gamma\Pyxis.Gamma.csproj">
+      <Project>{9ed540bc-61ee-45c9-98dd-35a011605176}</Project>
+      <Name>Pyxis.Gamma</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

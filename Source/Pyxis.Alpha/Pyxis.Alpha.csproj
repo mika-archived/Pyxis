@@ -139,7 +139,7 @@
     <Compile Include="Models\v1\UserPreview.cs" />
     <Compile Include="Models\v1\UserPreviews.cs" />
     <Compile Include="Models\v1\Workspace.cs" />
-    <Compile Include="Pixiv.cs" />
+    <Compile Include="PixivApiClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Pyxis.Alpha.rd.xml" />
   </ItemGroup>
