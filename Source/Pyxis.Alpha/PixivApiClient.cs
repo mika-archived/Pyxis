@@ -36,6 +36,7 @@ namespace Pyxis.Alpha
 
         #region Implementation of IPixivClient
 
+        public IAuthorizationApi Authorization => new AuthorizationApi(this);
         public IApplicationInfoApi ApplicationInfo => new ApplicationInfoApi(this);
         public IllustV1 IllustV1 => new IllustApiV1(this);
         public IMangaApi Manga => new MangaApi(this);

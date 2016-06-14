@@ -9,6 +9,11 @@ namespace Pyxis.Beta.Interfaces.Rest
     public interface IPixivClient
     {
         /// <summary>
+        ///     Wrapper of auth/token
+        /// </summary>
+        IAuthorizationApi Authorization { get; }
+
+        /// <summary>
         ///     Wrapper of v1/application-info
         /// </summary>
         IApplicationInfoApi ApplicationInfo { get; }
