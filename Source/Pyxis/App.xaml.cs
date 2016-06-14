@@ -1,8 +1,15 @@
 ﻿using System.Threading.Tasks;
 
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Resources;
+
+using Microsoft.Practices.Unity;
 
 using Prism.Unity.Windows;
+using Prism.Windows.AppModel;
+
+using Pyxis.Alpha;
+using Pyxis.Beta.Interfaces.Rest;
 
 namespace Pyxis
 {
@@ -19,6 +26,19 @@ namespace Pyxis
         {
             InitializeComponent();
         }
+
+        #region Overrides of PrismApplication
+
+        protected override Task OnInitializeAsync(IActivatedEventArgs args)
+        {
+            Container.RegisterInstance<IResourceLoader>(new ResourceLoaderAdapter(new ResourceLoader()));
+            Container.RegisterInstance<IPixivClient>(new PixivApiClient(), new ContainerControlledLifetimeManager());
+            // Container.RegisterInstance<IPixivClient>(new PixivWebClient(), new ContainerControlledLifetimeManager());
+
+            return base.OnInitializeAsync(args);
+        }
+
+        #endregion
 
         #region Overrides of PrismApplication
 
