@@ -107,6 +107,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\AuthenticateRequiredException.cs" />
     <Compile Include="Interfaces\Models\Internal\IIdentity.cs" />
     <Compile Include="Interfaces\Models\Internal\IIndex.cs" />
     <Compile Include="Interfaces\Models\v1\IAccount.cs" />
@@ -150,7 +151,7 @@
     <Compile Include="Interfaces\Rest\v1\ITrendingTagsApi.cs" />
     <Compile Include="Interfaces\Rest\v1\IUserApi.cs" />
     <Compile Include="Interfaces\Rest\v1\IUserBookmarksApi.cs" />
-    <Compile Include="Interfaces\Rest\v1\IUserBookmarkTags.cs" />
+    <Compile Include="Interfaces\Rest\v1\IUserBookmarkTagsApi.cs" />
     <Compile Include="Interfaces\Rest\v1\IUserBrowsingHistoryApi.cs" />
     <Compile Include="Interfaces\Rest\v1\IUserBrowsingHistoryIllustApi.cs" />
     <Compile Include="Interfaces\Rest\v1\IUserFollowApi.cs" />

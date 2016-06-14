@@ -6,7 +6,7 @@ using Pyxis.Beta.Interfaces.Models.v1;
 
 namespace Pyxis.Beta.Interfaces.Rest.v1
 {
-    public interface IUserBookmarkTags
+    public interface IUserBookmarkTagsApi
     {
         // TODO: Implementation of Interface `IBookmarkTag`
         Task<IBookmark> IllustAsync(params Expression<Func<string, object>>[] parameters);

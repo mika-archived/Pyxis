@@ -57,8 +57,8 @@ namespace Pyxis.Beta.Interfaces.Rest
         // HTTP access
         // ---------------------
 
-        Task<T> GetAsync<T>(string url, params Expression<Func<string, object>>[] parameters);
+        Task<T> GetAsync<T>(string url, bool requireAuth, params Expression<Func<string, object>>[] parameters);
 
-        Task<T> PostAsync<T>(string url, params Expression<Func<string, object>>[] parameters);
+        Task<T> PostAsync<T>(string url, bool requireAuth, params Expression<Func<string, object>>[] parameters);
     }
 }

@@ -8,7 +8,7 @@ namespace Pyxis.Beta.Interfaces.Rest.v1
 {
     public interface IUserApi
     {
-        IUserBookmarkTags BookmarkTags { get; }
+        IUserBookmarkTagsApi BookmarkTags { get; }
 
         IUserBookmarksApi Bookmarks { get; }
 

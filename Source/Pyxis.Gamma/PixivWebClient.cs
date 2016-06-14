@@ -21,12 +21,12 @@ namespace Pyxis.Gamma
         public IUserApi User { get; }
         public Beta.Interfaces.Rest.v2.IIllustApi IllustV2 { get; }
 
-        public Task<T> GetAsync<T>(string url, params Expression<Func<string, object>>[] parameters)
+        public Task<T> GetAsync<T>(string url, bool requireAuth, params Expression<Func<string, object>>[] parameters)
         {
             throw new NotImplementedException();
         }
 
-        public Task<T> PostAsync<T>(string url, params Expression<Func<string, object>>[] parameters)
+        public Task<T> PostAsync<T>(string url, bool requireAuth, params Expression<Func<string, object>>[] parameters)
         {
             throw new NotImplementedException();
         }
