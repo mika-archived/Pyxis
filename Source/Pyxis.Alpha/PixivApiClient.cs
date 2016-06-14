@@ -16,6 +16,7 @@ using Pyxis.Beta.Interfaces.Rest.v1;
 using IllustV1 = Pyxis.Beta.Interfaces.Rest.v1.IIllustApi;
 using IllustV2 = Pyxis.Beta.Interfaces.Rest.v2.IIllustApi;
 using IllustApiV1 = Pyxis.Alpha.Rest.v1.IllustApi;
+using IllustApiV2 = Pyxis.Alpha.Rest.v2.IllustApi;
 
 namespace Pyxis.Alpha
 {
@@ -45,7 +46,7 @@ namespace Pyxis.Alpha
         public ISpotlightApi Spotlight => new SpotlightApi(this);
         public ITrendingTagsApi TrendingTags => new TrendingTagsApi(this);
         public IUserApi User => new UserApi(this);
-        public IllustV2 IllustV2 { get; }
+        public IllustV2 IllustV2 => new IllustApiV2(this);
 
         public async Task<T> GetAsync<T>(string url, bool requireAuth,
                                          params Expression<Func<string, object>>[] parameters)

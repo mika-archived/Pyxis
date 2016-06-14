@@ -143,6 +143,7 @@
     <Compile Include="PixivApiClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rest\v1\ApplicationInfoApi.cs" />
+    <Compile Include="Rest\v1\AuthorizationApi.cs" />
     <Compile Include="Rest\v1\IllustApi.cs" />
     <Compile Include="Rest\v1\IllustBookmarkApi.cs" />
     <Compile Include="Rest\v1\MangaApi.cs" />
@@ -151,9 +152,12 @@
     <Compile Include="Rest\v1\SpotlightApi.cs" />
     <Compile Include="Rest\v1\TrendingTagsApi.cs" />
     <Compile Include="Rest\v1\UserApi.cs" />
+    <Compile Include="Rest\v1\UserBookmarksApi.cs" />
     <Compile Include="Rest\v1\UserBookmarkTags.cs" />
     <Compile Include="Rest\v1\UserBrowsingHistoryApi.cs" />
     <Compile Include="Rest\v1\UserBrowsingHistoryIllustApi.cs" />
+    <Compile Include="Rest\v1\UserFollowApi.cs" />
+    <Compile Include="Rest\v2\IllustApi.cs" />
     <EmbeddedResource Include="Properties\Pyxis.Alpha.rd.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -164,7 +168,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\v2\" />
-    <Folder Include="Rest\v2\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
