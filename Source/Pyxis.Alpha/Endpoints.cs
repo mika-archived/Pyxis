@@ -16,6 +16,8 @@
 
         internal static string IllustBookmarkUsers => $"{BaseUrl}/{Version1}/illust/bookmark/users";
 
+        internal static string IllustBookmarkAdd => $"{BaseUrl}/{Version1}/illust/bookmark/add";
+
         internal static string IllustComments => $"{BaseUrl}/{Version1}/illust/comments";
 
         internal static string IllustNew => $"{BaseUrl}/{Version1}/illust/new";
@@ -30,7 +32,15 @@
 
         internal static string MangaRecommended => $"{BaseUrl}/{Version1}/manga/recommended";
 
+        internal static string NovelBookmarkAdd => $"{BaseUrl}/{Version1}/novel/bookmark/add";
+
+        internal static string NovelComments => $"{BaseUrl}/{Version1}/novel/comments";
+
         internal static string NovelFollow => $"{BaseUrl}/{Version1}/novel/follow";
+
+        internal static string NovelMarkerAdd => $"{BaseUrl}/{Version1}/novel/marker/add";
+
+        internal static string NovelMarkers => $"{BaseUrl}/{Version1}/novel/markers";
 
         internal static string NovelMypixiv => $"{BaseUrl}/{Version1}/novel/mypixiv";
 
@@ -41,6 +51,10 @@
         internal static string NovelRecommended => $"{BaseUrl}/{Version1}/novel/recommended";
 
         internal static string NovelRecommendedNoLogin => $"{BaseUrl}/{Version1}/novel/recommended-nologin";
+
+        internal static string NovelSeries => $"{BaseUrl}/{Version1}/novel/series";
+
+        internal static string NovelText => $"{BaseUrl}/{Version1}/novel/text";
 
         internal static string SearchAutocomplete => $"{BaseUrl}/{Version1}/search/autocomplete";
 
@@ -56,28 +70,44 @@
 
         internal static string TrendingTagsNovel => $"{BaseUrl}/{Version1}/trending-tags/novel";
 
+        internal static string UgoiraMetadata => $"{BaseUrl}/{Version1}/ugoira/metadata";
+
         internal static string UserBookmarkTagsIllust => $"{BaseUrl}/{Version1}/user/bookmark-tags/illust";
 
         internal static string UserBookmarksIllust => $"{BaseUrl}/{Version1}/user/bookmarks/illust";
 
         internal static string UserBookmarksNovel => $"{BaseUrl}/{Version1}/user/bookmarks/novel";
 
+        internal static string UserBrowsingHistoryIllustAdd => $"{BaseUrl}/{Version1}/user/browsing-history/illust/add";
+
+        internal static string UserBrowsingHistoryNovelAdd => $"{BaseUrl}/{Version1}/user/browsin-history/novel/add";
+
         internal static string UserDetail => $"{BaseUrl}/{Version1}/user/detail";
 
+        internal static string UserFollowAdd => $"{BaseUrl}/{Version1}/user/follow/add";
+
+        internal static string UserFollower => $"{BaseUrl}/{Version1}/user/follower";
+
+        internal static string UserFollowing => $"{BaseUrl}/{Version1}/user/following";
+
         internal static string UserIllusts => $"{BaseUrl}/{Version1}/user/illusts";
+
+        internal static string UserMypixiv => $"{BaseUrl}/{Version1}/user/mypixiv";
+
+        internal static string UserNovels => $"{BaseUrl}/{Version1}/user/novels";
 
         internal static string UserRecommended => $"{BaseUrl}/{Version1}/user/recommended";
 
         internal static string UserRelated => $"{BaseUrl}/{Version1}/user/related";
 
-        internal static string IllustBookmarkAdd => $"{BaseUrl}/{Version1}/illust/bookmark/add";
+        // API Version 2
 
-        internal static string UserBrowsingHistoryIllustAdd => $"{BaseUrl}/{Version1}/user/browsing-history/illust/add";
-
-        internal static string UserFollowAdd => $"{BaseUrl}/{Version1}/user/follow/add";
+        internal static string IllustBookmarkDetail => $"{BaseUrl}/{Version2}/illust/bookmark/detail";
 
         internal static string IllustFollow => $"{BaseUrl}/{Version2}/illust/follow";
 
         internal static string IllustMypixiv => $"{BaseUrl}/{Version2}/illust/mypixiv";
+
+        internal static string NovelBookmarkDetail => $"{BaseUrl}/{Version2}/novel/bookmark/detail";
     }
 }

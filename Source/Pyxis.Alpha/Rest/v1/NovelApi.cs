@@ -19,8 +19,17 @@ namespace Pyxis.Alpha.Rest.v1
 
         #region Implementation of INovelApi
 
+        public INovelBookmarkApi Bookmark => new NovelBookmarkApi(_client);
+        public INovelMarkerApi Marker => new NovelMarkerApi(_client);
+
+        public async Task<IComments> CommentsAsync(params Expression<Func<string, object>>[] parameters)
+            => await _client.GetAsync<Comments>(Endpoints.NovelComments, false, parameters);
+
         public async Task<INovels> FollowAsync(params Expression<Func<string, object>>[] parameters)
             => await _client.GetAsync<Novels>(Endpoints.NovelFollow, true, parameters);
+
+        public async Task<INovels> MarkersAsync(params Expression<Func<string, object>>[] parameters)
+            => await _client.GetAsync<Novels>(Endpoints.NovelMarkers, true, parameters);
 
         public async Task<INovels> MypixivAsync(params Expression<Func<string, object>>[] parameters)
             => await _client.GetAsync<Novels>(Endpoints.NovelMypixiv, true, parameters);
@@ -37,6 +46,12 @@ namespace Pyxis.Alpha.Rest.v1
         public async Task<IRecommendedNovels> RecommendedNologinAsync(
             params Expression<Func<string, object>>[] parameters)
             => await _client.GetAsync<RecommendedNovels>(Endpoints.NovelRecommendedNoLogin, false, parameters);
+
+        public async Task<INovels> SeriesAsync(params Expression<Func<string, object>>[] parameters)
+            => await _client.GetAsync<Novels>(Endpoints.NovelSeries, false, parameters);
+
+        public async Task<IText> TextAsync(params Expression<Func<string, object>>[] parameters)
+            => await _client.GetAsync<Text>(Endpoints.NovelText, false, parameters);
 
         #endregion
     }

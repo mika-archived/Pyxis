@@ -3,5 +3,7 @@
     public interface IUserBrowsingHistoryApi
     {
         IUserBrowsingHistoryIllustApi Illust { get; }
+
+        IUserBrowsingHistoryNovelApi Novel { get; }
     }
 }

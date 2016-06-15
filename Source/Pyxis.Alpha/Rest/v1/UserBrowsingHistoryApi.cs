@@ -14,6 +14,7 @@ namespace Pyxis.Alpha.Rest.v1
         #region Implementation of IUserBrowsingHistoryApi
 
         public IUserBrowsingHistoryIllustApi Illust => new UserBrowsingHistoryIllustApi(_client);
+        public IUserBrowsingHistoryNovelApi Novel => new UserBrowsingHistoryNovelApi(_client);
 
         #endregion
     }

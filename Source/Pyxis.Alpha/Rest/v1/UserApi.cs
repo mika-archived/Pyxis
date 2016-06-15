@@ -27,8 +27,20 @@ namespace Pyxis.Alpha.Rest.v1
         public async Task<IUserDetail> DetailAsync(params Expression<Func<string, object>>[] parameters)
             => await _client.GetAsync<UserDetail>(Endpoints.UserDetail, false, parameters);
 
+        public async Task<IUserPreviews> FollowerAsync(params Expression<Func<string, object>>[] parameters)
+            => await _client.GetAsync<UserPreviews>(Endpoints.UserFollower, false, parameters);
+
+        public async Task<IUserPreviews> FollowingAsync(params Expression<Func<string, object>>[] parameters)
+            => await _client.GetAsync<UserPreviews>(Endpoints.UserFollowing, false, parameters);
+
         public async Task<IIllusts> IllustsAsync(params Expression<Func<string, object>>[] parameters)
             => await _client.GetAsync<Illusts>(Endpoints.UserIllusts, false, parameters);
+
+        public async Task<IUserPreviews> MypixivAsync(params Expression<Func<string, object>>[] parameters)
+            => await _client.GetAsync<UserPreviews>(Endpoints.UserMypixiv, false, parameters);
+
+        public async Task<INovels> NovelsAsync(params Expression<Func<string, object>>[] parameters)
+            => await _client.GetAsync<Novels>(Endpoints.UserNovels, false, parameters);
 
         public async Task<IUserPreviews> RecommendedAsync(params Expression<Func<string, object>>[] parameters)
             => await _client.GetAsync<UserPreviews>(Endpoints.UserRecommended, false, parameters);

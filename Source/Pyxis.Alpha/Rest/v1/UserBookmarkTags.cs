@@ -19,8 +19,8 @@ namespace Pyxis.Alpha.Rest.v1
 
         #region Implementation of IUserBookmarkTagsApi
 
-        public async Task<IBookmark> IllustAsync(params Expression<Func<string, object>>[] parameters)
-            => await _client.GetAsync<Bookmark>(Endpoints.UserBookmarkTagsIllust, true, parameters);
+        public async Task<IBookmarkTags> IllustAsync(params Expression<Func<string, object>>[] parameters)
+            => await _client.GetAsync<BookmarkTags>(Endpoints.UserBookmarkTagsIllust, true, parameters);
 
         #endregion
     }

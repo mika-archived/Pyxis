@@ -8,7 +8,15 @@ namespace Pyxis.Beta.Interfaces.Rest.v1
 {
     public interface INovelApi
     {
+        INovelBookmarkApi Bookmark { get; }
+
+        INovelMarkerApi Marker { get; }
+
+        Task<IComments> CommentsAsync(params Expression<Func<string, object>>[] parameters);
+
         Task<INovels> FollowAsync(params Expression<Func<string, object>>[] parameters);
+
+        Task<INovels> MarkersAsync(params Expression<Func<string, object>>[] parameters);
 
         Task<INovels> MypixivAsync(params Expression<Func<string, object>>[] parameters);
 
@@ -19,5 +27,9 @@ namespace Pyxis.Beta.Interfaces.Rest.v1
         Task<IRecommendedNovels> RecommendedAsync(params Expression<Func<string, object>>[] parameters);
 
         Task<IRecommendedNovels> RecommendedNologinAsync(params Expression<Func<string, object>>[] parameters);
+
+        Task<INovels> SeriesAsync(params Expression<Func<string, object>>[] parameters);
+
+        Task<IText> TextAsync(params Expression<Func<string, object>>[] parameters);
     }
 }

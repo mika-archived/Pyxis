@@ -19,6 +19,8 @@ namespace Pyxis.Alpha.Rest.v2
 
         #region Implementation of IIllustApi
 
+        public IIllustBookmarkApi Bookmark => new IllustBookmarkApi(_client);
+
         public async Task<IIllusts> FollowAsync(params Expression<Func<string, object>>[] parameters)
             => await _client.GetAsync<Illusts>(Endpoints.IllustFollow, true, parameters);
 

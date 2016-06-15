@@ -31,7 +31,7 @@ namespace Pyxis.Beta.Interfaces.Rest
         /// <summary>
         ///     Wrapper of v1/novel
         /// </summary>
-        INovelApi Novel { get; }
+        INovelApi NovelV1 { get; }
 
         /// <summary>
         ///     Wrapper of v1/search
@@ -49,6 +49,11 @@ namespace Pyxis.Beta.Interfaces.Rest
         ITrendingTagsApi TrendingTags { get; }
 
         /// <summary>
+        ///     Wrapper of v1/ugoira
+        /// </summary>
+        IUgoiraApi Ugoira { get; }
+
+        /// <summary>
         ///     Wrapper of v1/user
         /// </summary>
         IUserApi User { get; }
@@ -57,6 +62,11 @@ namespace Pyxis.Beta.Interfaces.Rest
         ///     Wrapper of v2/illust
         /// </summary>
         v2.IIllustApi IllustV2 { get; }
+
+        /// <summary>
+        ///     Wrapper of v1/novel
+        /// </summary>
+        v2.INovelApi NovelV2 { get; }
 
         // =====================
         // HTTP access

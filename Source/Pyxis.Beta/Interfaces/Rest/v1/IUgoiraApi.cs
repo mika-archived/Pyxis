@@ -6,8 +6,8 @@ using Pyxis.Beta.Interfaces.Models.v1;
 
 namespace Pyxis.Beta.Interfaces.Rest.v1
 {
-    public interface IUserBookmarkTagsApi
+    public interface IUgoiraApi
     {
-        Task<IBookmarkTags> IllustAsync(params Expression<Func<string, object>>[] parameters);
+        Task<IMetadata> MetadataAsync(params Expression<Func<string, object>>[] parameters);
     }
 }
