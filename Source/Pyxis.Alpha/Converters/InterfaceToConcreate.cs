@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace Pyxis.Alpha.Converters
 {
-    internal class InterfaceToConcreate<T> : JsonConverter where T : class
+    public class InterfaceToConcreate<T> : JsonConverter where T : class
     {
         #region Overrides of JsonConverter
 

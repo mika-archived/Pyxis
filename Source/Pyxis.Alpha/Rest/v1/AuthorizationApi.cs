@@ -30,7 +30,7 @@ namespace Pyxis.Alpha.Rest.v1
         #endregion
     }
 
-    internal class ResponseOwneer
+    public class ResponseOwneer
     {
         [JsonProperty("response")]
         public Response Response { get; set; }

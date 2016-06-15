@@ -9,7 +9,7 @@ using Pyxis.Beta.Interfaces.Models.v1;
 
 namespace Pyxis.Alpha.Models.v1
 {
-    internal class BookmarkTags : IBookmarkTags
+    public class BookmarkTags : IBookmarkTags
     {
         #region Implementation of IIndex
 

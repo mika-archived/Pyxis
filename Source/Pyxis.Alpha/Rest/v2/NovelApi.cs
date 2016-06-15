@@ -2,7 +2,7 @@
 
 namespace Pyxis.Alpha.Rest.v2
 {
-    internal class NovelApi : INovelApi
+    public class NovelApi : INovelApi
     {
         private readonly PixivApiClient _client;
 

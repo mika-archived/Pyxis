@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Pyxis.Alpha.Internal
 {
-    internal class PixivHttpClientHandler : DelegatingHandler
+    public class PixivHttpClientHandler : DelegatingHandler
     {
         private readonly PixivApiClient _client;
 

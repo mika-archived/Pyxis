@@ -6,7 +6,7 @@ using Pyxis.Beta.Interfaces.Rest.v1;
 
 namespace Pyxis.Alpha.Rest.v1
 {
-    internal class NovelBookmarkApi : INovelBookmarkApi
+    public class NovelBookmarkApi : INovelBookmarkApi
     {
         private readonly PixivApiClient _client;
 

@@ -2,13 +2,15 @@
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
+using Newtonsoft.Json;
+
 using Pyxis.Alpha.Models.v1;
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest.v1;
 
 namespace Pyxis.Alpha.Rest.v1
 {
-    internal class UgoiraApi : IUgoiraApi
+    public class UgoiraApi : IUgoiraApi
     {
         private readonly PixivApiClient _client;
 
@@ -20,10 +22,17 @@ namespace Pyxis.Alpha.Rest.v1
         #region Implementation of IUgoiraApi
 
         public async Task<IMetadata> MetadataAsync(params Expression<Func<string, object>>[] parameters)
-            => await _client.GetAsync<Metadata>(Endpoints.UgoiraMetadata, false, parameters);
-
-        // => await this._client.GetAsync<Metadata>()
+        {
+            var metadata = await _client.GetAsync<MetadataOwner>(Endpoints.UgoiraMetadata, false, parameters);
+            return metadata.Metadata;
+        }
 
         #endregion
+    }
+
+    public class MetadataOwner
+    {
+        [JsonProperty("ugoira_metadata")]
+        public Metadata Metadata { get; set; }
     }
 }

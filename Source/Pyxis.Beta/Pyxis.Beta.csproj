@@ -114,12 +114,19 @@
     <Compile Include="Interfaces\Models\v1\IApplicationInfo.cs" />
     <Compile Include="Interfaces\Models\v1\IAutoComplete.cs" />
     <Compile Include="Interfaces\Models\v1\IBookmark.cs" />
+    <Compile Include="Interfaces\Models\v2\IBookmarkDetail.cs" />
+    <Compile Include="Interfaces\Models\v2\IBookmarkDetailTag.cs" />
+    <Compile Include="Interfaces\Models\v1\IBookmarkTag.cs" />
+    <Compile Include="Interfaces\Models\v1\IBookmarkTags.cs" />
     <Compile Include="Interfaces\Models\v1\IComment.cs" />
     <Compile Include="Interfaces\Models\v1\IComments.cs" />
+    <Compile Include="Interfaces\Models\v1\IFrame.cs" />
     <Compile Include="Interfaces\Models\v1\IIllust.cs" />
     <Compile Include="Interfaces\Models\v1\IIllusts.cs" />
     <Compile Include="Interfaces\Models\v1\IImageUrls.cs" />
+    <Compile Include="Interfaces\Models\v1\IMetadata.cs" />
     <Compile Include="Interfaces\Models\v1\INovel.cs" />
+    <Compile Include="Interfaces\Models\v1\INovelMarker.cs" />
     <Compile Include="Interfaces\Models\v1\INovels.cs" />
     <Compile Include="Interfaces\Models\v1\IProfile.cs" />
     <Compile Include="Interfaces\Models\v1\IProfileImageUrls.cs" />
@@ -132,6 +139,7 @@
     <Compile Include="Interfaces\Models\v1\ISpotlightArticle.cs" />
     <Compile Include="Interfaces\Models\v1\ISpotlightArticles.cs" />
     <Compile Include="Interfaces\Models\v1\ITag.cs" />
+    <Compile Include="Interfaces\Models\v1\IText.cs" />
     <Compile Include="Interfaces\Models\v1\ITrendingTags.cs" />
     <Compile Include="Interfaces\Models\v1\ITrendTag.cs" />
     <Compile Include="Interfaces\Models\v1\IUser.cs" />
@@ -140,6 +148,7 @@
     <Compile Include="Interfaces\Models\v1\IUserPreview.cs" />
     <Compile Include="Interfaces\Models\v1\IUserPreviews.cs" />
     <Compile Include="Interfaces\Models\v1\IWorkspace.cs" />
+    <Compile Include="Interfaces\Models\v1\IZipUrls.cs" />
     <Compile Include="Interfaces\Rest\IPixivClient.cs" />
     <Compile Include="Interfaces\Rest\v1\IApplicationInfoApi.cs" />
     <Compile Include="Interfaces\Rest\v1\IAuthorizationApi.cs" />
@@ -147,6 +156,9 @@
     <Compile Include="Interfaces\Rest\v1\IIllustBookmarkApi.cs" />
     <Compile Include="Interfaces\Rest\v1\IMangaApi.cs" />
     <Compile Include="Interfaces\Rest\v1\INovelApi.cs" />
+    <Compile Include="Interfaces\Rest\v1\INovelBookmarkApi.cs" />
+    <Compile Include="Interfaces\Rest\v1\INovelMarkerApi.cs" />
+    <Compile Include="Interfaces\Rest\v1\IUgoiraApi.cs" />
     <Compile Include="Interfaces\Rest\v1\ISearchApi.cs" />
     <Compile Include="Interfaces\Rest\v1\ISpotlightApi.cs" />
     <Compile Include="Interfaces\Rest\v1\ITrendingTagsApi.cs" />
@@ -155,14 +167,16 @@
     <Compile Include="Interfaces\Rest\v1\IUserBookmarkTagsApi.cs" />
     <Compile Include="Interfaces\Rest\v1\IUserBrowsingHistoryApi.cs" />
     <Compile Include="Interfaces\Rest\v1\IUserBrowsingHistoryIllustApi.cs" />
+    <Compile Include="Interfaces\Rest\v1\IUserBrowsingHistoryNovelApi.cs" />
     <Compile Include="Interfaces\Rest\v1\IUserFollowApi.cs" />
     <Compile Include="Interfaces\Rest\v2\IIllustApi.cs" />
+    <Compile Include="Interfaces\Rest\v2\IIllustBookmarkApi.cs" />
+    <Compile Include="Interfaces\Rest\v2\INovelApi.cs" />
+    <Compile Include="Interfaces\Rest\v2\INovelBookmarkApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Pyxis.Beta.rd.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interfaces\Models\v2\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

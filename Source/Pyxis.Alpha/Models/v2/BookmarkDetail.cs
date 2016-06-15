@@ -9,7 +9,7 @@ using Pyxis.Beta.Interfaces.Models.v2;
 
 namespace Pyxis.Alpha.Models.v2
 {
-    internal class BookmarkDetail : IBookmarkDetail
+    public class BookmarkDetail : IBookmarkDetail
     {
         #region Implementation of IBookmarkDetail
 

@@ -6,7 +6,7 @@ using Pyxis.Beta.Interfaces.Models.v1;
 
 namespace Pyxis.Alpha.Models.v1
 {
-    internal class NovelMarker : INovelMarker
+    public class NovelMarker : INovelMarker
     {
         #region Implementation of INovelMarker
 

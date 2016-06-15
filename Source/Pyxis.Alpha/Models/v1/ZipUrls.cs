@@ -6,7 +6,7 @@ using Pyxis.Beta.Interfaces.Models.v1;
 
 namespace Pyxis.Alpha.Models.v1
 {
-    internal class ZipUrls : IZipUrls
+    public class ZipUrls : IZipUrls
     {
         #region Implementation of IZipUrls
 

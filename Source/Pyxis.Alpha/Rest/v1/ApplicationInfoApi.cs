@@ -10,7 +10,7 @@ using Pyxis.Beta.Interfaces.Rest.v1;
 
 namespace Pyxis.Alpha.Rest.v1
 {
-    internal class ApplicationInfoApi : IApplicationInfoApi
+    public class ApplicationInfoApi : IApplicationInfoApi
     {
         private readonly PixivApiClient _client;
 
@@ -30,7 +30,7 @@ namespace Pyxis.Alpha.Rest.v1
         #endregion
     }
 
-    internal class ApplicationInfoOwner
+    public class ApplicationInfoOwner
     {
         [JsonProperty("application_info")]
         public ApplicationInfo ApplicationInfo { set; get; }

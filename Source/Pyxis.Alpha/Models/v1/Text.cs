@@ -7,7 +7,7 @@ using Pyxis.Beta.Interfaces.Models.v1;
 
 namespace Pyxis.Alpha.Models.v1
 {
-    internal class Text : IText
+    public class Text : IText
     {
         #region Implementation of IText
 

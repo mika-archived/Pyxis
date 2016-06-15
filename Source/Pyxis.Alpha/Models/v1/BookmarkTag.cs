@@ -6,7 +6,7 @@ using Pyxis.Beta.Interfaces.Models.v1;
 
 namespace Pyxis.Alpha.Models.v1
 {
-    internal class BookmarkTag : IBookmarkTag
+    public class BookmarkTag : IBookmarkTag
     {
         #region Implementation of ITag
 
