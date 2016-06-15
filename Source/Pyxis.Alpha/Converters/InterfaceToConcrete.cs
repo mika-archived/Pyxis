@@ -24,7 +24,7 @@ namespace Pyxis.Alpha.Converters
             {
                 var type = objectType.GenericTypeArguments.First();
                 var list = (IList) Activator.CreateInstance(typeof(List<>).MakeGenericType(type));
-                foreach (var v in(IList) value)
+                foreach (var v in (IList) value)
                     list.Add(v);
                 return list;
             }
