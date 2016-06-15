@@ -29,7 +29,7 @@ namespace Pyxis.Alpha.Models.v1
         public DateTime Date { get; set; }
 
         [JsonProperty("user")]
-        [JsonConverter(typeof(InterfaceToConcreate<UserBase>))]
+        [JsonConverter(typeof(InterfaceToConcrete<UserBase>))]
         public IUserBase User { get; set; }
 
         #endregion

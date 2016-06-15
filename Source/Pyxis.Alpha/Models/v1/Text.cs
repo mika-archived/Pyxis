@@ -12,7 +12,7 @@ namespace Pyxis.Alpha.Models.v1
         #region Implementation of IText
 
         [JsonProperty("novel_marker")]
-        [JsonConverter(typeof(InterfaceToConcreate<NovelMarker>))]
+        [JsonConverter(typeof(InterfaceToConcrete<NovelMarker>))]
         public INovelMarker NovelMarker { get; set; }
 
         [JsonProperty("novel_text")]

@@ -29,7 +29,7 @@ namespace Pyxis.Alpha.Models.v1
         public string Type { get; set; }
 
         [JsonProperty("image_urls")]
-        [JsonConverter(typeof(InterfaceToConcreate<ImageUrls>))]
+        [JsonConverter(typeof(InterfaceToConcrete<ImageUrls>))]
         public IImageUrls ImageUrls { get; set; }
 
         [JsonProperty("caption")]
@@ -39,11 +39,11 @@ namespace Pyxis.Alpha.Models.v1
         public int Restrict { get; set; }
 
         [JsonProperty("user")]
-        [JsonConverter(typeof(InterfaceToConcreate<User>))]
+        [JsonConverter(typeof(InterfaceToConcrete<User>))]
         public IUser User { get; set; }
 
         [JsonProperty("tags")]
-        [JsonConverter(typeof(InterfaceToConcreate<IList<Tag>>))]
+        [JsonConverter(typeof(InterfaceToConcrete<IList<Tag>>))]
         public IList<ITag> Tags { get; set; }
 
         [JsonProperty("tools")]
@@ -66,11 +66,11 @@ namespace Pyxis.Alpha.Models.v1
         public int SanityLevel { get; set; }
 
         [JsonProperty("meta_single_page")]
-        [JsonConverter(typeof(InterfaceToConcreate<ImageUrls>))]
+        [JsonConverter(typeof(InterfaceToConcrete<ImageUrls>))]
         public IImageUrls MetaSinglePage { get; set; }
 
         [JsonProperty("meta_pages")]
-        [JsonConverter(typeof(InterfaceToConcreate<IList<ImageUrls>>))]
+        [JsonConverter(typeof(InterfaceToConcrete<IList<ImageUrls>>))]
         public IList<IImageUrls> MetaPages { get; set; }
 
         [JsonProperty("total_view")]

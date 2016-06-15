@@ -21,7 +21,7 @@ namespace Pyxis.Alpha.Models.v1
         #region Implementation of IBookmark
 
         [JsonProperty("users")]
-        [JsonConverter(typeof(InterfaceToConcreate<IList<User>>))]
+        [JsonConverter(typeof(InterfaceToConcrete<IList<User>>))]
         public IList<IUser> Users { get; set; }
 
         #endregion

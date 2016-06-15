@@ -21,7 +21,7 @@ namespace Pyxis.Alpha.Models.v1
         #region Implementation of INovels
 
         [JsonProperty("novels")]
-        [JsonConverter(typeof(InterfaceToConcreate<IList<Novel>>))]
+        [JsonConverter(typeof(InterfaceToConcrete<IList<Novel>>))]
         public IList<INovel> NovelList { get; set; }
 
         #endregion

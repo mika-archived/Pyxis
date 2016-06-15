@@ -24,7 +24,7 @@ namespace Pyxis.Alpha.Models.v1
         public int Height { get; set; }
 
         [JsonProperty("image_urls")]
-        [JsonConverter(typeof(InterfaceToConcreate<ImageUrls>))]
+        [JsonConverter(typeof(InterfaceToConcrete<ImageUrls>))]
         public IImageUrls ImageUrls { get; set; }
 
         #endregion

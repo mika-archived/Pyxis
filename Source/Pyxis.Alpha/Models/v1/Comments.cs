@@ -24,7 +24,7 @@ namespace Pyxis.Alpha.Models.v1
         public int TotalComments { get; set; }
 
         [JsonProperty("comments")]
-        [JsonConverter(typeof(InterfaceToConcreate<IList<Comment>>))]
+        [JsonConverter(typeof(InterfaceToConcrete<IList<Comment>>))]
         public IList<IComment> CommentList { get; set; }
 
         #endregion

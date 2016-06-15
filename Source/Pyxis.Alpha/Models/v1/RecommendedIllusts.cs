@@ -21,15 +21,15 @@ namespace Pyxis.Alpha.Models.v1
         #region Implementation of IRecommendedIllusts
 
         [JsonProperty("illusts")]
-        [JsonConverter(typeof(InterfaceToConcreate<IList<Illust>>))]
+        [JsonConverter(typeof(InterfaceToConcrete<IList<Illust>>))]
         public IList<IIllust> Illusts { get; set; }
 
         [JsonProperty("home_ranking_illusts")]
-        [JsonConverter(typeof(InterfaceToConcreate<IList<Illust>>))]
+        [JsonConverter(typeof(InterfaceToConcrete<IList<Illust>>))]
         public IList<IIllust> HomeRankingIllusts { get; set; }
 
         [JsonProperty("ranking_label_illust")]
-        [JsonConverter(typeof(InterfaceToConcreate<RankingLabelIllust>))]
+        [JsonConverter(typeof(InterfaceToConcrete<RankingLabelIllust>))]
         public IRankingLabelIllust RankingLabelIllust { get; set; }
 
         #endregion

@@ -21,7 +21,7 @@ namespace Pyxis.Alpha.Models.v1
         #region Implementation of IUserPreviews
 
         [JsonProperty("user_previews")]
-        [JsonConverter(typeof(InterfaceToConcreate<IList<UserPreview>>))]
+        [JsonConverter(typeof(InterfaceToConcrete<IList<UserPreview>>))]
         public IList<IUserPreview> UserPreviewList { get; set; }
 
         #endregion

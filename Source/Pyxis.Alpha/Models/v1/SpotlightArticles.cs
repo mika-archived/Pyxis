@@ -21,7 +21,7 @@ namespace Pyxis.Alpha.Models.v1
         #region Implementation of ISpotlightArticles
 
         [JsonProperty("spotlight_articles")]
-        [JsonConverter(typeof(InterfaceToConcreate<IList<SpotlightArticle>>))]
+        [JsonConverter(typeof(InterfaceToConcrete<IList<SpotlightArticle>>))]
         public IList<ISpotlightArticle> SpotlightArticleList { get; set; }
 
         #endregion

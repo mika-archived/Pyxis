@@ -21,15 +21,15 @@ namespace Pyxis.Alpha.Models.v1
         #region Implementation of IRecommendedNovels
 
         [JsonProperty("novels")]
-        [JsonConverter(typeof(InterfaceToConcreate<IList<Novel>>))]
+        [JsonConverter(typeof(InterfaceToConcrete<IList<Novel>>))]
         public IList<INovel> Novels { get; set; }
 
         [JsonProperty("home_ranking_novels")]
-        [JsonConverter(typeof(InterfaceToConcreate<IList<Novel>>))]
+        [JsonConverter(typeof(InterfaceToConcrete<IList<Novel>>))]
         public IList<INovel> HomeRankingNovels { get; set; }
 
         [JsonProperty("ranking_label_novel")]
-        [JsonConverter(typeof(InterfaceToConcreate<RankingLabelNovel>))]
+        [JsonConverter(typeof(InterfaceToConcrete<RankingLabelNovel>))]
         public IRankingLabelNovel RankingLabelNovel { get; set; }
 
         #endregion

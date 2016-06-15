@@ -15,7 +15,7 @@ namespace Pyxis.Alpha.Models.v1
         public string Tag { get; set; }
 
         [JsonProperty("illust")]
-        [JsonConverter(typeof(InterfaceToConcreate<Illust>))]
+        [JsonConverter(typeof(InterfaceToConcrete<Illust>))]
         public IIllust Illust { get; set; }
 
         #endregion

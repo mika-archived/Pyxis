@@ -32,7 +32,7 @@ namespace Pyxis.Alpha.Models.v1
         public int Restrict { get; set; }
 
         [JsonProperty("image_urls")]
-        [JsonConverter(typeof(InterfaceToConcreate<ImageUrls>))]
+        [JsonConverter(typeof(InterfaceToConcrete<ImageUrls>))]
         public IImageUrls ImageUrls { get; set; }
 
         [JsonProperty("create_date")]
@@ -40,7 +40,7 @@ namespace Pyxis.Alpha.Models.v1
         public DateTime CreateDate { get; set; }
 
         [JsonProperty("tags")]
-        [JsonConverter(typeof(InterfaceToConcreate<IList<Tag>>))]
+        [JsonConverter(typeof(InterfaceToConcrete<IList<Tag>>))]
         public IList<ITag> Tags { get; set; }
 
         [JsonProperty("page_count")]
@@ -50,11 +50,11 @@ namespace Pyxis.Alpha.Models.v1
         public int TextLength { get; set; }
 
         [JsonProperty("user")]
-        [JsonConverter(typeof(InterfaceToConcreate<User>))]
+        [JsonConverter(typeof(InterfaceToConcrete<User>))]
         public IUser User { get; set; }
 
         [JsonProperty("series")]
-        [JsonConverter(typeof(InterfaceToConcreate<Series>))]
+        [JsonConverter(typeof(InterfaceToConcrete<Series>))]
         public ISeries Series { get; set; }
 
         [JsonProperty("is_bookmarked")]

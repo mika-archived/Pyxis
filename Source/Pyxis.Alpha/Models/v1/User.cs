@@ -21,7 +21,7 @@ namespace Pyxis.Alpha.Models.v1
         public string AccountName { get; set; }
 
         [JsonProperty("profile_image_urls")]
-        [JsonConverter(typeof(InterfaceToConcreate<ProfileImageUrls>))]
+        [JsonConverter(typeof(InterfaceToConcrete<ProfileImageUrls>))]
         public IProfileImageUrls ProfileImageUrls { get; set; }
 
         #endregion

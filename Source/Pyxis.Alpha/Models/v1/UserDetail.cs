@@ -12,15 +12,15 @@ namespace Pyxis.Alpha.Models.v1
         #region Implementation of IUserDetail
 
         [JsonProperty("user")]
-        [JsonConverter(typeof(InterfaceToConcreate<User>))]
+        [JsonConverter(typeof(InterfaceToConcrete<User>))]
         public IUser User { get; set; }
 
         [JsonProperty("profile")]
-        [JsonConverter(typeof(InterfaceToConcreate<Profile>))]
+        [JsonConverter(typeof(InterfaceToConcrete<Profile>))]
         public IProfile Profile { get; set; }
 
         [JsonProperty("workspace")]
-        [JsonConverter(typeof(InterfaceToConcreate<Workspace>))]
+        [JsonConverter(typeof(InterfaceToConcrete<Workspace>))]
         public IWorkspace Workspace { get; set; }
 
         #endregion

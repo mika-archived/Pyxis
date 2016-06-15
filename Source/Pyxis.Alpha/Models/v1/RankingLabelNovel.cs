@@ -15,7 +15,7 @@ namespace Pyxis.Alpha.Models.v1
         public string Title { get; set; }
 
         [JsonProperty("image_urls")]
-        [JsonConverter(typeof(InterfaceToConcreate<ImageUrls>))]
+        [JsonConverter(typeof(InterfaceToConcrete<ImageUrls>))]
         public IImageUrls ImageUrls { get; set; }
 
         [JsonProperty("user_name")]

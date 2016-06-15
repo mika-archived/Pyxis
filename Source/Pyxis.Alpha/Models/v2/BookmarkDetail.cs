@@ -17,7 +17,7 @@ namespace Pyxis.Alpha.Models.v2
         public bool IsBookmarked { get; set; }
 
         [JsonProperty("tags")]
-        [JsonConverter(typeof(InterfaceToConcreate<BookmarkDetailTag>))]
+        [JsonConverter(typeof(InterfaceToConcrete<BookmarkDetailTag>))]
         public IList<IBookmarkDetailTag> Tags { get; set; }
 
         [JsonProperty("restrict")]

@@ -27,7 +27,7 @@ namespace Pyxis.Alpha.Models.v1
         public string RefreshToken { get; set; }
 
         [JsonProperty("user")]
-        [JsonConverter(typeof(InterfaceToConcreate<Account>))]
+        [JsonConverter(typeof(InterfaceToConcrete<Account>))]
         public IAccount User { get; set; }
 
         [JsonProperty("device_token")]

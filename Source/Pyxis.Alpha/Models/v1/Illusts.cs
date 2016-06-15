@@ -21,7 +21,7 @@ namespace Pyxis.Alpha.Models.v1
         #region Implementation of IIllusts
 
         [JsonProperty("illusts")]
-        [JsonConverter(typeof(InterfaceToConcreate<IList<Illust>>))]
+        [JsonConverter(typeof(InterfaceToConcrete<IList<Illust>>))]
         public IList<IIllust> IllustList { get; set; }
 
         #endregion

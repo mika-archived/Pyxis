@@ -8,7 +8,7 @@ namespace Pyxis.Alpha.Internal
     {
         private readonly PixivApiClient _client;
 
-        public PixivHttpClientHandler(PixivApiClient client)
+        public PixivHttpClientHandler(PixivApiClient client) : base(new HttpClientHandler())
         {
             _client = client;
         }

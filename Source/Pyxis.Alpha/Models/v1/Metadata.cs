@@ -14,11 +14,11 @@ namespace Pyxis.Alpha.Models.v1
         #region Implementation of IMetadata
 
         [JsonProperty("zip_urls")]
-        [JsonConverter(typeof(InterfaceToConcreate<ZipUrls>))]
+        [JsonConverter(typeof(InterfaceToConcrete<ZipUrls>))]
         public IZipUrls ZipUrls { get; set; }
 
         [JsonProperty("frames")]
-        [JsonConverter(typeof(InterfaceToConcreate<IList<Frame>>))]
+        [JsonConverter(typeof(InterfaceToConcrete<IList<Frame>>))]
         public IList<IFrame> Frames { get; set; }
 
         #endregion

@@ -14,7 +14,7 @@ namespace Pyxis.Alpha.Models.v1
         #region Implementation of ITrendingTags
 
         [JsonProperty("trend_tags")]
-        [JsonConverter(typeof(InterfaceToConcreate<TrendTag>))]
+        [JsonConverter(typeof(InterfaceToConcrete<TrendTag>))]
         public IList<ITrendTag> TrendTags { get; set; }
 
         #endregion

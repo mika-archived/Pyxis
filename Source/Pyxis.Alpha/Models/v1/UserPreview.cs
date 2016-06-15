@@ -14,15 +14,15 @@ namespace Pyxis.Alpha.Models.v1
         #region Implementation of IUserPreview
 
         [JsonProperty("user")]
-        [JsonConverter(typeof(InterfaceToConcreate<User>))]
+        [JsonConverter(typeof(InterfaceToConcrete<User>))]
         public IUser User { get; set; }
 
         [JsonProperty("illusts")]
-        [JsonConverter(typeof(InterfaceToConcreate<IList<Illust>>))]
+        [JsonConverter(typeof(InterfaceToConcrete<IList<Illust>>))]
         public IList<IIllust> Illusts { get; set; }
 
         [JsonProperty("novels")]
-        [JsonConverter(typeof(InterfaceToConcreate<IList<Novel>>))]
+        [JsonConverter(typeof(InterfaceToConcrete<IList<Novel>>))]
         public IList<INovel> Novels { get; set; }
 
         #endregion
