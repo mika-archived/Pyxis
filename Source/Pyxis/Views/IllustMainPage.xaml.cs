@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml.Controls;
 
 using Pyxis.ViewModels;
 
@@ -18,7 +16,6 @@ namespace Pyxis.Views
         public IllustMainPage()
         {
             InitializeComponent();
-            Debug.WriteLine(DataContext);
         }
     }
 }
