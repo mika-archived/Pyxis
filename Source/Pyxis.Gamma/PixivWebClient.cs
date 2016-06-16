@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 using Pyxis.Beta.Interfaces.Rest;
+using Pyxis.Beta.Interfaces.Rest.Pximg;
 using Pyxis.Beta.Interfaces.Rest.v1;
 
 namespace Pyxis.Gamma
@@ -24,6 +25,7 @@ namespace Pyxis.Gamma
         public IUserApi User { get; }
         public Beta.Interfaces.Rest.v2.IIllustApi IllustV2 { get; }
         public Beta.Interfaces.Rest.v2.INovelApi NovelV2 { get; }
+        public IPximgApi Pximg { get; }
 
         public Task<T> GetAsync<T>(string url, bool requireAuth, params Expression<Func<string, object>>[] parameters)
         {

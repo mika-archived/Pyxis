@@ -2,6 +2,7 @@
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
+using Pyxis.Beta.Interfaces.Rest.Pximg;
 using Pyxis.Beta.Interfaces.Rest.v1;
 
 namespace Pyxis.Beta.Interfaces.Rest
@@ -67,6 +68,11 @@ namespace Pyxis.Beta.Interfaces.Rest
         ///     Wrapper of v1/novel
         /// </summary>
         v2.INovelApi NovelV2 { get; }
+
+        /// <summary>
+        ///     Wrapper of getting pixiv image
+        /// </summary>
+        IPximgApi Pximg { get; }
 
         // =====================
         // HTTP access

@@ -110,6 +110,7 @@
     <Compile Include="Converters\InterfaceToConcrete.cs" />
     <Compile Include="Endpoints.cs" />
     <Compile Include="Internal\PixivHttpClientHandler.cs" />
+    <Compile Include="Internal\PximgHttpClientHandler.cs" />
     <Compile Include="Models\v1\Account.cs" />
     <Compile Include="Models\v1\ApplicationInfo.cs" />
     <Compile Include="Models\v1\AutoComplete.cs" />
@@ -151,6 +152,7 @@
     <Compile Include="Models\v2\BookmarkDetailTag.cs" />
     <Compile Include="PixivApiClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rest\Pximg\PximgApi.cs" />
     <Compile Include="Rest\v1\ApplicationInfoApi.cs" />
     <Compile Include="Rest\v1\AuthorizationApi.cs" />
     <Compile Include="Rest\v1\IllustApi.cs" />

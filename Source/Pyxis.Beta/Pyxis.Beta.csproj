@@ -150,6 +150,7 @@
     <Compile Include="Interfaces\Models\v1\IWorkspace.cs" />
     <Compile Include="Interfaces\Models\v1\IZipUrls.cs" />
     <Compile Include="Interfaces\Rest\IPixivClient.cs" />
+    <Compile Include="Interfaces\Rest\Pximg\IPximgApi.cs" />
     <Compile Include="Interfaces\Rest\v1\IApplicationInfoApi.cs" />
     <Compile Include="Interfaces\Rest\v1\IAuthorizationApi.cs" />
     <Compile Include="Interfaces\Rest\v1\IIllustApi.cs" />
