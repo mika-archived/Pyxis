@@ -22,19 +22,16 @@
                 <PivotItem.Header>
                     <TextBlock Text="イラスト" />
                 </PivotItem.Header>
-                <Frame />
             </PivotItem>
             <PivotItem attach:NavigateTo.PageToken="MangaMain">
                 <PivotItem.Header>
                     <TextBlock Text="マンガ" />
                 </PivotItem.Header>
-                <Frame />
             </PivotItem>
             <PivotItem attach:NavigateTo.PageToken="NovelMain">
                 <PivotItem.Header>
                     <TextBlock Text="小説" />
                 </PivotItem.Header>
-                <Frame />
             </PivotItem>
             <Pivot.RightHeader>
                 <StackPanel Orientation="Horizontal">
