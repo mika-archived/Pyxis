@@ -1,6 +1,9 @@
 ﻿using System.Threading.Tasks;
 
 using Windows.ApplicationModel.Activation;
+using Windows.System.Profile;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 using Microsoft.Practices.Unity;
 
@@ -27,6 +30,16 @@ namespace Pyxis
 
         #region Overrides of PrismApplication
 
+        protected override UIElement CreateShell(Frame rootFrame)
+        {
+            var shell = Container.Resolve<AppShell>();
+            if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
+                shell.SetContentFrame(rootFrame);
+            else
+                shell.StoreContentFrame(rootFrame);
+            return shell;
+        }
+
         protected override Task OnInitializeAsync(IActivatedEventArgs args)
         {
             Container.RegisterInstance<IPixivClient>(new PixivApiClient(), new ContainerControlledLifetimeManager());
@@ -35,13 +48,10 @@ namespace Pyxis
             return base.OnInitializeAsync(args);
         }
 
-        #endregion
-
-        #region Overrides of PrismApplication
-
         protected override Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)
         {
-            NavigationService.Navigate("Main", null);
+            if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
+                NavigationService.Navigate("Main", null);
             return Task.CompletedTask;
         }
 
