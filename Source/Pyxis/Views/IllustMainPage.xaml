@@ -8,7 +8,9 @@
       prism:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="{x:Bind ViewModel.Messaege}" />
-    </Grid>
+        <TextBlock Text="↓ Pixiv の画像" />
+        <Image Source="{x:Bind ViewModel.Path, Mode=OneWay}" />
+    </StackPanel>
 </Page>

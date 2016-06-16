@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 using Pyxis.Alpha.Internal;
+using Pyxis.Alpha.Rest.Pximg;
 using Pyxis.Alpha.Rest.v1;
 using Pyxis.Beta.Exceptions;
 using Pyxis.Beta.Interfaces.Rest;
@@ -54,7 +55,7 @@ namespace Pyxis.Alpha
         public IUserApi User => new UserApi(this);
         public IllustV2 IllustV2 => new IllustApiV2(this);
         public INovelV2 NovelV2 => new NovelApiV2(this);
-        public IPximgApi Pximg { get; }
+        public IPximgApi Pximg => new PximgApi(this);
 
         public async Task<T> GetAsync<T>(string url, bool requireAuth,
                                          params Expression<Func<string, object>>[] parameters)

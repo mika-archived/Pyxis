@@ -11,6 +11,8 @@ using Prism.Unity.Windows;
 
 using Pyxis.Alpha;
 using Pyxis.Beta.Interfaces.Rest;
+using Pyxis.Services;
+using Pyxis.Services.Interfaces;
 
 namespace Pyxis
 {
@@ -43,6 +45,7 @@ namespace Pyxis
         protected override Task OnInitializeAsync(IActivatedEventArgs args)
         {
             Container.RegisterInstance<IPixivClient>(new PixivApiClient(), new ContainerControlledLifetimeManager());
+            Container.RegisterType<IImageStoreService, ImageStoreService>(new ContainerControlledLifetimeManager());
             // Container.RegisterInstance<IPixivClient>(new PixivWebClient(), new ContainerControlledLifetimeManager());
 
             return base.OnInitializeAsync(args);

@@ -101,8 +101,10 @@
     </Compile>
     <Compile Include="Attach\NavigateTo.cs" />
     <Compile Include="Behaviors\AttachNavigationToPivotBehavior.cs" />
+    <Compile Include="Services\ImageStoreService.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Interfaces\IImageStoreService.cs" />
     <Compile Include="ViewModels\IllustMainPageViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="Views\IllustMainPage.xaml.cs">
