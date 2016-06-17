@@ -71,6 +71,7 @@ namespace Pyxis.Alpha
             {
                 Debug.WriteLine($"GET  :{url}");
                 var response = await client.GetAsync(url);
+                response.EnsureSuccessStatusCode();
                 return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
             }
             catch (Exception e)
@@ -94,6 +95,7 @@ namespace Pyxis.Alpha
             {
                 Debug.WriteLine($"POST :{url}");
                 var response = await client.PostAsync(url, content);
+                response.EnsureSuccessStatusCode();
                 return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
             }
             catch (Exception e)
