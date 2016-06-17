@@ -60,7 +60,7 @@
                 <DataTemplate x:DataType="vm:PixivImageViewModel">
                     <Grid>
                         <Image VerticalAlignment="Center"
-                               Source="{Binding Path.Value,
+                               Source="{Binding ThumbnailPath.Value,
                                                 Mode=OneWay}"
                                Stretch="UniformToFill" />
                     </Grid>

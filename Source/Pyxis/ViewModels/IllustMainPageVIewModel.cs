@@ -23,12 +23,10 @@ namespace Pyxis.ViewModels
 
         #region Lambda Functions
 
-        private Func<IIllusts, PixivImageViewModel> Func01 =>
-            w => new PixivImageViewModel(w.IllustList.First(), _imageStoreService, _navigationService);
+        private Func<IIllusts, PixivImageViewModel> Func01
+            => w => new PixivImageViewModel(w.IllustList.First(), _imageStoreService, _navigationService);
 
         #endregion
-
-        public string Messaege => "Hello, world!";
 
         public ReadOnlyReactiveCollection<PixivImageViewModel> TopRankingImages { get; private set; }
 

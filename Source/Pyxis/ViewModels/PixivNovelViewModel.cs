@@ -10,22 +10,22 @@ using Reactive.Bindings.Extensions;
 
 namespace Pyxis.ViewModels
 {
-    public class PixivImageViewModel : ViewModel
+    internal class PixivNovelViewModel : ViewModel
     {
-        private readonly IIllust _illust;
         private readonly INavigationService _navigationService;
+        private readonly INovel _novel;
 
         public ReadOnlyReactiveProperty<string> ThumbnailPath { get; private set; }
 
-        public PixivImageViewModel(IIllust illust, IImageStoreService imageStoreService,
+        public PixivNovelViewModel(INovel novel, IImageStoreService imageStoreService,
                                    INavigationService navigationService)
         {
-            _illust = illust;
+            _novel = novel;
             _navigationService = navigationService;
 
-            var image = new PixivImage(illust, imageStoreService);
-            image.ShowThumbnail();
-            ThumbnailPath = image.ObserveProperty(w => w.ImagePath).ToReadOnlyReactiveProperty().AddTo(this);
+            var nov = new PixivNovel(novel, imageStoreService);
+            nov.ShowThumbnail();
+            ThumbnailPath = nov.ObserveProperty(w => w.ThumbnailPath).ToReadOnlyReactiveProperty().AddTo(this);
         }
     }
 }
