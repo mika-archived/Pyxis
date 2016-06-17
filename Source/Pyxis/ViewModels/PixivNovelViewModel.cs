@@ -10,10 +10,16 @@ using Reactive.Bindings.Extensions;
 
 namespace Pyxis.ViewModels
 {
-    internal class PixivNovelViewModel : ViewModel
+    public class PixivNovelViewModel : ViewModel
     {
         private readonly INavigationService _navigationService;
         private readonly INovel _novel;
+
+        public string Title => _novel.Title;
+        public string Caption => _novel.Caption;
+        public string CreatedAt => _novel.CreateDate.ToString("g");
+        public int BookmarkCount => _novel.TotalBookmarks;
+        public int ViewCount => _novel.TotalView;
 
         public ReadOnlyReactiveProperty<string> ThumbnailPath { get; private set; }
 

@@ -4,9 +4,93 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:Pyxis.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:prism="using:Prism.Windows.Mvvm"
+      xmlns:vm="using:Pyxis.ViewModels"
+      prism:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d">
-
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="Page 3" />
-    </Grid>
+    <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                  HorizontalScrollBarVisibility="Disabled"
+                  VerticalScrollBarVisibility="Auto">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <!--  0 - Phone  -->
+                <VisualState x:Name="Phone">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Ranking.Height" Value="160" />
+                    </VisualState.Setters>
+                </VisualState>
+                <!--  360 - Phone (Large)  -->
+                <VisualState x:Name="PhoneLarge">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="361" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Ranking.Height" Value="180" />
+                    </VisualState.Setters>
+                </VisualState>
+                <!--  640 - Tablet  -->
+                <VisualState x:Name="Tablet">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="641" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Ranking.Height" Value="230" />
+                    </VisualState.Setters>
+                </VisualState>
+                <!--  1024 - Dekstop  -->
+                <VisualState x:Name="Desktop">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1025" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Ranking.Height" Value="280" />
+                    </VisualState.Setters>
+                </VisualState>
+                <!--  1366  -->
+                <VisualState x:Name="DesktopHD">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1367" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Ranking.Height" Value="350" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <StackPanel Orientation="Vertical">
+            <FlipView x:Name="Ranking"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Top"
+                      ItemsSource="{x:Bind ViewModel.TopTankingImages}">
+                <FlipView.ItemTemplate>
+                    <DataTemplate x:DataType="vm:PixivNovelViewModel">
+                        <Grid>
+                            <Image VerticalAlignment="Center"
+                                   Source="{Binding ThumbnailPath.Value,
+                                                    Mode=OneWay}"
+                                   Stretch="UniformToFill" />
+                            <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Offset="0" Color="Transparent" />
+                                        <GradientStop Offset="1.25" Color="{ThemeResource SystemBaseHighColor}" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <TextBlock Height="60"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Bottom"
+                                           Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                                           Style="{StaticResource TitleTextBlockStyle}"
+                                           Text="{Binding Title,
+                                                          Mode=OneWay}" />
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </FlipView.ItemTemplate>
+            </FlipView>
+        </StackPanel>
+    </ScrollViewer>
 </Page>

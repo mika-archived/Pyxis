@@ -73,12 +73,17 @@
                                    Source="{Binding ThumbnailPath.Value,
                                                     Mode=OneWay}"
                                    Stretch="UniformToFill" />
-                            <Border Height="60"
-                                    VerticalAlignment="Bottom"
-                                    Background="#CCCCCC"
-                                    Opacity="0.8">
-                                <TextBlock HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"
+                            <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Offset="0" Color="Transparent" />
+                                        <GradientStop Offset="1.25" Color="{ThemeResource SystemBaseHighColor}" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <TextBlock Height="60"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Bottom"
+                                           Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                                            Style="{StaticResource TitleTextBlockStyle}"
                                            Text="{Binding Title,
                                                           Mode=OneWay}" />

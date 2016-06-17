@@ -65,7 +65,7 @@ namespace Pyxis.Models
             var modes = new[] {"day", "day_male", "day_female", "week_rookie", "week"};
             foreach (var _ in modes)
             {
-                var novels = await _pixivClient.NovelV1.RankingAsync(mode => $"{_}_manga");
+                var novels = await _pixivClient.NovelV1.RankingAsync(mode => _);
                 RankingOfNovels.Add(novels);
             }
         }
