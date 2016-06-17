@@ -51,7 +51,7 @@ namespace Pyxis.Models
         private async Task FetchMangaRanking()
         {
             Ranking.Clear();
-            var modes = new[] {"day", "day_male", "day_female", "week_original", "week_rookie", "week", "month"};
+            var modes = new[] {"day", "week_rookie", "week", "month"};
             foreach (var _ in modes)
             {
                 var illusts = await _pixivClient.IllustV1.RankingAsync(mode => $"{_}_manga");
