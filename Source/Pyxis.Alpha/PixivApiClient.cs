@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Net.Http;
@@ -66,9 +67,16 @@ namespace Pyxis.Alpha
             var client = new HttpClient(new PixivHttpClientHandler(this));
             var param = string.Join("&", GetPrameter(parameters).Select(w => $"{w.Key}={Uri.EscapeDataString(w.Value)}"));
             url += "?" + param;
-
-            var response = await client.GetAsync(url);
-            return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+            try
+            {
+                var response = await client.GetAsync(url);
+                return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+            return default(T);
         }
 
         public async Task<T> PostAsync<T>(string url, bool requireAuth,
@@ -81,8 +89,16 @@ namespace Pyxis.Alpha
             var param = GetPrameter(parameters);
             var content = new FormUrlEncodedContent(param);
 
-            var response = await client.PostAsync(url, content);
-            return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+            try
+            {
+                var response = await client.PostAsync(url, content);
+                return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+            return default(T);
         }
 
         #endregion

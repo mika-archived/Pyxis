@@ -1,21 +1,29 @@
-﻿<Page x:Class="Pyxis.Views.IllustMainPage"
+﻿<!--  ReSharper disable NotAccessedField.Local  -->
+<Page x:Class="Pyxis.Views.IllustMainPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="using:Pyxis.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:prism="using:Prism.Windows.Mvvm"
       xmlns:vm="using:Pyxis.ViewModels"
       prism:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d">
-
     <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                   HorizontalScrollBarVisibility="Disabled"
                   VerticalScrollBarVisibility="Auto">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
-                <!--  360 - Phone  -->
+                <!--  0 - Phone  -->
                 <VisualState x:Name="Phone">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Ranking.Height" Value="160" />
+                    </VisualState.Setters>
+                </VisualState>
+                <!--  360 - Phone (Large)  -->
+                <VisualState x:Name="PhoneLarge">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="361" />
                     </VisualState.StateTriggers>
@@ -52,20 +60,32 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <FlipView x:Name="Ranking"
-                  HorizontalAlignment="Stretch"
-                  VerticalAlignment="Top"
-                  ItemsSource="{x:Bind ViewModel.TopRankingImages}">
-            <FlipView.ItemTemplate>
-                <DataTemplate x:DataType="vm:PixivImageViewModel">
-                    <Grid>
-                        <Image VerticalAlignment="Center"
-                               Source="{Binding ThumbnailPath.Value,
-                                                Mode=OneWay}"
-                               Stretch="UniformToFill" />
-                    </Grid>
-                </DataTemplate>
-            </FlipView.ItemTemplate>
-        </FlipView>
+        <StackPanel Orientation="Vertical">
+            <FlipView x:Name="Ranking"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Top"
+                      ItemsSource="{x:Bind ViewModel.TopRankingImages}">
+                <FlipView.ItemTemplate>
+                    <DataTemplate x:DataType="vm:PixivImageViewModel">
+                        <Grid>
+                            <Image VerticalAlignment="Center"
+                                   Source="{Binding ThumbnailPath.Value,
+                                                    Mode=OneWay}"
+                                   Stretch="UniformToFill" />
+                            <Border Height="60"
+                                    VerticalAlignment="Bottom"
+                                    Background="#CCCCCC"
+                                    Opacity="0.8">
+                                <TextBlock HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Style="{StaticResource TitleTextBlockStyle}"
+                                           Text="{Binding Title,
+                                                          Mode=OneWay}" />
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </FlipView.ItemTemplate>
+            </FlipView>
+        </StackPanel>
     </ScrollViewer>
 </Page>

@@ -1,4 +1,8 @@
-﻿using Prism.Windows.Navigation;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+
+using Prism.Windows.Navigation;
 
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Models;
@@ -15,6 +19,12 @@ namespace Pyxis.ViewModels
         private readonly IIllust _illust;
         private readonly INavigationService _navigationService;
 
+        public string Title => _illust.Title;
+        public string Caption => _illust.Caption.Replace("<br />", Environment.NewLine);
+        public string CreatedAt => _illust.CreateDate.ToString("g");
+        public int BookmarkCount => _illust.TotalBookmarks;
+        public int ViewCount => _illust.TotalView;
+        public ReadOnlyCollection<string> Tools => _illust.Tools.ToList().AsReadOnly();
         public ReadOnlyReactiveProperty<string> ThumbnailPath { get; private set; }
 
         public PixivImageViewModel(IIllust illust, IImageStoreService imageStoreService,

@@ -103,6 +103,7 @@
     <Compile Include="Behaviors\AttachNavigationToPivotBehavior.cs" />
     <Compile Include="Helpers\AsyncHelper.cs" />
     <Compile Include="Models\PixivImage.cs" />
+    <Compile Include="Models\PixivNovel.cs" />
     <Compile Include="Models\PixivRanking.cs" />
     <Compile Include="Models\RankingType.cs" />
     <Compile Include="Mvvm\ViewModelHelper.cs" />
@@ -112,6 +113,7 @@
     <Compile Include="Services\Interfaces\IImageStoreService.cs" />
     <Compile Include="ViewModels\IllustMainPageViewModel.cs" />
     <Compile Include="ViewModels\PixivImageViewModel.cs" />
+    <Compile Include="ViewModels\PixivNovelViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="Views\IllustMainPage.xaml.cs">
       <DependentUpon>IllustMainPage.xaml</DependentUpon>
