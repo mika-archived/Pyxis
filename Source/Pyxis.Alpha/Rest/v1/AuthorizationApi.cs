@@ -24,7 +24,9 @@ namespace Pyxis.Alpha.Rest.v1
         public async Task<IResponse> Login(params Expression<Func<string, object>>[] parameters)
         {
             var response = await _client.GetAsync<ResponseOwneer>(Endpoints.OauthToken, false, parameters);
-            return response.Response;
+            if (response != null)
+                _client.AccessToken = response.Response.AccessToken;
+            return response?.Response;
         }
 
         #endregion

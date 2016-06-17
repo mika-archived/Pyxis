@@ -37,7 +37,7 @@ namespace Pyxis.Alpha
         private static Func<Expression<Func<string, object>>, string> F2
             => expr => expr.Compile().Invoke(null).ToString();
 
-        public string AccessToken { get; set; }
+        public string AccessToken { get; private set; }
 
         private IList<KeyValuePair<string, string>> GetPrameter(params Expression<Func<string, object>>[] parameters)
             => parameters.Select(w => new KeyValuePair<string, string>(F1(w), F2(w))).ToList();
