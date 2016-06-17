@@ -114,8 +114,8 @@
     <Compile Include="ViewModels\IllustMainPageViewModel.cs" />
     <Compile Include="ViewModels\MangaMainPageViewModel.cs" />
     <Compile Include="ViewModels\NovelMainPageViewModel.cs" />
-    <Compile Include="ViewModels\PixivImageViewModel.cs" />
-    <Compile Include="ViewModels\PixivNovelViewModel.cs" />
+    <Compile Include="ViewModels\Items\PixivImageViewModel.cs" />
+    <Compile Include="ViewModels\Items\PixivNovelViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="Views\IllustMainPage.xaml.cs">
       <DependentUpon>IllustMainPage.xaml</DependentUpon>

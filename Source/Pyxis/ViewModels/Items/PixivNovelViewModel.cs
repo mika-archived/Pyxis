@@ -8,7 +8,7 @@ using Pyxis.Services.Interfaces;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 
-namespace Pyxis.ViewModels
+namespace Pyxis.ViewModels.Items
 {
     public class PixivNovelViewModel : ViewModel
     {
