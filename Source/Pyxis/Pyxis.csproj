@@ -100,6 +100,7 @@
       <DependentUpon>AppShell.xaml</DependentUpon>
     </Compile>
     <Compile Include="Attach\NavigateTo.cs" />
+    <Compile Include="Behaviors\AttachNavigateToListBoxBehavior.cs" />
     <Compile Include="Behaviors\AttachNavigationToPivotBehavior.cs" />
     <Compile Include="Helpers\AsyncHelper.cs" />
     <Compile Include="Models\PixivImage.cs" />

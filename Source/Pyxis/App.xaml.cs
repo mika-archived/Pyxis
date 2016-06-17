@@ -54,7 +54,7 @@ namespace Pyxis
         protected override Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)
         {
             if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
-                NavigationService.Navigate("Main", null);
+                NavigationService.Navigate("IllustMain", null);
             return Task.CompletedTask;
         }
 

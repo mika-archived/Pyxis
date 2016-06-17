@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 using Pyxis.Annotations;
@@ -21,7 +22,12 @@ namespace Pyxis
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void SetContentFrame(Frame frame) => RootSplitView.Content = frame;
+        public void SetContentFrame(Frame frame)
+        {
+            frame.Margin = new Thickness(0, 48, 0, 0);
+            RootSplitView.Content = frame;
+            StoreContentFrame(frame);
+        }
 
         public void StoreContentFrame(Frame frame) => AppRootFrame = frame;
 
