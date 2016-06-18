@@ -7,6 +7,10 @@
       xmlns:items="using:Pyxis.ViewModels.Items"
       xmlns:local="using:Pyxis.Views.Home"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:prism="using:Prism.Windows.Mvvm"
+      xmlns:vm="using:Pyxis.ViewModels.Home"
+      d:DataContext="{d:DesignInstance vm:NovelHomePageViewModel}"
+      prism:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d">
     <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                   HorizontalScrollBarVisibility="Disabled"
@@ -61,6 +65,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <StackPanel Orientation="Vertical">
+            <local:PivotTabHomePage NavigationService="{x:Bind ViewModel.NavigationService}" SelectedIndex="2" />
             <FlipView x:Name="Ranking"
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Top"

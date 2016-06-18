@@ -5,6 +5,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:items="using:Pyxis.ViewModels.Items"
+      xmlns:local="using:Pyxis.Views.Home"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:prism="using:Prism.Windows.Mvvm"
       xmlns:vm="using:Pyxis.ViewModels.Home"
@@ -64,53 +65,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <StackPanel Orientation="Vertical">
-            <Pivot Style="{StaticResource TabsStylePivotStyle}" SelectedIndex="1">
-                <PivotItem>
-                    <PivotItem.Header>
-                        <TextBlock Width="64"
-                                   Margin="2,5,2,7"
-                                   HorizontalAlignment="Center"
-                                   FontFamily="Segoe UI"
-                                   IsTextScaleFactorEnabled="False"
-                                   LineHeight="14"
-                                   LineStackingStrategy="BlockLineHeight"
-                                   MaxLines="2"
-                                   Style="{StaticResource CaptionTextBlockStyle}"
-                                   Text="イラスト"
-                                   TextAlignment="Center" />
-                    </PivotItem.Header>
-                </PivotItem>
-                <PivotItem>
-                    <PivotItem.Header>
-                        <TextBlock Width="64"
-                                   Margin="2,5,2,7"
-                                   HorizontalAlignment="Center"
-                                   FontFamily="Segoe UI"
-                                   IsTextScaleFactorEnabled="False"
-                                   LineHeight="14"
-                                   LineStackingStrategy="BlockLineHeight"
-                                   MaxLines="2"
-                                   Style="{StaticResource CaptionTextBlockStyle}"
-                                   Text="マンガ"
-                                   TextAlignment="Center" />
-                    </PivotItem.Header>
-                </PivotItem>
-                <PivotItem>
-                    <PivotItem.Header>
-                        <TextBlock Width="64"
-                                   Margin="2,5,2,7"
-                                   HorizontalAlignment="Center"
-                                   FontFamily="Segoe UI"
-                                   IsTextScaleFactorEnabled="False"
-                                   LineHeight="14"
-                                   LineStackingStrategy="BlockLineHeight"
-                                   MaxLines="2"
-                                   Style="{StaticResource CaptionTextBlockStyle}"
-                                   Text="小説"
-                                   TextAlignment="Center" />
-                    </PivotItem.Header>
-                </PivotItem>
-            </Pivot>
+            <local:PivotTabHomePage NavigationService="{x:Bind ViewModel.NavigationService}" SelectedIndex="0" />
             <FlipView x:Name="Ranking"
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Top"

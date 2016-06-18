@@ -5,6 +5,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:items="using:Pyxis.ViewModels.Items"
+      xmlns:local="using:Pyxis.Views.Home"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:prism="using:Prism.Windows.Mvvm"
       xmlns:vm="using:Pyxis.ViewModels.Home"
@@ -64,6 +65,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <StackPanel Orientation="Vertical">
+            <local:PivotTabHomePage NavigationService="{x:Bind ViewModel.NavigationService}" SelectedIndex="1" />
             <FlipView x:Name="Ranking"
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Top"

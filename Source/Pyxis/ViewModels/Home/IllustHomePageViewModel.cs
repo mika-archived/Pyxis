@@ -18,14 +18,14 @@ namespace Pyxis.ViewModels.Home
     public class IllustHomePageViewModel : ViewModel
     {
         private readonly IImageStoreService _imageStoreService;
-        private readonly INavigationService _navigationService;
         private readonly IPixivClient _pixivClient;
         private readonly PixivRanking _pixivRanking;
+        public INavigationService NavigationService { get; }
 
         #region Lambda Functions
 
         private Func<IIllusts, PixivImageViewModel> Func01
-            => w => new PixivImageViewModel(w.IllustList.First(), _imageStoreService, _navigationService);
+            => w => new PixivImageViewModel(w.IllustList.First(), _imageStoreService, NavigationService);
 
         #endregion
 
@@ -36,7 +36,7 @@ namespace Pyxis.ViewModels.Home
         {
             _imageStoreService = imageStoreService;
             _pixivClient = pixivClient;
-            _navigationService = navigationService;
+            NavigationService = navigationService;
             _pixivRanking = new PixivRanking(pixivClient, RankingType.Illust);
 
             TopRankingImages = _pixivRanking.Ranking

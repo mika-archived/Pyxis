@@ -132,6 +132,9 @@
     <Compile Include="Views\Home\NovelHomePage.xaml.cs">
       <DependentUpon>NovelHomePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Home\PivotTabHomePage.xaml.cs">
+      <DependentUpon>PivotTabHomePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WorkMainPage.xaml.cs">
       <DependentUpon>WorkMainPage.xaml</DependentUpon>
     </Compile>
@@ -234,6 +237,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Home\NovelHomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Home\PivotTabHomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
