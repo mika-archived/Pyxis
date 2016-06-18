@@ -64,6 +64,53 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <StackPanel Orientation="Vertical">
+            <Pivot Style="{StaticResource TabsStylePivotStyle}">
+                <PivotItem>
+                    <PivotItem.Header>
+                        <TextBlock Width="64"
+                                   Margin="2,5,2,7"
+                                   HorizontalAlignment="Center"
+                                   FontFamily="Segoe UI"
+                                   IsTextScaleFactorEnabled="False"
+                                   LineHeight="14"
+                                   LineStackingStrategy="BlockLineHeight"
+                                   MaxLines="2"
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Text="イラスト"
+                                   TextAlignment="Center" />
+                    </PivotItem.Header>
+                </PivotItem>
+                <PivotItem>
+                    <PivotItem.Header>
+                        <TextBlock Width="64"
+                                   Margin="2,5,2,7"
+                                   HorizontalAlignment="Center"
+                                   FontFamily="Segoe UI"
+                                   IsTextScaleFactorEnabled="False"
+                                   LineHeight="14"
+                                   LineStackingStrategy="BlockLineHeight"
+                                   MaxLines="2"
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Text="マンガ"
+                                   TextAlignment="Center" />
+                    </PivotItem.Header>
+                </PivotItem>
+                <PivotItem>
+                    <PivotItem.Header>
+                        <TextBlock Width="64"
+                                   Margin="2,5,2,7"
+                                   HorizontalAlignment="Center"
+                                   FontFamily="Segoe UI"
+                                   IsTextScaleFactorEnabled="False"
+                                   LineHeight="14"
+                                   LineStackingStrategy="BlockLineHeight"
+                                   MaxLines="2"
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Text="小説"
+                                   TextAlignment="Center" />
+                    </PivotItem.Header>
+                </PivotItem>
+            </Pivot>
             <FlipView x:Name="Ranking"
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Top"
