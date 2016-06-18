@@ -151,7 +151,7 @@
                             </StackPanel>
                         </ListBoxItem>
                         <ListBoxItem x:Name="NewMain"
-                                     attach:NavigateTo.PageToken="NewMain"
+                                     attach:NavigateTo.PageToken="New.FollowNew"
                                      RelativePanel.Below="HomeMain">
                             <StackPanel Orientation="Horizontal">
                                 <Grid Width="48" Height="48">

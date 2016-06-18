@@ -5,16 +5,16 @@ using Prism.Windows.Navigation;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Pyxis.Views.Home
+namespace Pyxis.Views.New
 {
-    public sealed partial class PivotTabHomePage : UserControl
+    public sealed partial class PivotTabFollow : UserControl
     {
         public static readonly DependencyProperty SelectedIndexProperty =
-            DependencyProperty.Register(nameof(SelectedIndex), typeof(int), typeof(PivotTabHomePage),
+            DependencyProperty.Register(nameof(SelectedIndex), typeof(int), typeof(PivotTabFollow),
                                         new PropertyMetadata(0, PropertyChangedCallback));
 
         public static readonly DependencyProperty NavigationServiceProperty =
-            DependencyProperty.Register(nameof(NavigationService), typeof(INavigationService), typeof(PivotTabHomePage),
+            DependencyProperty.Register(nameof(NavigationService), typeof(INavigationService), typeof(PivotTabFollow),
                                         new PropertyMetadata(null));
 
         private bool _isHandling;
@@ -31,14 +31,14 @@ namespace Pyxis.Views.Home
             set { SetValue(NavigationServiceProperty, value); }
         }
 
-        public PivotTabHomePage()
+        public PivotTabFollow()
         {
             InitializeComponent();
         }
 
         private static void PropertyChangedCallback(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            var obj = sender as PivotTabHomePage;
+            var obj = sender as PivotTabFollow;
             if (obj != null)
             {
                 obj._isHandling = true;

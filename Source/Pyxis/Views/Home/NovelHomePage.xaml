@@ -67,7 +67,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <StackPanel Orientation="Vertical">
-            <local:PivotTabHomePage NavigationService="{x:Bind ViewModel.NavigationService}" SelectedIndex="2" />
+            <local:PivotTabHome NavigationService="{x:Bind ViewModel.NavigationService}" SelectedIndex="2" />
             <FlipView x:Name="Ranking"
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Top"

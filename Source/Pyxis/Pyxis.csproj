@@ -122,6 +122,9 @@
     <Compile Include="ViewModels\Home\NovelHomePageViewModel.cs" />
     <Compile Include="ViewModels\Items\PixivImageViewModel.cs" />
     <Compile Include="ViewModels\Items\PixivNovelViewModel.cs" />
+    <Compile Include="ViewModels\New\AllNewPageViewModel.cs" />
+    <Compile Include="ViewModels\New\FollowNewPageViewModel.cs" />
+    <Compile Include="ViewModels\New\MypixivNewPageViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="ViewModels\WorkMainPageViewModel.cs" />
     <Compile Include="Views\Error\LoginRequiredPage.xaml.cs">
@@ -136,8 +139,20 @@
     <Compile Include="Views\Home\NovelHomePage.xaml.cs">
       <DependentUpon>NovelHomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Home\PivotTabHomePage.xaml.cs">
-      <DependentUpon>PivotTabHomePage.xaml</DependentUpon>
+    <Compile Include="Views\Home\PivotTabHome.xaml.cs">
+      <DependentUpon>PivotTabHome.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\New\AllNewPage.xaml.cs">
+      <DependentUpon>AllNewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\New\FollowNewPage.xaml.cs">
+      <DependentUpon>FollowNewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\New\MypixivNewPage.xaml.cs">
+      <DependentUpon>MypixivNewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\New\PivotTabFollow.xaml.cs">
+      <DependentUpon>PivotTabFollow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WorkMainPage.xaml.cs">
       <DependentUpon>WorkMainPage.xaml</DependentUpon>
@@ -244,7 +259,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Home\PivotTabHomePage.xaml">
+    <Page Include="Views\Home\PivotTabHome.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\New\AllNewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\New\FollowNewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\New\MypixivNewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\New\PivotTabFollow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
