@@ -22,6 +22,10 @@ namespace Pyxis.Behaviors
             DependencyProperty.Register(nameof(ParentSplitView), typeof(SplitView),
                                         typeof(AttachNavigateToListBoxBehavior), new PropertyMetadata(null));
 
+        public static readonly DependencyProperty TitleTextBlockProperty =
+            DependencyProperty.Register(nameof(TitleTextBlock), typeof(TextBlock),
+                                        typeof(AttachNavigateToListBoxBehavior), new PropertyMetadata(null));
+
         private readonly Stack<int> _pageStack;
         private bool _isAttached;
         private int _oldIndex;
@@ -36,6 +40,12 @@ namespace Pyxis.Behaviors
         {
             get { return (SplitView) GetValue(ParentSplitViewProperty); }
             set { SetValue(ParentSplitViewProperty, value); }
+        }
+
+        public TextBlock TitleTextBlock
+        {
+            get { return (TextBlock) GetValue(TitleTextBlockProperty); }
+            set { SetValue(TitleTextBlockProperty, value); }
         }
 
         public AttachNavigateToListBoxBehavior()
@@ -90,10 +100,24 @@ namespace Pyxis.Behaviors
         {
             var item = AssociatedObject.SelectedItem as ListBoxItem;
             var pageToken = NavigateTo.GetPageToken(item);
-            if (!string.IsNullOrWhiteSpace(pageToken))
-                RootFrame?.Navigate(GetPageType(pageToken));
+            // if (!string.IsNullOrWhiteSpace(pageToken))
+            //     RootFrame?.Navigate(GetPageType(pageToken));
+
+            SetTitle(item?.Content);
             if (ParentSplitView != null)
                 ParentSplitView.IsPaneOpen = false;
+        }
+
+        // マジックナンバーなおしたい
+
+        private void SetTitle(object content)
+        {
+            var stackPanel = content as StackPanel;
+            if (stackPanel == null)
+                return;
+            var str = (stackPanel.Children[1] as TextBlock)?.Text;
+            if (TitleTextBlock != null && !string.IsNullOrWhiteSpace(str))
+                TitleTextBlock.Text = str;
         }
 
         #region Overrides of Behavior

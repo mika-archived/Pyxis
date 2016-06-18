@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 
 using Windows.ApplicationModel.Activation;
-using Windows.System.Profile;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -35,10 +34,7 @@ namespace Pyxis
         protected override UIElement CreateShell(Frame rootFrame)
         {
             var shell = Container.Resolve<AppShell>();
-            if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
-                shell.SetContentFrame(rootFrame);
-            else
-                shell.StoreContentFrame(rootFrame);
+            shell.SetContentFrame(rootFrame);
             return shell;
         }
 
@@ -53,8 +49,7 @@ namespace Pyxis
 
         protected override Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)
         {
-            if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
-                NavigationService.Navigate("IllustMain", null);
+            NavigationService.Navigate("IllustMain", null);
             return Task.CompletedTask;
         }
 

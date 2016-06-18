@@ -203,10 +203,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Page Include="AppShell.DeviceFamily-Mobile.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="AppShell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
