@@ -107,6 +107,7 @@
     <Compile Include="Models\PixivImage.cs" />
     <Compile Include="Models\PixivNovel.cs" />
     <Compile Include="Models\PixivRanking.cs" />
+    <Compile Include="Models\RankingMode.cs" />
     <Compile Include="Models\RankingType.cs" />
     <Compile Include="Mvvm\ViewModelHelper.cs" />
     <Compile Include="Services\ImageStoreService.cs" />
@@ -115,6 +116,8 @@
     <Compile Include="Services\Interfaces\IImageStoreService.cs" />
     <Compile Include="ViewModels\Error\LoginRequiredPageViewModel.cs" />
     <Compile Include="ViewModels\Home\IllustHomePageViewModel.cs" />
+    <Compile Include="ViewModels\Home\Items\RankingImageViewModel.cs" />
+    <Compile Include="ViewModels\Home\Items\RankingNovelViewModel.cs" />
     <Compile Include="ViewModels\Home\MangaHomePageViewModel.cs" />
     <Compile Include="ViewModels\Home\NovelHomePageViewModel.cs" />
     <Compile Include="ViewModels\Items\PixivImageViewModel.cs" />

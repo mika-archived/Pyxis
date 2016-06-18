@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 using Pyxis.Beta.Interfaces.Models.v1;
@@ -12,17 +13,17 @@ namespace Pyxis.Models
         private readonly IPixivClient _pixivClient;
         private readonly RankingType _rankingType;
 
-        public ObservableCollection<IIllusts> Ranking { get; }
-        public ObservableCollection<INovels> RankingOfNovels { get; }
+        public ObservableCollection<Tuple<RankingMode, IIllusts>> Ranking { get; }
+        public ObservableCollection<Tuple<RankingMode, INovels>> RankingOfNovels { get; }
 
         public PixivRanking(IPixivClient pixivClient, RankingType rankingType)
         {
             _pixivClient = pixivClient;
             _rankingType = rankingType;
             if (_rankingType == RankingType.Novel)
-                RankingOfNovels = new ObservableCollection<INovels>();
+                RankingOfNovels = new ObservableCollection<Tuple<RankingMode, INovels>>();
             else
-                Ranking = new ObservableCollection<IIllusts>();
+                Ranking = new ObservableCollection<Tuple<RankingMode, IIllusts>>();
         }
 
         public void Fetch() => AsyncHelper.RunAsync(FetchRanking);
@@ -44,7 +45,7 @@ namespace Pyxis.Models
             foreach (var _ in modes)
             {
                 var illusts = await _pixivClient.IllustV1.RankingAsync(mode => _);
-                Ranking.Add(illusts);
+                Ranking.Add(new Tuple<RankingMode, IIllusts>(RankingModeExt.FromString(_), illusts));
             }
         }
 
@@ -55,7 +56,7 @@ namespace Pyxis.Models
             foreach (var _ in modes)
             {
                 var illusts = await _pixivClient.IllustV1.RankingAsync(mode => $"{_}_manga");
-                Ranking.Add(illusts);
+                Ranking.Add(new Tuple<RankingMode, IIllusts>(RankingModeExt.FromString(_), illusts));
             }
         }
 
@@ -66,7 +67,7 @@ namespace Pyxis.Models
             foreach (var _ in modes)
             {
                 var novels = await _pixivClient.NovelV1.RankingAsync(mode => _);
-                RankingOfNovels.Add(novels);
+                RankingOfNovels.Add(new Tuple<RankingMode, INovels>(RankingModeExt.FromString(_), novels));
             }
         }
     }

@@ -9,7 +9,7 @@ using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Models;
 using Pyxis.Mvvm;
 using Pyxis.Services.Interfaces;
-using Pyxis.ViewModels.Items;
+using Pyxis.ViewModels.Home.Items;
 
 using Reactive.Bindings;
 
@@ -24,12 +24,12 @@ namespace Pyxis.ViewModels.Home
 
         #region Lambda Functions
 
-        private Func<INovels, PixivNovelViewModel> Func01
-            => w => new PixivNovelViewModel(w.NovelList.First(), _imageStoreService, NavigationService);
+        private Func<Tuple<RankingMode, INovels>, RankingNovelViewModel> Func01 =>
+            w => new RankingNovelViewModel(w.Item1, w.Item2.NovelList.First(), _imageStoreService, NavigationService);
 
         #endregion
 
-        public ReadOnlyReactiveCollection<PixivNovelViewModel> TopTankingImages { get; private set; }
+        public ReadOnlyReactiveCollection<RankingNovelViewModel> TopTankingImages { get; private set; }
 
         public NovelHomePageViewModel(IImageStoreService imageStoreService, IPixivClient pixivClient,
                                       INavigationService navigationService)

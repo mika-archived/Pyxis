@@ -6,7 +6,7 @@
       xmlns:behaviors="using:Pyxis.Behaviors"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
-      xmlns:items="using:Pyxis.ViewModels.Items"
+      xmlns:items="using:Pyxis.ViewModels.Home.Items"
       xmlns:local="using:Pyxis.Views.Home"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:prism="using:Prism.Windows.Mvvm"
@@ -76,7 +76,7 @@
                     <behaviors:FlipViewAutoMovePageBehavior />
                 </i:Interaction.Behaviors>
                 <FlipView.ItemTemplate>
-                    <DataTemplate x:DataType="items:PixivNovelViewModel">
+                    <DataTemplate x:DataType="items:RankingNovelViewModel">
                         <Grid>
                             <Image VerticalAlignment="Center"
                                    Source="{Binding ThumbnailPath.Value,
@@ -85,17 +85,39 @@
                             <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                        <GradientStop Offset="0" Color="Transparent" />
-                                        <GradientStop Offset="1.25" Color="{ThemeResource SystemBaseHighColor}" />
+                                        <GradientStop Offset="-0.1" Color="{ThemeResource SystemBaseHighColor}" />
+                                        <GradientStop Offset="0.5" Color="Transparent" />
+                                        <GradientStop Offset="1.1" Color="{ThemeResource SystemBaseHighColor}" />
                                     </LinearGradientBrush>
                                 </Border.Background>
-                                <TextBlock Height="60"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Bottom"
-                                           Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                                           Style="{StaticResource TitleTextBlockStyle}"
-                                           Text="{Binding Title,
-                                                          Mode=OneWay}" />
+                                <Grid>
+                                    <StackPanel HorizontalAlignment="Left"
+                                                VerticalAlignment="Top"
+                                                Orientation="Horizontal">
+                                        <Grid Margin="5,0" HorizontalAlignment="Center">
+                                            <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                                      Foreground="Yellow"
+                                                      Glyph="&#xE735;" />
+                                            <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                                      Foreground="Black"
+                                                      Glyph="&#xE734;" />
+                                        </Grid>
+                                        <TextBlock HorizontalAlignment="Center"
+                                                   Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                                                   Style="{StaticResource SubtitleTextBlockStyle}"
+                                                   Text="{Binding Category,
+                                                                  Mode=OneWay}" />
+                                    </StackPanel>
+                                    <TextBlock Height="40"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Bottom"
+                                               Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                                               Style="{StaticResource TitleTextBlockStyle}"
+                                               Text="{Binding Title,
+                                                              Mode=OneWay}"
+                                               TextTrimming="CharacterEllipsis"
+                                               TextWrapping="NoWrap" />
+                                </Grid>
                             </Border>
                         </Grid>
                     </DataTemplate>
