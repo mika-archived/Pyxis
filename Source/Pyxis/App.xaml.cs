@@ -49,7 +49,7 @@ namespace Pyxis
 
         protected override Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)
         {
-            NavigationService.Navigate("IllustMain", null);
+            NavigationService.Navigate("HomeMain", null);
             return Task.CompletedTask;
         }
 

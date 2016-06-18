@@ -112,12 +112,18 @@
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Interfaces\IImageStoreService.cs" />
+    <Compile Include="ViewModels\Error\LoginRequiredPageViewModel.cs" />
+    <Compile Include="ViewModels\HomeMainPageViewModel.cs" />
     <Compile Include="ViewModels\IllustMainPageViewModel.cs" />
     <Compile Include="ViewModels\MangaMainPageViewModel.cs" />
     <Compile Include="ViewModels\NovelMainPageViewModel.cs" />
     <Compile Include="ViewModels\Items\PixivImageViewModel.cs" />
     <Compile Include="ViewModels\Items\PixivNovelViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
+    <Compile Include="ViewModels\WorkMainPageViewModel.cs" />
+    <Compile Include="Views\Error\LoginRequiredPage.xaml.cs">
+      <DependentUpon>LoginRequiredPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\HomeMainPage.xaml.cs">
       <DependentUpon>HomeMainPage.xaml</DependentUpon>
     </Compile>
@@ -129,6 +135,9 @@
     </Compile>
     <Compile Include="Views\NovelMainPage.xaml.cs">
       <DependentUpon>NovelMainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkMainPage.xaml.cs">
+      <DependentUpon>WorkMainPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -207,6 +216,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Error\LoginRequiredPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\HomeMainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -220,6 +233,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\NovelMainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WorkMainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

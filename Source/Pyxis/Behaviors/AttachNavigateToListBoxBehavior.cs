@@ -52,7 +52,7 @@ namespace Pyxis.Behaviors
         {
             _pageStack = new Stack<int>();
             _isAttached = false;
-            _oldIndex = 0;
+            _oldIndex = 1;
         }
 
         // https://github.com/PrismLibrary/Prism/blob/3dded2/Source/Windows10/Prism.Windows/PrismApplication.cs#L148-L171
@@ -100,8 +100,8 @@ namespace Pyxis.Behaviors
         {
             var item = AssociatedObject.SelectedItem as ListBoxItem;
             var pageToken = NavigateTo.GetPageToken(item);
-            // if (!string.IsNullOrWhiteSpace(pageToken))
-            //     RootFrame?.Navigate(GetPageType(pageToken));
+            if (!string.IsNullOrWhiteSpace(pageToken))
+                RootFrame?.Navigate(GetPageType(pageToken));
 
             SetTitle(item?.Content);
             if (ParentSplitView != null)
