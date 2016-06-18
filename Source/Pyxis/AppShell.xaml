@@ -85,7 +85,7 @@
                        Margin="12,0"
                        VerticalAlignment="Center"
                        Style="{ThemeResource FlyoutPickerTitleTextBlockStyle}"
-                       Text="TEST" />
+                       Text="ホーム" />
         </StackPanel>
         <SplitView x:Name="RootSplitView" CompactPaneLength="48">
             <Frame x:Name="RootFrame" Margin="0,48,0,0" />
@@ -136,7 +136,7 @@
                             <Grid Height="48" />
                         </ListBoxItem>
                         <ListBoxItem x:Name="HomeMain"
-                                     attach:NavigateTo.PageToken="HomeMain"
+                                     attach:NavigateTo.PageToken="Home.IllustHome"
                                      IsSelected="True"
                                      RelativePanel.Below="Blank">
                             <StackPanel Orientation="Horizontal">

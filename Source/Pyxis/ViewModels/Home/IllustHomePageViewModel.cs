@@ -13,9 +13,9 @@ using Pyxis.ViewModels.Items;
 
 using Reactive.Bindings;
 
-namespace Pyxis.ViewModels
+namespace Pyxis.ViewModels.Home
 {
-    public class NovelMainPageViewModel : ViewModel
+    public class IllustHomePageViewModel : ViewModel
     {
         private readonly IImageStoreService _imageStoreService;
         private readonly INavigationService _navigationService;
@@ -24,22 +24,22 @@ namespace Pyxis.ViewModels
 
         #region Lambda Functions
 
-        private Func<INovels, PixivNovelViewModel> Func01
-            => w => new PixivNovelViewModel(w.NovelList.First(), _imageStoreService, _navigationService);
+        private Func<IIllusts, PixivImageViewModel> Func01
+            => w => new PixivImageViewModel(w.IllustList.First(), _imageStoreService, _navigationService);
 
         #endregion
 
-        public ReadOnlyReactiveCollection<PixivNovelViewModel> TopTankingImages { get; private set; }
+        public ReadOnlyReactiveCollection<PixivImageViewModel> TopRankingImages { get; private set; }
 
-        public NovelMainPageViewModel(IImageStoreService imageStoreService, IPixivClient pixivClient,
-                                      INavigationService navigationService)
+        public IllustHomePageViewModel(IImageStoreService imageStoreService, IPixivClient pixivClient,
+                                       INavigationService navigationService)
         {
             _imageStoreService = imageStoreService;
             _pixivClient = pixivClient;
             _navigationService = navigationService;
-            _pixivRanking = new PixivRanking(pixivClient, RankingType.Novel);
+            _pixivRanking = new PixivRanking(pixivClient, RankingType.Illust);
 
-            TopTankingImages = _pixivRanking.RankingOfNovels
+            TopRankingImages = _pixivRanking.Ranking
                                             .ToReadOnlyReactiveCollection(w => Func01(w))
                                             .AddTo(this);
         }
