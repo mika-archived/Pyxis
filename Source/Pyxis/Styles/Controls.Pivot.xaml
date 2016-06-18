@@ -116,7 +116,7 @@
                                                         <VisualState x:Name="Selected">
                                                             <Storyboard>
                                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
-                                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltBaseHighBrush}" />
+                                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="#0074AA" />
                                                                 </ObjectAnimationUsingKeyFrames>
                                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Grid" Storyboard.TargetProperty="Background">
                                                                     <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightTransparentBrush}" />
@@ -139,7 +139,7 @@
                                                         <VisualState x:Name="SelectedPointerOver">
                                                             <Storyboard>
                                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
-                                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltBaseMediumHighBrush}" />
+                                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="#0074AA" />
                                                                 </ObjectAnimationUsingKeyFrames>
                                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Grid" Storyboard.TargetProperty="Background">
                                                                     <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightTransparentBrush}" />

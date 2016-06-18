@@ -64,7 +64,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <StackPanel Orientation="Vertical">
-            <Pivot Style="{StaticResource TabsStylePivotStyle}">
+            <Pivot Style="{StaticResource TabsStylePivotStyle}" SelectedIndex="1">
                 <PivotItem>
                     <PivotItem.Header>
                         <TextBlock Width="64"
