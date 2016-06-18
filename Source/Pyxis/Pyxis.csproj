@@ -118,6 +118,9 @@
     <Compile Include="ViewModels\Items\PixivImageViewModel.cs" />
     <Compile Include="ViewModels\Items\PixivNovelViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
+    <Compile Include="Views\HomeMainPage.xaml.cs">
+      <DependentUpon>HomeMainPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\IllustMainPage.xaml.cs">
       <DependentUpon>IllustMainPage.xaml</DependentUpon>
     </Compile>
@@ -205,6 +208,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AppShell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HomeMainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
