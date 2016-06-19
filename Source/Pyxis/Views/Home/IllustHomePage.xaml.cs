@@ -17,7 +17,7 @@ namespace Pyxis.Views.Home
         public IllustHomePage()
         {
             InitializeComponent();
-            Recommended.Height = ApplicationView.GetForCurrentView().VisibleBounds.Height;
+            Recommended.Height = ApplicationView.GetForCurrentView().VisibleBounds.Height - 45;
         }
     }
 }

@@ -18,6 +18,7 @@ namespace Pyxis.ViewModels.Items
     public class PixivImageViewModel : ViewModel
     {
         private readonly IIllust _illust;
+        private readonly PixivImage _image;
         private readonly INavigationService _navigationService;
 
         public string Title => _illust.Title;
@@ -35,8 +36,8 @@ namespace Pyxis.ViewModels.Items
             _illust = illust;
             _navigationService = navigationService;
 
-            var image = new PixivImage(illust, imageStoreService);
-            ThumbnailPath = image.ObserveProperty(w => w.ImagePath).ToReadOnlyReactiveProperty().AddTo(this);
+            _image = new PixivImage(illust, imageStoreService);
+            ThumbnailPath = _image.ObserveProperty(w => w.ImagePath).ToReadOnlyReactiveProperty().AddTo(this);
             ItemTappedCommand = new ReactiveCommand();
             ItemTappedCommand.Subscribe(w => Debug.WriteLine(w)).AddTo(this);
         }

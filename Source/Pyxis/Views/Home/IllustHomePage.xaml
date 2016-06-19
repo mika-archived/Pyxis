@@ -16,12 +16,9 @@
       d:DataContext="{d:DesignInstance vm:IllustHomePageViewModel}"
       prism:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d">
-    <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                  HorizontalScrollBarVisibility="Disabled"
-                  VerticalScrollBarVisibility="Auto">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
-                <!--  0 - Phone  -->
                 <VisualState x:Name="Phone">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="0" />
@@ -41,7 +38,6 @@
                         </Setter>
                     </VisualState.Setters>
                 </VisualState>
-                <!--  360 - Phone (Large)  -->
                 <VisualState x:Name="PhoneLarge">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="361" />
@@ -61,7 +57,6 @@
                         </Setter>
                     </VisualState.Setters>
                 </VisualState>
-                <!--  640 - Tablet  -->
                 <VisualState x:Name="Tablet">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="641" />
@@ -81,7 +76,6 @@
                         </Setter>
                     </VisualState.Setters>
                 </VisualState>
-                <!--  1024 - Dekstop  -->
                 <VisualState x:Name="Desktop">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="1025" />
@@ -101,7 +95,6 @@
                         </Setter>
                     </VisualState.Setters>
                 </VisualState>
-                <!--  1366  -->
                 <VisualState x:Name="DesktopHD">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="1367" />
@@ -189,13 +182,24 @@
                 <Run Text=" " />
                 <Run Text="あなたへのおすすめ" />
             </TextBlock>
-            <GridView x:Name="Recommended" ItemsSource="{x:Bind ViewModel.RecommendedImages}">
+            <GridView x:Name="Recommended"
+                      VerticalAlignment="Stretch"
+                      ItemsSource="{x:Bind ViewModel.RecommendedImages}">
+                <GridView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsWrapGrid attach:AssumSize.AssumSize="100" Orientation="Horizontal">
+                            <i:Interaction.Behaviors>
+                                <behaviors:GridViewEuqalitySizeBehavior />
+                            </i:Interaction.Behaviors>
+                        </ItemsWrapGrid>
+                    </ItemsPanelTemplate>
+                </GridView.ItemsPanel>
                 <GridView.ItemTemplate>
                     <DataTemplate x:DataType="pixivItems:PixivImageViewModel">
-                        <Image Source="{Binding ThumbnailPath.Value}" Stretch="UniformToFill" />
+                        <TextBlock Text="{Binding Title}" />
                     </DataTemplate>
                 </GridView.ItemTemplate>
             </GridView>
         </StackPanel>
-    </ScrollViewer>
+    </Grid>
 </Page>

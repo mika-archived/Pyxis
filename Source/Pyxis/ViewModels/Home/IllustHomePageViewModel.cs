@@ -6,7 +6,7 @@ using Prism.Windows.Navigation;
 
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest;
-using Pyxis.Helpers;
+using Pyxis.Collections;
 using Pyxis.Models;
 using Pyxis.Models.Enums;
 using Pyxis.Mvvm;
@@ -27,7 +27,7 @@ namespace Pyxis.ViewModels.Home
         public INavigationService NavigationService { get; }
 
         public ReadOnlyReactiveCollection<RankingImageViewModel> TopRankingImages { get; private set; }
-        public ReadOnlyReactiveCollection<PixivImageViewModel> RecommendedImages { get; private set; }
+        public IncrementalObservableCollection<PixivImageViewModel> RecommendedImages { get; }
 
         public IllustHomePageViewModel(IImageStoreService imageStoreService, IPixivClient pixivClient,
                                        INavigationService navigationService)
@@ -41,9 +41,9 @@ namespace Pyxis.ViewModels.Home
             TopRankingImages = _pixivRanking.Ranking
                                             .ToReadOnlyReactiveCollection(CreateRankingImage)
                                             .AddTo(this);
-            RecommendedImages = _pixivRecommended.RecommendedImages
-                                                 .ToReadOnlyReactiveCollection(CreatePixivImage)
-                                                 .AddTo(this);
+
+            // RecommendedImages = new IncrementalObservableCollection<PixivImageViewModel>();
+            // ModelHelper.ConnectTo(RecommendedImages, _pixivRecommended, w => w.RecommendedImages, CreatePixivImage);
         }
 
         #region Overrides of ViewModelBase
@@ -52,7 +52,6 @@ namespace Pyxis.ViewModels.Home
         {
             base.OnNavigatedTo(e, viewModelState);
             _pixivRanking.Fetch();
-            RunHelper.RunLater(_pixivRecommended.Fetch, false, TimeSpan.FromMilliseconds(500));
         }
 
         #endregion

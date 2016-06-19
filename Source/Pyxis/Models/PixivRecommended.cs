@@ -1,5 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+
+using Windows.Foundation;
+using Windows.UI.Xaml.Data;
 
 using Microsoft.Practices.ObjectBuilder2;
 
@@ -12,7 +16,7 @@ using Pyxis.Models.Enums;
 
 namespace Pyxis.Models
 {
-    internal class PixivRecommended
+    internal class PixivRecommended : ISupportIncrementalLoading
     {
         private readonly ContentType _contentType;
         private readonly IPixivClient _pixivClient;
@@ -48,10 +52,12 @@ namespace Pyxis.Models
             IRecommendedIllusts illusts = null;
             if (_contentType == ContentType.Illust)
                 illusts =
-                    await _pixivClient.IllustV1.RecommendedNologinAsync(content_type => "illust", filter => "for_ios");
+                    await _pixivClient.IllustV1.RecommendedNologinAsync(content_type => "illust", filter => "for_ios",
+                                                                        offset => Count());
             else if (_contentType == ContentType.Manga)
                 illusts =
-                    await _pixivClient.IllustV1.RecommendedNologinAsync(content_type => "manga", filter => "for_ios");
+                    await _pixivClient.IllustV1.RecommendedNologinAsync(content_type => "manga", filter => "for_ios",
+                                                                        offset => Count());
             illusts?.Illusts.ForEach(w => RecommendedImages.Add(w));
         }
 
@@ -62,5 +68,27 @@ namespace Pyxis.Models
             var novels = await _pixivClient.NovelV1.RecommendedNologinAsync();
             novels.Novels.ForEach(w => RecommendedNovels.Add(w));
         }
+
+        private int Count()
+        {
+            if (_contentType == ContentType.Novel)
+                return RecommendedNovels.Count;
+            return RecommendedImages.Count;
+        }
+
+        #region Implementation of ISupportIncrementalLoading
+
+        public IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count)
+        {
+            return Task.Run(async () =>
+            {
+                await FetchRecommended(false);
+                return new LoadMoreItemsResult {Count = 30};
+            }).AsAsyncOperation();
+        }
+
+        public bool HasMoreItems => true;
+
+        #endregion
     }
 }

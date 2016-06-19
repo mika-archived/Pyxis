@@ -105,6 +105,8 @@
     <Compile Include="Behaviors\AttachNavigationToPivotBehavior.cs" />
     <Compile Include="Behaviors\FlipViewAutoMovePageBehavior.cs" />
     <Compile Include="Behaviors\GridViewEuqalitySizeBehavior.cs" />
+    <Compile Include="Collections\IncrementalObservableCollection.cs" />
+    <Compile Include="Helpers\ModelHelper.cs" />
     <Compile Include="Helpers\RunHelper.cs" />
     <Compile Include="Models\PixivImage.cs" />
     <Compile Include="Models\PixivNovel.cs" />
