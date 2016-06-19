@@ -28,7 +28,7 @@ namespace Pyxis.ViewModels.Work
 
         private void RedirectToLoginPageWhenNoLogin()
         {
-            NavigationService.Navigate("Error.LoginRequired", null);
+            NavigationService.Navigate("Error.LoginRequired", "Work.IllustWork");
         }
     }
 }

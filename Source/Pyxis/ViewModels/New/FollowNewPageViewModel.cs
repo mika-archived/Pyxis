@@ -28,7 +28,7 @@ namespace Pyxis.ViewModels.New
 
         private void RedirectToLoginPageWhenNoLogin()
         {
-            NavigationService.Navigate("Error.LoginRequired", null);
+            NavigationService.Navigate("Error.LoginRequired", "New.FollowNew");
         }
     }
 }

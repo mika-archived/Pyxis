@@ -1,7 +1,7 @@
 ﻿<prism:PrismUnityApplication x:Class="Pyxis.App"
                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                             xmlns:local="using:Pyxis"
+                             xmlns:converters="using:Pyxis.Converters"
                              xmlns:prism="using:Prism.Unity.Windows"
                              RequestedTheme="Light">
     <prism:PrismUnityApplication.Resources>
@@ -9,6 +9,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles/Controls.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         </ResourceDictionary>
     </prism:PrismUnityApplication.Resources>
 </prism:PrismUnityApplication>

@@ -28,6 +28,11 @@ namespace Pyxis.ViewModels.BrowsingHistory
 
         private void RedirectToLoginPageWhenNoLogin()
         {
+            NavigationService.Navigate("Error.LoginRequired", "BrowsingHistory.IllustMangaBrowsingHistory");
+        }
+
+        private void RedirectToPremiumPageWhenNoPremium()
+        {
             NavigationService.Navigate("Error.PremiumRequired", null);
         }
     }

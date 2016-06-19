@@ -28,7 +28,7 @@ namespace Pyxis.ViewModels.Follower
 
         private void RedirectToLoginPageWhenNoLogin()
         {
-            _navigationService.Navigate("Error.LoginRequired", null);
+            _navigationService.Navigate("Error.LoginRequired", "Follower.MainFollower");
         }
     }
 }

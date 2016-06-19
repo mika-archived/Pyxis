@@ -1,11 +1,12 @@
-﻿<Page x:Class="Pyxis.Views.Error.LoginRequiredPage"
+﻿<Page x:Class="Pyxis.Views.Account.LoginPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:Pyxis.Views.Account"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:prism="using:Prism.Windows.Mvvm"
-      xmlns:vm="using:Pyxis.ViewModels.Error"
-      d:DataContext="{d:DesignInstance vm:LoginRequiredPageViewModel}"
+      xmlns:vm="using:Pyxis.ViewModels.Account"
+      d:DataContext="{d:DesignInstance vm:LoginPageViewModel}"
       prism:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d">
 
@@ -18,28 +19,32 @@
                        Foreground="PaleGoldenrod"
                        Style="{ThemeResource HeaderTextBlockStyle}"
                        Text="&#xE946;" />
-            <TextBlock Margin="5"
-                       Foreground="White"
-                       Style="{ThemeResource SubtitleTextBlockStyle}"
-                       Text="pixiv に登録もしくはログインしてください！" />
 
-            <Button Width="200"
+            <TextBox Width="250"
+                     Height="35"
+                     Margin="10"
+                     HorizontalAlignment="Center"
+                     PlaceholderText="メールアドレス"
+                     Text="{x:Bind ViewModel.Username.Value, Mode=TwoWay}" />
+
+            <PasswordBox Width="250"
+                         Height="25"
+                         Margin="10"
+                         HorizontalAlignment="Center"
+                         Password="{x:Bind ViewModel.Password.Value, Mode=TwoWay}"
+                         PlaceholderText="パスワード" />
+
+            <Button Width="250"
                     Margin="10"
                     HorizontalAlignment="Center"
-                    Tapped="{x:Bind ViewModel.OnRegisterButtonTapped}">
-                <TextBlock Foreground="White"
-                           Style="{ThemeResource SubtitleTextBlockStyle}"
-                           Text="登録" />
-            </Button>
-
-            <Button Width="200"
-                    Margin="10"
-                    HorizontalAlignment="Center"
-                    Tapped="{x:Bind ViewModel.OnLoginButtonTapped}">
+                    Command="{x:Bind ViewModel.LoginCommand}">
                 <TextBlock Foreground="White"
                            Style="{ThemeResource SubtitleTextBlockStyle}"
                            Text="ログイン" />
             </Button>
         </StackPanel>
+        <Border Background="Black"
+                Opacity="0.5"
+                Visibility="{x:Bind ViewModel.IsProcessing, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
     </Grid>
 </Page>

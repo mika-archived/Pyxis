@@ -28,7 +28,7 @@ namespace Pyxis.ViewModels.Mypixiv
 
         private void RedirectToLoginPageWhenNoLogin()
         {
-            _navigationService.Navigate("Error.LoginRequired", null);
+            _navigationService.Navigate("Error.LoginRequired", "Mypixiv.MainMypixiv");
         }
     }
 }
