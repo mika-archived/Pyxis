@@ -20,7 +20,7 @@ namespace Pyxis.Models
             ThumbnailPath = "https://placehold.jp/1x1.png";
         }
 
-        public void ShowThumbnail() => AsyncHelper.RunAsync(DownloadThumbnail);
+        public void ShowThumbnail() => RunHelper.RunAsync(DownloadThumbnail);
 
         private async Task DownloadThumbnail()
         {

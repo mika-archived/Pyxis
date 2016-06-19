@@ -21,7 +21,7 @@ namespace Pyxis.Models
         }
 
         // 表示する際に。
-        public void ShowThumbnail() => AsyncHelper.RunAsync(DownloadImage);
+        public void ShowThumbnail() => RunHelper.RunAsync(DownloadImage);
 
         private async Task DownloadImage()
         {

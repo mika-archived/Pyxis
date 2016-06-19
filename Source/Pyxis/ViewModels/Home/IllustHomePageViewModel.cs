@@ -6,10 +6,13 @@ using Prism.Windows.Navigation;
 
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest;
+using Pyxis.Helpers;
 using Pyxis.Models;
+using Pyxis.Models.Enums;
 using Pyxis.Mvvm;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Home.Items;
+using Pyxis.ViewModels.Items;
 
 using Reactive.Bindings;
 
@@ -20,16 +23,11 @@ namespace Pyxis.ViewModels.Home
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
         private readonly PixivRanking _pixivRanking;
+        private readonly PixivRecommended _pixivRecommended;
         public INavigationService NavigationService { get; }
 
-        #region Lambda Functions
-
-        private Func<Tuple<RankingMode, IIllusts>, RankingImageViewModel> Func01 =>
-            w => new RankingImageViewModel(w.Item1, w.Item2.IllustList.First(), _imageStoreService, NavigationService);
-
-        #endregion
-
         public ReadOnlyReactiveCollection<RankingImageViewModel> TopRankingImages { get; private set; }
+        public ReadOnlyReactiveCollection<PixivImageViewModel> RecommendedImages { get; private set; }
 
         public IllustHomePageViewModel(IImageStoreService imageStoreService, IPixivClient pixivClient,
                                        INavigationService navigationService)
@@ -37,11 +35,15 @@ namespace Pyxis.ViewModels.Home
             _imageStoreService = imageStoreService;
             _pixivClient = pixivClient;
             NavigationService = navigationService;
-            _pixivRanking = new PixivRanking(pixivClient, RankingType.Illust);
+            _pixivRanking = new PixivRanking(pixivClient, ContentType.Illust);
+            _pixivRecommended = new PixivRecommended(_pixivClient, ContentType.Illust);
 
             TopRankingImages = _pixivRanking.Ranking
-                                            .ToReadOnlyReactiveCollection(w => Func01(w))
+                                            .ToReadOnlyReactiveCollection(CreateRankingImage)
                                             .AddTo(this);
+            RecommendedImages = _pixivRecommended.RecommendedImages
+                                                 .ToReadOnlyReactiveCollection(CreatePixivImage)
+                                                 .AddTo(this);
         }
 
         #region Overrides of ViewModelBase
@@ -50,8 +52,15 @@ namespace Pyxis.ViewModels.Home
         {
             base.OnNavigatedTo(e, viewModelState);
             _pixivRanking.Fetch();
+            RunHelper.RunLater(_pixivRecommended.Fetch, false, TimeSpan.FromMilliseconds(500));
         }
 
         #endregion
+
+        private RankingImageViewModel CreateRankingImage(Tuple<RankingMode, IIllusts> w) =>
+            new RankingImageViewModel(w.Item1, w.Item2.IllustList.First(), _imageStoreService, NavigationService);
+
+        private PixivImageViewModel CreatePixivImage(IIllust w) =>
+            new PixivImageViewModel(w, _imageStoreService, NavigationService);
     }
 }

@@ -99,16 +99,19 @@
     <Compile Include="AppShell.xaml.cs">
       <DependentUpon>AppShell.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Attach\AssumSize.cs" />
     <Compile Include="Attach\NavigateTo.cs" />
     <Compile Include="Behaviors\AttachNavigateToListBoxBehavior.cs" />
     <Compile Include="Behaviors\AttachNavigationToPivotBehavior.cs" />
     <Compile Include="Behaviors\FlipViewAutoMovePageBehavior.cs" />
-    <Compile Include="Helpers\AsyncHelper.cs" />
+    <Compile Include="Behaviors\GridViewEuqalitySizeBehavior.cs" />
+    <Compile Include="Helpers\RunHelper.cs" />
     <Compile Include="Models\PixivImage.cs" />
     <Compile Include="Models\PixivNovel.cs" />
     <Compile Include="Models\PixivRanking.cs" />
-    <Compile Include="Models\RankingMode.cs" />
-    <Compile Include="Models\RankingType.cs" />
+    <Compile Include="Models\PixivRecommended.cs" />
+    <Compile Include="Models\Enums\RankingMode.cs" />
+    <Compile Include="Models\Enums\ContentType.cs" />
     <Compile Include="Mvvm\ViewModelHelper.cs" />
     <Compile Include="Services\ImageStoreService.cs" />
     <Compile Include="Properties\Annotations.cs" />

@@ -1,6 +1,6 @@
-﻿namespace Pyxis.Models
+﻿namespace Pyxis.Models.Enums
 {
-    internal enum RankingType
+    internal enum ContentType
     {
         Illust,
 

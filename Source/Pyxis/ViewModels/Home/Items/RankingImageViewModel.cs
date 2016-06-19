@@ -5,6 +5,7 @@ using Prism.Windows.Navigation;
 
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Models;
+using Pyxis.Models.Enums;
 using Pyxis.Mvvm;
 using Pyxis.Services.Interfaces;
 

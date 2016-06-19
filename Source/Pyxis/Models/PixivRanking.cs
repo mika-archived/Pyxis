@@ -5,36 +5,37 @@ using System.Threading.Tasks;
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Helpers;
+using Pyxis.Models.Enums;
 
 namespace Pyxis.Models
 {
     internal class PixivRanking
     {
         private readonly IPixivClient _pixivClient;
-        private readonly RankingType _rankingType;
+        private readonly ContentType _rankingType;
 
         public ObservableCollection<Tuple<RankingMode, IIllusts>> Ranking { get; }
         public ObservableCollection<Tuple<RankingMode, INovels>> RankingOfNovels { get; }
 
-        public PixivRanking(IPixivClient pixivClient, RankingType rankingType)
+        public PixivRanking(IPixivClient pixivClient, ContentType rankingType)
         {
             _pixivClient = pixivClient;
             _rankingType = rankingType;
-            if (_rankingType == RankingType.Novel)
+            if (_rankingType == ContentType.Novel)
                 RankingOfNovels = new ObservableCollection<Tuple<RankingMode, INovels>>();
             else
                 Ranking = new ObservableCollection<Tuple<RankingMode, IIllusts>>();
         }
 
-        public void Fetch() => AsyncHelper.RunAsync(FetchRanking);
+        public void Fetch() => RunHelper.RunAsync(FetchRanking);
 
         private async Task FetchRanking()
         {
-            if (_rankingType == RankingType.Novel)
+            if (_rankingType == ContentType.Novel)
                 await FetchNovelRanking();
-            else if (_rankingType == RankingType.Illust)
+            else if (_rankingType == ContentType.Illust)
                 await FetchIllustRanking();
-            else if (_rankingType == RankingType.Manga)
+            else if (_rankingType == ContentType.Manga)
                 await FetchMangaRanking();
         }
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Pyxis.Models
+namespace Pyxis.Models.Enums
 {
     public enum RankingMode
     {
