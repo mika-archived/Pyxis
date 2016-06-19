@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Pyxis.Views.Home.PivotTabHome"
+﻿<UserControl x:Class="Pyxis.Views.Search.PivotTabSearch"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -10,9 +10,9 @@
         <Pivot x:Name="Pivot"
                SelectionChanged="OnSelectionChanged"
                Style="{StaticResource TabsStylePivotStyle}">
-            <PivotItem Tag="Home.IllustHome">
+            <PivotItem Tag="Search.IllustMangaSearch">
                 <PivotItem.Header>
-                    <TextBlock Width="64"
+                    <TextBlock Width="70"
                                Margin="2,5,2,7"
                                HorizontalAlignment="Center"
                                FontFamily="Segoe UI"
@@ -21,28 +21,13 @@
                                LineStackingStrategy="BlockLineHeight"
                                MaxLines="2"
                                Style="{StaticResource CaptionTextBlockStyle}"
-                               Text="イラスト"
+                               Text="イラスト・マンガ"
                                TextAlignment="Center" />
                 </PivotItem.Header>
             </PivotItem>
-            <PivotItem Tag="Home.MangaHome">
+            <PivotItem Tag="Search.NovelSearch">
                 <PivotItem.Header>
-                    <TextBlock Width="64"
-                               Margin="2,5,2,7"
-                               HorizontalAlignment="Center"
-                               FontFamily="Segoe UI"
-                               IsTextScaleFactorEnabled="False"
-                               LineHeight="14"
-                               LineStackingStrategy="BlockLineHeight"
-                               MaxLines="2"
-                               Style="{StaticResource CaptionTextBlockStyle}"
-                               Text="マンガ"
-                               TextAlignment="Center" />
-                </PivotItem.Header>
-            </PivotItem>
-            <PivotItem Tag="Home.NovelHome">
-                <PivotItem.Header>
-                    <TextBlock Width="64"
+                    <TextBlock Width="70"
                                Margin="2,5,2,7"
                                HorizontalAlignment="Center"
                                FontFamily="Segoe UI"
@@ -55,6 +40,22 @@
                                TextAlignment="Center" />
                 </PivotItem.Header>
             </PivotItem>
+            <PivotItem Tag="Search.UserSearch">
+                <PivotItem.Header>
+                    <TextBlock Width="70"
+                               Margin="2,5,2,7"
+                               HorizontalAlignment="Center"
+                               FontFamily="Segoe UI"
+                               IsTextScaleFactorEnabled="False"
+                               LineHeight="14"
+                               LineStackingStrategy="BlockLineHeight"
+                               MaxLines="2"
+                               Style="{StaticResource CaptionTextBlockStyle}"
+                               Text="ユーザー"
+                               TextAlignment="Center" />
+                </PivotItem.Header>
+            </PivotItem>
         </Pivot>
     </Grid>
+
 </UserControl>

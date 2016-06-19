@@ -141,6 +141,9 @@
     <Compile Include="ViewModels\New\AllNewPageViewModel.cs" />
     <Compile Include="ViewModels\New\FollowNewPageViewModel.cs" />
     <Compile Include="ViewModels\New\MypixivNewPageViewModel.cs" />
+    <Compile Include="ViewModels\Search\IllustMangaSearchPageViewModel.cs" />
+    <Compile Include="ViewModels\Search\NovelSearchPageViewModel.cs" />
+    <Compile Include="ViewModels\Search\UserSearchPageViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="ViewModels\WorkMainPageViewModel.cs" />
     <Compile Include="ViewModels\Work\IllustWorkPageViewModel.cs" />
@@ -211,6 +214,18 @@
     </Compile>
     <Compile Include="Views\New\PivotTabFollow.xaml.cs">
       <DependentUpon>PivotTabFollow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Search\IllustMangaSearchPage.xaml.cs">
+      <DependentUpon>IllustMangaSearchPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Search\NovelSearchPage.xaml.cs">
+      <DependentUpon>NovelSearchPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Search\PivotTabSearch.xaml.cs">
+      <DependentUpon>PivotTabSearch.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Search\UserSearchPage.xaml.cs">
+      <DependentUpon>UserSearchPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WorkMainPage.xaml.cs">
       <DependentUpon>WorkMainPage.xaml</DependentUpon>
@@ -398,6 +413,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\New\PivotTabFollow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Search\IllustMangaSearchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Search\NovelSearchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Search\PivotTabSearch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Search\UserSearchPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
