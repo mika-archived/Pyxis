@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+
+using Windows.System;
 
 using Prism.Windows.Navigation;
 
@@ -12,6 +15,9 @@ namespace Pyxis.ViewModels.Error
         {
             _navigationService = navigationService;
         }
+
+        public async void OnRegisterButtonTapped()
+            => await Launcher.LaunchUriAsync(new Uri("http://www.pixiv.net/premium.php"));
 
         #region Overrides of ViewModelBase
 

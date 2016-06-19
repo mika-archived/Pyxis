@@ -25,7 +25,8 @@
 
             <Button Width="200"
                     Margin="10"
-                    HorizontalAlignment="Center">
+                    HorizontalAlignment="Center"
+                    Tapped="{x:Bind ViewModel.OnRegisterButtonTapped}">
                 <TextBlock Foreground="White"
                            Style="{ThemeResource SubtitleTextBlockStyle}"
                            Text="登録" />
