@@ -47,7 +47,7 @@ namespace Pyxis.Services
                 await _temporaryFolder.GetFileAsync(GetFileId(url));
                 return true;
             }
-            catch
+            catch (Exception e)
             {
                 return false;
             }

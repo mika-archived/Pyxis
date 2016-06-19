@@ -113,6 +113,7 @@
     <Compile Include="Models\Enums\RankingMode.cs" />
     <Compile Include="Models\Enums\ContentType.cs" />
     <Compile Include="Mvvm\ViewModelHelper.cs" />
+    <Compile Include="PyxisConstants.cs" />
     <Compile Include="Services\ImageStoreService.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

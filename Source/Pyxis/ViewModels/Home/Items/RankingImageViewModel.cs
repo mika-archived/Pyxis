@@ -35,7 +35,6 @@ namespace Pyxis.ViewModels.Home.Items
             _navigationService = navigationService;
 
             var image = new PixivImage(illust, imageStoreService);
-            image.ShowThumbnail();
             ThumbnailPath = image.ObserveProperty(w => w.ImagePath).ToReadOnlyReactiveProperty().AddTo(this);
             ItemTappedCommand = new ReactiveCommand();
             ItemTappedCommand.Subscribe(w => Debug.WriteLine(w)).AddTo(this);

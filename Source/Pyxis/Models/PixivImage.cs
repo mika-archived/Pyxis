@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 using Prism.Mvvm;
 
@@ -17,11 +18,8 @@ namespace Pyxis.Models
         {
             _illust = illust;
             _imageStoreService = imageStoreService;
-            ImagePath = "https://placehold.jp/1x1.png";
+            ImagePath = PyxisConstants.DummyImage;
         }
-
-        // 表示する際に。
-        public void ShowThumbnail() => RunHelper.RunAsync(DownloadImage);
 
         private async Task DownloadImage()
         {
@@ -42,7 +40,12 @@ namespace Pyxis.Models
 
         public string ImagePath
         {
-            get { return _imagePath; }
+            get
+            {
+                if (_imagePath == PyxisConstants.DummyImage)
+                    RunHelper.RunLaterAsync(DownloadImage, TimeSpan.FromMilliseconds(500));
+                return _imagePath;
+            }
             set { SetProperty(ref _imagePath, value); }
         }
 

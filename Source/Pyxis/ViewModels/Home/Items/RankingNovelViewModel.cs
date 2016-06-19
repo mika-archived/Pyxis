@@ -30,7 +30,6 @@ namespace Pyxis.ViewModels.Home.Items
             _navigationService = navigationService;
 
             var nov = new PixivNovel(novel, imageStoreService);
-            nov.ShowThumbnail();
             ThumbnailPath = nov.ObserveProperty(w => w.ThumbnailPath).ToReadOnlyReactiveProperty().AddTo(this);
         }
     }
