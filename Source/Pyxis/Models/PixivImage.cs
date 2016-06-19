@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 using Prism.Mvvm;
 
@@ -21,6 +20,8 @@ namespace Pyxis.Models
             ImagePath = PyxisConstants.DummyImage;
         }
 
+        public void ShowThumbnail() => RunHelper.RunAsync(DownloadImage);
+
         private async Task DownloadImage()
         {
             if (await _imageStoreService.ExistImageAsync(_illust.ImageUrls.Medium))
@@ -40,12 +41,7 @@ namespace Pyxis.Models
 
         public string ImagePath
         {
-            get
-            {
-                if (_imagePath == PyxisConstants.DummyImage)
-                    RunHelper.RunLaterAsync(DownloadImage, TimeSpan.FromMilliseconds(500));
-                return _imagePath;
-            }
+            get { return _imagePath; }
             set { SetProperty(ref _imagePath, value); }
         }
 

@@ -136,7 +136,7 @@
                     <DataTemplate x:DataType="items:RankingImageViewModel">
                         <Grid>
                             <Image VerticalAlignment="Center"
-                                   Source="{Binding ThumbnailPath.Value,
+                                   Source="{Binding ThumbnailPath,
                                                     Mode=OneWay}"
                                    Stretch="UniformToFill" />
                             <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -192,7 +192,7 @@
             <GridView x:Name="Recommended" ItemsSource="{x:Bind ViewModel.RecommendedImages}">
                 <GridView.ItemTemplate>
                     <DataTemplate x:DataType="pixivItems:PixivImageViewModel">
-                        <Image Source="{Binding ThumbnailPath.Value}" Stretch="UniformToFill" />
+                        <Image Source="{Binding ThumbnailPath}" Stretch="UniformToFill" />
                     </DataTemplate>
                 </GridView.ItemTemplate>
             </GridView>

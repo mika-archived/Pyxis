@@ -129,7 +129,7 @@
                     <DataTemplate x:DataType="items:RankingImageViewModel">
                         <Grid>
                             <Image VerticalAlignment="Center"
-                                   Source="{Binding ThumbnailPath.Value,
+                                   Source="{Binding ThumbnailPath,
                                                     Mode=OneWay}"
                                    Stretch="UniformToFill" />
                             <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch">

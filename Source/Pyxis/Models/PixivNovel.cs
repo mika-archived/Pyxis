@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 using Prism.Mvvm;
 
@@ -21,6 +20,8 @@ namespace Pyxis.Models
             ThumbnailPath = PyxisConstants.DummyImage;
         }
 
+        public void ShowThumbnail() => RunHelper.RunAsync(DownloadThumbnail);
+
         private async Task DownloadThumbnail()
         {
             if (await _imageStoreService.ExistImageAsync(_novel.ImageUrls.Medium))
@@ -35,12 +36,7 @@ namespace Pyxis.Models
 
         public string ThumbnailPath
         {
-            get
-            {
-                if (_thumbnailPath == PyxisConstants.DummyImage)
-                    RunHelper.RunLaterAsync(DownloadThumbnail, TimeSpan.FromMilliseconds(500));
-                return _thumbnailPath;
-            }
+            get { return _thumbnailPath; }
             set { SetProperty(ref _thumbnailPath, value); }
         }
 

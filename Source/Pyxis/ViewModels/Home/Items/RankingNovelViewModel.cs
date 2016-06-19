@@ -1,4 +1,6 @@
-﻿using Prism.Windows.Navigation;
+﻿using System;
+
+using Prism.Windows.Navigation;
 
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Models;
@@ -16,10 +18,10 @@ namespace Pyxis.ViewModels.Home.Items
         private readonly RankingMode _mode;
         private readonly INavigationService _navigationService;
         private readonly INovel _novel;
+        private readonly PixivNovel _pixivNovel;
 
         public string Title => _novel.Title;
         public string Category => _mode.ToDisplayString();
-        public ReadOnlyReactiveProperty<string> ThumbnailPath { get; private set; }
         public ReactiveCommand ItemTappedCommand { get; }
 
         public RankingNovelViewModel(RankingMode mode, INovel novel, IImageStoreService imageStoreService,
@@ -29,8 +31,25 @@ namespace Pyxis.ViewModels.Home.Items
             _novel = novel;
             _navigationService = navigationService;
 
-            var nov = new PixivNovel(novel, imageStoreService);
-            ThumbnailPath = nov.ObserveProperty(w => w.ThumbnailPath).ToReadOnlyReactiveProperty().AddTo(this);
+            _pixivNovel = new PixivNovel(novel, imageStoreService);
+            _pixivNovel.ObserveProperty(w => w.ThumbnailPath).Subscribe(w => ThumbnailPath = w).AddTo(this);
         }
+
+        #region ThumbnailPath
+
+        private string _thumbnailPath;
+
+        public string ThumbnailPath
+        {
+            get
+            {
+                if (_thumbnailPath == PyxisConstants.DummyImage)
+                    _pixivNovel.ShowThumbnail();
+                return _thumbnailPath;
+            }
+            set { SetProperty(ref _thumbnailPath, value); }
+        }
+
+        #endregion
     }
 }

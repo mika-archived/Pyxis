@@ -18,8 +18,8 @@ namespace Pyxis.ViewModels.Items
     public class PixivImageViewModel : ViewModel
     {
         private readonly IIllust _illust;
-        private readonly PixivImage _image;
         private readonly INavigationService _navigationService;
+        private readonly PixivImage _pixivImage;
 
         public string Title => _illust.Title;
         public string Caption => _illust.Caption.Replace("<br />", Environment.NewLine);
@@ -27,7 +27,6 @@ namespace Pyxis.ViewModels.Items
         public int BookmarkCount => _illust.TotalBookmarks;
         public int ViewCount => _illust.TotalView;
         public ReadOnlyCollection<string> Tools => _illust.Tools.ToList().AsReadOnly();
-        public ReadOnlyReactiveProperty<string> ThumbnailPath { get; private set; }
         public ReactiveCommand ItemTappedCommand { get; }
 
         public PixivImageViewModel(IIllust illust, IImageStoreService imageStoreService,
@@ -36,10 +35,27 @@ namespace Pyxis.ViewModels.Items
             _illust = illust;
             _navigationService = navigationService;
 
-            _image = new PixivImage(illust, imageStoreService);
-            ThumbnailPath = _image.ObserveProperty(w => w.ImagePath).ToReadOnlyReactiveProperty().AddTo(this);
+            _pixivImage = new PixivImage(illust, imageStoreService);
+            _pixivImage.ObserveProperty(w => w.ImagePath).Subscribe(w => ThumbnailPath = w).AddTo(this);
             ItemTappedCommand = new ReactiveCommand();
             ItemTappedCommand.Subscribe(w => Debug.WriteLine(w)).AddTo(this);
         }
+
+        #region ThumbnailPath
+
+        private string _thumbnailPath;
+
+        public string ThumbnailPath
+        {
+            get
+            {
+                if (_thumbnailPath == PyxisConstants.DummyImage)
+                    _pixivImage.ShowThumbnail();
+                return _thumbnailPath;
+            }
+            set { SetProperty(ref _thumbnailPath, value); }
+        }
+
+        #endregion
     }
 }
