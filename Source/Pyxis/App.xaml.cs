@@ -13,6 +13,8 @@ using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Services;
 using Pyxis.Services.Interfaces;
 
+using Reactive.Bindings;
+
 namespace Pyxis
 {
     /// <summary>
@@ -40,6 +42,8 @@ namespace Pyxis
 
         protected override Task OnInitializeAsync(IActivatedEventArgs args)
         {
+            UIDispatcherScheduler.Initialize();
+
             Container.RegisterInstance<IPixivClient>(new PixivApiClient(), new ContainerControlledLifetimeManager());
             Container.RegisterType<IImageStoreService, ImageStoreService>(new ContainerControlledLifetimeManager());
             // Container.RegisterInstance<IPixivClient>(new PixivWebClient(), new ContainerControlledLifetimeManager());

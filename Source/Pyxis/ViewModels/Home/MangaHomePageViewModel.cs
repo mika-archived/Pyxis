@@ -6,7 +6,6 @@ using Prism.Windows.Navigation;
 
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest;
-using Pyxis.Helpers;
 using Pyxis.Models;
 using Pyxis.Models.Enums;
 using Pyxis.Mvvm;
@@ -52,7 +51,6 @@ namespace Pyxis.ViewModels.Home
         {
             base.OnNavigatedTo(e, viewModelState);
             _pixivRanking.Fetch();
-            RunHelper.RunLater(_pixivRecommended.Fetch, false, TimeSpan.FromMilliseconds(500));
         }
 
         #endregion

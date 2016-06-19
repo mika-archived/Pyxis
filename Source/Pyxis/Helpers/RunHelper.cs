@@ -2,6 +2,8 @@
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 
+using Reactive.Bindings.Extensions;
+
 namespace Pyxis.Helpers
 {
     internal static class RunHelper
@@ -18,12 +20,12 @@ namespace Pyxis.Helpers
 
         public static void RunLater(Action action, TimeSpan behind)
         {
-            Observable.Return(0).Delay(behind).Subscribe(w => action.Invoke());
+            Observable.Return(0).Delay(behind).ObserveOnUIDispatcher().Subscribe(w => action.Invoke());
         }
 
         public static void RunLater<T>(Action<T> action, T param1, TimeSpan behind)
         {
-            Observable.Return(0).Delay(behind).Subscribe(w => action.Invoke(param1));
+            Observable.Return(0).Delay(behind).ObserveOnUIDispatcher().Subscribe(w => action.Invoke(param1));
         }
 
         public static void RunLaterAsync(Func<Task> action, TimeSpan behind)

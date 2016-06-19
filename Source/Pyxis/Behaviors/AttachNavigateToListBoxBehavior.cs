@@ -9,6 +9,7 @@ using Windows.UI.Xaml.Navigation;
 using Microsoft.Xaml.Interactivity;
 
 using Pyxis.Attach;
+using Pyxis.Helpers;
 
 namespace Pyxis.Behaviors
 {
@@ -74,16 +75,22 @@ namespace Pyxis.Behaviors
 
         private void OnSelectionChanged(object sender, SelectionChangedEventArgs selectionChangedEventArgs)
         {
-            if (!_isAttached && RootFrame != null)
+            SyncState();
+        }
+
+        private void AddEventHandler()
+        {
+            if (RootFrame != null)
             {
                 RootFrame.Navigating += RootFrameOnNavigating;
-                _isAttached = true;
+                return;
             }
-            SyncState();
+            RunHelper.RunLater(AddEventHandler, TimeSpan.FromMilliseconds(100));
         }
 
         private void RootFrameOnNavigating(object sender, NavigatingCancelEventArgs args)
         {
+            CheckStack();
             if (args.NavigationMode == NavigationMode.Back)
                 AssociatedObject.SelectedIndex = _pageStack.Pop();
             else if (args.NavigationMode == NavigationMode.New)
@@ -94,6 +101,12 @@ namespace Pyxis.Behaviors
 
             _oldIndex = AssociatedObject.SelectedIndex;
             SyncState();
+        }
+
+        private void CheckStack()
+        {
+            if (RootFrame.BackStack.Count != _pageStack.Count)
+                _pageStack.Pop();
         }
 
         private void SyncState()
@@ -126,6 +139,7 @@ namespace Pyxis.Behaviors
         {
             base.OnAttached();
             AssociatedObject.SelectionChanged += OnSelectionChanged;
+            RunHelper.RunLater(AddEventHandler, TimeSpan.FromMilliseconds(500));
         }
 
         protected override void OnDetaching()
