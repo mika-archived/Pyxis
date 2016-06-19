@@ -192,7 +192,7 @@
                                     BorderThickness=".25" />
                         </ListBoxItem>
                         <ListBoxItem x:Name="WorkMain"
-                                     attach:NavigateTo.PageToken="WorkMain"
+                                     attach:NavigateTo.PageToken="Work.IllustWork"
                                      RelativePanel.Below="Separator1">
                             <StackPanel Orientation="Horizontal">
                                 <FontIcon Width="48"

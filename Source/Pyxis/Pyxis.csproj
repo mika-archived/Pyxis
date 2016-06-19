@@ -133,6 +133,9 @@
     <Compile Include="ViewModels\New\MypixivNewPageViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="ViewModels\WorkMainPageViewModel.cs" />
+    <Compile Include="ViewModels\Work\IllustWorkPageViewModel.cs" />
+    <Compile Include="ViewModels\Work\MangaWorkPageViewModel.cs" />
+    <Compile Include="ViewModels\Work\NovelWorkPageViewModel.cs" />
     <Compile Include="Views\Error\LoginRequiredPage.xaml.cs">
       <DependentUpon>LoginRequiredPage.xaml</DependentUpon>
     </Compile>
@@ -162,6 +165,18 @@
     </Compile>
     <Compile Include="Views\WorkMainPage.xaml.cs">
       <DependentUpon>WorkMainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Work\IllustWorkPage.xaml.cs">
+      <DependentUpon>IllustWorkPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Work\MangaWorkPage.xaml.cs">
+      <DependentUpon>MangaWorkPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Work\NovelWorkPage.xaml.cs">
+      <DependentUpon>NovelWorkPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Work\PivotTabWork.xaml.cs">
+      <DependentUpon>PivotTabWork.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -286,6 +301,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\WorkMainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Work\IllustWorkPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Work\MangaWorkPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Work\NovelWorkPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Work\PivotTabWork.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
