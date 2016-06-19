@@ -120,7 +120,10 @@
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Interfaces\IImageStoreService.cs" />
+    <Compile Include="ViewModels\BrowsingHistory\IllustMangaBrowsingHistoryPageViewModel.cs" />
+    <Compile Include="ViewModels\BrowsingHistory\NovelBrowsingHistoryPageViewModel.cs" />
     <Compile Include="ViewModels\Error\LoginRequiredPageViewModel.cs" />
+    <Compile Include="ViewModels\Error\PremiumRequiredPageViewModel.cs" />
     <Compile Include="ViewModels\Favorite\IllustMangaFavoritePageViewModel.cs" />
     <Compile Include="ViewModels\Favorite\NovelFavoritePageViewModel.cs" />
     <Compile Include="ViewModels\Home\IllustHomePageViewModel.cs" />
@@ -138,8 +141,20 @@
     <Compile Include="ViewModels\Work\IllustWorkPageViewModel.cs" />
     <Compile Include="ViewModels\Work\MangaWorkPageViewModel.cs" />
     <Compile Include="ViewModels\Work\NovelWorkPageViewModel.cs" />
+    <Compile Include="Views\BrowsingHistory\IllustMangaBrowsingHistoryPage.xaml.cs">
+      <DependentUpon>IllustMangaBrowsingHistoryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BrowsingHistory\NovelBrowsingHistoryPage.xaml.cs">
+      <DependentUpon>NovelBrowsingHistoryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BrowsingHistory\PivotTabBrowsingHistory.xaml.cs">
+      <DependentUpon>PivotTabBrowsingHistory.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Error\LoginRequiredPage.xaml.cs">
       <DependentUpon>LoginRequiredPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Error\PremiumRequiredPage.xaml.cs">
+      <DependentUpon>PremiumRequiredPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Favorite\IllustMangaFavoritePage.xaml.cs">
       <DependentUpon>IllustMangaFavoritePage.xaml</DependentUpon>
@@ -275,7 +290,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\BrowsingHistory\IllustMangaBrowsingHistoryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BrowsingHistory\NovelBrowsingHistoryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BrowsingHistory\PivotTabBrowsingHistory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Error\LoginRequiredPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Error\PremiumRequiredPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

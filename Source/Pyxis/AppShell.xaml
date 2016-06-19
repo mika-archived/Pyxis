@@ -220,7 +220,7 @@
                             </StackPanel>
                         </ListBoxItem>
                         <ListBoxItem x:Name="BrowsingHistory"
-                                     attach:NavigateTo.PageToken="BrowsingHistory"
+                                     attach:NavigateTo.PageToken="BrowsingHistory.IllustMangaBrowsingHistory"
                                      RelativePanel.Below="FavoriteMain">
                             <StackPanel Orientation="Horizontal">
                                 <FontIcon Width="48"
