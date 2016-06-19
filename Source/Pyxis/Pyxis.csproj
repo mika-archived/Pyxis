@@ -127,6 +127,8 @@
     <Compile Include="ViewModels\Error\PremiumRequiredPageViewModel.cs" />
     <Compile Include="ViewModels\Favorite\IllustMangaFavoritePageViewModel.cs" />
     <Compile Include="ViewModels\Favorite\NovelFavoritePageViewModel.cs" />
+    <Compile Include="ViewModels\Following\PrivateFollowingPageViewModel.cs" />
+    <Compile Include="ViewModels\Following\PublicFollowingPageViewModel.cs" />
     <Compile Include="ViewModels\Home\IllustHomePageViewModel.cs" />
     <Compile Include="ViewModels\Home\Items\RankingImageViewModel.cs" />
     <Compile Include="ViewModels\Home\Items\RankingNovelViewModel.cs" />
@@ -168,6 +170,15 @@
     </Compile>
     <Compile Include="Views\Favorite\PivotTabFavorite.xaml.cs">
       <DependentUpon>PivotTabFavorite.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Following\PivotTabFollowing.xaml.cs">
+      <DependentUpon>PivotTabFollowing.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Following\PrivateFollowingPage.xaml.cs">
+      <DependentUpon>PrivateFollowingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Following\PublicFollowingPage.xaml.cs">
+      <DependentUpon>PublicFollowingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Home\IllustHomePage.xaml.cs">
       <DependentUpon>IllustHomePage.xaml</DependentUpon>
@@ -327,6 +338,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Favorite\PivotTabFavorite.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Following\PivotTabFollowing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Following\PrivateFollowingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Following\PublicFollowingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

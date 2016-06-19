@@ -255,7 +255,7 @@
                                     BorderThickness=".25" />
                         </ListBoxItem>
                         <ListBoxItem x:Name="FollowingMain"
-                                     attach:NavigateTo.PageToken="FollowingMain"
+                                     attach:NavigateTo.PageToken="Following.PublicFollowing"
                                      RelativePanel.Below="Separator2">
                             <StackPanel Orientation="Horizontal">
                                 <Grid Width="48"
