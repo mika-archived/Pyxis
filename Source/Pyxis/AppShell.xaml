@@ -206,7 +206,7 @@
                             </StackPanel>
                         </ListBoxItem>
                         <ListBoxItem x:Name="FavoriteMain"
-                                     attach:NavigateTo.PageToken="FavoriteMain"
+                                     attach:NavigateTo.PageToken="Favorite.IllustMangaFavorite"
                                      RelativePanel.Below="WorkMain">
                             <StackPanel Orientation="Horizontal">
                                 <FontIcon Width="48"

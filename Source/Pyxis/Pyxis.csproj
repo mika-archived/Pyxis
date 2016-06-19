@@ -121,6 +121,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Interfaces\IImageStoreService.cs" />
     <Compile Include="ViewModels\Error\LoginRequiredPageViewModel.cs" />
+    <Compile Include="ViewModels\Favorite\IllustMangaFavoritePageViewModel.cs" />
+    <Compile Include="ViewModels\Favorite\NovelFavoritePageViewModel.cs" />
     <Compile Include="ViewModels\Home\IllustHomePageViewModel.cs" />
     <Compile Include="ViewModels\Home\Items\RankingImageViewModel.cs" />
     <Compile Include="ViewModels\Home\Items\RankingNovelViewModel.cs" />
@@ -138,6 +140,15 @@
     <Compile Include="ViewModels\Work\NovelWorkPageViewModel.cs" />
     <Compile Include="Views\Error\LoginRequiredPage.xaml.cs">
       <DependentUpon>LoginRequiredPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Favorite\IllustMangaFavoritePage.xaml.cs">
+      <DependentUpon>IllustMangaFavoritePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Favorite\NovelFavoritePage.xaml.cs">
+      <DependentUpon>NovelFavoritePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Favorite\PivotTabFavorite.xaml.cs">
+      <DependentUpon>PivotTabFavorite.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Home\IllustHomePage.xaml.cs">
       <DependentUpon>IllustHomePage.xaml</DependentUpon>
@@ -265,6 +276,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Error\LoginRequiredPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Favorite\IllustMangaFavoritePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Favorite\NovelFavoritePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Favorite\PivotTabFavorite.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
