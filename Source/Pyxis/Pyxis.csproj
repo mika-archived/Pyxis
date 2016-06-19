@@ -120,6 +120,7 @@
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Interfaces\IImageStoreService.cs" />
+    <Compile Include="ViewModels\Bookmark\MainBookmarkPageViewModel.cs" />
     <Compile Include="ViewModels\BrowsingHistory\IllustMangaBrowsingHistoryPageViewModel.cs" />
     <Compile Include="ViewModels\BrowsingHistory\NovelBrowsingHistoryPageViewModel.cs" />
     <Compile Include="ViewModels\Error\LoginRequiredPageViewModel.cs" />
@@ -141,6 +142,9 @@
     <Compile Include="ViewModels\Work\IllustWorkPageViewModel.cs" />
     <Compile Include="ViewModels\Work\MangaWorkPageViewModel.cs" />
     <Compile Include="ViewModels\Work\NovelWorkPageViewModel.cs" />
+    <Compile Include="Views\Bookmark\MainBookmarkPage.xaml.cs">
+      <DependentUpon>MainBookmarkPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BrowsingHistory\IllustMangaBrowsingHistoryPage.xaml.cs">
       <DependentUpon>IllustMangaBrowsingHistoryPage.xaml</DependentUpon>
     </Compile>
@@ -287,6 +291,10 @@
       <DependentUpon>Controls.xaml</DependentUpon>
     </Page>
     <Page Include="Styles\Controls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Bookmark\MainBookmarkPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

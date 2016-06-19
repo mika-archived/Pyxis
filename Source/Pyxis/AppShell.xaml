@@ -234,7 +234,7 @@
                             </StackPanel>
                         </ListBoxItem>
                         <ListBoxItem x:Name="BookmarkMain"
-                                     attach:NavigateTo.PageToken="BookmarkMain"
+                                     attach:NavigateTo.PageToken="Bookmark.MainBookmark"
                                      RelativePanel.Below="BrowsingHistory">
                             <StackPanel Orientation="Horizontal">
                                 <FontIcon Width="48"
