@@ -127,6 +127,7 @@
     <Compile Include="ViewModels\Error\PremiumRequiredPageViewModel.cs" />
     <Compile Include="ViewModels\Favorite\IllustMangaFavoritePageViewModel.cs" />
     <Compile Include="ViewModels\Favorite\NovelFavoritePageViewModel.cs" />
+    <Compile Include="ViewModels\Follower\MainFollowerPageViewModel.cs" />
     <Compile Include="ViewModels\Following\PrivateFollowingPageViewModel.cs" />
     <Compile Include="ViewModels\Following\PublicFollowingPageViewModel.cs" />
     <Compile Include="ViewModels\Home\IllustHomePageViewModel.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="ViewModels\Home\NovelHomePageViewModel.cs" />
     <Compile Include="ViewModels\Items\PixivImageViewModel.cs" />
     <Compile Include="ViewModels\Items\PixivNovelViewModel.cs" />
+    <Compile Include="ViewModels\Mypixiv\MainMypixivPageViewModel.cs" />
     <Compile Include="ViewModels\New\AllNewPageViewModel.cs" />
     <Compile Include="ViewModels\New\FollowNewPageViewModel.cs" />
     <Compile Include="ViewModels\New\MypixivNewPageViewModel.cs" />
@@ -171,6 +173,9 @@
     <Compile Include="Views\Favorite\PivotTabFavorite.xaml.cs">
       <DependentUpon>PivotTabFavorite.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Follower\MainFollowerPage.xaml.cs">
+      <DependentUpon>MainFollowerPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Following\PivotTabFollowing.xaml.cs">
       <DependentUpon>PivotTabFollowing.xaml</DependentUpon>
     </Compile>
@@ -191,6 +196,9 @@
     </Compile>
     <Compile Include="Views\Home\PivotTabHome.xaml.cs">
       <DependentUpon>PivotTabHome.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Mypixiv\MainMypixivPage.xaml.cs">
+      <DependentUpon>MainMypixivPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\New\AllNewPage.xaml.cs">
       <DependentUpon>AllNewPage.xaml</DependentUpon>
@@ -341,6 +349,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Follower\MainFollowerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Following\PivotTabFollowing.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -366,6 +378,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Home\PivotTabHome.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Mypixiv\MainMypixivPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -280,7 +280,7 @@
                             </StackPanel>
                         </ListBoxItem>
                         <ListBoxItem x:Name="FollowerMain"
-                                     attach:NavigateTo.PageToken="FollowerMain"
+                                     attach:NavigateTo.PageToken="Follower.MainFollower"
                                      RelativePanel.Below="FollowingMain">
                             <StackPanel Orientation="Horizontal">
                                 <Grid Width="48" Height="48">
@@ -300,7 +300,7 @@
                             </StackPanel>
                         </ListBoxItem>
                         <ListBoxItem x:Name="MypixivMain"
-                                     attach:NavigateTo.PageToken="MypixivMain"
+                                     attach:NavigateTo.PageToken="Mypixiv.MainMypixiv"
                                      RelativePanel.Below="FollowerMain">
                             <StackPanel Orientation="Horizontal">
                                 <FontIcon Width="48"
