@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Windows.System;
+
 using Prism.Windows.Navigation;
 
-using Pyxis.Helpers;
 using Pyxis.Services.Interfaces;
 
 namespace Pyxis.ViewModels.New
@@ -17,22 +18,34 @@ namespace Pyxis.ViewModels.New
         {
             _accountService = accountService;
             NavigationService = navigationService;
+            IsLoggedInRequired = !_accountService.IsLoggedIn;
         }
+
+        public async void OnRegisterButtonTapped()
+            => await Launcher.LaunchUriAsync(new Uri("https://accounts.pixiv.net/signup"));
+
+        public void OnLoginButtonTapped() => NavigationService.Navigate("Account.Login", "New.FollowNew");
 
         #region Overrides of ViewModelBase
 
         public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
         {
             base.OnNavigatedTo(e, viewModelState);
-            if (!_accountService.IsLoggedIn)
-                RunHelper.RunLater(RedirectToLoginPageWhenNoLogin, TimeSpan.FromMilliseconds(10));
+            IsLoggedInRequired = !_accountService.IsLoggedIn;
         }
 
         #endregion
 
-        private void RedirectToLoginPageWhenNoLogin()
+        #region IsEnabled
+
+        private bool _isLoggedInRequired;
+
+        public bool IsLoggedInRequired
         {
-            NavigationService.Navigate("Error.LoginRequired", "New.FollowNew");
+            get { return _isLoggedInRequired; }
+            set { SetProperty(ref _isLoggedInRequired, value); }
         }
+
+        #endregion
     }
 }
