@@ -45,6 +45,7 @@ namespace Pyxis
             UIDispatcherScheduler.Initialize();
 
             Container.RegisterInstance<IPixivClient>(new PixivApiClient(), new ContainerControlledLifetimeManager());
+            Container.RegisterType<IAccountService, AccountService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IImageStoreService, ImageStoreService>(new ContainerControlledLifetimeManager());
             // Container.RegisterInstance<IPixivClient>(new PixivWebClient(), new ContainerControlledLifetimeManager());
 

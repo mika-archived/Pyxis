@@ -4,15 +4,19 @@ using System.Collections.Generic;
 using Prism.Windows.Navigation;
 
 using Pyxis.Helpers;
+using Pyxis.Services.Interfaces;
 
 namespace Pyxis.ViewModels.BrowsingHistory
 {
     public class IllustMangaBrowsingHistoryPageViewModel : ViewModel
     {
+        private readonly IAccountService _accountService;
         public INavigationService NavigationService { get; }
 
-        public IllustMangaBrowsingHistoryPageViewModel(INavigationService navigationService)
+        public IllustMangaBrowsingHistoryPageViewModel(IAccountService accountService,
+                                                       INavigationService navigationService)
         {
+            _accountService = accountService;
             NavigationService = navigationService;
         }
 
@@ -21,7 +25,10 @@ namespace Pyxis.ViewModels.BrowsingHistory
         public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
         {
             base.OnNavigatedTo(e, viewModelState);
-            RunHelper.RunLater(RedirectToLoginPageWhenNoLogin, TimeSpan.FromMilliseconds(10));
+            if (!_accountService.IsLoggedIn)
+                RunHelper.RunLater(RedirectToLoginPageWhenNoLogin, TimeSpan.FromMilliseconds(10));
+            else if (!_accountService.IsPremium)
+                RunHelper.RunLater(RedirectToPremiumPageWhenNoPremium, TimeSpan.FromMilliseconds(10));
         }
 
         #endregion

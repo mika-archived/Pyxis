@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 
 using Prism.Windows.Navigation;
 
 using Pyxis.Beta.Interfaces.Rest;
+using Pyxis.Models;
 using Pyxis.Mvvm;
+using Pyxis.Services.Interfaces;
 
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
@@ -16,6 +17,7 @@ namespace Pyxis.ViewModels.Account
 {
     public class LoginPageViewModel : ViewModel
     {
+        private readonly IAccountService _accountService;
         private readonly INavigationService _navigationService;
         private readonly IPixivClient _pixivClient;
         private string _nextPageToken;
@@ -24,8 +26,10 @@ namespace Pyxis.ViewModels.Account
         public ReactiveProperty<string> Password { get; }
         public ReactiveCommand LoginCommand { get; }
 
-        public LoginPageViewModel(INavigationService navigationService, IPixivClient pixivClient)
+        public LoginPageViewModel(IAccountService accountService, INavigationService navigationService,
+                                  IPixivClient pixivClient)
         {
+            _accountService = accountService;
             _navigationService = navigationService;
             _pixivClient = pixivClient;
 
@@ -51,11 +55,11 @@ namespace Pyxis.ViewModels.Account
                                                    password => Password.Value,
                                                    client_id => "bYGKuGVw91e0NMfPGp44euvGt59s",
                                                    username => Username.Value);
-            IsProcessing = false;
             if (account == null)
                 return;
-            // TODO: ユーザーネーム、パスワードの保存
-            Debug.WriteLine(account);
+            _accountService.Save(new AccountInfo(Username.Value, Password.Value, account.User));
+            IsProcessing = false;
+
             _navigationService.Navigate(_nextPageToken, null);
         }
 

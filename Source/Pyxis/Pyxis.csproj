@@ -109,6 +109,7 @@
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Helpers\ModelHelper.cs" />
     <Compile Include="Helpers\RunHelper.cs" />
+    <Compile Include="Models\AccountInfo.cs" />
     <Compile Include="Models\PixivImage.cs" />
     <Compile Include="Models\PixivNovel.cs" />
     <Compile Include="Models\PixivRanking.cs" />
@@ -117,9 +118,11 @@
     <Compile Include="Models\Enums\ContentType.cs" />
     <Compile Include="Mvvm\ViewModelHelper.cs" />
     <Compile Include="PyxisConstants.cs" />
+    <Compile Include="Services\AccountService.cs" />
     <Compile Include="Services\ImageStoreService.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Interfaces\IAccountService.cs" />
     <Compile Include="Services\Interfaces\IImageStoreService.cs" />
     <Compile Include="ViewModels\Account\LoginPageViewModel.cs" />
     <Compile Include="ViewModels\Bookmark\MainBookmarkPageViewModel.cs" />
@@ -147,7 +150,6 @@
     <Compile Include="ViewModels\Search\NovelSearchPageViewModel.cs" />
     <Compile Include="ViewModels\Search\UserSearchPageViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
-    <Compile Include="ViewModels\WorkMainPageViewModel.cs" />
     <Compile Include="ViewModels\Work\IllustWorkPageViewModel.cs" />
     <Compile Include="ViewModels\Work\MangaWorkPageViewModel.cs" />
     <Compile Include="ViewModels\Work\NovelWorkPageViewModel.cs" />
@@ -231,9 +233,6 @@
     </Compile>
     <Compile Include="Views\Search\UserSearchPage.xaml.cs">
       <DependentUpon>UserSearchPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\WorkMainPage.xaml.cs">
-      <DependentUpon>WorkMainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Work\IllustWorkPage.xaml.cs">
       <DependentUpon>IllustWorkPage.xaml</DependentUpon>
@@ -438,10 +437,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Search\UserSearchPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\WorkMainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
