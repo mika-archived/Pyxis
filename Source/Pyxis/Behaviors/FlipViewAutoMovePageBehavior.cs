@@ -19,6 +19,10 @@ namespace Pyxis.Behaviors
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
+                // AdaptiveTrigger で変わった直後とか、 null になってることがある。
+                if (AssociatedObject == null)
+                    return;
+
                 var count = AssociatedObject.Items?.Count ?? 0;
                 _currentIndex = AssociatedObject.SelectedIndex;
                 if (_currentIndex + 1 >= count)
