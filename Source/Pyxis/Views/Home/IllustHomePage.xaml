@@ -118,73 +118,77 @@
         </VisualStateManager.VisualStateGroups>
         <StackPanel Orientation="Vertical">
             <local:PivotTabHome NavigationService="{x:Bind ViewModel.NavigationService}" SelectedIndex="0" />
-            <FlipView x:Name="Ranking"
-                      HorizontalAlignment="Stretch"
-                      VerticalAlignment="Top"
-                      ItemsSource="{x:Bind ViewModel.TopRankingImages}">
-                <i:Interaction.Behaviors>
-                    <behaviors:FlipViewAutoMovePageBehavior />
-                </i:Interaction.Behaviors>
-                <FlipView.ItemTemplate>
-                    <DataTemplate x:DataType="items:RankingImageViewModel">
-                        <Grid>
-                            <Image VerticalAlignment="Center"
-                                   Source="{Binding ThumbnailPath,
-                                                    Mode=OneWay}"
-                                   Stretch="UniformToFill" />
-                            <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                <Border.Background>
-                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                        <GradientStop Offset="-0.1" Color="{ThemeResource SystemBaseHighColor}" />
-                                        <GradientStop Offset="0.5" Color="Transparent" />
-                                        <GradientStop Offset="1.1" Color="{ThemeResource SystemBaseHighColor}" />
-                                    </LinearGradientBrush>
-                                </Border.Background>
-                                <Grid>
-                                    <StackPanel HorizontalAlignment="Left"
-                                                VerticalAlignment="Top"
-                                                Orientation="Horizontal">
-                                        <Grid Margin="5,0" HorizontalAlignment="Center">
-                                            <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                                                      Foreground="Yellow"
-                                                      Glyph="&#xE735;" />
-                                            <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                                                      Foreground="Black"
-                                                      Glyph="&#xE734;" />
-                                        </Grid>
-                                        <TextBlock HorizontalAlignment="Center"
-                                                   Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                                                   Style="{StaticResource SubtitleTextBlockStyle}"
-                                                   Text="{Binding Category,
-                                                                  Mode=OneWay}" />
-                                    </StackPanel>
-                                    <TextBlock Height="40"
-                                               HorizontalAlignment="Center"
-                                               VerticalAlignment="Bottom"
-                                               Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                                               Style="{StaticResource TitleTextBlockStyle}"
-                                               Text="{Binding Title,
-                                                              Mode=OneWay}"
-                                               TextTrimming="CharacterEllipsis"
-                                               TextWrapping="NoWrap" />
-                                </Grid>
-                            </Border>
-                        </Grid>
-                    </DataTemplate>
-                </FlipView.ItemTemplate>
-            </FlipView>
-            <TextBlock Margin="5"
-                       VerticalAlignment="Center"
-                       Style="{ThemeResource FlyoutPickerTitleTextBlockStyle}">
-                <Run FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                     Foreground="HotPink"
-                     Text="&#xE8E1;" />
-                <Run Text=" " />
-                <Run Text="あなたへのおすすめ" />
-            </TextBlock>
             <GridView x:Name="Recommended"
                       VerticalAlignment="Stretch"
                       ItemsSource="{x:Bind ViewModel.RecommendedImages}">
+                <GridView.Header>
+                    <StackPanel>
+                        <FlipView x:Name="Ranking"
+                                  HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Top"
+                                  ItemsSource="{x:Bind ViewModel.TopRankingImages}">
+                            <i:Interaction.Behaviors>
+                                <behaviors:FlipViewAutoMovePageBehavior />
+                            </i:Interaction.Behaviors>
+                            <FlipView.ItemTemplate>
+                                <DataTemplate x:DataType="items:RankingImageViewModel">
+                                    <Grid>
+                                        <Image VerticalAlignment="Center"
+                                               Source="{Binding ThumbnailPath,
+                                                                Mode=OneWay}"
+                                               Stretch="UniformToFill" />
+                                        <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                            <Border.Background>
+                                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                    <GradientStop Offset="-0.1" Color="{ThemeResource SystemBaseHighColor}" />
+                                                    <GradientStop Offset="0.5" Color="Transparent" />
+                                                    <GradientStop Offset="1.1" Color="{ThemeResource SystemBaseHighColor}" />
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <Grid>
+                                                <StackPanel HorizontalAlignment="Left"
+                                                            VerticalAlignment="Top"
+                                                            Orientation="Horizontal">
+                                                    <Grid Margin="5,0" HorizontalAlignment="Center">
+                                                        <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                                                  Foreground="Yellow"
+                                                                  Glyph="&#xE735;" />
+                                                        <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                                                  Foreground="Black"
+                                                                  Glyph="&#xE734;" />
+                                                    </Grid>
+                                                    <TextBlock HorizontalAlignment="Center"
+                                                               Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                                                               Style="{StaticResource SubtitleTextBlockStyle}"
+                                                               Text="{Binding Category,
+                                                                              Mode=OneWay}" />
+                                                </StackPanel>
+                                                <TextBlock Height="40"
+                                                           HorizontalAlignment="Center"
+                                                           VerticalAlignment="Bottom"
+                                                           Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                                                           Style="{StaticResource TitleTextBlockStyle}"
+                                                           Text="{Binding Title,
+                                                                          Mode=OneWay}"
+                                                           TextTrimming="CharacterEllipsis"
+                                                           TextWrapping="NoWrap" />
+                                            </Grid>
+                                        </Border>
+                                    </Grid>
+                                </DataTemplate>
+                            </FlipView.ItemTemplate>
+                        </FlipView>
+                        <TextBlock Margin="5"
+                                   VerticalAlignment="Center"
+                                   Style="{ThemeResource FlyoutPickerTitleTextBlockStyle}">
+                            <Run FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                 Foreground="HotPink"
+                                 Text="&#xE8E1;" />
+                            <Run Text=" " />
+                            <Run Text="あなたへのおすすめ" />
+                        </TextBlock>
+                    </StackPanel>
+                </GridView.Header>
                 <GridView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <ItemsWrapGrid attach:AssumSize.AssumSize="100" Orientation="Horizontal">

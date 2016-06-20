@@ -7,6 +7,7 @@ using Prism.Windows.Navigation;
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Collections;
+using Pyxis.Helpers;
 using Pyxis.Models;
 using Pyxis.Models.Enums;
 using Pyxis.Mvvm;
@@ -42,8 +43,8 @@ namespace Pyxis.ViewModels.Home
                                             .ToReadOnlyReactiveCollection(CreateRankingImage)
                                             .AddTo(this);
 
-            // RecommendedImages = new IncrementalObservableCollection<PixivImageViewModel>();
-            // ModelHelper.ConnectTo(RecommendedImages, _pixivRecommended, w => w.RecommendedImages, CreatePixivImage);
+            RecommendedImages = new IncrementalObservableCollection<PixivImageViewModel>();
+            ModelHelper.ConnectTo(RecommendedImages, _pixivRecommended, w => w.RecommendedImages, CreatePixivImage);
         }
 
         #region Overrides of ViewModelBase
