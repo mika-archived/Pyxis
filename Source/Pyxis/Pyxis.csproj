@@ -101,6 +101,7 @@
     </Compile>
     <Compile Include="Attach\AssumSize.cs" />
     <Compile Include="Attach\NavigateTo.cs" />
+    <Compile Include="Behaviors\AdjustControlSizeBehavior.cs" />
     <Compile Include="Behaviors\AttachNavigateToListBoxBehavior.cs" />
     <Compile Include="Behaviors\AttachNavigationToPivotBehavior.cs" />
     <Compile Include="Behaviors\FlipViewAutoMovePageBehavior.cs" />
@@ -317,7 +318,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Page Include="AppShell.xaml">
       <SubType>Designer</SubType>
@@ -470,6 +470,11 @@
       <Project>{9ed540bc-61ee-45c9-98dd-35a011605176}</Project>
       <Name>Pyxis.Gamma</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="WindowsMobile, Version=10.0.10586.0">
+      <Name>Windows Mobile Extensions for the UWP</Name>
+    </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

@@ -118,9 +118,15 @@
         </VisualStateManager.VisualStateGroups>
         <StackPanel Orientation="Vertical">
             <local:PivotTabHome NavigationService="{x:Bind ViewModel.NavigationService}" SelectedIndex="0" />
+            <!--  Height != NaN かつ、 IncrementalLoading の対象にならない値  -->
+            <!--  AdjustControlSizeBehavior が調節してくれるので、仮の値で良い  -->
             <GridView x:Name="Recommended"
+                      Height="500"
                       VerticalAlignment="Stretch"
                       ItemsSource="{x:Bind ViewModel.RecommendedImages}">
+                <i:Interaction.Behaviors>
+                    <behaviors:AdjustControlSizeBehavior HeightOffset="-95" IsSyncHeight="True" />
+                </i:Interaction.Behaviors>
                 <GridView.Header>
                     <StackPanel>
                         <FlipView x:Name="Ranking"

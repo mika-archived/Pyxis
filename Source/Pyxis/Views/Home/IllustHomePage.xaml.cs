@@ -1,5 +1,4 @@
-﻿using Windows.UI.ViewManagement;
-using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml.Controls;
 
 using Pyxis.ViewModels.Home;
 
@@ -17,7 +16,6 @@ namespace Pyxis.Views.Home
         public IllustHomePage()
         {
             InitializeComponent();
-            Recommended.Height = ApplicationView.GetForCurrentView().VisibleBounds.Height - 45;
         }
     }
 }
