@@ -45,7 +45,7 @@ namespace Pyxis.Models
             var modes = new[] {"day", "day_male", "day_female", "week_original", "week_rookie", "week", "month"};
             foreach (var _ in modes)
             {
-                var illusts = await _pixivClient.IllustV1.RankingAsync(mode => _);
+                var illusts = await _pixivClient.IllustV1.RankingAsync(mode => _, filter => "for_ios");
                 Ranking.Add(new Tuple<RankingMode, IIllusts>(RankingModeExt.FromString(_), illusts));
             }
         }
