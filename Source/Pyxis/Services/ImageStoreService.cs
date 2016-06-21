@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Windows.Storage;
@@ -23,21 +24,29 @@ namespace Pyxis.Services
 
         public async Task<string> SaveImageAsync(string url)
         {
-            var stream = await _client.Pximg.GetAsync(url);
-            var storageFile =
-                await _temporaryFolder.CreateFileAsync(GetFileId(url), CreationCollisionOption.ReplaceExisting);
-            using (var transaction = await storageFile.OpenTransactedWriteAsync())
+            try
             {
-                using (var writer = new DataWriter(transaction.Stream))
+                var stream = await _client.Pximg.GetAsync(url);
+                var storageFile =
+                    await _temporaryFolder.CreateFileAsync(GetFileId(url), CreationCollisionOption.FailIfExists);
+                using (var transaction = await storageFile.OpenTransactedWriteAsync())
                 {
-                    int b;
-                    while ((b = stream.ReadByte()) != -1)
-                        writer.WriteByte((byte) b);
-                    transaction.Stream.Size = await writer.StoreAsync();
-                    await transaction.CommitAsync();
+                    using (var writer = new DataWriter(transaction.Stream))
+                    {
+                        int b;
+                        while ((b = stream.ReadByte()) != -1)
+                            writer.WriteByte((byte) b);
+                        transaction.Stream.Size = await writer.StoreAsync();
+                        await transaction.CommitAsync();
+                    }
                 }
+                return await LoadImageAsync(url);
             }
-            return await LoadImageAsync(url);
+            catch
+            {
+                // アクセス違反
+                return await LoadImageAsync(url);
+            }
         }
 
         public async Task<bool> ExistImageAsync(string url)
@@ -47,7 +56,7 @@ namespace Pyxis.Services
                 await _temporaryFolder.GetFileAsync(GetFileId(url));
                 return true;
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }
@@ -62,6 +71,8 @@ namespace Pyxis.Services
         private string GetFileId(string url)
         {
             var value = Path.GetFileName(url);
+            if (Path.GetInvalidFileNameChars().Any(w => value.Contains(w)))
+                value = Path.GetInvalidFileNameChars().Aggregate(value, (current, c) => current.Replace(c, '_'));
             return value;
         }
     }
