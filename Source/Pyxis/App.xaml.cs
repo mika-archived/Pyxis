@@ -54,7 +54,7 @@ namespace Pyxis
 
         protected override Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)
         {
-            NavigationService.Navigate("Home.IllustHome", null);
+            NavigationService.Navigate("Home.HomeMain", "{\"ContentType\":0}");
             return Task.CompletedTask;
         }
 

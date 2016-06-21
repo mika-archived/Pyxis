@@ -136,7 +136,8 @@
                             <Grid Height="48" />
                         </ListBoxItem>
                         <ListBoxItem x:Name="HomeMain"
-                                     attach:NavigateTo.PageToken="Home.IllustHome"
+                                     attach:NavigateTo.PageToken="Home.HomeMain"
+                                     attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:0}"
                                      IsSelected="True"
                                      RelativePanel.Below="Blank">
                             <StackPanel Orientation="Horizontal">

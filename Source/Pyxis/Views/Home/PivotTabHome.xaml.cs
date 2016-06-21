@@ -3,6 +3,8 @@ using Windows.UI.Xaml.Controls;
 
 using Prism.Windows.Navigation;
 
+using Pyxis.Attach;
+
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace Pyxis.Views.Home
@@ -56,8 +58,10 @@ namespace Pyxis.Views.Home
                 return;
             }
             var item = pivot?.SelectedItem as PivotItem;
-            if (!string.IsNullOrWhiteSpace((string) item?.Tag))
-                NavigationService?.Navigate((string) item.Tag, null);
+            var pageToken = NavigateTo.GetPageToken(item);
+            var paramString = NavigateTo.GetParameters(item);
+            if (pageToken != null)
+                NavigationService?.Navigate(pageToken, paramString);
         }
     }
 }

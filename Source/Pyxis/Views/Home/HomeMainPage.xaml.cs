@@ -9,11 +9,11 @@ namespace Pyxis.Views.Home
     /// <summary>
     ///     それ自体で使用できる空白ページまたはフレーム内に移動できる空白ページ。
     /// </summary>
-    public sealed partial class NovelHomePage : Page
+    public sealed partial class HomeMainPage : Page
     {
-        public NovelHomePageViewModel ViewModel => DataContext as NovelHomePageViewModel;
+        public HomeMainPageViewModel ViewModel => DataContext as HomeMainPageViewModel;
 
-        public NovelHomePage()
+        public HomeMainPage()
         {
             InitializeComponent();
         }

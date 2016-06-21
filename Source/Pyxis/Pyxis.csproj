@@ -112,6 +112,8 @@
     <Compile Include="Helpers\RunHelper.cs" />
     <Compile Include="Models\AccountInfo.cs" />
     <Compile Include="Models\FollowType.cs" />
+    <Compile Include="Models\Parameters\HomeParameter.cs" />
+    <Compile Include="Models\Parameters\ParameterBase.cs" />
     <Compile Include="Models\PixivImage.cs" />
     <Compile Include="Models\PixivNew.cs" />
     <Compile Include="Models\PixivNovel.cs" />
@@ -138,11 +140,9 @@
     <Compile Include="ViewModels\Follower\MainFollowerPageViewModel.cs" />
     <Compile Include="ViewModels\Following\PrivateFollowingPageViewModel.cs" />
     <Compile Include="ViewModels\Following\PublicFollowingPageViewModel.cs" />
-    <Compile Include="ViewModels\Home\IllustHomePageViewModel.cs" />
+    <Compile Include="ViewModels\Home\HomeMainPageViewModel.cs" />
     <Compile Include="ViewModels\Home\Items\RankingImageViewModel.cs" />
     <Compile Include="ViewModels\Home\Items\RankingNovelViewModel.cs" />
-    <Compile Include="ViewModels\Home\MangaHomePageViewModel.cs" />
-    <Compile Include="ViewModels\Home\NovelHomePageViewModel.cs" />
     <Compile Include="ViewModels\Items\PixivImageViewModel.cs" />
     <Compile Include="ViewModels\Items\PixivNovelViewModel.cs" />
     <Compile Include="ViewModels\Mypixiv\MainMypixivPageViewModel.cs" />
@@ -198,14 +198,8 @@
     <Compile Include="Views\Following\PublicFollowingPage.xaml.cs">
       <DependentUpon>PublicFollowingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Home\IllustHomePage.xaml.cs">
-      <DependentUpon>IllustHomePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Home\MangaHomePage.xaml.cs">
-      <DependentUpon>MangaHomePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Home\NovelHomePage.xaml.cs">
-      <DependentUpon>NovelHomePage.xaml</DependentUpon>
+    <Compile Include="Views\Home\HomeMainPage.xaml.cs">
+      <DependentUpon>HomeMainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Home\PivotTabHome.xaml.cs">
       <DependentUpon>PivotTabHome.xaml</DependentUpon>
@@ -393,15 +387,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Home\IllustHomePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Home\MangaHomePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Home\NovelHomePage.xaml">
+    <Page Include="Views\Home\HomeMainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -113,8 +113,9 @@ namespace Pyxis.Behaviors
         {
             var item = AssociatedObject.SelectedItem as ListBoxItem;
             var pageToken = NavigateTo.GetPageToken(item);
+            var param = NavigateTo.GetParameters(item);
             if (!string.IsNullOrWhiteSpace(pageToken))
-                RootFrame?.Navigate(GetPageType(pageToken));
+                RootFrame?.Navigate(GetPageType(pageToken), param);
 
             SetTitle(item?.Content);
             if (ParentSplitView != null)
