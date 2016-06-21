@@ -5,6 +5,8 @@ using Windows.System;
 
 using Prism.Windows.Navigation;
 
+using Pyxis.ViewModels.Base;
+
 namespace Pyxis.ViewModels.Error
 {
     public class LoginRequiredPageViewModel : ViewModel

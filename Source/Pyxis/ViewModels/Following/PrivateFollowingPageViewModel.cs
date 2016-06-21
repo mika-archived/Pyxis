@@ -5,6 +5,7 @@ using Prism.Windows.Navigation;
 
 using Pyxis.Helpers;
 using Pyxis.Services.Interfaces;
+using Pyxis.ViewModels.Base;
 
 namespace Pyxis.ViewModels.Following
 {

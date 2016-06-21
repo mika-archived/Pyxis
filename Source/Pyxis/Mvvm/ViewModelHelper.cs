@@ -1,6 +1,6 @@
 ﻿using System;
 
-using Pyxis.ViewModels;
+using Pyxis.ViewModels.Base;
 
 namespace Pyxis.Mvvm
 {

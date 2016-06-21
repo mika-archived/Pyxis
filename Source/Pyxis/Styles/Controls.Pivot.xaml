@@ -456,4 +456,16 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style x:Key="TabsStyleTextBlockStyle"
+           BasedOn="{StaticResource CaptionTextBlockStyle}"
+           TargetType="TextBlock">
+        <Setter Property="Margin" Value="2,5,2,7" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="FontFamily" Value="Segoe UI" />
+        <Setter Property="IsTextScaleFactorEnabled" Value="False" />
+        <Setter Property="LineHeight" Value="14" />
+        <Setter Property="LineStackingStrategy" Value="BlockLineHeight" />
+        <Setter Property="MaxLines" Value="2" />
+        <Setter Property="TextAlignment" Value="Center" />
+    </Style>
 </ResourceDictionary>

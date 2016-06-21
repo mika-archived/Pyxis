@@ -6,6 +6,7 @@ using Windows.System;
 using Prism.Windows.Navigation;
 
 using Pyxis.Services.Interfaces;
+using Pyxis.ViewModels.Base;
 
 namespace Pyxis.ViewModels.New
 {

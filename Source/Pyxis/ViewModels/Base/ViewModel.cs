@@ -3,7 +3,7 @@ using System.Reactive.Disposables;
 
 using Prism.Windows.Mvvm;
 
-namespace Pyxis.ViewModels
+namespace Pyxis.ViewModels.Base
 {
     public class ViewModel : ViewModelBase, IDisposable
     {

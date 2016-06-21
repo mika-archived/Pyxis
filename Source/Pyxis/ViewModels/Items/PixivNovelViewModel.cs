@@ -6,16 +6,16 @@ using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Models;
 using Pyxis.Mvvm;
 using Pyxis.Services.Interfaces;
+using Pyxis.ViewModels.Base;
 
 using Reactive.Bindings.Extensions;
 
 namespace Pyxis.ViewModels.Items
 {
-    public class PixivNovelViewModel : ViewModel
+    public class PixivNovelViewModel : ThumbnailableViewModel
     {
         private readonly INavigationService _navigationService;
         private readonly INovel _novel;
-        private readonly PixivNovel _pixivNovel;
 
         public string Title => _novel.Title;
         public string Caption => _novel.Caption;
@@ -29,28 +29,11 @@ namespace Pyxis.ViewModels.Items
             _novel = novel;
             _navigationService = navigationService;
 
-            _pixivNovel = new PixivNovel(novel, imageStoreService);
-            _pixivNovel.ObserveProperty(w => w.ThumbnailPath)
-                       .ObserveOnUIDispatcher()
-                       .Subscribe(w => ThumbnailPath = w)
-                       .AddTo(this);
+            Thumbnailable = new PixivNovel(novel, imageStoreService);
+            Thumbnailable.ObserveProperty(w => w.ThumbnailPath)
+                         .ObserveOnUIDispatcher()
+                         .Subscribe(w => ThumbnailPath = w)
+                         .AddTo(this);
         }
-
-        #region ThumbnailPath
-
-        private string _thumbnailPath;
-
-        public string ThumbnailPath
-        {
-            get
-            {
-                if (_thumbnailPath == PyxisConstants.DummyImage)
-                    _pixivNovel.ShowThumbnail();
-                return _thumbnailPath;
-            }
-            set { SetProperty(ref _thumbnailPath, value); }
-        }
-
-        #endregion
     }
 }

@@ -1,14 +1,13 @@
 ﻿using System.Threading.Tasks;
 
-using Prism.Mvvm;
-
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Helpers;
+using Pyxis.Models.Base;
 using Pyxis.Services.Interfaces;
 
 namespace Pyxis.Models
 {
-    internal class PixivImage : BindableBase
+    internal class PixivImage : ThumbnailableBase
     {
         private readonly IIllust _illust;
         private readonly IImageStoreService _imageStoreService;
@@ -17,34 +16,21 @@ namespace Pyxis.Models
         {
             _illust = illust;
             _imageStoreService = imageStoreService;
-            ImagePath = PyxisConstants.DummyImage;
         }
 
-        public void ShowThumbnail() => RunHelper.RunAsync(DownloadImage);
+        public override void ShowThumbnail() => RunHelper.RunAsync(DownloadImage);
 
         private async Task DownloadImage()
         {
             if (await _imageStoreService.ExistImageAsync(_illust.ImageUrls.Medium))
-                ImagePath = await _imageStoreService.LoadImageAsync(_illust.ImageUrls.Medium);
+                ThumbnailPath = await _imageStoreService.LoadImageAsync(_illust.ImageUrls.Medium);
             else
-                ImagePath = await _imageStoreService.SaveImageAsync(_illust.ImageUrls.Medium);
+                ThumbnailPath = await _imageStoreService.SaveImageAsync(_illust.ImageUrls.Medium);
         }
 
         public void Save()
         {
             // TODO: 画像保存
         }
-
-        #region ImagePath
-
-        private string _imagePath;
-
-        public string ImagePath
-        {
-            get { return _imagePath; }
-            set { SetProperty(ref _imagePath, value); }
-        }
-
-        #endregion
     }
 }

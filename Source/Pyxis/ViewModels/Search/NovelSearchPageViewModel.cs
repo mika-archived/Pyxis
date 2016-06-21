@@ -1,5 +1,7 @@
 ﻿using Prism.Windows.Navigation;
 
+using Pyxis.ViewModels.Base;
+
 namespace Pyxis.ViewModels.Search
 {
     public class NovelSearchPageViewModel : ViewModel

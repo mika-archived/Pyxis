@@ -111,6 +111,7 @@
     <Compile Include="Helpers\ModelHelper.cs" />
     <Compile Include="Helpers\RunHelper.cs" />
     <Compile Include="Models\AccountInfo.cs" />
+    <Compile Include="Models\Base\ThumbnailableBase.cs" />
     <Compile Include="Models\FollowType.cs" />
     <Compile Include="Models\Parameters\HomeParameter.cs" />
     <Compile Include="Models\Parameters\ParameterBase.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="Services\Interfaces\IAccountService.cs" />
     <Compile Include="Services\Interfaces\IImageStoreService.cs" />
     <Compile Include="ViewModels\Account\LoginPageViewModel.cs" />
+    <Compile Include="ViewModels\Base\ThumbnailableViewModel.cs" />
     <Compile Include="ViewModels\Bookmark\MainBookmarkPageViewModel.cs" />
     <Compile Include="ViewModels\BrowsingHistory\IllustMangaBrowsingHistoryPageViewModel.cs" />
     <Compile Include="ViewModels\BrowsingHistory\NovelBrowsingHistoryPageViewModel.cs" />
@@ -140,7 +142,7 @@
     <Compile Include="ViewModels\Follower\MainFollowerPageViewModel.cs" />
     <Compile Include="ViewModels\Following\PrivateFollowingPageViewModel.cs" />
     <Compile Include="ViewModels\Following\PublicFollowingPageViewModel.cs" />
-    <Compile Include="ViewModels\Home\HomeMainPageViewModel.cs" />
+    <Compile Include="ViewModels\HomeMainPageViewModel.cs" />
     <Compile Include="ViewModels\Home\Items\RankingImageViewModel.cs" />
     <Compile Include="ViewModels\Home\Items\RankingNovelViewModel.cs" />
     <Compile Include="ViewModels\Items\PixivImageViewModel.cs" />
@@ -152,7 +154,7 @@
     <Compile Include="ViewModels\Search\IllustMangaSearchPageViewModel.cs" />
     <Compile Include="ViewModels\Search\NovelSearchPageViewModel.cs" />
     <Compile Include="ViewModels\Search\UserSearchPageViewModel.cs" />
-    <Compile Include="ViewModels\ViewModel.cs" />
+    <Compile Include="ViewModels\Base\ViewModel.cs" />
     <Compile Include="ViewModels\Work\IllustWorkPageViewModel.cs" />
     <Compile Include="ViewModels\Work\MangaWorkPageViewModel.cs" />
     <Compile Include="ViewModels\Work\NovelWorkPageViewModel.cs" />
@@ -198,11 +200,8 @@
     <Compile Include="Views\Following\PublicFollowingPage.xaml.cs">
       <DependentUpon>PublicFollowingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Home\HomeMainPage.xaml.cs">
+    <Compile Include="Views\HomeMainPage.xaml.cs">
       <DependentUpon>HomeMainPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Home\PivotTabHome.xaml.cs">
-      <DependentUpon>PivotTabHome.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Mypixiv\MainMypixivPage.xaml.cs">
       <DependentUpon>MainMypixivPage.xaml</DependentUpon>
@@ -387,11 +386,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Home\HomeMainPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Home\PivotTabHome.xaml">
+    <Page Include="Views\HomeMainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

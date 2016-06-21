@@ -7,18 +7,18 @@ using Pyxis.Models;
 using Pyxis.Models.Enums;
 using Pyxis.Mvvm;
 using Pyxis.Services.Interfaces;
+using Pyxis.ViewModels.Base;
 
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 
 namespace Pyxis.ViewModels.Home.Items
 {
-    public class RankingNovelViewModel : ViewModel
+    public class RankingNovelViewModel : ThumbnailableViewModel
     {
         private readonly RankingMode _mode;
         private readonly INavigationService _navigationService;
         private readonly INovel _novel;
-        private readonly PixivNovel _pixivNovel;
 
         public string Title => _novel.Title;
         public string Category => _mode.ToDisplayString();
@@ -31,28 +31,11 @@ namespace Pyxis.ViewModels.Home.Items
             _novel = novel;
             _navigationService = navigationService;
 
-            _pixivNovel = new PixivNovel(novel, imageStoreService);
-            _pixivNovel.ObserveProperty(w => w.ThumbnailPath)
-                       .ObserveOnUIDispatcher()
-                       .Subscribe(w => ThumbnailPath = w)
-                       .AddTo(this);
+            Thumbnailable = new PixivNovel(novel, imageStoreService);
+            Thumbnailable.ObserveProperty(w => w.ThumbnailPath)
+                         .ObserveOnUIDispatcher()
+                         .Subscribe(w => ThumbnailPath = w)
+                         .AddTo(this);
         }
-
-        #region ThumbnailPath
-
-        private string _thumbnailPath;
-
-        public string ThumbnailPath
-        {
-            get
-            {
-                if (_thumbnailPath == PyxisConstants.DummyImage)
-                    _pixivNovel.ShowThumbnail();
-                return _thumbnailPath;
-            }
-            set { SetProperty(ref _thumbnailPath, value); }
-        }
-
-        #endregion
     }
 }

@@ -13,12 +13,13 @@ using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
 using Pyxis.Mvvm;
 using Pyxis.Services.Interfaces;
+using Pyxis.ViewModels.Base;
 using Pyxis.ViewModels.Home.Items;
 using Pyxis.ViewModels.Items;
 
 using Reactive.Bindings;
 
-namespace Pyxis.ViewModels.Home
+namespace Pyxis.ViewModels
 {
     public class HomeMainPageViewModel : ViewModel
     {
@@ -29,7 +30,7 @@ namespace Pyxis.ViewModels.Home
         public INavigationService NavigationService { get; }
 
         public ReadOnlyReactiveCollection<RankingImageViewModel> TopRankingImages { get; private set; }
-        public IncrementalObservableCollection<PixivImageViewModel> RecommendedImages { get; }
+        public IncrementalObservableCollection<ThumbnailableViewModel> RecommendedItems { get; }
 
         public HomeMainPageViewModel(IImageStoreService imageStoreService, IPixivClient pixivClient,
                                      INavigationService navigationService)
@@ -44,8 +45,8 @@ namespace Pyxis.ViewModels.Home
                                             .ToReadOnlyReactiveCollection(CreateRankingImage)
                                             .AddTo(this);
 
-            RecommendedImages = new IncrementalObservableCollection<PixivImageViewModel>();
-            ModelHelper.ConnectTo(RecommendedImages, _pixivRecommended, w => w.RecommendedImages, CreatePixivImage);
+            RecommendedItems = new IncrementalObservableCollection<ThumbnailableViewModel>();
+            ModelHelper.ConnectTo(RecommendedItems, _pixivRecommended, w => w.RecommendedImages, CreatePixivImage);
         }
 
         #region Overrides of ViewModelBase

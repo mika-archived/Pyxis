@@ -9,6 +9,7 @@ using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Models;
 using Pyxis.Mvvm;
 using Pyxis.Services.Interfaces;
+using Pyxis.ViewModels.Base;
 
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
