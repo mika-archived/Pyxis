@@ -206,7 +206,11 @@
                 </GridView.ItemsPanel>
                 <GridView.ItemTemplate>
                     <DataTemplate x:DataType="pixivItems:PixivImageViewModel">
-                        <TextBlock Text="{Binding Title}" />
+                        <Grid>
+                            <Image VerticalAlignment="Center"
+                                   Source="{Binding ThumbnailPath}"
+                                   Stretch="UniformToFill" />
+                        </Grid>
                     </DataTemplate>
                 </GridView.ItemTemplate>
             </GridView>

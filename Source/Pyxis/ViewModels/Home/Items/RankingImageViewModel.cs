@@ -24,7 +24,6 @@ namespace Pyxis.ViewModels.Home.Items
         public string Title => _illust.Title;
 
         public string Category => _mode.ToDisplayString();
-
         public ReactiveCommand ItemTappedCommand { get; }
 
         public RankingImageViewModel(RankingMode mode, IIllust illust, IImageStoreService imageStoreService,
@@ -35,7 +34,10 @@ namespace Pyxis.ViewModels.Home.Items
             _navigationService = navigationService;
 
             _pixivImage = new PixivImage(illust, imageStoreService);
-            _pixivImage.ObserveProperty(w => w.ImagePath).Subscribe(w => ThumbnailPath = w).AddTo(this);
+            _pixivImage.ObserveProperty(w => w.ImagePath)
+                       .ObserveOnUIDispatcher()
+                       .Subscribe(w => ThumbnailPath = w)
+                       .AddTo(this);
             ItemTappedCommand = new ReactiveCommand();
             ItemTappedCommand.Subscribe(w => Debug.WriteLine(w)).AddTo(this);
         }

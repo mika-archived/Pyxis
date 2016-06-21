@@ -32,7 +32,10 @@ namespace Pyxis.ViewModels.Home.Items
             _navigationService = navigationService;
 
             _pixivNovel = new PixivNovel(novel, imageStoreService);
-            _pixivNovel.ObserveProperty(w => w.ThumbnailPath).Subscribe(w => ThumbnailPath = w).AddTo(this);
+            _pixivNovel.ObserveProperty(w => w.ThumbnailPath)
+                       .ObserveOnUIDispatcher()
+                       .Subscribe(w => ThumbnailPath = w)
+                       .AddTo(this);
         }
 
         #region ThumbnailPath

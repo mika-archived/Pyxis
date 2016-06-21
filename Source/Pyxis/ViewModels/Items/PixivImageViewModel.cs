@@ -36,7 +36,10 @@ namespace Pyxis.ViewModels.Items
             _navigationService = navigationService;
 
             _pixivImage = new PixivImage(illust, imageStoreService);
-            _pixivImage.ObserveProperty(w => w.ImagePath).Subscribe(w => ThumbnailPath = w).AddTo(this);
+            _pixivImage.ObserveProperty(w => w.ImagePath)
+                       .ObserveOnUIDispatcher()
+                       .Subscribe(w => ThumbnailPath = w)
+                       .AddTo(this);
             ItemTappedCommand = new ReactiveCommand();
             ItemTappedCommand.Subscribe(w => Debug.WriteLine(w)).AddTo(this);
         }
