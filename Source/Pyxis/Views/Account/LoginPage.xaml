@@ -34,6 +34,15 @@
                          Password="{x:Bind ViewModel.Password.Value, Mode=TwoWay}"
                          PlaceholderText="パスワード" />
 
+            <TextBlock Margin="5"
+                       Foreground="Red"
+                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                       Visibility="{x:Bind ViewModel.IsLoginFailure, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
+                <Run>ログインに失敗しました。</Run>
+                <LineBreak />
+                <Run>メールアドレスとパスワードを確認してください。</Run>
+            </TextBlock>
+
             <Button Width="250"
                     Margin="10"
                     HorizontalAlignment="Center"

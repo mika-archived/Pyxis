@@ -55,10 +55,13 @@ namespace Pyxis.ViewModels.Account
                                                    password => Password.Value,
                                                    client_id => "bYGKuGVw91e0NMfPGp44euvGt59s",
                                                    username => Username.Value);
-            if (account == null)
-                return;
-            _accountService.Save(new AccountInfo(Username.Value, Password.Value, account.User));
             IsProcessing = false;
+            if (account == null)
+            {
+                IsLoginFailure = true;
+                return;
+            }
+            _accountService.Save(new AccountInfo(Username.Value, Password.Value, account.User));
 
             _navigationService.Navigate(_nextPageToken, null);
         }
@@ -81,6 +84,18 @@ namespace Pyxis.ViewModels.Account
         {
             get { return _isProcessing; }
             set { SetProperty(ref _isProcessing, value); }
+        }
+
+        #endregion
+
+        #region IsLoginFailure
+
+        private bool _isLoginFailure;
+
+        public bool IsLoginFailure
+        {
+            get { return _isLoginFailure; }
+            set { SetProperty(ref _isLoginFailure, value); }
         }
 
         #endregion
