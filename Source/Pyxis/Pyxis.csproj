@@ -143,8 +143,9 @@
     <Compile Include="ViewModels\Following\PrivateFollowingPageViewModel.cs" />
     <Compile Include="ViewModels\Following\PublicFollowingPageViewModel.cs" />
     <Compile Include="ViewModels\HomeMainPageViewModel.cs" />
-    <Compile Include="ViewModels\Home\Items\RankingImageViewModel.cs" />
-    <Compile Include="ViewModels\Home\Items\RankingNovelViewModel.cs" />
+    <Compile Include="ViewModels\Home\Base\RankingViewModel.cs" />
+    <Compile Include="ViewModels\Home\RankingImageViewModel.cs" />
+    <Compile Include="ViewModels\Home\RankingNovelViewModel.cs" />
     <Compile Include="ViewModels\Items\PixivImageViewModel.cs" />
     <Compile Include="ViewModels\Items\PixivNovelViewModel.cs" />
     <Compile Include="ViewModels\Mypixiv\MainMypixivPageViewModel.cs" />

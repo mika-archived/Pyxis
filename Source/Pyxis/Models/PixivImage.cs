@@ -27,10 +27,5 @@ namespace Pyxis.Models
             else
                 ThumbnailPath = await _imageStoreService.SaveImageAsync(_illust.ImageUrls.Medium);
         }
-
-        public void Save()
-        {
-            // TODO: 画像保存
-        }
     }
 }

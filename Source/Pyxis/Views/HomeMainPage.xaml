@@ -7,10 +7,9 @@
       xmlns:base="using:Pyxis.ViewModels.Base"
       xmlns:behaviors="using:Pyxis.Behaviors"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:homeBase="using:Pyxis.ViewModels.Home.Base"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
-      xmlns:items="using:Pyxis.ViewModels.Home.Items"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:pixivItems="using:Pyxis.ViewModels.Items"
       xmlns:prism="using:Prism.Windows.Mvvm"
       xmlns:viewModels="using:Pyxis.ViewModels"
       d:DataContext="{d:DesignInstance viewModels:HomeMainPageViewModel}"
@@ -157,12 +156,12 @@
                         <FlipView x:Name="Ranking"
                                   HorizontalAlignment="Stretch"
                                   VerticalAlignment="Top"
-                                  ItemsSource="{x:Bind ViewModel.TopRankingImages}">
+                                  ItemsSource="{x:Bind ViewModel.TopRanking}">
                             <i:Interaction.Behaviors>
                                 <behaviors:FlipViewAutoMovePageBehavior />
                             </i:Interaction.Behaviors>
                             <FlipView.ItemTemplate>
-                                <DataTemplate x:DataType="items:RankingImageViewModel">
+                                <DataTemplate x:DataType="homeBase:RankingViewModel">
                                     <Grid>
                                         <Image VerticalAlignment="Center"
                                                Source="{Binding ThumbnailPath,
