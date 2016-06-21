@@ -28,11 +28,8 @@ namespace Pyxis.Models
         {
             _contentType = contentType;
             _pixivClient = pixivClient;
-
-            if (_contentType == ContentType.Novel)
-                RecommendedNovels = new ObservableCollection<INovel>();
-            else
-                RecommendedImages = new ObservableCollection<IIllust>();
+            RecommendedNovels = new ObservableCollection<INovel>();
+            RecommendedImages = new ObservableCollection<IIllust>();
         }
 
         public void Fetch(bool isClear) => RunHelper.RunAsync(FetchRecommended, isClear);

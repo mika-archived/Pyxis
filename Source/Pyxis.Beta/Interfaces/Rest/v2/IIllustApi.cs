@@ -14,6 +14,6 @@ namespace Pyxis.Beta.Interfaces.Rest.v2
 
         Task<IIllusts> FollowAsync(params Expression<Func<string, object>>[] parameters);
 
-        Task<IIllusts> MypixivAsync();
+        Task<IIllusts> MypixivAsync(params Expression<Func<string, object>>[] parameters);
     }
 }

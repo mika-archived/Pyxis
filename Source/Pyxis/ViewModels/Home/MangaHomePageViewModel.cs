@@ -6,6 +6,8 @@ using Prism.Windows.Navigation;
 
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest;
+using Pyxis.Collections;
+using Pyxis.Helpers;
 using Pyxis.Models;
 using Pyxis.Models.Enums;
 using Pyxis.Mvvm;
@@ -25,8 +27,8 @@ namespace Pyxis.ViewModels.Home
         private readonly PixivRecommended _pixivRecommended;
         public INavigationService NavigationService { get; }
 
-        public ReadOnlyReactiveCollection<RankingImageViewModel> TopTankingImages { get; private set; }
-        public ReadOnlyReactiveCollection<PixivImageViewModel> RecommendedImages { get; private set; }
+        public ReadOnlyReactiveCollection<RankingImageViewModel> TopRankingImages { get; private set; }
+        public IncrementalObservableCollection<PixivImageViewModel> RecommendedImages { get; }
 
         public MangaHomePageViewModel(IImageStoreService imageStoreService, IPixivClient pixivClient,
                                       INavigationService navigationService)
@@ -37,12 +39,11 @@ namespace Pyxis.ViewModels.Home
             _pixivRanking = new PixivRanking(pixivClient, ContentType.Manga);
             _pixivRecommended = new PixivRecommended(pixivClient, ContentType.Manga);
 
-            TopTankingImages = _pixivRanking.Ranking
+            TopRankingImages = _pixivRanking.Ranking
                                             .ToReadOnlyReactiveCollection(CreateRankingImage)
                                             .AddTo(this);
-            RecommendedImages = _pixivRecommended.RecommendedImages
-                                                 .ToReadOnlyReactiveCollection(CreatePixivImage)
-                                                 .AddTo(this);
+            RecommendedImages = new IncrementalObservableCollection<PixivImageViewModel>();
+            ModelHelper.ConnectTo(RecommendedImages, _pixivRecommended, w => w.RecommendedImages, CreatePixivImage);
         }
 
         #region Overrides of ViewModelBase

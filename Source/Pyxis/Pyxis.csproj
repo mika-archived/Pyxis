@@ -111,7 +111,9 @@
     <Compile Include="Helpers\ModelHelper.cs" />
     <Compile Include="Helpers\RunHelper.cs" />
     <Compile Include="Models\AccountInfo.cs" />
+    <Compile Include="Models\FollowType.cs" />
     <Compile Include="Models\PixivImage.cs" />
+    <Compile Include="Models\PixivNew.cs" />
     <Compile Include="Models\PixivNovel.cs" />
     <Compile Include="Models\PixivRanking.cs" />
     <Compile Include="Models\PixivRecommended.cs" />
@@ -213,6 +215,9 @@
     </Compile>
     <Compile Include="Views\New\AllNewPage.xaml.cs">
       <DependentUpon>AllNewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\New\All\PivotTabAll.xaml.cs">
+      <DependentUpon>PivotTabAll.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\New\FollowNewPage.xaml.cs">
       <DependentUpon>FollowNewPage.xaml</DependentUpon>
@@ -409,6 +414,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\New\AllNewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\New\All\PivotTabAll.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -24,8 +24,8 @@ namespace Pyxis.Alpha.Rest.v2
         public async Task<IIllusts> FollowAsync(params Expression<Func<string, object>>[] parameters)
             => await _client.GetAsync<Illusts>(Endpoints.IllustFollow, true, parameters);
 
-        public async Task<IIllusts> MypixivAsync()
-            => await _client.GetAsync<Illusts>(Endpoints.IllustMypixiv, true);
+        public async Task<IIllusts> MypixivAsync(params Expression<Func<string, object>>[] parameters)
+            => await _client.GetAsync<Illusts>(Endpoints.IllustMypixiv, true, parameters);
 
         #endregion
     }
