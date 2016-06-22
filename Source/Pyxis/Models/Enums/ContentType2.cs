@@ -1,10 +1,8 @@
 ﻿namespace Pyxis.Models.Enums
 {
-    internal enum ContentType
+    internal enum ContentType2
     {
-        Illust,
-
-        Manga,
+        IllustAndManga,
 
         Novel
     }

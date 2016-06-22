@@ -11,10 +11,14 @@ using Prism.Unity.Windows;
 
 using Pyxis.Alpha;
 using Pyxis.Beta.Interfaces.Rest;
+using Pyxis.Models.Enums;
+using Pyxis.Models.Parameters;
 using Pyxis.Services;
 using Pyxis.Services.Interfaces;
 
 using Reactive.Bindings;
+
+using FollowType = Pyxis.Models.FollowType;
 
 namespace Pyxis
 {
@@ -61,6 +65,8 @@ namespace Pyxis
         protected override Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)
         {
             NavigationService.Navigate("HomeMain", "{\"ContentType\":0}");
+            var param = new NewParameter {ContentType = ContentType2.IllustAndManga, FollowType = FollowType.Following};
+            Debug.WriteLine(param.ToJson());
             return Task.CompletedTask;
         }
 

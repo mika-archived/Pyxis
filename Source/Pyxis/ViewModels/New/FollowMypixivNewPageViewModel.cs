@@ -5,6 +5,7 @@ using Windows.System;
 
 using Prism.Windows.Navigation;
 
+using Pyxis.Models.Parameters;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
 
@@ -22,6 +23,13 @@ namespace Pyxis.ViewModels.New
             IsLoggedInRequired = !_accountService.IsLoggedIn;
         }
 
+        private void Initialize(NewParameter parameter)
+        {
+            SelectedIndex = (int) parameter.FollowType;
+            SubSelectdIndex = (int) parameter.ContentType;
+            IsLoggedInRequired = !_accountService.IsLoggedIn;
+        }
+
         public async void OnRegisterButtonTapped()
             => await Launcher.LaunchUriAsync(new Uri("https://accounts.pixiv.net/signup"));
 
@@ -32,12 +40,13 @@ namespace Pyxis.ViewModels.New
         public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
         {
             base.OnNavigatedTo(e, viewModelState);
-            IsLoggedInRequired = !_accountService.IsLoggedIn;
+            var parameters = ParameterBase.ToObject<NewParameter>(e.Parameter?.ToString());
+            Initialize(parameters);
         }
 
         #endregion
 
-        #region IsEnabled
+        #region IsLoggedInRequired
 
         private bool _isLoggedInRequired;
 
@@ -45,6 +54,30 @@ namespace Pyxis.ViewModels.New
         {
             get { return _isLoggedInRequired; }
             set { SetProperty(ref _isLoggedInRequired, value); }
+        }
+
+        #endregion
+
+        #region SelectdIndex
+
+        private int _selectedIndex;
+
+        public int SelectedIndex
+        {
+            get { return _selectedIndex; }
+            set { SetProperty(ref _selectedIndex, value); }
+        }
+
+        #endregion
+
+        #region SubSelectdIndex
+
+        private int _subSelectedIndex;
+
+        public int SubSelectdIndex
+        {
+            get { return _subSelectedIndex; }
+            set { SetProperty(ref _subSelectedIndex, value); }
         }
 
         #endregion

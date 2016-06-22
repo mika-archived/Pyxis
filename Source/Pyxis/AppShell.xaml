@@ -153,7 +153,7 @@
                         </ListBoxItem>
                         <ListBoxItem x:Name="NewMain"
                                      attach:NavigateTo.PageToken="New.FollowMypixivNew"
-                                     attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:3}"
+                                     attach:NavigateTo.Parameters="{}{&quot;FollowType&quot;:0,&quot;ContentType&quot;:0}"
                                      RelativePanel.Below="HomeMain">
                             <StackPanel Orientation="Horizontal">
                                 <Grid Width="48" Height="48">

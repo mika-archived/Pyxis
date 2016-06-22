@@ -6,6 +6,6 @@ namespace Pyxis.Models.Parameters
     {
         public FollowType FollowType { get; set; }
 
-        public ContentType ContentType { get; set; }
+        public ContentType2 ContentType { get; set; }
     }
 }

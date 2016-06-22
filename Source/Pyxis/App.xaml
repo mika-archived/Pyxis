@@ -10,6 +10,7 @@
                 <ResourceDictionary Source="Styles/Controls.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <converters:StringFormatConverter x:Key="StringFormatConverter" />
         </ResourceDictionary>
     </prism:PrismUnityApplication.Resources>
 </prism:PrismUnityApplication>

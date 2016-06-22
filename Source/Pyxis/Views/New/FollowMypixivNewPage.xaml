@@ -13,25 +13,29 @@
       mc:Ignorable="d">
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel Orientation="Vertical">
-            <Pivot SelectedIndex="0" Style="{StaticResource TabsStylePivotStyle}">
+            <Pivot SelectedIndex="{x:Bind ViewModel.SelectedIndex, Mode=OneTime}"
+                   Style="{StaticResource TabsStylePivotStyle}">
                 <i:Interaction.Behaviors>
                     <behaviors:AttachNavigationToPivotBehavior NavigationService="{x:Bind ViewModel.NavigationService}" />
                 </i:Interaction.Behaviors>
-                <PivotItem attach:NavigateTo.PageToken="New.FollowMypixivNew" attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:0}">
+                <PivotItem attach:NavigateTo.PageToken="New.FollowMypixivNew"
+                           attach:NavigateTo.Parameters="{}{&quot;FollowType&quot;:0,&quot;ContentType&quot;:0}">
                     <PivotItem.Header>
                         <TextBlock Width="64"
                                    Style="{StaticResource TabsStyleTextBlockStyle}"
                                    Text="フォロー" />
                     </PivotItem.Header>
                 </PivotItem>
-                <PivotItem attach:NavigateTo.PageToken="New.AllNew" attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:0}">
+                <PivotItem attach:NavigateTo.PageToken="New.AllNew"
+                           attach:NavigateTo.Parameters="{}{&quot;FollowType&quot;:1,&quot;ContentType&quot;:0}">
                     <PivotItem.Header>
                         <TextBlock Width="64"
                                    Style="{StaticResource TabsStyleTextBlockStyle}"
                                    Text="みんな" />
                     </PivotItem.Header>
                 </PivotItem>
-                <PivotItem attach:NavigateTo.PageToken="New.FollowMypixivNew" attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:2}">
+                <PivotItem attach:NavigateTo.PageToken="New.FollowMypixivNew"
+                           attach:NavigateTo.Parameters="{}{&quot;FollowType&quot;:2,&quot;ContentType&quot;:0}">
                     <PivotItem.Header>
                         <TextBlock Width="64"
                                    Style="{StaticResource TabsStyleTextBlockStyle}"
@@ -39,15 +43,35 @@
                     </PivotItem.Header>
                 </PivotItem>
             </Pivot>
-            <Pivot Style="{StaticResource MiniTabsStylePivotStyle}" SelectedIndex="0">
-                <PivotItem attach:NavigateTo.PageToken="HomeMain" attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:0}">
+            <Pivot SelectedIndex="{x:Bind ViewModel.SubSelectdIndex}"
+                   Style="{StaticResource MiniTabsStylePivotStyle}">
+                <i:Interaction.Behaviors>
+                    <behaviors:AttachNavigationToPivotBehavior NavigationService="{x:Bind ViewModel.NavigationService}" />
+                </i:Interaction.Behaviors>
+                <PivotItem attach:NavigateTo.PageToken="New.FollowMypixivNew">
+                    <attach:NavigateTo.Parameters>
+                        <Binding Converter="{StaticResource StringFormatConverter}"
+                                 Path="SelectedIndex">
+                            <Binding.ConverterParameter>
+                                {{&quot;FollowType&quot;:{0},&quot;ContentType&quot;:0}}
+                            </Binding.ConverterParameter>
+                        </Binding>
+                    </attach:NavigateTo.Parameters>
                     <PivotItem.Header>
                         <TextBlock Width="80"
                                    Style="{StaticResource TabsStyleTextBlockStyle}"
                                    Text="マンガ・イラスト" />
                     </PivotItem.Header>
                 </PivotItem>
-                <PivotItem attach:NavigateTo.PageToken="HomeMain" attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:2}">
+                <PivotItem attach:NavigateTo.PageToken="New.FollowMypixivNew">
+                    <attach:NavigateTo.Parameters>
+                        <Binding Converter="{StaticResource StringFormatConverter}"
+                                 Path="SelectedIndex">
+                            <Binding.ConverterParameter>
+                                {{&quot;FollowType&quot;:{0},&quot;ContentType&quot;:1}}
+                            </Binding.ConverterParameter>
+                        </Binding>
+                    </attach:NavigateTo.Parameters>
                     <PivotItem.Header>
                         <TextBlock Width="80"
                                    Style="{StaticResource TabsStyleTextBlockStyle}"

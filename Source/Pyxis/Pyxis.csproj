@@ -108,11 +108,13 @@
     <Compile Include="Behaviors\GridViewEuqalitySizeBehavior.cs" />
     <Compile Include="Collections\IncrementalObservableCollection.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\StringFormatConverter.cs" />
     <Compile Include="Helpers\ModelHelper.cs" />
     <Compile Include="Helpers\RunHelper.cs" />
     <Compile Include="Models\AccountInfo.cs" />
     <Compile Include="Models\Base\ThumbnailableBase.cs" />
     <Compile Include="Models\Enums\FollowType.cs" />
+    <Compile Include="Models\Enums\ContentType2.cs" />
     <Compile Include="Models\Enums\RestrictType.cs" />
     <Compile Include="Models\Enums\SearchType.cs" />
     <Compile Include="Models\FollowType.cs" />
