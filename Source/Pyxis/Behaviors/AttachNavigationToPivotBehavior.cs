@@ -16,6 +16,8 @@ namespace Pyxis.Behaviors
                                         typeof(AttachNavigationToPivotBehavior),
                                         new PropertyMetadata(null));
 
+        private int _oldSelectedIndex;
+
         public INavigationService NavigationService
         {
             get { return (INavigationService) GetValue(NavigationServiceProperty); }
@@ -25,6 +27,8 @@ namespace Pyxis.Behaviors
         private void OnSelectionChanged(object sender, SelectionChangedEventArgs args)
         {
             var pivot = sender as Pivot;
+            if (_oldSelectedIndex == pivot?.SelectedIndex)
+                return;
             var item = pivot?.SelectedItem as PivotItem;
             var pageToken = NavigateTo.GetPageToken(item);
             var paramString = NavigateTo.GetParameters(item);
@@ -37,6 +41,7 @@ namespace Pyxis.Behaviors
         protected override void OnAttached()
         {
             base.OnAttached();
+            _oldSelectedIndex = AssociatedObject.SelectedIndex;
             AssociatedObject.SelectionChanged += OnSelectionChanged;
         }
 

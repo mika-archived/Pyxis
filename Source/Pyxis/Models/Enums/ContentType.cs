@@ -6,6 +6,9 @@
 
         Manga,
 
-        Novel
+        Novel,
+
+        // for follow, mypixiv
+        IllustAndManga
     }
 }

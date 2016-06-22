@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Diagnostics;
+using System.Threading.Tasks;
 
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
@@ -29,6 +30,11 @@ namespace Pyxis
         public App()
         {
             InitializeComponent();
+            UnhandledException += (sender, e) =>
+            {
+                Debug.WriteLine("");
+                Debug.WriteLine(e.Message);
+            };
         }
 
         #region Overrides of PrismApplication

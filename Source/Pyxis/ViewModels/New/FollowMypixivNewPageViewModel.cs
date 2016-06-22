@@ -10,12 +10,12 @@ using Pyxis.ViewModels.Base;
 
 namespace Pyxis.ViewModels.New
 {
-    public class FollowNewPageViewModel : ViewModel
+    public class FollowMypixivNewPageViewModel : ViewModel
     {
         private readonly IAccountService _accountService;
         public INavigationService NavigationService { get; }
 
-        public FollowNewPageViewModel(IAccountService accountService, INavigationService navigationService)
+        public FollowMypixivNewPageViewModel(IAccountService accountService, INavigationService navigationService)
         {
             _accountService = accountService;
             NavigationService = navigationService;
@@ -25,7 +25,7 @@ namespace Pyxis.ViewModels.New
         public async void OnRegisterButtonTapped()
             => await Launcher.LaunchUriAsync(new Uri("https://accounts.pixiv.net/signup"));
 
-        public void OnLoginButtonTapped() => NavigationService.Navigate("Account.Login", "New.FollowNew");
+        public void OnLoginButtonTapped() => NavigationService.Navigate("Account.Login", "New.FollowMypixivNew");
 
         #region Overrides of ViewModelBase
 

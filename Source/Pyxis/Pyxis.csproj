@@ -112,10 +112,12 @@
     <Compile Include="Helpers\RunHelper.cs" />
     <Compile Include="Models\AccountInfo.cs" />
     <Compile Include="Models\Base\ThumbnailableBase.cs" />
+    <Compile Include="Models\Enums\FollowType.cs" />
     <Compile Include="Models\Enums\RestrictType.cs" />
     <Compile Include="Models\Enums\SearchType.cs" />
     <Compile Include="Models\FollowType.cs" />
     <Compile Include="Models\Parameters\HomeParameter.cs" />
+    <Compile Include="Models\Parameters\NewParameter.cs" />
     <Compile Include="Models\Parameters\ParameterBase.cs" />
     <Compile Include="Models\PixivImage.cs" />
     <Compile Include="Models\PixivNew.cs" />
@@ -152,8 +154,7 @@
     <Compile Include="ViewModels\Items\PixivNovelViewModel.cs" />
     <Compile Include="ViewModels\Mypixiv\MainMypixivPageViewModel.cs" />
     <Compile Include="ViewModels\New\AllNewPageViewModel.cs" />
-    <Compile Include="ViewModels\New\FollowNewPageViewModel.cs" />
-    <Compile Include="ViewModels\New\MypixivNewPageViewModel.cs" />
+    <Compile Include="ViewModels\New\FollowMypixivNewPageViewModel.cs" />
     <Compile Include="ViewModels\Search\IllustMangaSearchPageViewModel.cs" />
     <Compile Include="ViewModels\Search\NovelSearchPageViewModel.cs" />
     <Compile Include="ViewModels\Search\UserSearchPageViewModel.cs" />
@@ -212,17 +213,8 @@
     <Compile Include="Views\New\AllNewPage.xaml.cs">
       <DependentUpon>AllNewPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\New\All\PivotTabAll.xaml.cs">
-      <DependentUpon>PivotTabAll.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\New\FollowNewPage.xaml.cs">
-      <DependentUpon>FollowNewPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\New\MypixivNewPage.xaml.cs">
-      <DependentUpon>MypixivNewPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\New\PivotTabFollow.xaml.cs">
-      <DependentUpon>PivotTabFollow.xaml</DependentUpon>
+    <Compile Include="Views\New\FollowMypixivNewPage.xaml.cs">
+      <DependentUpon>FollowMypixivNewPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Search\IllustMangaSearchPage.xaml.cs">
       <DependentUpon>IllustMangaSearchPage.xaml</DependentUpon>
@@ -401,19 +393,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\New\All\PivotTabAll.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\New\FollowNewPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\New\MypixivNewPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\New\PivotTabFollow.xaml">
+    <Page Include="Views\New\FollowMypixivNewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

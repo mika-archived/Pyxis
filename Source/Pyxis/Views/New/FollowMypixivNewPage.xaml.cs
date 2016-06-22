@@ -9,11 +9,11 @@ namespace Pyxis.Views.New
     /// <summary>
     ///     それ自体で使用できる空白ページまたはフレーム内に移動できる空白ページ。
     /// </summary>
-    public sealed partial class FollowNewPage : Page
+    public sealed partial class FollowMypixivNewPage : Page
     {
-        public FollowNewPageViewModel ViewModel => DataContext as FollowNewPageViewModel;
+        public FollowMypixivNewPageViewModel ViewModel => DataContext as FollowMypixivNewPageViewModel;
 
-        public FollowNewPage()
+        public FollowMypixivNewPage()
         {
             InitializeComponent();
         }
