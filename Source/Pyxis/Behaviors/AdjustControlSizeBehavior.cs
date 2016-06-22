@@ -57,6 +57,9 @@ namespace Pyxis.Behaviors
 
         private void AdjustSize(Size size)
         {
+            if (AssociatedObject == null)
+                return;
+
             var offset = 0;
             if (ApiInformation.IsTypePresent(typeof(StatusBar).ToString()))
                 offset = -(int) StatusBar.GetForCurrentView().OccludedRect.Height;
