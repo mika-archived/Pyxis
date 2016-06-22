@@ -9,7 +9,6 @@ using Microsoft.Practices.ObjectBuilder2;
 
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest;
-using Pyxis.Helpers;
 using Pyxis.Models.Enums;
 
 // ReSharper disable InconsistentNaming
@@ -31,8 +30,6 @@ namespace Pyxis.Models
             RecommendedNovels = new ObservableCollection<INovel>();
             RecommendedImages = new ObservableCollection<IIllust>();
         }
-
-        public void Fetch(bool isClear) => RunHelper.RunAsync(FetchRecommended, isClear);
 
         private async Task FetchRecommended(bool isClear)
         {
@@ -84,7 +81,7 @@ namespace Pyxis.Models
             }).AsAsyncOperation();
         }
 
-        public bool HasMoreItems => true;
+        public bool HasMoreItems => false;
 
         #endregion
     }

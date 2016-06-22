@@ -1,7 +1,10 @@
 ﻿<Page x:Class="Pyxis.Views.New.AllNewPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:attach="using:Pyxis.Attach"
+      xmlns:behaviors="using:Pyxis.Behaviors"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
       xmlns:local="using:Pyxis.Views.New"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:prism="using:Prism.Windows.Mvvm"
@@ -13,6 +16,22 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel Orientation="Vertical">
             <local:PivotTabFollow NavigationService="{x:Bind ViewModel.NavigationService}" SelectedIndex="1" />
+            <Pivot SelectedIndex="0" Style="{StaticResource MiniTabsStylePivotStyle}">
+                <PivotItem attach:NavigateTo.PageToken="HomeMain" attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:0}">
+                    <PivotItem.Header>
+                        <TextBlock Width="80"
+                                   Style="{StaticResource TabsStyleTextBlockStyle}"
+                                   Text="マンガ・イラスト" />
+                    </PivotItem.Header>
+                </PivotItem>
+                <PivotItem attach:NavigateTo.PageToken="HomeMain" attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:2}">
+                    <PivotItem.Header>
+                        <TextBlock Width="80"
+                                   Style="{StaticResource TabsStyleTextBlockStyle}"
+                                   Text="小説" />
+                    </PivotItem.Header>
+                </PivotItem>
+            </Pivot>
         </StackPanel>
     </Grid>
 </Page>

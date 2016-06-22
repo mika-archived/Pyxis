@@ -59,7 +59,7 @@ namespace Pyxis.ViewModels
                 ModelHelper.ConnectTo(RecommendedItems, _pixivRecommended, w => w.RecommendedImages, CreatePixivImage);
             }
 
-            _pixivRanking.Fetch();
+            // _pixivRanking.Fetch();
         }
 
         #region Overrides of ViewModelBase

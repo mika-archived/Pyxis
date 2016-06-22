@@ -112,6 +112,8 @@
     <Compile Include="Helpers\RunHelper.cs" />
     <Compile Include="Models\AccountInfo.cs" />
     <Compile Include="Models\Base\ThumbnailableBase.cs" />
+    <Compile Include="Models\Enums\RestrictType.cs" />
+    <Compile Include="Models\Enums\SearchType.cs" />
     <Compile Include="Models\FollowType.cs" />
     <Compile Include="Models\Parameters\HomeParameter.cs" />
     <Compile Include="Models\Parameters\ParameterBase.cs" />
