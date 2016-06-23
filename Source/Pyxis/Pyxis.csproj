@@ -129,6 +129,7 @@
     <Compile Include="Models\PixivRecommended.cs" />
     <Compile Include="Models\Enums\RankingMode.cs" />
     <Compile Include="Models\Enums\ContentType.cs" />
+    <Compile Include="Models\PixivUser.cs" />
     <Compile Include="Mvvm\ViewModelHelper.cs" />
     <Compile Include="PyxisConstants.cs" />
     <Compile Include="Services\AccountService.cs" />
@@ -137,6 +138,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Interfaces\IAccountService.cs" />
     <Compile Include="Services\Interfaces\IImageStoreService.cs" />
+    <Compile Include="ViewModels\AccountInfoControlViewModel.cs" />
     <Compile Include="ViewModels\Account\LoginPageViewModel.cs" />
     <Compile Include="ViewModels\Base\ThumbnailableViewModel.cs" />
     <Compile Include="ViewModels\Bookmark\MainBookmarkPageViewModel.cs" />
@@ -165,6 +167,9 @@
     <Compile Include="ViewModels\Work\IllustWorkPageViewModel.cs" />
     <Compile Include="ViewModels\Work\MangaWorkPageViewModel.cs" />
     <Compile Include="ViewModels\Work\NovelWorkPageViewModel.cs" />
+    <Compile Include="Views\AccountInfoControl.xaml.cs">
+      <DependentUpon>AccountInfoControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Account\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
@@ -325,6 +330,10 @@
       <DependentUpon>Controls.xaml</DependentUpon>
     </Page>
     <Page Include="Styles\Controls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AccountInfoControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

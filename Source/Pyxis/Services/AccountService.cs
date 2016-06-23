@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Windows.Security.Credentials;
 
+using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Models;
 using Pyxis.Services.Interfaces;
@@ -27,6 +28,8 @@ namespace Pyxis.Services
 
         public bool IsLoggedIn { get; private set; }
         public bool IsPremium { get; private set; }
+
+        public IAccount LoggedInAccount { get; private set; }
 
         public void Clear()
         {
@@ -84,6 +87,7 @@ namespace Pyxis.Services
                     return;
                 IsLoggedIn = true;
                 IsPremium = account.User.IsPremium;
+                LoggedInAccount = account.User;
             }
             catch (Exception e)
             {

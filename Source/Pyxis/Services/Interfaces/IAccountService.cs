@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 
+using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Models;
 
 namespace Pyxis.Services.Interfaces
@@ -9,6 +10,8 @@ namespace Pyxis.Services.Interfaces
         bool IsLoggedIn { get; }
 
         bool IsPremium { get; }
+
+        IAccount LoggedInAccount { get; }
 
         void Clear();
 
