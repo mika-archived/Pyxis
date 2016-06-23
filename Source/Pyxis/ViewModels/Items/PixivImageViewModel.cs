@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 
 using Prism.Windows.Navigation;
@@ -11,12 +10,11 @@ using Pyxis.Mvvm;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
 
-using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 
 namespace Pyxis.ViewModels.Items
 {
-    public class PixivImageViewModel : ThumbnailableViewModel
+    public class PixivImageViewModel : TappableThumbnailViewModel
     {
         private readonly IIllust _illust;
         private readonly INavigationService _navigationService;
@@ -27,7 +25,6 @@ namespace Pyxis.ViewModels.Items
         public int BookmarkCount => _illust.TotalBookmarks;
         public int ViewCount => _illust.TotalView;
         public ReadOnlyCollection<string> Tools => _illust.Tools.ToList().AsReadOnly();
-        public ReactiveCommand ItemTappedCommand { get; }
 
         public PixivImageViewModel(IIllust illust, IImageStoreService imageStoreService,
                                    INavigationService navigationService)
@@ -40,8 +37,6 @@ namespace Pyxis.ViewModels.Items
                          .ObserveOnUIDispatcher()
                          .Subscribe(w => ThumbnailPath = w)
                          .AddTo(this);
-            ItemTappedCommand = new ReactiveCommand();
-            ItemTappedCommand.Subscribe(w => Debug.WriteLine(w)).AddTo(this);
         }
     }
 }

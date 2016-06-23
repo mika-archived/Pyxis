@@ -32,7 +32,7 @@ namespace Pyxis.ViewModels
         public INavigationService NavigationService { get; }
 
         public ReadOnlyReactiveCollection<RankingViewModel> TopRanking { get; private set; }
-        public IncrementalObservableCollection<ThumbnailableViewModel> RecommendedItems { get; }
+        public IncrementalObservableCollection<TappableThumbnailViewModel> RecommendedItems { get; }
 
         public HomeMainPageViewModel(IAccountService accountService, IImageStoreService imageStoreService,
                                      IPixivClient pixivClient, INavigationService navigationService)
@@ -41,7 +41,7 @@ namespace Pyxis.ViewModels
             _imageStoreService = imageStoreService;
             _pixivClient = pixivClient;
             NavigationService = navigationService;
-            RecommendedItems = new IncrementalObservableCollection<ThumbnailableViewModel>();
+            RecommendedItems = new IncrementalObservableCollection<TappableThumbnailViewModel>();
         }
 
         private void Initialize(HomeParameter parameter)

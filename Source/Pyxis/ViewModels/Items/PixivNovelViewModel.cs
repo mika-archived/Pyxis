@@ -12,7 +12,7 @@ using Reactive.Bindings.Extensions;
 
 namespace Pyxis.ViewModels.Items
 {
-    public class PixivNovelViewModel : ThumbnailableViewModel
+    public class PixivNovelViewModel : TappableThumbnailViewModel
     {
         private readonly INavigationService _navigationService;
         private readonly INovel _novel;

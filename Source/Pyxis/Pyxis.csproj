@@ -140,6 +140,7 @@
     <Compile Include="Services\Interfaces\IImageStoreService.cs" />
     <Compile Include="ViewModels\AccountInfoControlViewModel.cs" />
     <Compile Include="ViewModels\Account\LoginPageViewModel.cs" />
+    <Compile Include="ViewModels\Base\TappableThumbnailViewModel.cs" />
     <Compile Include="ViewModels\Base\ThumbnailableViewModel.cs" />
     <Compile Include="ViewModels\Bookmark\MainBookmarkPageViewModel.cs" />
     <Compile Include="ViewModels\BrowsingHistory\IllustMangaBrowsingHistoryPageViewModel.cs" />

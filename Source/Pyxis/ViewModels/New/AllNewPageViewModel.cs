@@ -22,7 +22,7 @@ namespace Pyxis.ViewModels.New
         private PixivNew _pixivNew;
         public INavigationService NavigationService { get; }
 
-        public IncrementalObservableCollection<ThumbnailableViewModel> NewItems { get; }
+        public IncrementalObservableCollection<TappableThumbnailViewModel> NewItems { get; }
 
         public AllNewPageViewModel(IImageStoreService imageStoreService, IPixivClient pixivClient,
                                    INavigationService navigationService)
@@ -30,7 +30,7 @@ namespace Pyxis.ViewModels.New
             _imageStoreService = imageStoreService;
             _pixivClient = pixivClient;
             NavigationService = navigationService;
-            NewItems = new IncrementalObservableCollection<ThumbnailableViewModel>();
+            NewItems = new IncrementalObservableCollection<TappableThumbnailViewModel>();
         }
 
         private void Initialize(HomeParameter parameter)
