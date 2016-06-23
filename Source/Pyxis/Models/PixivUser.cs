@@ -25,10 +25,11 @@ namespace Pyxis.Models
 
         private async Task DownloadImage()
         {
-            if (await _imageStoreService.ExistImageAsync(_user.ProfileImageUrls.Size50))
-                ThumbnailPath = await _imageStoreService.LoadImageAsync(_user.ProfileImageUrls.Size50);
+            var icon = _user.ProfileImageUrls.Size50 ?? _user.ProfileImageUrls.Medium;
+            if (await _imageStoreService.ExistImageAsync(icon))
+                ThumbnailPath = await _imageStoreService.LoadImageAsync(icon);
             else
-                ThumbnailPath = await _imageStoreService.SaveImageAsync(_user.ProfileImageUrls.Size50);
+                ThumbnailPath = await _imageStoreService.SaveImageAsync(icon);
         }
 
         #endregion

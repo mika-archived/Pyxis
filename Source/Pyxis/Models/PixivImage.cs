@@ -11,21 +11,34 @@ namespace Pyxis.Models
     {
         private readonly IIllust _illust;
         private readonly IImageStoreService _imageStoreService;
+        private readonly bool _isRaw;
 
-        public PixivImage(IIllust illust, IImageStoreService imageStoreService)
+        public PixivImage(IIllust illust, IImageStoreService imageStoreService, bool isRaw = false)
         {
             _illust = illust;
             _imageStoreService = imageStoreService;
+            _isRaw = isRaw;
         }
 
         public override void ShowThumbnail() => RunHelper.RunAsync(DownloadImage);
 
         private async Task DownloadImage()
         {
-            if (await _imageStoreService.ExistImageAsync(_illust.ImageUrls.Medium))
-                ThumbnailPath = await _imageStoreService.LoadImageAsync(_illust.ImageUrls.Medium);
+            if (!_isRaw)
+            {
+                if (await _imageStoreService.ExistImageAsync(_illust.ImageUrls.Medium))
+                    ThumbnailPath = await _imageStoreService.LoadImageAsync(_illust.ImageUrls.Medium);
+                else
+                    ThumbnailPath = await _imageStoreService.SaveImageAsync(_illust.ImageUrls.Medium);
+            }
             else
-                ThumbnailPath = await _imageStoreService.SaveImageAsync(_illust.ImageUrls.Medium);
+            {
+                var orig = _illust.ImageUrls.Original ?? _illust.ImageUrls.Large;
+                if (await _imageStoreService.ExistImageAsync(orig))
+                    ThumbnailPath = await _imageStoreService.LoadImageAsync(orig);
+                else
+                    ThumbnailPath = await _imageStoreService.SaveImageAsync(orig);
+            }
         }
     }
 }

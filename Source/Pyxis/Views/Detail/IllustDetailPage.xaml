@@ -4,26 +4,46 @@
       xmlns:behaviors="using:Pyxis.Behaviors"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
-      xmlns:local="using:Pyxis.Views.Detail"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:prism="using:Prism.Windows.Mvvm"
       xmlns:vm="using:Pyxis.ViewModels.Detail"
       d:DataContext="{d:DesignInstance vm:IllustDetailPageViewModel}"
       prism:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d">
-
-    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Image Margin="10"
-               Source="{x:Bind ViewModel.ThumbnailPath, Mode=OneWay}"
-               Stretch="Uniform">
+    <ScrollViewer>
+        <StackPanel Margin="10"
+                    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <i:Interaction.Behaviors>
-                <behaviors:AdjustControlSizeBehavior WidthOffset="-20"
-                                                     IsSyncWidth="True" />
+                <behaviors:AdjustControlSizeBehavior IsSyncWidth="True"
+                                                     WidthOffset="-105" />
             </i:Interaction.Behaviors>
-        </Image>
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Text="{x:Bind ViewModel.Title, Mode=OneWay}"
-                       TextWrapping="Wrap" />
+            <Image x:Name="MainImage"
+                   MaxWidth="{x:Bind ViewModel.Width, Mode=OneWay}"
+                   MaxHeight="{x:Bind ViewModel.Height, Mode=OneWay}"
+                   Margin="0,0,0,10"
+                   Source="{x:Bind ViewModel.ThumbnailPath, Mode=OneWay}"
+                   Stretch="Uniform"
+                   Tag="-105" />
+            <StackPanel Orientation="Horizontal">
+                <Border Width="48"
+                        Height="48"
+                        Margin="5"
+                        CornerRadius="24">
+                    <Border.Background>
+                        <ImageBrush ImageSource="{x:Bind ViewModel.IconPath, Mode=OneWay}" />
+                    </Border.Background>
+                </Border>
+                <StackPanel Margin="10,0">
+                    <TextBlock Style="{ThemeResource TitleTextBlockStyle}"
+                               Text="{x:Bind ViewModel.Title, Mode=OneWay}"
+                               TextWrapping="Wrap" />
+                    <TextBlock Foreground="{ThemeResource ComboBoxItemDisabledForegroundThemeBrush}"
+                               Style="{ThemeResource CaptionTextBlockStyle}"
+                               Text="{x:Bind ViewModel.Username, Mode=OneWay}" />
+                </StackPanel>
+            </StackPanel>
+            <TextBlock Style="{ThemeResource BodyTextBlockStyle}"
+                       Text="{x:Bind ViewModel.Description, Mode=OneWay}" />
         </StackPanel>
-    </StackPanel>
+    </ScrollViewer>
 </Page>

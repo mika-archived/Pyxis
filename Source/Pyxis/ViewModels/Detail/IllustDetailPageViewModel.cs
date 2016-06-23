@@ -20,6 +20,7 @@ namespace Pyxis.ViewModels.Detail
         private readonly IImageStoreService _imageStoreService;
         private readonly INavigationService _navigationService;
         private IIllust _illust;
+        private PixivUser _pixivUser;
 
         public IllustDetailPageViewModel(IAccountService accountService, IImageStoreService imageStoreService,
                                          INavigationService navigationService)
@@ -27,17 +28,26 @@ namespace Pyxis.ViewModels.Detail
             _accountService = accountService;
             _imageStoreService = imageStoreService;
             _navigationService = navigationService;
+            IconPath = PyxisConstants.DummyIcon;
         }
 
         private void Initialize(IllustDetailParameter parameter)
         {
             _illust = parameter.Illust;
             Title = _illust.Title;
-            Thumbnailable = new PixivImage(_illust, _imageStoreService);
+            Description = _illust.Caption.Replace("<br />", Environment.NewLine);
+            Username = _illust.User.Name;
+            Height = _illust.Height;
+            Width = _illust.Width;
+            Thumbnailable = new PixivImage(_illust, _imageStoreService, true);
             Thumbnailable.ObserveProperty(w => w.ThumbnailPath)
                          .ObserveOnUIDispatcher()
                          .Subscribe(w => ThumbnailPath = w)
                          .AddTo(this);
+            _pixivUser = new PixivUser(_illust.User, _imageStoreService);
+            _pixivUser.ObserveProperty(w => w.ThumbnailPath)
+                      .ObserveOnUIDispatcher()
+                      .Subscribe(w => IconPath = w).AddTo(this);
         }
 
         #region Overrides of ViewModelBase
@@ -64,6 +74,18 @@ namespace Pyxis.ViewModels.Detail
 
         #endregion
 
+        #region Description
+
+        private string _description;
+
+        public string Description
+        {
+            get { return _description; }
+            set { SetProperty(ref _description, value); }
+        }
+
+        #endregion
+
         #region Username
 
         private string _username;
@@ -72,6 +94,47 @@ namespace Pyxis.ViewModels.Detail
         {
             get { return _username; }
             set { SetProperty(ref _username, value); }
+        }
+
+        #endregion
+
+        #region IconPath
+
+        private string _iconPath;
+
+        public string IconPath
+        {
+            get
+            {
+                if (_iconPath == PyxisConstants.DummyIcon)
+                    _pixivUser.ShowThumbnail();
+                return _iconPath;
+            }
+            set { SetProperty(ref _iconPath, value); }
+        }
+
+        #endregion
+
+        #region Height
+
+        private int _height;
+
+        public int Height
+        {
+            get { return _height; }
+            set { SetProperty(ref _height, value); }
+        }
+
+        #endregion
+
+        #region Width
+
+        private int _width;
+
+        public int Width
+        {
+            get { return _width; }
+            set { SetProperty(ref _width, value); }
         }
 
         #endregion

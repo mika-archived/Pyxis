@@ -20,7 +20,7 @@ namespace Pyxis.ViewModels
         {
             _accountService = accountService;
             _imageStoreService = imageStoreService;
-            ThumbnailPath = "http://placehold.jp/24/cccccc/999999/48x48.png?text=A";
+            ThumbnailPath = PyxisConstants.DummyIcon;
 
             _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1)).Subscribe(w =>
             {
