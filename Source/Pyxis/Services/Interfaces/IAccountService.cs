@@ -1,4 +1,6 @@
-﻿using Pyxis.Models;
+﻿using System.Threading.Tasks;
+
+using Pyxis.Models;
 
 namespace Pyxis.Services.Interfaces
 {
@@ -12,6 +14,6 @@ namespace Pyxis.Services.Interfaces
 
         void Save(AccountInfo account);
 
-        AccountInfo Load();
+        Task Login();
     }
 }

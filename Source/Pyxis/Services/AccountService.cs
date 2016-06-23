@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Threading.Tasks;
 
 using Windows.Security.Credentials;
 
+using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Models;
 using Pyxis.Services.Interfaces;
 
@@ -11,8 +14,11 @@ namespace Pyxis.Services
 {
     public class AccountService : IAccountService
     {
-        public AccountService()
+        private readonly IPixivClient _pixivClient;
+
+        public AccountService(IPixivClient pixivClient)
         {
+            _pixivClient = pixivClient;
             IsLoggedIn = false;
             IsPremium = false;
         }
@@ -45,9 +51,6 @@ namespace Pyxis.Services
             {
                 var vault = new PasswordVault();
                 vault.Add(new PasswordCredential(PyxisConstants.ApplicationKey, account.Username, account.Password));
-
-                IsLoggedIn = true;
-                IsPremium = account.Account.IsPremium;
             }
             catch (Exception e)
             {
@@ -55,7 +58,8 @@ namespace Pyxis.Services
             }
         }
 
-        public AccountInfo Load()
+        [SuppressMessage("ReSharper", "InconsistentNaming")]
+        public async Task Login()
         {
             try
             {
@@ -63,14 +67,27 @@ namespace Pyxis.Services
                 vault.RetrieveAll();
 
                 var resources = vault.FindAllByResource(PyxisConstants.ApplicationKey);
-                var credential = resources.First();
+                var credential = resources.FirstOrDefault();
+                if (credential == null)
+                    return;
                 credential.RetrievePassword();
-                return new AccountInfo(credential.UserName, credential.Password);
+
+                var account = await _pixivClient.Authorization
+                                                .Login(get_secure_url => 1,
+                                                       grant_type => "password",
+                                                       client_secret => "HP3RmkgAmEGro0gn1x9ioawQE8WMfvLXDz3ZqxpK",
+                                                       device_token => Guid.NewGuid().ToString().Replace("-", ""),
+                                                       password => credential.Password,
+                                                       client_id => "bYGKuGVw91e0NMfPGp44euvGt59s",
+                                                       username => credential.UserName);
+                if (account == null)
+                    return;
+                IsLoggedIn = true;
+                IsPremium = account.User.IsPremium;
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e.Message);
-                return null;
             }
         }
 

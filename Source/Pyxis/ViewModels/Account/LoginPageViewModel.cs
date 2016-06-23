@@ -50,21 +50,15 @@ namespace Pyxis.ViewModels.Account
         private async Task LoginAsync()
         {
             IsProcessing = true;
-            var account = await _pixivClient.Authorization
-                                            .Login(get_secure_url => 1,
-                                                   grant_type => "password",
-                                                   client_secret => "HP3RmkgAmEGro0gn1x9ioawQE8WMfvLXDz3ZqxpK",
-                                                   device_token => Guid.NewGuid().ToString().Replace("-", ""),
-                                                   password => Password.Value,
-                                                   client_id => "bYGKuGVw91e0NMfPGp44euvGt59s",
-                                                   username => Username.Value);
+            _accountService.Save(new AccountInfo(Username.Value, Password.Value));
+            await _accountService.Login();
             IsProcessing = false;
-            if (account == null)
+
+            if (!_accountService.IsLoggedIn)
             {
                 IsLoginFailure = true;
                 return;
             }
-            _accountService.Save(new AccountInfo(Username.Value, Password.Value, account.User));
 
             _navigationService.Navigate(_parameter.RedirectTo, _parameter.Parameter.ToJson());
         }

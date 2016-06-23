@@ -48,16 +48,21 @@ namespace Pyxis
             return shell;
         }
 
-        protected override Task OnInitializeAsync(IActivatedEventArgs args)
+        protected override async Task OnInitializeAsync(IActivatedEventArgs args)
         {
             UIDispatcherScheduler.Initialize();
 
-            Container.RegisterInstance<IPixivClient>(new PixivApiClient(), new ContainerControlledLifetimeManager());
-            Container.RegisterType<IAccountService, AccountService>(new ContainerControlledLifetimeManager());
+            var pixivClient = new PixivApiClient();
+            var accountService = new AccountService(pixivClient);
+
+            Container.RegisterInstance<IPixivClient>(pixivClient, new ContainerControlledLifetimeManager());
+            Container.RegisterInstance<IAccountService>(accountService, new ContainerControlledLifetimeManager());
             Container.RegisterType<IImageStoreService, ImageStoreService>(new ContainerControlledLifetimeManager());
             // Container.RegisterInstance<IPixivClient>(new PixivWebClient(), new ContainerControlledLifetimeManager());
 
-            return base.OnInitializeAsync(args);
+            await accountService.Login();
+
+            await base.OnInitializeAsync(args);
         }
 
         protected override Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)
