@@ -29,9 +29,12 @@ namespace Pyxis.Behaviors
             var pivot = sender as Pivot;
             if (_oldSelectedIndex == pivot?.SelectedIndex)
                 return;
+            _oldSelectedIndex = AssociatedObject.SelectedIndex;
+
             var item = pivot?.SelectedItem as PivotItem;
             var pageToken = NavigateTo.GetPageToken(item);
             var paramString = NavigateTo.GetParameters(item);
+
             if (pageToken != null)
                 NavigationService?.Navigate(pageToken, paramString);
         }
@@ -41,7 +44,6 @@ namespace Pyxis.Behaviors
         protected override void OnAttached()
         {
             base.OnAttached();
-            _oldSelectedIndex = AssociatedObject.SelectedIndex;
             AssociatedObject.SelectionChanged += OnSelectionChanged;
         }
 
