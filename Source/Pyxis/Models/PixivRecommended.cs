@@ -10,6 +10,7 @@ using Microsoft.Practices.ObjectBuilder2;
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Models.Enums;
+using Pyxis.Services.Interfaces;
 
 // ReSharper disable InconsistentNaming
 
@@ -17,14 +18,16 @@ namespace Pyxis.Models
 {
     internal class PixivRecommended : ISupportIncrementalLoading
     {
+        private readonly IAccountService _accountService;
         private readonly ContentType _contentType;
         private readonly IPixivClient _pixivClient;
 
         public ObservableCollection<IIllust> RecommendedImages { get; }
         public ObservableCollection<INovel> RecommendedNovels { get; }
 
-        public PixivRecommended(IPixivClient pixivClient, ContentType contentType)
+        public PixivRecommended(IAccountService accountService, IPixivClient pixivClient, ContentType contentType)
         {
+            _accountService = accountService;
             _contentType = contentType;
             _pixivClient = pixivClient;
             RecommendedNovels = new ObservableCollection<INovel>();
@@ -45,21 +48,33 @@ namespace Pyxis.Models
                 RecommendedImages.Clear();
             IRecommendedIllusts illusts = null;
             if (_contentType == ContentType.Illust)
-                illusts =
-                    await _pixivClient.IllustV1.RecommendedNologinAsync(content_type => "illust", filter => "for_ios",
-                                                                        offset => Count());
+                illusts = await RecommendedAsync("illust");
             else if (_contentType == ContentType.Manga)
-                illusts =
-                    await _pixivClient.IllustV1.RecommendedNologinAsync(content_type => "manga", filter => "for_ios",
-                                                                        offset => Count());
+                illusts = await RecommendedAsync("manga");
             illusts?.Illusts.ForEach(w => RecommendedImages.Add(w));
+        }
+
+        private async Task<IRecommendedIllusts> RecommendedAsync(string contentType)
+        {
+            // manga/recommended との違いがわからない。
+            if (_accountService.IsLoggedIn)
+                return await _pixivClient.IllustV1.RecommendedAsync(content_type => contentType,
+                                                                    filter => "for_ios",
+                                                                    offset => Count());
+            return await _pixivClient.IllustV1.RecommendedNologinAsync(content_type => contentType,
+                                                                       filter => "for_ios",
+                                                                       offset => Count());
         }
 
         private async Task FetchNovels(bool isClear)
         {
             if (isClear)
                 RecommendedNovels.Clear();
-            var novels = await _pixivClient.NovelV1.RecommendedNologinAsync();
+            IRecommendedNovels novels;
+            if (_accountService.IsLoggedIn)
+                novels = await _pixivClient.NovelV1.RecommendedAsync(offset => Count());
+            else
+                novels = await _pixivClient.NovelV1.RecommendedNologinAsync(offset => Count());
             novels.Novels.ForEach(w => RecommendedNovels.Add(w));
         }
 
