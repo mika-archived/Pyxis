@@ -29,6 +29,7 @@ namespace Pyxis.Models
             _contentType = contentType;
             _followType = followType;
             _pixivClient = pixivClient;
+            HasMoreItems = true;
             NewIllusts = new ObservableCollection<IIllust>();
             NewNovels = new ObservableCollection<INovel>();
         }
@@ -55,6 +56,8 @@ namespace Pyxis.Models
             else if (_followType == FollowType.All)
                 novels = await _pixivClient.NovelV1.NewAsync(max_novel_id => Count() > 0 ? NewNovels.Last().Id : 0);
             novels?.NovelList.ForEach(w => NewNovels.Add(w));
+            if (novels?.NovelList.Count == 0)
+                HasMoreItems = false;
         }
 
         private int Count()
@@ -77,6 +80,8 @@ namespace Pyxis.Models
             else
                 illusts = await FetchManga();
             illusts?.IllustList.ForEach(w => NewIllusts.Add(w));
+            if (illusts?.IllustList.Count == 0)
+                HasMoreItems = false;
         }
 
         [SuppressMessage("ReSharper", "InconsistentNaming")]
@@ -120,7 +125,7 @@ namespace Pyxis.Models
             }).AsAsyncOperation();
         }
 
-        public bool HasMoreItems => true;
+        public bool HasMoreItems { get; private set; }
 
         #endregion
     }
