@@ -119,6 +119,7 @@
     <Compile Include="Models\Enums\RestrictType.cs" />
     <Compile Include="Models\Enums\SearchType.cs" />
     <Compile Include="Models\Parameters\HomeParameter.cs" />
+    <Compile Include="Models\Parameters\IllustDetailParameter.cs" />
     <Compile Include="Models\Parameters\NewParameter.cs" />
     <Compile Include="Models\Parameters\ParameterBase.cs" />
     <Compile Include="Models\Parameters\RedirectParameter.cs" />
@@ -145,6 +146,7 @@
     <Compile Include="ViewModels\Bookmark\MainBookmarkPageViewModel.cs" />
     <Compile Include="ViewModels\BrowsingHistory\IllustMangaBrowsingHistoryPageViewModel.cs" />
     <Compile Include="ViewModels\BrowsingHistory\NovelBrowsingHistoryPageViewModel.cs" />
+    <Compile Include="ViewModels\Detail\IllustDetailPageViewModel.cs" />
     <Compile Include="ViewModels\Error\LoginRequiredPageViewModel.cs" />
     <Compile Include="ViewModels\Error\PremiumRequiredPageViewModel.cs" />
     <Compile Include="ViewModels\Favorite\IllustMangaFavoritePageViewModel.cs" />
@@ -188,6 +190,9 @@
     </Compile>
     <Compile Include="Views\BrowsingHistory\PivotTabBrowsingHistory.xaml.cs">
       <DependentUpon>PivotTabBrowsingHistory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Detail\IllustDetailPage.xaml.cs">
+      <DependentUpon>IllustDetailPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Error\LoginRequiredPage.xaml.cs">
       <DependentUpon>LoginRequiredPage.xaml</DependentUpon>
@@ -365,6 +370,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\BrowsingHistory\PivotTabBrowsingHistory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Detail\IllustDetailPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

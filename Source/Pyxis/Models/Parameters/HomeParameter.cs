@@ -8,5 +8,11 @@ namespace Pyxis.Models.Parameters
     internal class HomeParameter : ParameterBase
     {
         public ContentType ContentType { get; set; }
+
+        #region Overrides of ParameterBase
+
+        protected override bool ParseJson => true;
+
+        #endregion
     }
 }

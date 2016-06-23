@@ -2,15 +2,31 @@
 
 namespace Pyxis.Models.Parameters
 {
-    internal class ParameterBase
+    internal abstract class ParameterBase
     {
-        public string ToJson() => JsonConvert.SerializeObject(this);
+        protected abstract bool ParseJson { get; }
 
-        public static T ToObject<T>(string json)
+        public object ToJson(bool typeNaming = false)
+        {
+            if (!ParseJson)
+                return this;
+            if (!typeNaming)
+                return JsonConvert.SerializeObject(this);
+            var jsonSettings = new JsonSerializerSettings {TypeNameHandling = TypeNameHandling.All};
+            return JsonConvert.SerializeObject(this, jsonSettings);
+        }
+
+        public static T ToObject<T>(object json, bool typeNaming = false)
         {
             try
             {
-                return JsonConvert.DeserializeObject<T>(json);
+                if (json is ParameterBase)
+                    return (T) json;
+                var jsonString = json.ToString();
+                if (!typeNaming)
+                    return JsonConvert.DeserializeObject<T>(jsonString);
+                var jsonSettings = new JsonSerializerSettings {TypeNameHandling = TypeNameHandling.All};
+                return JsonConvert.DeserializeObject<T>(jsonString, jsonSettings);
             }
             catch
             {

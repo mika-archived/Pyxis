@@ -7,5 +7,11 @@ namespace Pyxis.Models.Parameters
         public FollowType FollowType { get; set; }
 
         public ContentType2 ContentType { get; set; }
+
+        #region Overrides of ParameterBase
+
+        protected override bool ParseJson => true;
+
+        #endregion
     }
 }

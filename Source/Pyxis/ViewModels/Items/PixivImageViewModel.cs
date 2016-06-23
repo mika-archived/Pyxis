@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 
 using Prism.Windows.Navigation;
 
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Models;
+using Pyxis.Models.Parameters;
 using Pyxis.Mvvm;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
@@ -38,5 +40,23 @@ namespace Pyxis.ViewModels.Items
                          .Subscribe(w => ThumbnailPath = w)
                          .AddTo(this);
         }
+
+        #region Overrides of TappableThumbnailViewModel
+
+        public override void OnItemTapped()
+        {
+            if (_illust.PageCount == 1)
+            {
+                var parameter = new IllustDetailParameter {Illust = _illust};
+                _navigationService.Navigate("Detail.IllustDetail", parameter /*.ToJson(true)*/);
+            }
+            else
+            {
+                // マンガページ
+                Debug.WriteLine("bbb");
+            }
+        }
+
+        #endregion
     }
 }
