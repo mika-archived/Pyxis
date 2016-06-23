@@ -27,7 +27,7 @@
                     </PivotItem.Header>
                 </PivotItem>
                 <PivotItem attach:NavigateTo.PageToken="New.AllNew"
-                           attach:NavigateTo.Parameters="{}{&quot;FollowType&quot;:1,&quot;ContentType&quot;:0}">
+                           attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:0}">
                     <PivotItem.Header>
                         <TextBlock Width="64"
                                    Style="{StaticResource TabsStyleTextBlockStyle}"
@@ -43,42 +43,83 @@
                     </PivotItem.Header>
                 </PivotItem>
             </Pivot>
-            <Pivot SelectedIndex="{x:Bind ViewModel.SubSelectdIndex}"
-                   Style="{StaticResource MiniTabsStylePivotStyle}">
-                <i:Interaction.Behaviors>
-                    <behaviors:AttachNavigationToPivotBehavior NavigationService="{x:Bind ViewModel.NavigationService}" />
-                </i:Interaction.Behaviors>
-                <PivotItem attach:NavigateTo.PageToken="New.FollowMypixivNew">
-                    <attach:NavigateTo.Parameters>
-                        <Binding Converter="{StaticResource StringFormatConverter}"
-                                 Path="SelectedIndex">
-                            <Binding.ConverterParameter>
-                                {{&quot;FollowType&quot;:{0},&quot;ContentType&quot;:0}}
-                            </Binding.ConverterParameter>
-                        </Binding>
-                    </attach:NavigateTo.Parameters>
-                    <PivotItem.Header>
-                        <TextBlock Width="80"
-                                   Style="{StaticResource TabsStyleTextBlockStyle}"
-                                   Text="マンガ・イラスト" />
-                    </PivotItem.Header>
-                </PivotItem>
-                <PivotItem attach:NavigateTo.PageToken="New.FollowMypixivNew">
-                    <attach:NavigateTo.Parameters>
-                        <Binding Converter="{StaticResource StringFormatConverter}"
-                                 Path="SelectedIndex">
-                            <Binding.ConverterParameter>
-                                {{&quot;FollowType&quot;:{0},&quot;ContentType&quot;:1}}
-                            </Binding.ConverterParameter>
-                        </Binding>
-                    </attach:NavigateTo.Parameters>
-                    <PivotItem.Header>
-                        <TextBlock Width="80"
-                                   Style="{StaticResource TabsStyleTextBlockStyle}"
-                                   Text="小説" />
-                    </PivotItem.Header>
-                </PivotItem>
-            </Pivot>
+            <StackPanel>
+                <Pivot SelectedIndex="{x:Bind ViewModel.SubSelectdIndex}"
+                       Style="{StaticResource MiniTabsStylePivotStyle}"
+                       Visibility="{x:Bind ViewModel.IsLoggedInRequired, Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
+                    <i:Interaction.Behaviors>
+                        <behaviors:AttachNavigationToPivotBehavior NavigationService="{x:Bind ViewModel.NavigationService}" />
+                    </i:Interaction.Behaviors>
+                    <PivotItem attach:NavigateTo.PageToken="New.FollowMypixivNew">
+                        <attach:NavigateTo.Parameters>
+                            <Binding Converter="{StaticResource StringFormatConverter}"
+                                     Path="SelectedIndex">
+                                <Binding.ConverterParameter>
+                                    {{&quot;FollowType&quot;:{0},&quot;ContentType&quot;:0}}
+                                </Binding.ConverterParameter>
+                            </Binding>
+                        </attach:NavigateTo.Parameters>
+                        <PivotItem.Header>
+                            <TextBlock Width="80"
+                                       Style="{StaticResource TabsStyleTextBlockStyle}"
+                                       Text="マンガ・イラスト" />
+                        </PivotItem.Header>
+                    </PivotItem>
+                    <PivotItem attach:NavigateTo.PageToken="New.FollowMypixivNew">
+                        <attach:NavigateTo.Parameters>
+                            <Binding Converter="{StaticResource StringFormatConverter}"
+                                     Path="SelectedIndex">
+                                <Binding.ConverterParameter>
+                                    {{&quot;FollowType&quot;:{0},&quot;ContentType&quot;:1}}
+                                </Binding.ConverterParameter>
+                            </Binding>
+                        </attach:NavigateTo.Parameters>
+                        <PivotItem.Header>
+                            <TextBlock Width="80"
+                                       Style="{StaticResource TabsStyleTextBlockStyle}"
+                                       Text="小説" />
+                        </PivotItem.Header>
+                    </PivotItem>
+                </Pivot>
+                <Grid Background="#0074AA"
+                      Visibility="{x:Bind ViewModel.IsLoggedInRequired, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <i:Interaction.Behaviors>
+                        <behaviors:AdjustControlSizeBehavior HeightOffset="-90"
+                                                             IsSyncHeight="True" />
+                    </i:Interaction.Behaviors>
+                    <StackPanel HorizontalAlignment="Stretch"
+                                VerticalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Center"
+                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                   Foreground="PaleGoldenrod"
+                                   Style="{ThemeResource HeaderTextBlockStyle}"
+                                   Text="&#xE946;" />
+                        <TextBlock Margin="5"
+                                   HorizontalAlignment="Center"
+                                   Foreground="White"
+                                   Style="{ThemeResource SubtitleTextBlockStyle}"
+                                   Text="pixiv に登録もしくはログインしてください！" />
+
+                        <Button Width="200"
+                                Margin="10"
+                                HorizontalAlignment="Center"
+                                Tapped="{x:Bind ViewModel.OnRegisterButtonTapped}">
+                            <TextBlock Foreground="White"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       Text="登録" />
+                        </Button>
+
+                        <Button Width="200"
+                                Margin="10"
+                                HorizontalAlignment="Center"
+                                Tapped="{x:Bind ViewModel.OnLoginButtonTapped}">
+                            <TextBlock Foreground="White"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       Text="ログイン" />
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Page>
