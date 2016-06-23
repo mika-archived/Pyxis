@@ -2,23 +2,46 @@
 
 using Prism.Windows.Navigation;
 
+using Pyxis.Beta.Interfaces.Models.v1;
+using Pyxis.Beta.Interfaces.Rest;
+using Pyxis.Collections;
+using Pyxis.Helpers;
+using Pyxis.Models;
+using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
+using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
+using Pyxis.ViewModels.Items;
 
 namespace Pyxis.ViewModels.New
 {
     public class AllNewPageViewModel : ViewModel
     {
+        private readonly IImageStoreService _imageStoreService;
+        private readonly IPixivClient _pixivClient;
+        private PixivNew _pixivNew;
         public INavigationService NavigationService { get; }
 
-        public AllNewPageViewModel(INavigationService navigationService)
+        public IncrementalObservableCollection<ThumbnailableViewModel> NewItems { get; }
+
+        public AllNewPageViewModel(IImageStoreService imageStoreService, IPixivClient pixivClient,
+                                   INavigationService navigationService)
         {
+            _imageStoreService = imageStoreService;
+            _pixivClient = pixivClient;
             NavigationService = navigationService;
+            NewItems = new IncrementalObservableCollection<ThumbnailableViewModel>();
         }
 
         private void Initialize(HomeParameter parameter)
         {
             SubSelectdIndex = (int) parameter.ContentType;
+
+            _pixivNew = new PixivNew(parameter.ContentType, FollowType.All, _pixivClient);
+            if (parameter.ContentType == ContentType.Novel)
+                ModelHelper.ConnectTo(NewItems, _pixivNew, w => w.NewNovels, CreatePixivNovel);
+            else
+                ModelHelper.ConnectTo(NewItems, _pixivNew, w => w.NewIllusts, CreatePixivImage);
         }
 
         #region Overrides of ViewModelBase
@@ -41,6 +64,16 @@ namespace Pyxis.ViewModels.New
             get { return _subSelectedIndex; }
             set { SetProperty(ref _subSelectedIndex, value); }
         }
+
+        #endregion
+
+        #region Converters
+
+        private PixivImageViewModel CreatePixivImage(IIllust w) =>
+            new PixivImageViewModel(w, _imageStoreService, NavigationService);
+
+        private PixivNovelViewModel CreatePixivNovel(INovel w) =>
+            new PixivNovelViewModel(w, _imageStoreService, NavigationService);
 
         #endregion
     }
