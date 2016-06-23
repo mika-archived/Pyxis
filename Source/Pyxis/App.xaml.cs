@@ -18,8 +18,6 @@ using Pyxis.Services.Interfaces;
 
 using Reactive.Bindings;
 
-using FollowType = Pyxis.Models.FollowType;
-
 namespace Pyxis
 {
     /// <summary>

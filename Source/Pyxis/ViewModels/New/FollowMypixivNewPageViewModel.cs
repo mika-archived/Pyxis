@@ -5,6 +5,7 @@ using Windows.System;
 
 using Prism.Windows.Navigation;
 
+using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
@@ -33,7 +34,19 @@ namespace Pyxis.ViewModels.New
         public async void OnRegisterButtonTapped()
             => await Launcher.LaunchUriAsync(new Uri("https://accounts.pixiv.net/signup"));
 
-        public void OnLoginButtonTapped() => NavigationService.Navigate("Account.Login", "New.FollowMypixivNew");
+        public void OnLoginButtonTapped()
+        {
+            var parameter = new RedirectParameter
+            {
+                RedirectTo = "New.FollowMypixivNew",
+                Parameter = new NewParameter
+                {
+                    ContentType = (ContentType2) SubSelectdIndex,
+                    FollowType = (FollowType) SelectedIndex
+                }
+            };
+            NavigationService.Navigate("Account.Login", parameter.ToJson());
+        }
 
         #region Overrides of ViewModelBase
 

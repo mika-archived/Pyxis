@@ -118,10 +118,10 @@
     <Compile Include="Models\Enums\ContentType2.cs" />
     <Compile Include="Models\Enums\RestrictType.cs" />
     <Compile Include="Models\Enums\SearchType.cs" />
-    <Compile Include="Models\FollowType.cs" />
     <Compile Include="Models\Parameters\HomeParameter.cs" />
     <Compile Include="Models\Parameters\NewParameter.cs" />
     <Compile Include="Models\Parameters\ParameterBase.cs" />
+    <Compile Include="Models\Parameters\RedirectParameter.cs" />
     <Compile Include="Models\PixivImage.cs" />
     <Compile Include="Models\PixivNew.cs" />
     <Compile Include="Models\PixivNovel.cs" />

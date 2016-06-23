@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 
@@ -7,6 +8,7 @@ using Prism.Windows.Navigation;
 
 using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Models;
+using Pyxis.Models.Parameters;
 using Pyxis.Mvvm;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
@@ -21,7 +23,7 @@ namespace Pyxis.ViewModels.Account
         private readonly IAccountService _accountService;
         private readonly INavigationService _navigationService;
         private readonly IPixivClient _pixivClient;
-        private string _nextPageToken;
+        private RedirectParameter _parameter;
 
         public ReactiveProperty<string> Username { get; }
         public ReactiveProperty<string> Password { get; }
@@ -44,10 +46,10 @@ namespace Pyxis.ViewModels.Account
             LoginCommand.Subscribe(async w => await LoginAsync()).AddTo(this);
         }
 
+        [SuppressMessage("ReSharper", "InconsistentNaming")]
         private async Task LoginAsync()
         {
             IsProcessing = true;
-            // ReSharper disable InconsistentNaming
             var account = await _pixivClient.Authorization
                                             .Login(get_secure_url => 1,
                                                    grant_type => "password",
@@ -64,7 +66,7 @@ namespace Pyxis.ViewModels.Account
             }
             _accountService.Save(new AccountInfo(Username.Value, Password.Value, account.User));
 
-            _navigationService.Navigate(_nextPageToken, null);
+            _navigationService.Navigate(_parameter.RedirectTo, _parameter.Parameter.ToJson());
         }
 
         #region Overrides of ViewModelBase
@@ -72,7 +74,7 @@ namespace Pyxis.ViewModels.Account
         public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
         {
             base.OnNavigatedTo(e, viewModelState);
-            _nextPageToken = e.Parameter as string;
+            _parameter = ParameterBase.ToObject<RedirectParameter>(e?.Parameter.ToString());
         }
 
         #endregion
