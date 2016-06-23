@@ -5,23 +5,37 @@ using Windows.System;
 
 using Prism.Windows.Navigation;
 
+using Pyxis.Beta.Interfaces.Models.v1;
+using Pyxis.Beta.Interfaces.Rest;
+using Pyxis.Collections;
+using Pyxis.Helpers;
+using Pyxis.Models;
 using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
+using Pyxis.ViewModels.Items;
 
 namespace Pyxis.ViewModels.New
 {
     public class FollowMypixivNewPageViewModel : ViewModel
     {
         private readonly IAccountService _accountService;
+        private readonly IImageStoreService _imageStoreService;
+        private readonly IPixivClient _pixivClient;
+        private PixivNew _pixivNew;
         public INavigationService NavigationService { get; }
 
-        public FollowMypixivNewPageViewModel(IAccountService accountService, INavigationService navigationService)
+        public IncrementalObservableCollection<ThumbnailableViewModel> NewItems { get; }
+
+        public FollowMypixivNewPageViewModel(IAccountService accountService, IImageStoreService imageStoreService,
+                                             IPixivClient pixivClient, INavigationService navigationService)
         {
             _accountService = accountService;
+            _imageStoreService = imageStoreService;
+            _pixivClient = pixivClient;
             NavigationService = navigationService;
-            IsLoggedInRequired = !_accountService.IsLoggedIn;
+            NewItems = new IncrementalObservableCollection<ThumbnailableViewModel>();
         }
 
         private void Initialize(NewParameter parameter)
@@ -29,6 +43,15 @@ namespace Pyxis.ViewModels.New
             SelectedIndex = (int) parameter.FollowType;
             SubSelectdIndex = (int) parameter.ContentType;
             IsLoggedInRequired = !_accountService.IsLoggedIn;
+
+            if (IsLoggedInRequired)
+                return;
+
+            _pixivNew = new PixivNew(parameter.ContentType.Convert(), parameter.FollowType, _pixivClient);
+            if (parameter.ContentType == ContentType2.IllustAndManga)
+                ModelHelper.ConnectTo(NewItems, _pixivNew, w => w.NewIllusts, CreatePixivImage);
+            else
+                ModelHelper.ConnectTo(NewItems, _pixivNew, w => w.NewNovels, CreatePixivNovel);
         }
 
         public async void OnRegisterButtonTapped()
@@ -92,6 +115,16 @@ namespace Pyxis.ViewModels.New
             get { return _subSelectedIndex; }
             set { SetProperty(ref _subSelectedIndex, value); }
         }
+
+        #endregion
+
+        #region Converters
+
+        private PixivImageViewModel CreatePixivImage(IIllust w) =>
+            new PixivImageViewModel(w, _imageStoreService, NavigationService);
+
+        private PixivNovelViewModel CreatePixivNovel(INovel w) =>
+            new PixivNovelViewModel(w, _imageStoreService, NavigationService);
 
         #endregion
     }
