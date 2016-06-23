@@ -328,7 +328,7 @@
                             </StackPanel>
                         </ListBoxItem>
                         <ListBoxItem x:Name="AccountMain"
-                                     attach:NavigateTo.PageToken="NovelMain"
+                                     attach:NavigateTo.PageToken="Account.HomeAccount"
                                      RelativePanel.Above="SettingsMain">
                             <StackPanel Orientation="Horizontal">
                                 <v:AccountInfoControl />
@@ -339,7 +339,7 @@
                             </StackPanel>
                         </ListBoxItem>
                         <ListBoxItem x:Name="SettingsMain"
-                                     attach:NavigateTo.PageToken="NovelMain"
+                                     attach:NavigateTo.PageToken="Settings.HomeSettings"
                                      RelativePanel.AlignBottomWithPanel="True">
                             <StackPanel Orientation="Horizontal">
                                 <FontIcon Width="48"

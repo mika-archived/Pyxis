@@ -170,6 +170,9 @@
     <Compile Include="Views\AccountInfoControl.xaml.cs">
       <DependentUpon>AccountInfoControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Account\HomeAccountPage.xaml.cs">
+      <DependentUpon>HomeAccountPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Account\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
@@ -235,6 +238,9 @@
     </Compile>
     <Compile Include="Views\Search\UserSearchPage.xaml.cs">
       <DependentUpon>UserSearchPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings\HomeSettingsPage.xaml.cs">
+      <DependentUpon>HomeSettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Work\IllustWorkPage.xaml.cs">
       <DependentUpon>IllustWorkPage.xaml</DependentUpon>
@@ -337,6 +343,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Account\HomeAccountPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Account\LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -422,6 +432,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Search\UserSearchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Settings\HomeSettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
