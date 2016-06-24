@@ -160,6 +160,7 @@
     <Compile Include="ViewModels\Home\RankingNovelViewModel.cs" />
     <Compile Include="ViewModels\Items\PixivImageViewModel.cs" />
     <Compile Include="ViewModels\Items\PixivNovelViewModel.cs" />
+    <Compile Include="ViewModels\Items\PixivTagViewModel.cs" />
     <Compile Include="ViewModels\Mypixiv\MainMypixivPageViewModel.cs" />
     <Compile Include="ViewModels\New\AllNewPageViewModel.cs" />
     <Compile Include="ViewModels\New\FollowMypixivNewPageViewModel.cs" />

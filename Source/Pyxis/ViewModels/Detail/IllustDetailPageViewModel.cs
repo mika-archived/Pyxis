@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+
+using Microsoft.Practices.ObjectBuilder2;
 
 using Prism.Windows.Navigation;
 
@@ -9,6 +12,7 @@ using Pyxis.Models.Parameters;
 using Pyxis.Mvvm;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
+using Pyxis.ViewModels.Items;
 
 using Reactive.Bindings.Extensions;
 
@@ -21,6 +25,7 @@ namespace Pyxis.ViewModels.Detail
         private readonly INavigationService _navigationService;
         private IIllust _illust;
         private PixivUser _pixivUser;
+        public ObservableCollection<PixivTagViewModel> Tags { get; }
 
         public IllustDetailPageViewModel(IAccountService accountService, IImageStoreService imageStoreService,
                                          INavigationService navigationService)
@@ -28,6 +33,7 @@ namespace Pyxis.ViewModels.Detail
             _accountService = accountService;
             _imageStoreService = imageStoreService;
             _navigationService = navigationService;
+            Tags = new ObservableCollection<PixivTagViewModel>();
             IconPath = PyxisConstants.DummyIcon;
         }
 
@@ -42,6 +48,7 @@ namespace Pyxis.ViewModels.Detail
             Bookmark = _illust.TotalBookmarks;
             Height = _illust.Height;
             Width = _illust.Width;
+            _illust.Tags.ForEach(w => Tags.Add(new PixivTagViewModel(w, _navigationService)));
             Thumbnailable = new PixivImage(_illust, _imageStoreService, true);
             Thumbnailable.ObserveProperty(w => w.ThumbnailPath)
                          .ObserveOnUIDispatcher()
@@ -64,10 +71,6 @@ namespace Pyxis.ViewModels.Detail
             Initialize(parameter);
         }
 
-        #region Overrides of ViewModelBase
-
-        #region Overrides of ViewModelBase
-
         public override void OnNavigatingFrom(NavigatingFromEventArgs e, Dictionary<string, object> viewModelState,
                                               bool suspending)
         {
@@ -75,10 +78,6 @@ namespace Pyxis.ViewModels.Detail
                 viewModelState["Illust"] = new IllustDetailParameter {Illust = _illust}.ToJson();
             base.OnNavigatingFrom(e, viewModelState, suspending);
         }
-
-        #endregion
-
-        #endregion
 
         #endregion
 
