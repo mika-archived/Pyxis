@@ -44,6 +44,7 @@ namespace Pyxis.Behaviors
         protected override void OnAttached()
         {
             base.OnAttached();
+            _oldSelectedIndex = AssociatedObject.SelectedIndex;
             AssociatedObject.SelectionChanged += OnSelectionChanged;
         }
 
