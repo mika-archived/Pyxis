@@ -124,6 +124,7 @@
     <Compile Include="Models\v1\Illusts.cs" />
     <Compile Include="Models\v1\ImageUrls.cs" />
     <Compile Include="Models\v1\Metadata.cs" />
+    <Compile Include="Models\v1\MetaPage.cs" />
     <Compile Include="Models\v1\NovelMarker.cs" />
     <Compile Include="Models\v1\Novel.cs" />
     <Compile Include="Models\v1\Novels.cs" />

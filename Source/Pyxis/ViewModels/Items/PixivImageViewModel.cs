@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 
 using Prism.Windows.Navigation;
 
@@ -36,16 +35,9 @@ namespace Pyxis.ViewModels.Items
 
         public override void OnItemTapped()
         {
-            if (_illust.PageCount == 1)
-            {
-                var parameter = new IllustDetailParameter {Illust = _illust};
-                _navigationService.Navigate("Detail.IllustDetail", parameter.ToJson());
-            }
-            else
-            {
-                // マンガページ
-                Debug.WriteLine("bbb");
-            }
+            var parameter = new IllustDetailParameter {Illust = _illust};
+            _navigationService.Navigate(_illust.PageCount == 1 ? "Detail.IllustDetail" : "Detail.MangaDetail",
+                                        parameter.ToJson());
         }
 
         #endregion

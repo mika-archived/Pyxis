@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Helpers;
@@ -33,7 +34,8 @@ namespace Pyxis.Models
             }
             else
             {
-                var orig = _illust.MetaSinglePage.Original ?? _illust.ImageUrls.Large;
+                var orig = _illust.MetaPages.FirstOrDefault()?.ImageUrls.Original ??
+                           _illust.MetaSinglePage.Original ?? _illust.ImageUrls.Large;
                 if (await _imageStoreService.ExistImageAsync(orig))
                     ThumbnailPath = await _imageStoreService.LoadImageAsync(orig);
                 else

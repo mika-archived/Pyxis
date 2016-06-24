@@ -70,8 +70,8 @@ namespace Pyxis.Alpha.Models.v1
         public IImageUrls MetaSinglePage { get; set; }
 
         [JsonProperty("meta_pages")]
-        [JsonConverter(typeof(InterfaceToConcrete<IList<ImageUrls>>))]
-        public IList<IImageUrls> MetaPages { get; set; }
+        [JsonConverter(typeof(InterfaceToConcrete<IList<MetaPage>>))]
+        public IList<IMetaPage> MetaPages { get; set; }
 
         [JsonProperty("total_view")]
         public int TotalView { get; set; }

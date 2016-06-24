@@ -83,7 +83,7 @@ namespace Pyxis.Beta.Interfaces.Models.v1
         /// <summary>
         ///     画像(PageCount > 1)
         /// </summary>
-        IList<IImageUrls> MetaPages { get; }
+        IList<IMetaPage> MetaPages { get; }
 
         /// <summary>
         ///     閲覧数
