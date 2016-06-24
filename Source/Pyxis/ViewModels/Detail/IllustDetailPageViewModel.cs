@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Prism.Windows.AppModel;
 using Prism.Windows.Navigation;
 
 using Pyxis.Beta.Interfaces.Models.v1;
@@ -36,7 +37,10 @@ namespace Pyxis.ViewModels.Detail
             _illust = parameter.Illust;
             Title = _illust.Title;
             Description = _illust.Caption.Replace("<br />", Environment.NewLine);
+            CreatedAt = _illust.CreateDate.ToString("g");
             Username = _illust.User.Name;
+            View = _illust.TotalView;
+            Bookmark = _illust.TotalBookmarks;
             Height = _illust.Height;
             Width = _illust.Width;
             Thumbnailable = new PixivImage(_illust, _imageStoreService, true);
@@ -66,6 +70,7 @@ namespace Pyxis.ViewModels.Detail
 
         private string _title;
 
+        [RestorableState]
         public string Title
         {
             get { return _title; }
@@ -78,6 +83,7 @@ namespace Pyxis.ViewModels.Detail
 
         private string _description;
 
+        [RestorableState]
         public string Description
         {
             get { return _description; }
@@ -86,10 +92,24 @@ namespace Pyxis.ViewModels.Detail
 
         #endregion
 
+        #region CreatedAt
+
+        private string _createdAt;
+
+        [RestorableState]
+        public string CreatedAt
+        {
+            get { return _createdAt; }
+            set { SetProperty(ref _createdAt, value); }
+        }
+
+        #endregion
+
         #region Username
 
         private string _username;
 
+        [RestorableState]
         public string Username
         {
             get { return _username; }
@@ -102,6 +122,7 @@ namespace Pyxis.ViewModels.Detail
 
         private string _iconPath;
 
+        [RestorableState]
         public string IconPath
         {
             get
@@ -115,10 +136,37 @@ namespace Pyxis.ViewModels.Detail
 
         #endregion
 
+        #region View
+
+        private int _view;
+
+        [RestorableState]
+        public int View
+        {
+            get { return _view; }
+            set { SetProperty(ref _view, value); }
+        }
+
+        #endregion
+
+        #region Bookmark
+
+        private int _bookmark;
+
+        [RestorableState]
+        public int Bookmark
+        {
+            get { return _bookmark; }
+            set { SetProperty(ref _bookmark, value); }
+        }
+
+        #endregion
+
         #region Height
 
         private int _height;
 
+        [RestorableState]
         public int Height
         {
             get { return _height; }
@@ -131,6 +179,7 @@ namespace Pyxis.ViewModels.Detail
 
         private int _width;
 
+        [RestorableState]
         public int Width
         {
             get { return _width; }

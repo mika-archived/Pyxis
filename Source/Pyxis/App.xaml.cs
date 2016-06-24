@@ -36,6 +36,9 @@ namespace Pyxis
             {
                 Debug.WriteLine("");
                 Debug.WriteLine(e.Message);
+
+                e.Handled = true;
+                Application.Current.Exit();
             };
         }
 
