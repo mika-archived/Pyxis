@@ -63,8 +63,8 @@ namespace Pyxis.Models
         private int Count()
         {
             if (_contentType == ContentType.Novel)
-                return NewIllusts.Count;
-            return NewNovels.Count;
+                return NewNovels.Count;
+            return NewIllusts.Count;
         }
 
         #region Illust related
