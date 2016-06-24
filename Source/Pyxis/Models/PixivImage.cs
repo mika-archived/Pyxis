@@ -33,7 +33,7 @@ namespace Pyxis.Models
             }
             else
             {
-                var orig = _illust.ImageUrls.Original ?? _illust.ImageUrls.Large;
+                var orig = _illust.MetaSinglePage.Original ?? _illust.ImageUrls.Large;
                 if (await _imageStoreService.ExistImageAsync(orig))
                     ThumbnailPath = await _imageStoreService.LoadImageAsync(orig);
                 else

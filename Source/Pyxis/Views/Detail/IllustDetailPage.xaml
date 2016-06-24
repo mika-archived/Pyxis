@@ -46,7 +46,7 @@
             </StackPanel>
             <Border BorderBrush="{ThemeResource SystemControlBackgroundChromeMediumBrush}"
                     BorderThickness="0,0,0,1">
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Margin="5,0" Orientation="Horizontal">
                     <StackPanel.Resources>
                         <Style BasedOn="{StaticResource CaptionTextBlockStyle}"
                                TargetType="TextBlock">
