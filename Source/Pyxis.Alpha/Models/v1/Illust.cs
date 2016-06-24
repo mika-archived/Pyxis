@@ -76,7 +76,7 @@ namespace Pyxis.Alpha.Models.v1
         [JsonProperty("total_view")]
         public int TotalView { get; set; }
 
-        [JsonProperty("total_bookmark")]
+        [JsonProperty("total_bookmarks")]
         public int TotalBookmarks { get; set; }
 
         [JsonProperty("is_bookmarked")]
