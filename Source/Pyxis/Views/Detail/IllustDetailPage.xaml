@@ -24,10 +24,7 @@
                     <Setter Property="Padding" Value="5" />
                 </Style>
             </StackPanel.Resources>
-            <i:Interaction.Behaviors>
-                <behaviors:AdjustControlSizeBehavior IsSyncWidth="True"
-                                                     WidthOffset="-105" />
-            </i:Interaction.Behaviors>
+
             <Border>
                 <Image x:Name="MainImage"
                        MaxWidth="{x:Bind ViewModel.Width, Mode=OneWay}"
@@ -103,12 +100,20 @@
                                         BorderThickness="1"
                                         CornerRadius="10"
                                         Padding="15,0">
-                                    <TextBlock Text="{Binding Name}" />
+                                    <TextBlock Text="{Binding Name}"
+                                               TextTrimming="CharacterEllipsis" />
                                 </Border>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </Grid>
+            </Border>
+            <Border>
+                <StackPanel>
+                    <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}"
+                               Text="コメント" />
+                </StackPanel>
+                <!-- Comments -->
             </Border>
         </StackPanel>
     </ScrollViewer>

@@ -8,11 +8,16 @@ namespace Pyxis.Models.Parameters
     {
         protected abstract bool ParseJson { get; }
 
+        protected abstract bool TypeNamingRequired { get; }
+
         public object ToJson()
         {
             if (!ParseJson)
                 return this;
-            return JsonConvert.SerializeObject(this);
+            if (!TypeNamingRequired)
+                return JsonConvert.SerializeObject(this);
+            var jsonSettings = new JsonSerializerSettings {TypeNameHandling = TypeNameHandling.All};
+            return JsonConvert.SerializeObject(this, jsonSettings);
         }
 
         public static T ToObject<T>(object json)
@@ -22,7 +27,8 @@ namespace Pyxis.Models.Parameters
                 if (json is ParameterBase)
                     return (T) json;
                 var jsonString = json.ToString();
-                return JsonConvert.DeserializeObject<T>(jsonString);
+                var jsonSettings = new JsonSerializerSettings {TypeNameHandling = TypeNameHandling.All};
+                return JsonConvert.DeserializeObject<T>(jsonString, jsonSettings);
             }
             catch (Exception e)
             {

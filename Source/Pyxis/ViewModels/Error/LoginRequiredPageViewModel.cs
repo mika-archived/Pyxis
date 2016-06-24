@@ -23,7 +23,7 @@ namespace Pyxis.ViewModels.Error
         public async void OnRegisterButtonTapped()
             => await Launcher.LaunchUriAsync(new Uri("https://accounts.pixiv.net/signup"));
 
-        public void OnLoginButtonTapped() => _navigationService.Navigate("Account.Login", _parameter);
+        public void OnLoginButtonTapped() => _navigationService.Navigate("Account.Login", _parameter.ToJson());
 
         #region Overrides of ViewModelBase
 

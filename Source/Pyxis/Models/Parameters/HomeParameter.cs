@@ -12,6 +12,7 @@ namespace Pyxis.Models.Parameters
         #region Overrides of ParameterBase
 
         protected override bool ParseJson => true;
+        protected override bool TypeNamingRequired => false;
 
         #endregion
     }

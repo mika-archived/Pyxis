@@ -9,6 +9,7 @@
         #region Overrides of ParameterBase
 
         protected override bool ParseJson => true;
+        protected override bool TypeNamingRequired => true;
 
         #endregion
     }
