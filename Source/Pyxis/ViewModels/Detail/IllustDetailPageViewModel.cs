@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Prism.Windows.AppModel;
 using Prism.Windows.Navigation;
 
 using Pyxis.Beta.Interfaces.Models.v1;
@@ -59,10 +58,27 @@ namespace Pyxis.ViewModels.Detail
         public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
         {
             base.OnNavigatedTo(e, viewModelState);
-            var parameter = e.Parameter as IllustDetailParameter;
-            //ParameterBase.ToObject<IllustDetailParameter>(e.Parameter?.ToString(), true);
+            var parameter = ParameterBase.ToObject<IllustDetailParameter>((string) e.Parameter);
+            if (parameter == null && viewModelState.ContainsKey("Illust"))
+                parameter = viewModelState["Illust"] as IllustDetailParameter;
             Initialize(parameter);
         }
+
+        #region Overrides of ViewModelBase
+
+        #region Overrides of ViewModelBase
+
+        public override void OnNavigatingFrom(NavigatingFromEventArgs e, Dictionary<string, object> viewModelState,
+                                              bool suspending)
+        {
+            if (suspending)
+                viewModelState["Illust"] = new IllustDetailParameter {Illust = _illust}.ToJson();
+            base.OnNavigatingFrom(e, viewModelState, suspending);
+        }
+
+        #endregion
+
+        #endregion
 
         #endregion
 
@@ -70,7 +86,6 @@ namespace Pyxis.ViewModels.Detail
 
         private string _title;
 
-        [RestorableState]
         public string Title
         {
             get { return _title; }
@@ -83,7 +98,6 @@ namespace Pyxis.ViewModels.Detail
 
         private string _description;
 
-        [RestorableState]
         public string Description
         {
             get { return _description; }
@@ -96,7 +110,6 @@ namespace Pyxis.ViewModels.Detail
 
         private string _createdAt;
 
-        [RestorableState]
         public string CreatedAt
         {
             get { return _createdAt; }
@@ -109,7 +122,6 @@ namespace Pyxis.ViewModels.Detail
 
         private string _username;
 
-        [RestorableState]
         public string Username
         {
             get { return _username; }
@@ -122,7 +134,6 @@ namespace Pyxis.ViewModels.Detail
 
         private string _iconPath;
 
-        [RestorableState]
         public string IconPath
         {
             get
@@ -140,7 +151,6 @@ namespace Pyxis.ViewModels.Detail
 
         private int _view;
 
-        [RestorableState]
         public int View
         {
             get { return _view; }
@@ -153,7 +163,6 @@ namespace Pyxis.ViewModels.Detail
 
         private int _bookmark;
 
-        [RestorableState]
         public int Bookmark
         {
             get { return _bookmark; }
@@ -166,7 +175,6 @@ namespace Pyxis.ViewModels.Detail
 
         private int _height;
 
-        [RestorableState]
         public int Height
         {
             get { return _height; }
@@ -179,7 +187,6 @@ namespace Pyxis.ViewModels.Detail
 
         private int _width;
 
-        [RestorableState]
         public int Width
         {
             get { return _width; }
