@@ -6,10 +6,10 @@
       xmlns:attach="using:Pyxis.Attach"
       xmlns:base="using:Pyxis.ViewModels.Base"
       xmlns:behaviors="using:Pyxis.Behaviors"
-      xmlns:core="using:Microsoft.Xaml.Interactions.Core"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:homeBase="using:Pyxis.ViewModels.Home.Base"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
+      xmlns:items="using:Pyxis.Views.Items"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:prism="using:Prism.Windows.Mvvm"
       xmlns:viewModels="using:Pyxis.ViewModels"
@@ -230,18 +230,7 @@
                 </GridView.Header>
                 <GridView.ItemTemplate>
                     <DataTemplate x:DataType="base:TappableThumbnailViewModel">
-                        <Grid x:Name="RootGrid">
-                            <i:Interaction.Behaviors>
-                                <core:EventTriggerBehavior EventName="Tapped"
-                                                           SourceObject="{Binding ElementName=RootGrid}">
-                                    <core:CallMethodAction MethodName="OnItemTapped"
-                                                           TargetObject="{Binding}" />
-                                </core:EventTriggerBehavior>
-                            </i:Interaction.Behaviors>
-                            <Image VerticalAlignment="Center"
-                                   Source="{Binding ThumbnailPath}"
-                                   Stretch="UniformToFill" />
-                        </Grid>
+                        <items:ThumbnailView DataContext="{Binding}" />
                     </DataTemplate>
                 </GridView.ItemTemplate>
             </GridView>

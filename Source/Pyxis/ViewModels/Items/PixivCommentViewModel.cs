@@ -9,7 +9,7 @@ using Pyxis.ViewModels.Base;
 
 using Reactive.Bindings.Extensions;
 
-namespace Pyxis.ViewModels.Detail.Items
+namespace Pyxis.ViewModels.Items
 {
     public class PixivCommentViewModel : ThumbnailableViewModel
     {

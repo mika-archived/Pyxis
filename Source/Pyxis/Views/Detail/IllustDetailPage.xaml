@@ -5,11 +5,9 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:attach="using:Pyxis.Attach"
       xmlns:behaviors="using:Pyxis.Behaviors"
-      xmlns:core="using:Microsoft.Xaml.Interactions.Core"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
-      xmlns:item="using:Pyxis.ViewModels.Items"
-      xmlns:items="using:Pyxis.ViewModels.Detail.Items"
+      xmlns:items="using:Pyxis.Views.Items"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:prism="using:Prism.Windows.Mvvm"
       xmlns:vm="using:Pyxis.ViewModels.Detail"
@@ -198,15 +196,8 @@
                                     </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemTemplate>
-                                    <DataTemplate x:DataType="item:PixivTagViewModel">
-                                        <Border Margin="5,2.5"
-                                                BorderBrush="Silver"
-                                                BorderThickness="1"
-                                                CornerRadius="10"
-                                                Padding="15,0">
-                                            <TextBlock Text="{Binding Name}"
-                                                       TextTrimming="CharacterEllipsis" />
-                                        </Border>
+                                    <DataTemplate>
+                                        <items:TagView DataContext="{Binding}" />
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
@@ -223,36 +214,8 @@
                                     </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemTemplate>
-                                    <DataTemplate x:DataType="items:PixivCommentViewModel">
-                                        <StackPanel Margin="5,10"
-                                                    Orientation="Horizontal">
-                                            <Border Width="32"
-                                                    Height="32"
-                                                    Margin="5"
-                                                    BorderBrush="Transparent"
-                                                    CornerRadius="16">
-                                                <Border.Background>
-                                                    <ImageBrush ImageSource="{Binding ThumbnailPath, Mode=OneWay}" />
-                                                </Border.Background>
-                                            </Border>
-                                            <StackPanel Margin="5,0">
-                                                <StackPanel Orientation="Horizontal">
-                                                    <TextBlock Style="{ThemeResource CaptionTextBlockStyle}"
-                                                               Text="{Binding Name,
-                                                                              Mode=OneWay}"
-                                                               TextWrapping="Wrap" />
-                                                    <TextBlock Margin="5,0"
-                                                               Foreground="{ThemeResource ComboBoxItemDisabledForegroundThemeBrush}"
-                                                               Style="{ThemeResource CaptionTextBlockStyle}"
-                                                               Text="{Binding CreatedAt,
-                                                                              Mode=OneWay}" />
-                                                </StackPanel>
-                                                <TextBlock Style="{ThemeResource CaptionTextBlockStyle}"
-                                                           Text="{Binding Comment,
-                                                                          Mode=OneWay}"
-                                                           TextWrapping="Wrap" />
-                                            </StackPanel>
-                                        </StackPanel>
+                                    <DataTemplate>
+                                        <items:CommentView DataContext="{Binding}" />
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
@@ -265,19 +228,8 @@
                 </StackPanel>
             </GridView.Header>
             <GridView.ItemTemplate>
-                <DataTemplate x:DataType="item:PixivImageViewModel">
-                    <Grid x:Name="RootGrid">
-                        <i:Interaction.Behaviors>
-                            <core:EventTriggerBehavior EventName="Tapped"
-                                                       SourceObject="{Binding ElementName=RootGrid}">
-                                <core:CallMethodAction MethodName="OnItemTapped"
-                                                       TargetObject="{Binding}" />
-                            </core:EventTriggerBehavior>
-                        </i:Interaction.Behaviors>
-                        <Image VerticalAlignment="Center"
-                               Source="{Binding ThumbnailPath}"
-                               Stretch="UniformToFill" />
-                    </Grid>
+                <DataTemplate>
+                    <items:ThumbnailView DataContext="{Binding}" />
                 </DataTemplate>
             </GridView.ItemTemplate>
         </GridView>

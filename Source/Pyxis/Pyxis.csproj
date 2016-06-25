@@ -150,7 +150,7 @@
     <Compile Include="ViewModels\BrowsingHistory\IllustMangaBrowsingHistoryPageViewModel.cs" />
     <Compile Include="ViewModels\BrowsingHistory\NovelBrowsingHistoryPageViewModel.cs" />
     <Compile Include="ViewModels\Detail\IllustDetailPageViewModel.cs" />
-    <Compile Include="ViewModels\Detail\Items\PixivCommentViewModel.cs" />
+    <Compile Include="ViewModels\Items\PixivCommentViewModel.cs" />
     <Compile Include="ViewModels\Detail\Items\PixivMangaImageViewModel.cs" />
     <Compile Include="ViewModels\Detail\MangaDetailPageViewModel.cs" />
     <Compile Include="ViewModels\Detail\MangaViewPageViewModel.cs" />
@@ -237,6 +237,15 @@
     </Compile>
     <Compile Include="Views\HomeMainPage.xaml.cs">
       <DependentUpon>HomeMainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Items\CommentView.xaml.cs">
+      <DependentUpon>CommentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Items\TagView.xaml.cs">
+      <DependentUpon>TagView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Items\ThumbnailView.xaml.cs">
+      <DependentUpon>ThumbnailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Mypixiv\MainMypixivPage.xaml.cs">
       <DependentUpon>MainMypixivPage.xaml</DependentUpon>
@@ -436,6 +445,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\HomeMainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Items\CommentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Items\TagView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Items\ThumbnailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
