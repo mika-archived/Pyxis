@@ -60,6 +60,16 @@ namespace Pyxis.ViewModels.Detail
                       .Subscribe(w => IconPath = w).AddTo(this);
         }
 
+        #region Overrides of TappableThumbnailViewModel
+
+        public override void OnItemTapped()
+        {
+            var parameter = new IllustDetailParameter {Illust = _illust};
+            _navigationService.Navigate("Detail.MangaView", parameter.ToJson());
+        }
+
+        #endregion
+
         #region Overrides of ViewModelBase
 
         public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)

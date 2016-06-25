@@ -1,7 +1,9 @@
 ﻿<Page x:Class="Pyxis.Views.Detail.MangaDetailPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:core="using:Microsoft.Xaml.Interactions.Core"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:item="using:Pyxis.ViewModels.Items"
       xmlns:local="using:Pyxis.Views.Detail"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -21,15 +23,37 @@
                     <Setter Property="Padding" Value="5" />
                 </Style>
             </StackPanel.Resources>
-
             <Border>
-                <Image x:Name="MainImage"
-                       MaxWidth="{x:Bind ViewModel.Width, Mode=OneWay}"
-                       MaxHeight="{x:Bind ViewModel.Height, Mode=OneWay}"
-                       Margin="0,0,0,10"
-                       Source="{x:Bind ViewModel.ThumbnailPath, Mode=OneWay}"
-                       Stretch="Uniform"
-                       Tag="-105" />
+                <Grid>
+                    <Image x:Name="MainImage"
+                           MaxWidth="{x:Bind ViewModel.Width, Mode=OneWay}"
+                           MaxHeight="{x:Bind ViewModel.Height, Mode=OneWay}"
+                           Margin="0,0,0,10"
+                           Source="{x:Bind ViewModel.ThumbnailPath, Mode=OneWay}"
+                           Stretch="Uniform">
+                        <i:Interaction.Behaviors>
+                            <core:EventTriggerBehavior EventName="Tapped"
+                                                       SourceObject="{Binding ElementName=MainImage}">
+                                <core:CallMethodAction MethodName="OnItemTapped"
+                                                       TargetObject="{Binding}" />
+                            </core:EventTriggerBehavior>
+                        </i:Interaction.Behaviors>
+                    </Image>
+                    <Grid HorizontalAlignment="Right"
+                          VerticalAlignment="Top"
+                          Opacity=".8">
+                        <Polygon Fill="Silver"
+                                 Points="0,0, 100,100, 100,0"
+                                 Stroke="Silver" />
+                        <TextBlock Margin="0,10,10,0"
+                                   HorizontalAlignment="Right"
+                                   VerticalAlignment="Top"
+                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                   Style="{ThemeResource SubheaderTextBlockStyle}"
+                                   Text="&#xE8C8;" />
+
+                    </Grid>
+                </Grid>
             </Border>
             <Border>
                 <StackPanel>

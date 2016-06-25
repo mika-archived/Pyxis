@@ -148,7 +148,9 @@
     <Compile Include="ViewModels\BrowsingHistory\IllustMangaBrowsingHistoryPageViewModel.cs" />
     <Compile Include="ViewModels\BrowsingHistory\NovelBrowsingHistoryPageViewModel.cs" />
     <Compile Include="ViewModels\Detail\IllustDetailPageViewModel.cs" />
+    <Compile Include="ViewModels\Detail\Items\PixivMangaImageViewModel.cs" />
     <Compile Include="ViewModels\Detail\MangaDetailPageViewModel.cs" />
+    <Compile Include="ViewModels\Detail\MangaViewPageViewModel.cs" />
     <Compile Include="ViewModels\Error\LoginRequiredPageViewModel.cs" />
     <Compile Include="ViewModels\Error\PremiumRequiredPageViewModel.cs" />
     <Compile Include="ViewModels\Favorite\IllustMangaFavoritePageViewModel.cs" />
@@ -199,6 +201,9 @@
     </Compile>
     <Compile Include="Views\Detail\MangaDetailPage.xaml.cs">
       <DependentUpon>MangaDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Detail\MangaViewPage.xaml.cs">
+      <DependentUpon>MangaViewPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Error\LoginRequiredPage.xaml.cs">
       <DependentUpon>LoginRequiredPage.xaml</DependentUpon>
@@ -384,6 +389,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Detail\MangaDetailPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Detail\MangaViewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

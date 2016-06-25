@@ -1,39 +1,35 @@
-﻿using System.Collections.ObjectModel;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Helpers;
+using Pyxis.Models.Base;
 using Pyxis.Services.Interfaces;
 
 namespace Pyxis.Models
 {
-    internal class PixivMangaImage
+    internal class PixivMangaImage : ThumbnailableBase
     {
         private readonly IIllust _illust;
         private readonly IImageStoreService _imageStoreService;
+        private readonly int _index;
 
-        public ObservableCollection<string> ThumbnailPaths { get; }
-
-        public PixivMangaImage(IIllust illust, IImageStoreService imageStoreService)
+        public PixivMangaImage(IIllust illust, int index, IImageStoreService imageStoreService)
         {
             _illust = illust;
+            _index = index;
             _imageStoreService = imageStoreService;
-            ThumbnailPaths = new ObservableCollection<string>();
         }
 
-        public void ShowThumbnail() => RunHelper.RunAsync(DownloadImage);
+        public override void ShowThumbnail() => RunHelper.RunAsync(DownloadImage);
 
         // Support raw only
         private async Task DownloadImage()
         {
-            foreach (var imageUrls in _illust.MetaPages)
-            {
-                var orig = imageUrls.ImageUrls.Original ?? imageUrls.ImageUrls.Large;
-                if (await _imageStoreService.ExistImageAsync(orig))
-                    ThumbnailPaths.Add(await _imageStoreService.LoadImageAsync(orig));
-                else
-                    ThumbnailPaths.Add(await _imageStoreService.SaveImageAsync(orig));
-            }
+            var orig = _illust.MetaPages[_index].ImageUrls.Original ?? _illust.MetaPages[_index].ImageUrls.Large;
+            if (await _imageStoreService.ExistImageAsync(orig))
+                ThumbnailPath = await _imageStoreService.LoadImageAsync(orig);
+            else
+                ThumbnailPath = await _imageStoreService.SaveImageAsync(orig);
         }
     }
 }
