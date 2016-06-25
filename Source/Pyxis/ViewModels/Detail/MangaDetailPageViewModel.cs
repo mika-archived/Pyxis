@@ -8,11 +8,15 @@ using Microsoft.Practices.ObjectBuilder2;
 using Prism.Windows.Navigation;
 
 using Pyxis.Beta.Interfaces.Models.v1;
+using Pyxis.Beta.Interfaces.Rest;
+using Pyxis.Collections;
+using Pyxis.Helpers;
 using Pyxis.Models;
 using Pyxis.Models.Parameters;
 using Pyxis.Mvvm;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
+using Pyxis.ViewModels.Detail.Items;
 using Pyxis.ViewModels.Items;
 
 using Reactive.Bindings.Extensions;
@@ -24,23 +28,33 @@ namespace Pyxis.ViewModels.Detail
         private readonly IAccountService _accountService;
         private readonly IImageStoreService _imageStoreService;
         private readonly INavigationService _navigationService;
+        private readonly IPixivClient _pixivClient;
+        private int _count;
         private IIllust _illust;
+        private PixivComment _pixivComment;
+        private PixivRelated _pixivRelated;
         private PixivUser _pixivUser;
         public ObservableCollection<PixivTagViewModel> Tags { get; }
+        public ObservableCollection<PixivCommentViewModel> Comments { get; }
+        public IncrementalObservableCollection<PixivImageViewModel> RelatedItems { get; }
 
         public MangaDetailPageViewModel(IAccountService accountService, IImageStoreService imageStoreService,
-                                        INavigationService navigationService)
+                                        INavigationService navigationService, IPixivClient pixivClient)
         {
             _accountService = accountService;
             _imageStoreService = imageStoreService;
             _navigationService = navigationService;
+            _pixivClient = pixivClient;
             Tags = new ObservableCollection<PixivTagViewModel>();
+            Comments = new ObservableCollection<PixivCommentViewModel>();
+            RelatedItems = new IncrementalObservableCollection<PixivImageViewModel>();
             ThumbnailPath = PyxisConstants.DummyImage;
             IconPath = PyxisConstants.DummyIcon;
         }
 
         private void Initialize(IllustDetailParameter parameter)
         {
+            _count = 0;
             _illust = parameter.Illust;
             Title = _illust.Title;
             Description = _illust.Caption.Replace("<br />", Environment.NewLine);
@@ -62,6 +76,15 @@ namespace Pyxis.ViewModels.Detail
                       .Where(w => !string.IsNullOrWhiteSpace(w))
                       .ObserveOnUIDispatcher()
                       .Subscribe(w => IconPath = w).AddTo(this);
+            _pixivComment = new PixivComment(_illust, _pixivClient);
+            _pixivComment.Fetch();
+            _pixivComment.Comments.ObserveAddChanged()
+                         .Where(w => ++_count <= 5)
+                         .ObserveOnUIDispatcher()
+                         .Subscribe(w => { Comments.Add(CreatePixivComment(w)); })
+                         .AddTo(this);
+            _pixivRelated = new PixivRelated(_illust, _pixivClient);
+            ModelHelper.ConnectTo(RelatedItems, _pixivRelated, w => w.RelatedIllusts, CreatePixivImage);
         }
 
         #region Overrides of TappableThumbnailViewModel
@@ -71,6 +94,16 @@ namespace Pyxis.ViewModels.Detail
             var parameter = new IllustDetailParameter {Illust = _illust};
             _navigationService.Navigate("Detail.MangaView", parameter.ToJson());
         }
+
+        #endregion
+
+        #region Converters
+
+        private PixivImageViewModel CreatePixivImage(IIllust w) =>
+            new PixivImageViewModel(w, _imageStoreService, _navigationService);
+
+        private PixivCommentViewModel CreatePixivComment(IComment w) =>
+            new PixivCommentViewModel(w, _imageStoreService);
 
         #endregion
 
