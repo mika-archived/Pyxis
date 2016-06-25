@@ -20,7 +20,6 @@ namespace Pyxis.ViewModels
         {
             _accountService = accountService;
             _imageStoreService = imageStoreService;
-            ThumbnailPath = PyxisConstants.DummyIcon;
 
             _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1)).Subscribe(w =>
             {
@@ -31,9 +30,10 @@ namespace Pyxis.ViewModels
 
         private void LoggedIn()
         {
-            _disposable.Dispose();
+            _disposable?.Dispose();
             Thumbnailable = new PixivUser(_accountService.LoggedInAccount, _imageStoreService);
             Thumbnailable.ObserveProperty(w => w.ThumbnailPath)
+                         .Where(w => !string.IsNullOrWhiteSpace(w))
                          .ObserveOnUIDispatcher()
                          .Subscribe(w => ThumbnailPath = w)
                          .AddTo(this);

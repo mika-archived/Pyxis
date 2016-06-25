@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Reactive.Linq;
 
 using Microsoft.Practices.ObjectBuilder2;
 
@@ -34,6 +35,7 @@ namespace Pyxis.ViewModels.Detail
             _imageStoreService = imageStoreService;
             _navigationService = navigationService;
             Tags = new ObservableCollection<PixivTagViewModel>();
+            ThumbnailPath = PyxisConstants.DummyImage;
             IconPath = PyxisConstants.DummyIcon;
         }
 
@@ -51,11 +53,13 @@ namespace Pyxis.ViewModels.Detail
             _illust.Tags.ForEach(w => Tags.Add(new PixivTagViewModel(w, _navigationService)));
             Thumbnailable = new PixivImage(_illust, _imageStoreService, true);
             Thumbnailable.ObserveProperty(w => w.ThumbnailPath)
+                         .Where(w => !string.IsNullOrWhiteSpace(w))
                          .ObserveOnUIDispatcher()
                          .Subscribe(w => ThumbnailPath = w)
                          .AddTo(this);
             _pixivUser = new PixivUser(_illust.User, _imageStoreService);
             _pixivUser.ObserveProperty(w => w.ThumbnailPath)
+                      .Where(w => !string.IsNullOrWhiteSpace(w))
                       .ObserveOnUIDispatcher()
                       .Subscribe(w => IconPath = w).AddTo(this);
         }

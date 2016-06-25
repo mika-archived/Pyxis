@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reactive.Linq;
 
 using Prism.Windows.Navigation;
 
@@ -24,8 +25,10 @@ namespace Pyxis.ViewModels.Items
             _illust = illust;
             _navigationService = navigationService;
 
+            ThumbnailPath = PyxisConstants.DummyImage;
             Thumbnailable = new PixivImage(illust, imageStoreService);
             Thumbnailable.ObserveProperty(w => w.ThumbnailPath)
+                         .Where(w => !string.IsNullOrWhiteSpace(w))
                          .ObserveOnUIDispatcher()
                          .Subscribe(w => ThumbnailPath = w)
                          .AddTo(this);

@@ -16,7 +16,6 @@ namespace Pyxis.Models
         {
             _novel = novel;
             _imageStoreService = imageStoreService;
-            ThumbnailPath = PyxisConstants.DummyImage;
         }
 
         public override void ShowThumbnail() => RunHelper.RunAsync(DownloadThumbnail);
