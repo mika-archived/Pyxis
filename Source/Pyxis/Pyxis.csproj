@@ -118,11 +118,13 @@
     <Compile Include="Models\Enums\ContentType2.cs" />
     <Compile Include="Models\Enums\RestrictType.cs" />
     <Compile Include="Models\Enums\SearchType.cs" />
+    <Compile Include="Models\PixivComment.cs" />
     <Compile Include="Models\Parameters\HomeParameter.cs" />
     <Compile Include="Models\Parameters\IllustDetailParameter.cs" />
     <Compile Include="Models\Parameters\NewParameter.cs" />
     <Compile Include="Models\Parameters\ParameterBase.cs" />
     <Compile Include="Models\Parameters\RedirectParameter.cs" />
+    <Compile Include="Models\PixivRelated.cs" />
     <Compile Include="Models\PixivImage.cs" />
     <Compile Include="Models\PixivMangaImage.cs" />
     <Compile Include="Models\PixivNew.cs" />
@@ -148,6 +150,7 @@
     <Compile Include="ViewModels\BrowsingHistory\IllustMangaBrowsingHistoryPageViewModel.cs" />
     <Compile Include="ViewModels\BrowsingHistory\NovelBrowsingHistoryPageViewModel.cs" />
     <Compile Include="ViewModels\Detail\IllustDetailPageViewModel.cs" />
+    <Compile Include="ViewModels\Detail\Items\PixivCommentViewModel.cs" />
     <Compile Include="ViewModels\Detail\Items\PixivMangaImageViewModel.cs" />
     <Compile Include="ViewModels\Detail\MangaDetailPageViewModel.cs" />
     <Compile Include="ViewModels\Detail\MangaViewPageViewModel.cs" />
