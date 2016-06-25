@@ -16,7 +16,6 @@ using Pyxis.Models.Parameters;
 using Pyxis.Mvvm;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
-using Pyxis.ViewModels.Detail.Items;
 using Pyxis.ViewModels.Items;
 
 using Reactive.Bindings.Extensions;
@@ -81,8 +80,9 @@ namespace Pyxis.ViewModels.Detail
             _pixivComment.Fetch();
             _pixivComment.Comments.ObserveAddChanged()
                          .Where(w => ++_count <= 5)
+                         .Select(CreatePixivComment)
                          .ObserveOnUIDispatcher()
-                         .Subscribe(w => { Comments.Add(CreatePixivComment(w)); })
+                         .Subscribe(w => Comments.Add(w))
                          .AddTo(this);
             _pixivRelated = new PixivRelated(_illust, _pixivClient);
             ModelHelper.ConnectTo(RelatedItems, _pixivRelated, w => w.RelatedIllusts, CreatePixivImage);

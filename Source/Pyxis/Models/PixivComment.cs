@@ -17,6 +17,7 @@ namespace Pyxis.Models
     internal class PixivComment : ISupportIncrementalLoading
     {
         private readonly IIllust _illust;
+        private readonly INovel _novel;
         private readonly IPixivClient _pixivClient;
 
         public ObservableCollection<IComment> Comments { get; }
@@ -29,12 +30,24 @@ namespace Pyxis.Models
             Comments = new ObservableCollection<IComment>();
         }
 
+        public PixivComment(INovel novel, IPixivClient pixivClient)
+        {
+            _novel = novel;
+            _pixivClient = pixivClient;
+            HasMoreItems = true;
+            Comments = new ObservableCollection<IComment>();
+        }
+
         public void Fetch() => RunHelper.RunAsync(FetchComments);
 
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         private async Task FetchComments()
         {
-            var comments = await _pixivClient.IllustV1.CommentsAsync(illust_id => _illust.Id, offset => Comments.Count);
+            IComments comments;
+            if (_illust != null)
+                comments = await _pixivClient.IllustV1.CommentsAsync(illust_id => _illust.Id, offset => Comments.Count);
+            else
+                comments = await _pixivClient.NovelV1.CommentsAsync(novel_id => _novel.Id, offset => Comments.Count);
             comments?.CommentList.ForEach(w => Comments.Add(w));
             if (string.IsNullOrWhiteSpace(comments?.NextUrl))
                 HasMoreItems = false;

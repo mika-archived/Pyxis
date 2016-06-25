@@ -9,8 +9,6 @@ using Prism.Windows.Navigation;
 
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest;
-using Pyxis.Collections;
-using Pyxis.Helpers;
 using Pyxis.Models;
 using Pyxis.Models.Parameters;
 using Pyxis.Mvvm;
@@ -22,22 +20,25 @@ using Reactive.Bindings.Extensions;
 
 namespace Pyxis.ViewModels.Detail
 {
-    public class MangaDetailPageViewModel : TappableThumbnailViewModel
+    public class NovelDetailPageViewModel : ThumbnailableViewModel
     {
         private readonly IAccountService _accountService;
         private readonly IImageStoreService _imageStoreService;
         private readonly INavigationService _navigationService;
         private readonly IPixivClient _pixivClient;
+
         private int _count;
-        private IIllust _illust;
+        private INovel _novel;
         private PixivComment _pixivComment;
-        private PixivRelated _pixivRelated;
         private PixivUser _pixivUser;
+
+        public int Height => 221;
+        public int Width => 176;
+
         public ObservableCollection<PixivTagViewModel> Tags { get; }
         public ObservableCollection<PixivCommentViewModel> Comments { get; }
-        public IncrementalObservableCollection<PixivImageViewModel> RelatedItems { get; }
 
-        public MangaDetailPageViewModel(IAccountService accountService, IImageStoreService imageStoreService,
+        public NovelDetailPageViewModel(IAccountService accountService, IImageStoreService imageStoreService,
                                         INavigationService navigationService, IPixivClient pixivClient)
         {
             _accountService = accountService;
@@ -46,55 +47,53 @@ namespace Pyxis.ViewModels.Detail
             _pixivClient = pixivClient;
             Tags = new ObservableCollection<PixivTagViewModel>();
             Comments = new ObservableCollection<PixivCommentViewModel>();
-            RelatedItems = new IncrementalObservableCollection<PixivImageViewModel>();
             ThumbnailPath = PyxisConstants.DummyImage;
             IconPath = PyxisConstants.DummyIcon;
         }
 
-        private void Initialize(IllustDetailParameter parameter)
+        private void Initialize(NovelDetailParameter parameter)
         {
             _count = 0;
-            _illust = parameter.Illust;
-            Title = _illust.Title;
-            Description = _illust.Caption.Replace("<br />", Environment.NewLine);
-            CreatedAt = _illust.CreateDate.ToString("g");
-            Username = _illust.User.Name;
-            View = _illust.TotalView;
-            Bookmark = _illust.TotalBookmarks;
-            Height = _illust.Height;
-            Width = _illust.Width;
-            _illust.Tags.ForEach(w => Tags.Add(new PixivTagViewModel(w, _navigationService)));
-            Thumbnailable = new PixivImage(_illust, _imageStoreService, true);
+            _novel = parameter.Novel;
+            Title = _novel.Title;
+            Description = _novel.Caption.Replace("<br />", Environment.NewLine);
+            CreatedAt = _novel.CreateDate.ToString("g");
+            Username = _novel.User.Name;
+            View = _novel.TotalView;
+            Bookmark = _novel.TotalBookmarks;
+            TextLength = $"{_novel.TextLength.ToString("##,###")}文字";
+            _novel.Tags.ForEach(w => Tags.Add(new PixivTagViewModel(w, _navigationService)));
+            Thumbnailable = new PixivNovel(_novel, _imageStoreService);
             Thumbnailable.ObserveProperty(w => w.ThumbnailPath)
                          .Where(w => !string.IsNullOrWhiteSpace(w))
                          .ObserveOnUIDispatcher()
                          .Subscribe(w => ThumbnailPath = w)
                          .AddTo(this);
-            _pixivUser = new PixivUser(_illust.User, _imageStoreService);
+            _pixivUser = new PixivUser(_novel.User, _imageStoreService);
             _pixivUser.ObserveProperty(w => w.ThumbnailPath)
                       .Where(w => !string.IsNullOrWhiteSpace(w))
                       .ObserveOnUIDispatcher()
                       .Subscribe(w => IconPath = w)
                       .AddTo(this);
-            _pixivComment = new PixivComment(_illust, _pixivClient);
-            _pixivComment.Fetch();
+            _pixivComment = new PixivComment(_novel, _pixivClient);
             _pixivComment.Comments.ObserveAddChanged()
                          .Where(w => ++_count <= 5)
                          .Select(CreatePixivComment)
                          .ObserveOnUIDispatcher()
                          .Subscribe(w => Comments.Add(w))
                          .AddTo(this);
-            _pixivRelated = new PixivRelated(_illust, _pixivClient);
-            ModelHelper.ConnectTo(RelatedItems, _pixivRelated, w => w.RelatedIllusts, CreatePixivImage);
         }
 
-        #region Overrides of TappableThumbnailViewModel
-
-        public override void OnItemTapped()
+        public void OnTappedButton()
         {
-            var parameter = new IllustDetailParameter {Illust = _illust};
-            _navigationService.Navigate("Detail.MangaView", parameter.ToJson());
+            var parameter = new NovelDetailParameter {Novel = _novel};
+            _navigationService.Navigate("Detail.NovelView", parameter.ToJson());
         }
+
+        #region Converters
+
+        private PixivCommentViewModel CreatePixivComment(IComment w) =>
+            new PixivCommentViewModel(w, _imageStoreService);
 
         #endregion
 
@@ -103,19 +102,9 @@ namespace Pyxis.ViewModels.Detail
         public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
         {
             base.OnNavigatedTo(e, viewModelState);
-            var parameter = ParameterBase.ToObject<IllustDetailParameter>((string) e.Parameter);
+            var parameter = ParameterBase.ToObject<NovelDetailParameter>((string) e.Parameter);
             Initialize(parameter);
         }
-
-        #endregion
-
-        #region Converters
-
-        private PixivImageViewModel CreatePixivImage(IIllust w) =>
-            new PixivImageViewModel(w, _imageStoreService, _navigationService);
-
-        private PixivCommentViewModel CreatePixivComment(IComment w) =>
-            new PixivCommentViewModel(w, _imageStoreService);
 
         #endregion
 
@@ -208,26 +197,14 @@ namespace Pyxis.ViewModels.Detail
 
         #endregion
 
-        #region Height
+        #region TextLength
 
-        private int _height;
+        private string _textLength;
 
-        public int Height
+        public string TextLength
         {
-            get { return _height; }
-            set { SetProperty(ref _height, value); }
-        }
-
-        #endregion
-
-        #region Width
-
-        private int _width;
-
-        public int Width
-        {
-            get { return _width; }
-            set { SetProperty(ref _width, value); }
+            get { return _textLength; }
+            set { SetProperty(ref _textLength, value); }
         }
 
         #endregion

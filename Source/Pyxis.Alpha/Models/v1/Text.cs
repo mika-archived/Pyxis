@@ -19,9 +19,11 @@ namespace Pyxis.Alpha.Models.v1
         public string NovelText { get; set; }
 
         [JsonProperty("series_prev")]
+        [JsonConverter(typeof(InterfaceToConcrete<Novel>))]
         public INovel SeriesPrev { get; set; }
 
         [JsonProperty("series_next")]
+        [JsonConverter(typeof(InterfaceToConcrete<Novel>))]
         public INovel SeriesNext { get; set; }
 
         #endregion
