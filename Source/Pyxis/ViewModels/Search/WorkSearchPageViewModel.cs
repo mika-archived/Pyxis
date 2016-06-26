@@ -8,6 +8,7 @@ using Prism.Windows.Navigation;
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Models;
+using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
 using Pyxis.Mvvm;
 using Pyxis.Services.Interfaces;
@@ -56,6 +57,16 @@ namespace Pyxis.ViewModels.Search
             _pixivTrending.Fetch();
         }
 
+        public void OnQuerySubmitted()
+        {
+            var parameter = new SearchResultParameter
+            {
+                Query = SearchQuery,
+                SearchType = (SearchType) SelectedIndex
+            };
+            NavigationService.Navigate("Search.SearchResult", parameter.ToJson());
+        }
+
         #region Overrides of ViewModelBase
 
         public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
@@ -82,6 +93,18 @@ namespace Pyxis.ViewModels.Search
         {
             get { return _topTrendingTag; }
             set { SetProperty(ref _topTrendingTag, value); }
+        }
+
+        #endregion
+
+        #region SearchQuery
+
+        private string _searchQuery;
+
+        public string SearchQuery
+        {
+            get { return _searchQuery; }
+            set { SetProperty(ref _searchQuery, value); }
         }
 
         #endregion
