@@ -27,10 +27,10 @@ namespace Pyxis.Models
         {
             if (!_isRaw)
             {
-                if (await _imageStoreService.ExistImageAsync(_illust.ImageUrls.Medium))
-                    ThumbnailPath = await _imageStoreService.LoadImageAsync(_illust.ImageUrls.Medium);
+                if (await _imageStoreService.ExistImageAsync(_illust.ImageUrls.SquareMedium))
+                    ThumbnailPath = await _imageStoreService.LoadImageAsync(_illust.ImageUrls.SquareMedium);
                 else
-                    ThumbnailPath = await _imageStoreService.SaveImageAsync(_illust.ImageUrls.Medium);
+                    ThumbnailPath = await _imageStoreService.SaveImageAsync(_illust.ImageUrls.SquareMedium);
             }
             else
             {

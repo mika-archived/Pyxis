@@ -22,10 +22,10 @@ namespace Pyxis.Models
 
         private async Task DownloadThumbnail()
         {
-            if (await _imageStoreService.ExistImageAsync(_novel.ImageUrls.Medium))
-                ThumbnailPath = await _imageStoreService.LoadImageAsync(_novel.ImageUrls.Medium);
+            if (await _imageStoreService.ExistImageAsync(_novel.ImageUrls.SquareMedium))
+                ThumbnailPath = await _imageStoreService.LoadImageAsync(_novel.ImageUrls.SquareMedium);
             else
-                ThumbnailPath = await _imageStoreService.SaveImageAsync(_novel.ImageUrls.Medium);
+                ThumbnailPath = await _imageStoreService.SaveImageAsync(_novel.ImageUrls.SquareMedium);
         }
     }
 }
