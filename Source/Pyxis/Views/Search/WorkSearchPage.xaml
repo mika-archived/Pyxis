@@ -23,6 +23,18 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="TopTrend.Height" Value="200" />
+                        <Setter Target="TrendingRoot.ItemsPanel">
+                            <Setter.Value>
+                                <ItemsPanelTemplate>
+                                    <ItemsWrapGrid attach:AssumSize.AssumSize="100"
+                                                   Orientation="Horizontal">
+                                        <i:Interaction.Behaviors>
+                                            <behaviors:GridViewEuqalitySizeBehavior />
+                                        </i:Interaction.Behaviors>
+                                    </ItemsWrapGrid>
+                                </ItemsPanelTemplate>
+                            </Setter.Value>
+                        </Setter>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="PhoneLarge">
@@ -31,6 +43,18 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="TopTrend.Height" Value="220" />
+                        <Setter Target="TrendingRoot.ItemsPanel">
+                            <Setter.Value>
+                                <ItemsPanelTemplate>
+                                    <ItemsWrapGrid attach:AssumSize.AssumSize="100"
+                                                   Orientation="Horizontal">
+                                        <i:Interaction.Behaviors>
+                                            <behaviors:GridViewEuqalitySizeBehavior />
+                                        </i:Interaction.Behaviors>
+                                    </ItemsWrapGrid>
+                                </ItemsPanelTemplate>
+                            </Setter.Value>
+                        </Setter>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Tablet">
@@ -39,6 +63,18 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="TopTrend.Height" Value="270" />
+                        <Setter Target="TrendingRoot.ItemsPanel">
+                            <Setter.Value>
+                                <ItemsPanelTemplate>
+                                    <ItemsWrapGrid attach:AssumSize.AssumSize="150"
+                                                   Orientation="Horizontal">
+                                        <i:Interaction.Behaviors>
+                                            <behaviors:GridViewEuqalitySizeBehavior />
+                                        </i:Interaction.Behaviors>
+                                    </ItemsWrapGrid>
+                                </ItemsPanelTemplate>
+                            </Setter.Value>
+                        </Setter>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Desktop">
@@ -47,6 +83,18 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="TopTrend.Height" Value="320" />
+                        <Setter Target="TrendingRoot.ItemsPanel">
+                            <Setter.Value>
+                                <ItemsPanelTemplate>
+                                    <ItemsWrapGrid attach:AssumSize.AssumSize="200"
+                                                   Orientation="Horizontal">
+                                        <i:Interaction.Behaviors>
+                                            <behaviors:GridViewEuqalitySizeBehavior />
+                                        </i:Interaction.Behaviors>
+                                    </ItemsWrapGrid>
+                                </ItemsPanelTemplate>
+                            </Setter.Value>
+                        </Setter>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="DesktopHD">
@@ -55,68 +103,90 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="TopTrend.Height" Value="390" />
+                        <Setter Target="TrendingRoot.ItemsPanel">
+                            <Setter.Value>
+                                <ItemsPanelTemplate>
+                                    <ItemsWrapGrid attach:AssumSize.AssumSize="200"
+                                                   Orientation="Horizontal">
+                                        <i:Interaction.Behaviors>
+                                            <behaviors:GridViewEuqalitySizeBehavior />
+                                        </i:Interaction.Behaviors>
+                                    </ItemsWrapGrid>
+                                </ItemsPanelTemplate>
+                            </Setter.Value>
+                        </Setter>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <StackPanel>
-            <!-- ここに検索バー -->
-            <Pivot SelectedIndex="{x:Bind ViewModel.SelectedIndex}"
-                   Style="{StaticResource TabsStylePivotStyle}">
-                <i:Interaction.Behaviors>
-                    <behaviors:AttachNavigationToPivotBehavior NavigationService="{x:Bind ViewModel.NavigationService}" />
-                </i:Interaction.Behaviors>
-                <PivotItem attach:NavigateTo.PageToken="Search.WorkSearch"
-                           attach:NavigateTo.Parameters="{}{&quot;SearchType&quot;:0}">
-                    <PivotItem.Header>
-                        <TextBlock Width="70"
-                                   Margin="2,5,2,7"
-                                   HorizontalAlignment="Center"
-                                   FontFamily="Segoe UI"
-                                   IsTextScaleFactorEnabled="False"
-                                   LineHeight="14"
-                                   LineStackingStrategy="BlockLineHeight"
-                                   MaxLines="2"
-                                   Style="{StaticResource CaptionTextBlockStyle}"
-                                   Text="イラスト・マンガ"
-                                   TextAlignment="Center" />
-                    </PivotItem.Header>
-                </PivotItem>
-                <PivotItem attach:NavigateTo.PageToken="Search.WorkSearch"
-                           attach:NavigateTo.Parameters="{}{&quot;SearchType&quot;:1}">
-                    <PivotItem.Header>
-                        <TextBlock Width="70"
-                                   Margin="2,5,2,7"
-                                   HorizontalAlignment="Center"
-                                   FontFamily="Segoe UI"
-                                   IsTextScaleFactorEnabled="False"
-                                   LineHeight="14"
-                                   LineStackingStrategy="BlockLineHeight"
-                                   MaxLines="2"
-                                   Style="{StaticResource CaptionTextBlockStyle}"
-                                   Text="小説"
-                                   TextAlignment="Center" />
-                    </PivotItem.Header>
-                </PivotItem>
-                <PivotItem attach:NavigateTo.PageToken="Search.UserSearch"
-                           attach:NavigateTo.Parameters="{}{&quot;SearchType&quot;:2}">
-                    <PivotItem.Header>
-                        <TextBlock Width="70"
-                                   Margin="2,5,2,7"
-                                   HorizontalAlignment="Center"
-                                   FontFamily="Segoe UI"
-                                   IsTextScaleFactorEnabled="False"
-                                   LineHeight="14"
-                                   LineStackingStrategy="BlockLineHeight"
-                                   MaxLines="2"
-                                   Style="{StaticResource CaptionTextBlockStyle}"
-                                   Text="ユーザー"
-                                   TextAlignment="Center" />
-                    </PivotItem.Header>
-                </PivotItem>
-            </Pivot>
-            <local:TrendingTagView x:Name="TopTrend"
-                                   DataContext="{x:Bind ViewModel.TopTrendingTag, Mode=OneWay}" />
-        </StackPanel>
+        <GridView x:Name="TrendingRoot"
+                  ItemsSource="{x:Bind ViewModel.TrendingTags}">
+            <GridView.Header>
+                <StackPanel>
+                    <!-- ここに検索バー -->
+                    <Pivot SelectedIndex="{x:Bind ViewModel.SelectedIndex}"
+                           Style="{StaticResource TabsStylePivotStyle}">
+                        <i:Interaction.Behaviors>
+                            <behaviors:AttachNavigationToPivotBehavior NavigationService="{x:Bind ViewModel.NavigationService}" />
+                        </i:Interaction.Behaviors>
+                        <PivotItem attach:NavigateTo.PageToken="Search.WorkSearch"
+                                   attach:NavigateTo.Parameters="{}{&quot;SearchType&quot;:0}">
+                            <PivotItem.Header>
+                                <TextBlock Width="70"
+                                           Margin="2,5,2,7"
+                                           HorizontalAlignment="Center"
+                                           FontFamily="Segoe UI"
+                                           IsTextScaleFactorEnabled="False"
+                                           LineHeight="14"
+                                           LineStackingStrategy="BlockLineHeight"
+                                           MaxLines="2"
+                                           Style="{StaticResource CaptionTextBlockStyle}"
+                                           Text="イラスト・マンガ"
+                                           TextAlignment="Center" />
+                            </PivotItem.Header>
+                        </PivotItem>
+                        <PivotItem attach:NavigateTo.PageToken="Search.WorkSearch"
+                                   attach:NavigateTo.Parameters="{}{&quot;SearchType&quot;:1}">
+                            <PivotItem.Header>
+                                <TextBlock Width="70"
+                                           Margin="2,5,2,7"
+                                           HorizontalAlignment="Center"
+                                           FontFamily="Segoe UI"
+                                           IsTextScaleFactorEnabled="False"
+                                           LineHeight="14"
+                                           LineStackingStrategy="BlockLineHeight"
+                                           MaxLines="2"
+                                           Style="{StaticResource CaptionTextBlockStyle}"
+                                           Text="小説"
+                                           TextAlignment="Center" />
+                            </PivotItem.Header>
+                        </PivotItem>
+                        <PivotItem attach:NavigateTo.PageToken="Search.UserSearch"
+                                   attach:NavigateTo.Parameters="{}{&quot;SearchType&quot;:2}">
+                            <PivotItem.Header>
+                                <TextBlock Width="70"
+                                           Margin="2,5,2,7"
+                                           HorizontalAlignment="Center"
+                                           FontFamily="Segoe UI"
+                                           IsTextScaleFactorEnabled="False"
+                                           LineHeight="14"
+                                           LineStackingStrategy="BlockLineHeight"
+                                           MaxLines="2"
+                                           Style="{StaticResource CaptionTextBlockStyle}"
+                                           Text="ユーザー"
+                                           TextAlignment="Center" />
+                            </PivotItem.Header>
+                        </PivotItem>
+                    </Pivot>
+                    <local:TrendingTagView x:Name="TopTrend"
+                                           DataContext="{x:Bind ViewModel.TopTrendingTag, Mode=OneWay}" />
+                </StackPanel>
+            </GridView.Header>
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <local:TrendingTagView DataContext="{Binding}" />
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
     </Grid>
 </Page>
