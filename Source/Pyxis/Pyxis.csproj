@@ -143,13 +143,16 @@
     <Compile Include="Mvvm\ViewModelHelper.cs" />
     <Compile Include="PyxisConstants.cs" />
     <Compile Include="Services\AccountService.cs" />
+    <Compile Include="Services\DialogService.cs" />
     <Compile Include="Services\ImageStoreService.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Interfaces\IAccountService.cs" />
+    <Compile Include="Services\Interfaces\IDialogService.cs" />
     <Compile Include="Services\Interfaces\IImageStoreService.cs" />
     <Compile Include="ViewModels\AccountInfoControlViewModel.cs" />
     <Compile Include="ViewModels\Account\LoginPageViewModel.cs" />
+    <Compile Include="ViewModels\Base\DialogViewModel.cs" />
     <Compile Include="ViewModels\Base\TappableThumbnailViewModel.cs" />
     <Compile Include="ViewModels\Base\ThumbnailableViewModel.cs" />
     <Compile Include="ViewModels\Bookmark\MainBookmarkPageViewModel.cs" />
@@ -158,6 +161,7 @@
     <Compile Include="ViewModels\Detail\IllustDetailPageViewModel.cs" />
     <Compile Include="ViewModels\Detail\NovelDetailPageViewModel.cs" />
     <Compile Include="ViewModels\Detail\NovelViewPageViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\SearchOptionDialogViewModel.cs" />
     <Compile Include="ViewModels\Items\PixivCommentViewModel.cs" />
     <Compile Include="ViewModels\Detail\Items\PixivMangaImageViewModel.cs" />
     <Compile Include="ViewModels\Detail\MangaDetailPageViewModel.cs" />
@@ -220,6 +224,9 @@
     </Compile>
     <Compile Include="Views\Detail\NovelViewPage.xaml.cs">
       <DependentUpon>NovelViewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\SearchOptionDialog.xaml.cs">
+      <DependentUpon>SearchOptionDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Error\LoginRequiredPage.xaml.cs">
       <DependentUpon>LoginRequiredPage.xaml</DependentUpon>
@@ -423,6 +430,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Detail\NovelViewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\SearchOptionDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

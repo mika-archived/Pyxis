@@ -132,7 +132,8 @@
                     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                     Content="&#xE8FD;"
                     FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                    FontSize="24" />
+                    FontSize="24"
+                    Tapped="{x:Bind ViewModel.OnButtonTapped}" />
         </Grid>
         <Pivot SelectedIndex="{x:Bind ViewModel.SelectedIndex}"
                Style="{StaticResource MiniTabsStylePivotStyle}">

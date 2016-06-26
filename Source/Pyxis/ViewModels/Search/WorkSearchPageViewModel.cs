@@ -21,6 +21,7 @@ namespace Pyxis.ViewModels.Search
 {
     public class WorkSearchPageViewModel : ViewModel
     {
+        private readonly IDialogService _dialogService;
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
         private int _count;
@@ -28,9 +29,11 @@ namespace Pyxis.ViewModels.Search
         public INavigationService NavigationService { get; }
         public ObservableCollection<TrendingTagViewModel> TrendingTags { get; }
 
-        public WorkSearchPageViewModel(IImageStoreService imageStoreService, INavigationService navigationService,
+        public WorkSearchPageViewModel(IDialogService dialogService, IImageStoreService imageStoreService,
+                                       INavigationService navigationService,
                                        IPixivClient pixivClient)
         {
+            _dialogService = dialogService;
             _imageStoreService = imageStoreService;
             NavigationService = navigationService;
             _pixivClient = pixivClient;
@@ -56,6 +59,8 @@ namespace Pyxis.ViewModels.Search
             observable.Connect().AddTo(this);
             _pixivTrending.Fetch();
         }
+
+        public async void OnButtonTapped() => await _dialogService.ShowDialogAsync("Dialogs.SearchOption", null);
 
         public void OnQuerySubmitted()
         {
