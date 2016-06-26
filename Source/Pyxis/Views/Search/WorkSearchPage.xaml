@@ -119,9 +119,9 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <!-- ここに検索バー -->
+        <SearchBox Margin="5" />
         <Pivot SelectedIndex="{x:Bind ViewModel.SelectedIndex}"
-               Style="{StaticResource TabsStylePivotStyle}">
+               Style="{StaticResource MiniTabsStylePivotStyle}">
             <i:Interaction.Behaviors>
                 <behaviors:AttachNavigationToPivotBehavior NavigationService="{x:Bind ViewModel.NavigationService}" />
             </i:Interaction.Behaviors>
@@ -176,6 +176,10 @@
         </Pivot>
         <GridView x:Name="TrendingRoot"
                   ItemsSource="{x:Bind ViewModel.TrendingTags}">
+            <i:Interaction.Behaviors>
+                <behaviors:AdjustControlSizeBehavior HeightOffset="-150"
+                                                         IsSyncHeight="True" />
+            </i:Interaction.Behaviors>
             <GridView.Header>
                 <StackPanel>
                     <local:TrendingTagView x:Name="TopTrend"
@@ -184,7 +188,7 @@
             </GridView.Header>
             <GridView.ItemContainerStyle>
                 <Style TargetType="GridViewItem">
-                    <Setter Property="Padding" Value="-4" />
+                    <Setter Property="Padding" Value="-3" />
                 </Style>
             </GridView.ItemContainerStyle>
             <GridView.ItemTemplate>

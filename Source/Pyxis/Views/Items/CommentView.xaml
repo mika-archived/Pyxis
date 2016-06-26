@@ -8,9 +8,14 @@
              d:DesignHeight="300"
              d:DesignWidth="400"
              mc:Ignorable="d">
-    <StackPanel Margin="5,10"
-                Orientation="Horizontal">
-        <Border Width="32"
+    <Grid Margin="5,10"
+          HorizontalAlignment="Stretch">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="48" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="0"
+                Width="32"
                 Height="32"
                 Margin="5"
                 VerticalAlignment="Top"
@@ -20,8 +25,14 @@
                 <ImageBrush ImageSource="{Binding ThumbnailPath, Mode=OneWay}" />
             </Border.Background>
         </Border>
-        <StackPanel Margin="5,0">
-            <StackPanel Orientation="Horizontal">
+        <Grid Grid.Column="1"
+              Margin="5,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0"
+                        Orientation="Horizontal">
                 <TextBlock Style="{ThemeResource CaptionTextBlockStyle}"
                            Text="{Binding Name,
                                           Mode=OneWay}"
@@ -32,10 +43,11 @@
                            Text="{Binding CreatedAt,
                                           Mode=OneWay}" />
             </StackPanel>
-            <TextBlock Style="{ThemeResource CaptionTextBlockStyle}"
+            <TextBlock Grid.Row="1"
+                       Style="{ThemeResource CaptionTextBlockStyle}"
                        Text="{Binding Comment,
                                       Mode=OneWay}"
                        TextWrapping="Wrap" />
-        </StackPanel>
-    </StackPanel>
+        </Grid>
+    </Grid>
 </UserControl>

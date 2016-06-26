@@ -11,6 +11,7 @@ using Pyxis.ViewModels.Detail.Items;
 
 namespace Pyxis.ViewModels.Detail
 {
+    // TODO: モバイル実機限定で、3ページ目だけ何故か表示されないことがある。
     public class MangaViewPageViewModel : ViewModel
     {
         private readonly IImageStoreService _imageStoreService;

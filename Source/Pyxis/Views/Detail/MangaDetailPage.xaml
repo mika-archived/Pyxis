@@ -129,21 +129,13 @@
                         </Style>
                     </StackPanel.Resources>
                     <Border>
-                        <Grid>
-                            <Image x:Name="MainImage"
-                                   MaxWidth="{x:Bind ViewModel.Width, Mode=OneWay}"
+                        <Grid x:Name="MainFrame"
+                              Tapped="{x:Bind ViewModel.OnItemTapped}">
+                            <Image MaxWidth="{x:Bind ViewModel.Width, Mode=OneWay}"
                                    MaxHeight="{x:Bind ViewModel.Height, Mode=OneWay}"
                                    Margin="0,0,0,10"
                                    Source="{x:Bind ViewModel.ThumbnailPath, Mode=OneWay}"
-                                   Stretch="Uniform">
-                                <i:Interaction.Behaviors>
-                                    <core:EventTriggerBehavior EventName="Tapped"
-                                                               SourceObject="{Binding ElementName=MainImage}">
-                                        <core:CallMethodAction MethodName="OnItemTapped"
-                                                               TargetObject="{Binding}" />
-                                    </core:EventTriggerBehavior>
-                                </i:Interaction.Behaviors>
-                            </Image>
+                                   Stretch="Uniform" />
                             <Grid HorizontalAlignment="Right"
                                   VerticalAlignment="Top"
                                   Opacity=".8">
@@ -231,7 +223,8 @@
                         <StackPanel>
                             <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}"
                                        Text="コメント" />
-                            <ItemsControl ItemsSource="{x:Bind ViewModel.Comments}">
+                            <ItemsControl HorizontalContentAlignment="Stretch"
+                                          ItemsSource="{x:Bind ViewModel.Comments}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <StackPanel />

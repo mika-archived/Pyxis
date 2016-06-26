@@ -207,7 +207,8 @@
                         <StackPanel>
                             <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}"
                                        Text="コメント" />
-                            <ItemsControl ItemsSource="{x:Bind ViewModel.Comments}">
+                            <ItemsControl HorizontalContentAlignment="Stretch"
+                                          ItemsSource="{x:Bind ViewModel.Comments}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <StackPanel />
