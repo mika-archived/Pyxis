@@ -92,14 +92,14 @@ namespace Pyxis.ViewModels
         private RankingViewModel CreateRankingImage(Tuple<RankingMode, IIllusts> w) =>
             new RankingImageViewModel(w.Item2.IllustList.First(), w.Item1, _imageStoreService, NavigationService);
 
-        private PixivImageViewModel CreatePixivImage(IIllust w) =>
-            new PixivImageViewModel(w, _imageStoreService, NavigationService);
+        private PixivThumbnailViewModel CreatePixivImage(IIllust w) =>
+            new PixivThumbnailViewModel(w, _imageStoreService, NavigationService);
 
         private RankingViewModel CreateRankingNovel(Tuple<RankingMode, INovels> w) =>
             new RankingNovelViewModel(w.Item2.NovelList.First(), w.Item1, _imageStoreService, NavigationService);
 
-        private PixivNovelViewModel CreatePixivNovel(INovel w) =>
-            new PixivNovelViewModel(w, _imageStoreService, NavigationService);
+        private PixivThumbnailViewModel CreatePixivNovel(INovel w) =>
+            new PixivThumbnailViewModel(w, _imageStoreService, NavigationService);
 
         #endregion
     }

@@ -120,11 +120,11 @@ namespace Pyxis.ViewModels.New
 
         #region Converters
 
-        private PixivImageViewModel CreatePixivImage(IIllust w) =>
-            new PixivImageViewModel(w, _imageStoreService, NavigationService);
+        private PixivThumbnailViewModel CreatePixivImage(IIllust w) =>
+            new PixivThumbnailViewModel(w, _imageStoreService, NavigationService);
 
-        private PixivNovelViewModel CreatePixivNovel(INovel w) =>
-            new PixivNovelViewModel(w, _imageStoreService, NavigationService);
+        private PixivThumbnailViewModel CreatePixivNovel(INovel w) =>
+            new PixivThumbnailViewModel(w, _imageStoreService, NavigationService);
 
         #endregion
     }

@@ -119,6 +119,7 @@
     <Compile Include="Models\Enums\RestrictType.cs" />
     <Compile Include="Models\Enums\SearchType.cs" />
     <Compile Include="Models\Parameters\NovelDetailParameter.cs" />
+    <Compile Include="Models\Parameters\SearchHomeParameter.cs" />
     <Compile Include="Models\PixivComment.cs" />
     <Compile Include="Models\Parameters\HomeParameter.cs" />
     <Compile Include="Models\Parameters\IllustDetailParameter.cs" />
@@ -135,6 +136,7 @@
     <Compile Include="Models\PixivRecommended.cs" />
     <Compile Include="Models\Enums\RankingMode.cs" />
     <Compile Include="Models\Enums\ContentType.cs" />
+    <Compile Include="Models\PixivTrending.cs" />
     <Compile Include="Models\PixivUser.cs" />
     <Compile Include="Mvvm\ViewModelHelper.cs" />
     <Compile Include="PyxisConstants.cs" />
@@ -169,16 +171,14 @@
     <Compile Include="ViewModels\Home\Base\RankingViewModel.cs" />
     <Compile Include="ViewModels\Home\RankingImageViewModel.cs" />
     <Compile Include="ViewModels\Home\RankingNovelViewModel.cs" />
-    <Compile Include="ViewModels\Items\PixivImageViewModel.cs" />
-    <Compile Include="ViewModels\Items\PixivNovelViewModel.cs" />
+    <Compile Include="ViewModels\Items\PixivThumbnailViewModel.cs" />
     <Compile Include="ViewModels\Items\PixivTagViewModel.cs" />
     <Compile Include="ViewModels\Mypixiv\MainMypixivPageViewModel.cs" />
     <Compile Include="ViewModels\New\AllNewPageViewModel.cs" />
     <Compile Include="ViewModels\New\FollowMypixivNewPageViewModel.cs" />
-    <Compile Include="ViewModels\Search\IllustMangaSearchPageViewModel.cs" />
-    <Compile Include="ViewModels\Search\NovelSearchPageViewModel.cs" />
-    <Compile Include="ViewModels\Search\UserSearchPageViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModel.cs" />
+    <Compile Include="ViewModels\Search\Items\TrendingTagViewModel.cs" />
+    <Compile Include="ViewModels\Search\WorkSearchPageViewModel.cs" />
     <Compile Include="ViewModels\Work\IllustWorkPageViewModel.cs" />
     <Compile Include="ViewModels\Work\MangaWorkPageViewModel.cs" />
     <Compile Include="ViewModels\Work\NovelWorkPageViewModel.cs" />
@@ -266,17 +266,11 @@
     <Compile Include="Views\New\FollowMypixivNewPage.xaml.cs">
       <DependentUpon>FollowMypixivNewPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Search\IllustMangaSearchPage.xaml.cs">
-      <DependentUpon>IllustMangaSearchPage.xaml</DependentUpon>
+    <Compile Include="Views\Search\TrendingTagView.xaml.cs">
+      <DependentUpon>TrendingTagView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Search\NovelSearchPage.xaml.cs">
-      <DependentUpon>NovelSearchPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Search\PivotTabSearch.xaml.cs">
-      <DependentUpon>PivotTabSearch.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Search\UserSearchPage.xaml.cs">
-      <DependentUpon>UserSearchPage.xaml</DependentUpon>
+    <Compile Include="Views\Search\WorkSearchPage.xaml.cs">
+      <DependentUpon>WorkSearchPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Settings\HomeSettingsPage.xaml.cs">
       <DependentUpon>HomeSettingsPage.xaml</DependentUpon>
@@ -490,19 +484,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Search\IllustMangaSearchPage.xaml">
+    <Page Include="Views\Search\TrendingTagView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Search\NovelSearchPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Search\PivotTabSearch.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Search\UserSearchPage.xaml">
+    <Page Include="Views\Search\WorkSearchPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

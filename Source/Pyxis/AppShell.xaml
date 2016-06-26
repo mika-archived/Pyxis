@@ -184,7 +184,8 @@
                             </StackPanel>
                         </ListBoxItem>
                         <ListBoxItem x:Name="SearchMain"
-                                     attach:NavigateTo.PageToken="Search.IllustMangaSearch"
+                                     attach:NavigateTo.PageToken="Search.WorkSearch"
+                                     attach:NavigateTo.Parameters="{}{&quot;SearchType&quot;:0}"
                                      RelativePanel.Below="NewMain">
                             <StackPanel Orientation="Horizontal">
                                 <FontIcon Width="48"

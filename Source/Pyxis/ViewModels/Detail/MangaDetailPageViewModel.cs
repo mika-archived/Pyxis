@@ -35,7 +35,7 @@ namespace Pyxis.ViewModels.Detail
         private PixivUser _pixivUser;
         public ObservableCollection<PixivTagViewModel> Tags { get; }
         public ObservableCollection<PixivCommentViewModel> Comments { get; }
-        public IncrementalObservableCollection<PixivImageViewModel> RelatedItems { get; }
+        public IncrementalObservableCollection<PixivThumbnailViewModel> RelatedItems { get; }
 
         public MangaDetailPageViewModel(IAccountService accountService, IImageStoreService imageStoreService,
                                         INavigationService navigationService, IPixivClient pixivClient)
@@ -46,7 +46,7 @@ namespace Pyxis.ViewModels.Detail
             _pixivClient = pixivClient;
             Tags = new ObservableCollection<PixivTagViewModel>();
             Comments = new ObservableCollection<PixivCommentViewModel>();
-            RelatedItems = new IncrementalObservableCollection<PixivImageViewModel>();
+            RelatedItems = new IncrementalObservableCollection<PixivThumbnailViewModel>();
             ThumbnailPath = PyxisConstants.DummyImage;
             IconPath = PyxisConstants.DummyIcon;
         }
@@ -111,8 +111,8 @@ namespace Pyxis.ViewModels.Detail
 
         #region Converters
 
-        private PixivImageViewModel CreatePixivImage(IIllust w) =>
-            new PixivImageViewModel(w, _imageStoreService, _navigationService);
+        private PixivThumbnailViewModel CreatePixivImage(IIllust w) =>
+            new PixivThumbnailViewModel(w, _imageStoreService, _navigationService);
 
         private PixivCommentViewModel CreatePixivComment(IComment w) =>
             new PixivCommentViewModel(w, _imageStoreService);

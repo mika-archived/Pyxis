@@ -9,11 +9,11 @@ namespace Pyxis.Views.Search
     /// <summary>
     ///     それ自体で使用できる空白ページまたはフレーム内に移動できる空白ページ。
     /// </summary>
-    public sealed partial class NovelSearchPage : Page
+    public sealed partial class WorkSearchPage : Page
     {
-        public NovelSearchPageViewModel ViewModel => DataContext as NovelSearchPageViewModel;
+        public WorkSearchPageViewModel ViewModel => DataContext as WorkSearchPageViewModel;
 
-        public NovelSearchPage()
+        public WorkSearchPage()
         {
             InitializeComponent();
         }
