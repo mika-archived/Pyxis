@@ -179,7 +179,7 @@
         <GridView x:Name="TrendingRoot"
                   ItemsSource="{x:Bind ViewModel.TrendingTags}">
             <i:Interaction.Behaviors>
-                <behaviors:AdjustControlSizeBehavior HeightOffset="-150"
+                <behaviors:AdjustControlSizeBehavior HeightOffset="-137"
                                                      IsSyncHeight="True" />
             </i:Interaction.Behaviors>
             <GridView.Header>

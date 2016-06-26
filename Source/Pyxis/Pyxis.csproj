@@ -137,6 +137,7 @@
     <Compile Include="Models\PixivRecommended.cs" />
     <Compile Include="Models\Enums\RankingMode.cs" />
     <Compile Include="Models\Enums\ContentType.cs" />
+    <Compile Include="Models\PixivSearch.cs" />
     <Compile Include="Models\PixivTrending.cs" />
     <Compile Include="Models\PixivUser.cs" />
     <Compile Include="Mvvm\ViewModelHelper.cs" />

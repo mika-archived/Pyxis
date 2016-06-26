@@ -115,7 +115,8 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <SearchBox Margin="5"
-                   QueryText="{x:Bind ViewModel.SearchQuery, Mode=OneWay}" />
+                   QuerySubmitted="{x:Bind ViewModel.OnQuerySubmitted}"
+                   QueryText="{x:Bind ViewModel.SearchQuery, Mode=TwoWay}" />
         <Pivot SelectedIndex="{x:Bind ViewModel.SelectedIndex}"
                Style="{StaticResource MiniTabsStylePivotStyle}">
             <i:Interaction.Behaviors>
@@ -194,7 +195,12 @@
                 </PivotItem.Header>
             </PivotItem>
         </Pivot>
-        <GridView x:Name="SearchResult">
+        <GridView x:Name="SearchResult"
+                  ItemsSource="{x:Bind ViewModel.Results}">
+            <i:Interaction.Behaviors>
+                <behaviors:AdjustControlSizeBehavior HeightOffset="-137"
+                                                     IsSyncHeight="True" />
+            </i:Interaction.Behaviors>
             <GridView.ItemTemplate>
                 <DataTemplate>
                     <items:ThumbnailView DataContext="{Binding}" />
