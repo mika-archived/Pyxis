@@ -24,12 +24,13 @@
                Stretch="UniformToFill" />
         <Border Background="{ThemeResource SystemControlBackgroundBaseHighBrush}"
                 Opacity="0.5" />
-        <TextBlock Margin="10"
+        <TextBlock Margin="20,10"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Bottom"
                    Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                    Style="{ThemeResource SubtitleTextBlockStyle}"
                    Text="{Binding TagName}"
-                   TextTrimming="Clip" />
+                   TextTrimming="CharacterEllipsis"
+                   TextWrapping="NoWrap" />
     </Grid>
 </UserControl>

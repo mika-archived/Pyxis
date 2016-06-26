@@ -1,4 +1,6 @@
-﻿using Windows.UI.Xaml;
+﻿using System;
+
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 using Microsoft.Xaml.Interactivity;
@@ -14,7 +16,7 @@ namespace Pyxis.Behaviors
             var size = e.NewSize;
             var assumSize = AssumSize.GetAssumSize(AssociatedObject);
 
-            var maxColumn = size.Width / assumSize;
+            var maxColumn = Math.Floor(size.Width / assumSize);
             var adjustedSize = assumSize + size.Width % assumSize / maxColumn;
 
             AssociatedObject.ItemHeight = adjustedSize;
