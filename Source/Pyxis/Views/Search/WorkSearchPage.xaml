@@ -119,9 +119,21 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <SearchBox Margin="5"
-                   QuerySubmitted="{x:Bind ViewModel.OnQuerySubmitted}"
-                   QueryText="{x:Bind ViewModel.SearchQuery, Mode=TwoWay}" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="48" />
+            </Grid.ColumnDefinitions>
+            <SearchBox Margin="5"
+                       QuerySubmitted="{x:Bind ViewModel.OnQuerySubmitted}"
+                       QueryText="{x:Bind ViewModel.SearchQuery, Mode=TwoWay}" />
+            <Button Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                    Content="&#xE8FD;"
+                    FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                    FontSize="24" />
+        </Grid>
         <Pivot SelectedIndex="{x:Bind ViewModel.SelectedIndex}"
                Style="{StaticResource MiniTabsStylePivotStyle}">
             <i:Interaction.Behaviors>
