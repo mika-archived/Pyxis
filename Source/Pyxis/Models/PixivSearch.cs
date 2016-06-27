@@ -45,7 +45,9 @@ namespace Pyxis.Models
             ResultNovels.Clear();
             ResultUsers.Clear();
             _query = query;
+#if !OFFLINE
             RunHelper.RunLaterAsync(SearchAsync, TimeSpan.FromMilliseconds(500));
+#endif
         }
 
         private async Task SearchAsync()

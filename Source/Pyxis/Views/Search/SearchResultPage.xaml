@@ -154,7 +154,7 @@
                                LineStackingStrategy="BlockLineHeight"
                                MaxLines="2"
                                Style="{StaticResource CaptionTextBlockStyle}"
-                               Text="イラスト・マンガ"
+                               Text="新着順"
                                TextAlignment="Center" />
                 </PivotItem.Header>
             </PivotItem>
@@ -178,20 +178,12 @@
                                LineStackingStrategy="BlockLineHeight"
                                MaxLines="2"
                                Style="{StaticResource CaptionTextBlockStyle}"
-                               Text="小説"
+                               Text="人気順"
                                TextAlignment="Center" />
                 </PivotItem.Header>
             </PivotItem>
-            <PivotItem attach:NavigateTo.PageToken="Search.SearchResult">
-                <attach:NavigateTo.Parameters>
-                    <Binding Converter="{StaticResource StringFormatConverter}"
-                             Mode="OneWay"
-                             Path="SearchQuery">
-                        <Binding.ConverterParameter>
-                            {{&quot;Query&quot;:&quot;{0}&quot;,&quot;SearchType&quot;:2}}
-                        </Binding.ConverterParameter>
-                    </Binding>
-                </attach:NavigateTo.Parameters>
+            <PivotItem attach:NavigateTo.PageToken="Search.SearchResult"
+                       attach:NavigateTo.Parameters="">
                 <PivotItem.Header>
                     <TextBlock Width="70"
                                Margin="2,5,2,7"
@@ -202,7 +194,7 @@
                                LineStackingStrategy="BlockLineHeight"
                                MaxLines="2"
                                Style="{StaticResource CaptionTextBlockStyle}"
-                               Text="ユーザー"
+                               Text="古い順"
                                TextAlignment="Center" />
                 </PivotItem.Header>
             </PivotItem>

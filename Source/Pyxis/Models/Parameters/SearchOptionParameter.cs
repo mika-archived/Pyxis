@@ -2,10 +2,8 @@
 
 namespace Pyxis.Models.Parameters
 {
-    internal class SearchResultParameter : ParameterBase
+    internal class SearchOptionParameter : ParameterBase
     {
-        public string Query { get; set; }
-
         public SearchSort Sort { get; set; }
 
         public SearchType SearchType { get; set; }

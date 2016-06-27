@@ -26,6 +26,7 @@ namespace Pyxis.ViewModels.Search
         private readonly IPixivClient _pixivClient;
         private int _count;
         private PixivTrending _pixivTrending;
+        private SearchOptionParameter _searchOption;
         public INavigationService NavigationService { get; }
         public ObservableCollection<TrendingTagViewModel> TrendingTags { get; }
 
@@ -43,6 +44,12 @@ namespace Pyxis.ViewModels.Search
         private void Initialize(SearchHomeParameter parameter)
         {
             _count = 0;
+            _searchOption = new SearchOptionParameter
+            {
+                SearchType = parameter.SearchType,
+                Target = SearchTarget.TitleCaption,
+                Duration = SearchDuration.Nothing
+            };
             SelectedIndex = (int) parameter.SearchType;
             _pixivTrending = new PixivTrending(parameter.SearchType, _pixivClient);
             var observable = _pixivTrending.TrendingTags.ObserveAddChanged().Do(w => ++_count).Publish();
@@ -62,14 +69,19 @@ namespace Pyxis.ViewModels.Search
 #endif
         }
 
-        public async void OnButtonTapped() => await _dialogService.ShowDialogAsync("Dialogs.SearchOption", null);
+        public async void OnButtonTapped()
+            => await _dialogService.ShowDialogAsync("Dialogs.SearchOption", _searchOption);
 
         public void OnQuerySubmitted()
         {
             var parameter = new SearchResultParameter
             {
                 Query = SearchQuery,
-                SearchType = (SearchType) SelectedIndex
+                SearchType = (SearchType) SelectedIndex,
+                Sort = _searchOption.Sort,
+                Duration = _searchOption.Duration,
+                DurationQuery = _searchOption.DurationQuery,
+                Target = _searchOption.Target
             };
             NavigationService.Navigate("Search.SearchResult", parameter.ToJson());
         }

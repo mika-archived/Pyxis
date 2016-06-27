@@ -117,9 +117,13 @@
     <Compile Include="Models\Enums\FollowType.cs" />
     <Compile Include="Models\Enums\ContentType2.cs" />
     <Compile Include="Models\Enums\RestrictType.cs" />
+    <Compile Include="Models\Enums\SearchDuration.cs" />
+    <Compile Include="Models\Enums\SearchSort.cs" />
+    <Compile Include="Models\Enums\SearchTarget.cs" />
     <Compile Include="Models\Enums\SearchType.cs" />
     <Compile Include="Models\Parameters\NovelDetailParameter.cs" />
     <Compile Include="Models\Parameters\SearchHomeParameter.cs" />
+    <Compile Include="Models\Parameters\SearchOptionParameter.cs" />
     <Compile Include="Models\Parameters\SearchResultParameter.cs" />
     <Compile Include="Models\PixivComment.cs" />
     <Compile Include="Models\Parameters\HomeParameter.cs" />
@@ -377,6 +381,11 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\Controls.Pivot.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Controls.xaml</DependentUpon>
+    </Page>
+    <Page Include="Styles\Controls.RadioButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <DependentUpon>Controls.xaml</DependentUpon>

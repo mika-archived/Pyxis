@@ -35,7 +35,7 @@ namespace Pyxis.ViewModels.Search
 
         private void Initialize(SearchResultParameter parameter)
         {
-            SelectedIndex = (int) parameter.SearchType;
+            SelectedIndex = (int) parameter.Sort;
             SearchQuery = parameter.Query;
 
             _pixivSearch = new PixivSearch(_pixivClient, parameter.SearchType);
@@ -47,9 +47,18 @@ namespace Pyxis.ViewModels.Search
             Search();
         }
 
+        private void GenerateQueries(SearchResultParameter parameter)
+        {
+            ParameterQueries = new List<string>();
+            parameter.Sort = SearchSort.New;
+        }
+
         public void OnQuerySubmitted() => Search();
 
-        private void Search() => _pixivSearch.Search(SearchQuery);
+        private void Search()
+        {
+            _pixivSearch.Search(SearchQuery);
+        }
 
         #region Overrides of ViewModelBase
 
@@ -92,6 +101,19 @@ namespace Pyxis.ViewModels.Search
         {
             get { return _selectedIndex; }
             set { SetProperty(ref _selectedIndex, value); }
+        }
+
+        #endregion
+
+        #region ParameterQuery
+
+        // あんまり持ちたくない.
+        private List<string> _parameterQueries;
+
+        public List<string> ParameterQueries
+        {
+            get { return _parameterQueries; }
+            set { SetProperty(ref _parameterQueries, value); }
         }
 
         #endregion

@@ -5,7 +5,7 @@ using Prism.Mvvm;
 
 namespace Pyxis.ViewModels.Base
 {
-    internal class DialogViewModel : BindableBase, IDisposable
+    public class DialogViewModel : BindableBase, IDisposable
     {
         public CompositeDisposable CompositeDisposable { get; }
 
