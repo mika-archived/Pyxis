@@ -17,6 +17,7 @@ namespace Pyxis.ViewModels.Search
 {
     public class SearchResultPageViewModel : ViewModel
     {
+        private readonly IDialogService _dialogService;
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
         private PixivSearch _pixivSearch;
@@ -26,9 +27,10 @@ namespace Pyxis.ViewModels.Search
 
         public IncrementalObservableCollection<ThumbnailableViewModel> Results { get; }
 
-        public SearchResultPageViewModel(IImageStoreService imageStoreService, INavigationService navigationService,
-                                         IPixivClient pixivClient)
+        public SearchResultPageViewModel(IDialogService dialogService, IImageStoreService imageStoreService,
+                                         INavigationService navigationService, IPixivClient pixivClient)
         {
+            _dialogService = dialogService;
             _imageStoreService = imageStoreService;
             NavigationService = navigationService;
             _pixivClient = pixivClient;
@@ -75,6 +77,15 @@ namespace Pyxis.ViewModels.Search
                 (string) param2.ToJson(),
                 (string) param3.ToJson()
             };
+        }
+
+        public async void OnButtonTapped()
+        {
+            var result = await _dialogService.ShowDialogAsync("Dialogs.SearchOption", _searchOption);
+            if (result == null)
+                return;
+            _searchOption = result as SearchOptionParameter;
+            Search();
         }
 
         public void OnQuerySubmitted() => Search();

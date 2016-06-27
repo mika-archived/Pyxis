@@ -70,14 +70,18 @@ namespace Pyxis.ViewModels.Search
         }
 
         public async void OnButtonTapped()
-            => await _dialogService.ShowDialogAsync("Dialogs.SearchOption", _searchOption);
+        {
+            var result = await _dialogService.ShowDialogAsync("Dialogs.SearchOption", _searchOption);
+            if (result != null)
+                _searchOption = result as SearchOptionParameter;
+        }
 
         public void OnQuerySubmitted()
         {
             var parameter = new SearchResultParameter
             {
                 Query = SearchQuery,
-                SearchType = (SearchType) SelectedIndex,
+                SearchType = _searchOption.SearchType,
                 Sort = _searchOption.Sort,
                 Duration = _searchOption.Duration,
                 Target = _searchOption.Target

@@ -127,7 +127,8 @@
                     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                     Content="&#xE8FD;"
                     FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                    FontSize="24" />
+                    FontSize="24"
+                    Tapped="{x:Bind ViewModel.OnButtonTapped}" />
         </Grid>
         <Pivot SelectedIndex="{x:Bind ViewModel.SelectedIndex}"
                Style="{StaticResource MiniTabsStylePivotStyle}">
@@ -135,7 +136,7 @@
                 <behaviors:AttachNavigationToPivotBehavior NavigationService="{x:Bind ViewModel.NavigationService}" />
             </i:Interaction.Behaviors>
             <PivotItem attach:NavigateTo.PageToken="Search.SearchResult"
-                       attach:NavigateTo.Parameters="{x:Bind ViewModel.ParameterQueries[0]}">
+                       attach:NavigateTo.Parameters="{x:Bind ViewModel.ParameterQueries[0], Mode=OneWay}">
                 <PivotItem.Header>
                     <TextBlock Width="70"
                                Margin="2,5,2,7"
@@ -151,7 +152,7 @@
                 </PivotItem.Header>
             </PivotItem>
             <PivotItem attach:NavigateTo.PageToken="Search.SearchResult"
-                       attach:NavigateTo.Parameters="{x:Bind ViewModel.ParameterQueries[1]}">
+                       attach:NavigateTo.Parameters="{x:Bind ViewModel.ParameterQueries[1], Mode=OneWay}">
                 <PivotItem.Header>
                     <TextBlock Width="70"
                                Margin="2,5,2,7"
@@ -167,7 +168,7 @@
                 </PivotItem.Header>
             </PivotItem>
             <PivotItem attach:NavigateTo.PageToken="Search.SearchResult"
-                       attach:NavigateTo.Parameters="{x:Bind ViewModel.ParameterQueries[2]}">
+                       attach:NavigateTo.Parameters="{x:Bind ViewModel.ParameterQueries[2], Mode=OneWay}">
                 <PivotItem.Header>
                     <TextBlock Width="70"
                                Margin="2,5,2,7"

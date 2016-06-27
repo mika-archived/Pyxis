@@ -45,7 +45,9 @@ namespace Pyxis.Services
             if (instance == null)
                 throw new NotSupportedException();
             (instance.DataContext as DialogViewModel)?.OnInitialize(parameter);
-            await instance.ShowAsync();
+            var result = await instance.ShowAsync();
+            if (result == ContentDialogResult.Secondary) // Primary == Yes
+                return null;
             (instance.DataContext as DialogViewModel)?.OnFinalize();
             return (instance.DataContext as DialogViewModel)?.ResultValue;
         }

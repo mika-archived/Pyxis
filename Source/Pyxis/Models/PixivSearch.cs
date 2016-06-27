@@ -47,6 +47,7 @@ namespace Pyxis.Models
             ResultUsers.Clear();
             _query = query;
             _optionParam = optionParameter;
+            HasMoreItems = true;
 #if !OFFLINE
             RunHelper.RunLaterAsync(SearchAsync, TimeSpan.FromMilliseconds(500));
 #endif
