@@ -2,7 +2,7 @@
 
 namespace Pyxis.Models.Enums
 {
-    internal enum SearchTarget
+    public enum SearchTarget
     {
         TagPartial,
 

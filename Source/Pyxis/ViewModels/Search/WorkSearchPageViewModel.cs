@@ -80,7 +80,6 @@ namespace Pyxis.ViewModels.Search
                 SearchType = (SearchType) SelectedIndex,
                 Sort = _searchOption.Sort,
                 Duration = _searchOption.Duration,
-                DurationQuery = _searchOption.DurationQuery,
                 Target = _searchOption.Target
             };
             NavigationService.Navigate("Search.SearchResult", parameter.ToJson());

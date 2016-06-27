@@ -26,5 +26,10 @@ namespace Pyxis.ViewModels.Base
         {
 
         }
+
+        public virtual void OnFinalize()
+        {
+
+        }
     }
 }

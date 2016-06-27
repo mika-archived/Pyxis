@@ -44,8 +44,7 @@ namespace Pyxis.ViewModels.Search
                 SearchType = parameter.SearchType,
                 Sort = parameter.Sort,
                 Target = parameter.Target,
-                Duration = parameter.Duration,
-                DurationQuery = parameter.DurationQuery
+                Duration = parameter.Duration
             };
 
             _pixivSearch = new PixivSearch(_pixivClient);

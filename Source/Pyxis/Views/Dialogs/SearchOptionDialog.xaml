@@ -35,9 +35,16 @@
                         Style="{StaticResource RadioStackPanelStyle}">
                 <RadioButton Content="イラスト・マンガ"
                              GroupName="ContentType"
-                             IsChecked="True" />
+                             IsChecked="{Binding ContentType.Value,
+                                                 Mode=TwoWay,
+                                                 Converter={StaticResource EnumToBooleanConverter},
+                                                 ConverterParameter=Pyxis.Models.Enums.SearchType.IllustsAndManga}" />
                 <RadioButton Content="小説"
-                             GroupName="ContentType" />
+                             GroupName="ContentType"
+                             IsChecked="{Binding ContentType.Value,
+                                                 Mode=TwoWay,
+                                                 Converter={StaticResource EnumToBooleanConverter},
+                                                 ConverterParameter=Pyxis.Models.Enums.SearchType.Novels}" />
             </StackPanel>
         </StackPanel>
         <StackPanel Style="{StaticResource SectionStackPanelStyle}">
@@ -46,11 +53,22 @@
                         Style="{StaticResource RadioStackPanelStyle}">
                 <RadioButton Content="タグ部分一致"
                              GroupName="Target"
-                             IsChecked="True" />
+                             IsChecked="{Binding Target.Value,
+                                                 Mode=TwoWay,
+                                                 Converter={StaticResource EnumToBooleanConverter},
+                                                 ConverterParameter=Pyxis.Models.Enums.SearchTarget.TagPartial}" />
                 <RadioButton Content="タグ完全一致"
-                             GroupName="Target" />
+                             GroupName="Target"
+                             IsChecked="{Binding Target.Value,
+                                                 Mode=TwoWay,
+                                                 Converter={StaticResource EnumToBooleanConverter},
+                                                 ConverterParameter=Pyxis.Models.Enums.SearchTarget.TagTotal}" />
                 <RadioButton Content="タイトルキャプション"
-                             GroupName="Target" />
+                             GroupName="Target"
+                             IsChecked="{Binding Target.Value,
+                                                 Mode=TwoWay,
+                                                 Converter={StaticResource EnumToBooleanConverter},
+                                                 ConverterParameter=Pyxis.Models.Enums.SearchTarget.TitleCaption}" />
             </StackPanel>
         </StackPanel>
         <StackPanel Style="{StaticResource SectionStackPanelStyle}">
@@ -59,13 +77,28 @@
                                 Orientation="Horizontal">
                 <RadioButton Content="指定しない"
                              GroupName="Duration"
-                             IsChecked="True" />
+                             IsChecked="{Binding Duration.Value,
+                                                 Mode=TwoWay,
+                                                 Converter={StaticResource EnumToBooleanConverter},
+                                                 ConverterParameter=Pyxis.Models.Enums.SearchDuration.Nothing}" />
                 <RadioButton Content="最近１日"
-                             GroupName="Duration" />
+                             GroupName="Duration"
+                             IsChecked="{Binding Duration.Value,
+                                                 Mode=TwoWay,
+                                                 Converter={StaticResource EnumToBooleanConverter},
+                                                 ConverterParameter=Pyxis.Models.Enums.SearchDuration.LastDay}" />
                 <RadioButton Content="最近１週間"
-                             GroupName="Duration" />
+                             GroupName="Duration"
+                             IsChecked="{Binding Duration.Value,
+                                                 Mode=TwoWay,
+                                                 Converter={StaticResource EnumToBooleanConverter},
+                                                 ConverterParameter=Pyxis.Models.Enums.SearchDuration.LastWeek}" />
                 <RadioButton Content="最近１ヶ月"
-                             GroupName="Duration" />
+                             GroupName="Duration"
+                             IsChecked="{Binding Duration.Value,
+                                                 Mode=TwoWay,
+                                                 Converter={StaticResource EnumToBooleanConverter},
+                                                 ConverterParameter=Pyxis.Models.Enums.SearchDuration.LastMonth}" />
             </controls:WrapPanel>
         </StackPanel>
     </StackPanel>

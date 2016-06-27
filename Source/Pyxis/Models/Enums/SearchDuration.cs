@@ -2,7 +2,7 @@
 
 namespace Pyxis.Models.Enums
 {
-    internal enum SearchDuration
+    public enum SearchDuration
     {
         Nothing,
 

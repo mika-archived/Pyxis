@@ -1,6 +1,6 @@
 ﻿namespace Pyxis.Models.Enums
 {
-    internal enum SearchType
+    public enum SearchType
     {
         IllustsAndManga,
 

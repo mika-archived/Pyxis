@@ -2,9 +2,11 @@
 
 using Newtonsoft.Json;
 
+using Prism.Mvvm;
+
 namespace Pyxis.Models.Parameters
 {
-    internal abstract class ParameterBase
+    internal abstract class ParameterBase : BindableBase
     {
         protected abstract bool ParseJson { get; }
 

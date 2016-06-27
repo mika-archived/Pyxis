@@ -24,8 +24,7 @@ namespace Pyxis.Models.Parameters
                 Sort = parameter.Sort,
                 SearchType = parameter.SearchType,
                 Target = parameter.Target,
-                Duration = parameter.Duration,
-                DurationQuery = parameter.DurationQuery
+                Duration = parameter.Duration
             };
         }
 
