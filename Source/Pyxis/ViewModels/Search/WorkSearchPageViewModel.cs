@@ -103,7 +103,7 @@ namespace Pyxis.ViewModels.Search
         #region Converters
 
         private TrendingTagViewModel CreateTrendingTag(ITrendTag trendTag)
-            => new TrendingTagViewModel(trendTag, _imageStoreService, NavigationService);
+            => new TrendingTagViewModel((SearchType) SelectedIndex, trendTag, _imageStoreService, NavigationService);
 
         #endregion
 
