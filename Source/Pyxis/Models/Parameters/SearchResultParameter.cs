@@ -16,6 +16,19 @@ namespace Pyxis.Models.Parameters
 
         public string DurationQuery { get; set; }
 
+        public static SearchResultParameter Build(SearchOptionParameter parameter)
+        {
+            return new SearchResultParameter
+            {
+                Query = "",
+                Sort = parameter.Sort,
+                SearchType = parameter.SearchType,
+                Target = parameter.Target,
+                Duration = parameter.Duration,
+                DurationQuery = parameter.DurationQuery
+            };
+        }
+
         #region Overrides of ParameterBase
 
         protected override bool ParseJson => true;

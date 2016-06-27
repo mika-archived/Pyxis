@@ -134,16 +134,8 @@
             <i:Interaction.Behaviors>
                 <behaviors:AttachNavigationToPivotBehavior NavigationService="{x:Bind ViewModel.NavigationService}" />
             </i:Interaction.Behaviors>
-            <PivotItem attach:NavigateTo.PageToken="Search.SearchResult">
-                <attach:NavigateTo.Parameters>
-                    <Binding Converter="{StaticResource StringFormatConverter}"
-                             Mode="OneWay"
-                             Path="SearchQuery">
-                        <Binding.ConverterParameter>
-                            {{&quot;Query&quot;:&quot;{0}&quot;,&quot;SearchType&quot;:0}}
-                        </Binding.ConverterParameter>
-                    </Binding>
-                </attach:NavigateTo.Parameters>
+            <PivotItem attach:NavigateTo.PageToken="Search.SearchResult"
+                       attach:NavigateTo.Parameters="{x:Bind ViewModel.ParameterQueries[0]}">
                 <PivotItem.Header>
                     <TextBlock Width="70"
                                Margin="2,5,2,7"
@@ -158,16 +150,8 @@
                                TextAlignment="Center" />
                 </PivotItem.Header>
             </PivotItem>
-            <PivotItem attach:NavigateTo.PageToken="Search.SearchResult">
-                <attach:NavigateTo.Parameters>
-                    <Binding Converter="{StaticResource StringFormatConverter}"
-                             Mode="OneWay"
-                             Path="SearchQuery">
-                        <Binding.ConverterParameter>
-                            {{&quot;Query&quot;:&quot;{0}&quot;,&quot;SearchType&quot;:1}}
-                        </Binding.ConverterParameter>
-                    </Binding>
-                </attach:NavigateTo.Parameters>
+            <PivotItem attach:NavigateTo.PageToken="Search.SearchResult"
+                       attach:NavigateTo.Parameters="{x:Bind ViewModel.ParameterQueries[1]}">
                 <PivotItem.Header>
                     <TextBlock Width="70"
                                Margin="2,5,2,7"
@@ -183,7 +167,7 @@
                 </PivotItem.Header>
             </PivotItem>
             <PivotItem attach:NavigateTo.PageToken="Search.SearchResult"
-                       attach:NavigateTo.Parameters="">
+                       attach:NavigateTo.Parameters="{x:Bind ViewModel.ParameterQueries[2]}">
                 <PivotItem.Header>
                     <TextBlock Width="70"
                                Margin="2,5,2,7"

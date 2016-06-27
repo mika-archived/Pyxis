@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 using Windows.Foundation;
@@ -11,13 +12,14 @@ using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Helpers;
 using Pyxis.Models.Enums;
+using Pyxis.Models.Parameters;
 
 namespace Pyxis.Models
 {
     internal class PixivSearch : ISupportIncrementalLoading
     {
         private readonly IPixivClient _pixivClient;
-        private readonly SearchType _searchType;
+        private SearchOptionParameter _optionParam;
 
         private string _query;
 
@@ -25,10 +27,9 @@ namespace Pyxis.Models
         public ObservableCollection<INovel> ResultNovels { get; }
         public ObservableCollection<IUserPreview> ResultUsers { get; }
 
-        public PixivSearch(IPixivClient pixivClient, SearchType searchType)
+        public PixivSearch(IPixivClient pixivClient)
         {
             _pixivClient = pixivClient;
-            _searchType = searchType;
             ResultIllusts = new ObservableCollection<IIllust>();
             ResultNovels = new ObservableCollection<INovel>();
             ResultUsers = new ObservableCollection<IUserPreview>();
@@ -39,12 +40,13 @@ namespace Pyxis.Models
 #endif
         }
 
-        public void Search(string query)
+        public void Search(string query, SearchOptionParameter optionParameter)
         {
             ResultIllusts.Clear();
             ResultNovels.Clear();
             ResultUsers.Clear();
             _query = query;
+            _optionParam = optionParameter;
 #if !OFFLINE
             RunHelper.RunLaterAsync(SearchAsync, TimeSpan.FromMilliseconds(500));
 #endif
@@ -52,27 +54,54 @@ namespace Pyxis.Models
 
         private async Task SearchAsync()
         {
-            if (_searchType == SearchType.IllustsAndManga)
+            if (_optionParam.SearchType == SearchType.IllustsAndManga)
                 await SearchIllust();
-            else if (_searchType == SearchType.Novels)
+            else if (_optionParam.SearchType == SearchType.Novels)
                 await SearchNovel();
-            else if (_searchType == SearchType.Users)
+            else if (_optionParam.SearchType == SearchType.Users)
                 await SearchUser();
             else
                 throw new NotSupportedException();
         }
 
+        [SuppressMessage("ReSharper", "InconsistentNaming")]
         private async Task SearchIllust()
         {
-            var illusts = await _pixivClient.Search.IllustAsync(word => _query, filter => "for_ios", offset => Count());
+            IIllusts illusts;
+            if (_optionParam.Duration == SearchDuration.Nothing)
+                illusts = await _pixivClient.Search.IllustAsync(search_target => _optionParam.Target.ToParamString(),
+                                                                sort => _optionParam.Sort.ToParamString(),
+                                                                word => _query,
+                                                                filter => "for_ios",
+                                                                offset => Count());
+            else
+                illusts = await _pixivClient.Search.IllustAsync(duration => _optionParam.Duration.ToParamString(),
+                                                                search_target => _optionParam.Target.ToParamString(),
+                                                                sort => _optionParam.Sort.ToParamString(),
+                                                                word => _query,
+                                                                filter => "for_ios",
+                                                                offset => Count());
             illusts?.IllustList.ForEach(w => ResultIllusts.Add(w));
             if (string.IsNullOrWhiteSpace(illusts?.NextUrl))
                 HasMoreItems = false;
         }
 
+        [SuppressMessage("ReSharper", "InconsistentNaming")]
         private async Task SearchNovel()
         {
-            var novels = await _pixivClient.Search.NovelAsync(word => _query, offset => Count());
+            INovels novels;
+            if (_optionParam.Duration == SearchDuration.Nothing)
+                novels = await _pixivClient.Search.NovelAsync(search_target => _optionParam.Target.ToParamString(),
+                                                              sort => _optionParam.Sort.ToParamString(),
+                                                              word => _query,
+                                                              offset => Count());
+            else
+                novels = await _pixivClient.Search.NovelAsync(duration => _optionParam.Duration.ToParamString(),
+                                                              search_target => _optionParam.Target.ToParamString(),
+                                                              sort => _optionParam.Sort.ToParamString(),
+                                                              word => _query,
+                                                              offset => Count());
+
             novels?.NovelList.ForEach(w => ResultNovels.Add(w));
             if (string.IsNullOrWhiteSpace(novels?.NextUrl))
                 HasMoreItems = false;
@@ -88,11 +117,11 @@ namespace Pyxis.Models
 
         private int Count()
         {
-            if (_searchType == SearchType.IllustsAndManga)
+            if (_optionParam.SearchType == SearchType.IllustsAndManga)
                 return ResultIllusts.Count;
-            if (_searchType == SearchType.Novels)
+            if (_optionParam.SearchType == SearchType.Novels)
                 return ResultNovels.Count;
-            if (_searchType == SearchType.Users)
+            if (_optionParam.SearchType == SearchType.Users)
                 return ResultUsers.Count;
             throw new NotSupportedException();
         }

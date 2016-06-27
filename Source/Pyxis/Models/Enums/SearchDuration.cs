@@ -1,4 +1,6 @@
-﻿namespace Pyxis.Models.Enums
+﻿using System;
+
+namespace Pyxis.Models.Enums
 {
     internal enum SearchDuration
     {
@@ -8,8 +10,30 @@
 
         LastWeek,
 
-        LastMonth,
+        LastMonth
+    }
 
-        Custom
+    internal static class SearchDurationExt
+    {
+        public static string ToParamString(this SearchDuration duration)
+        {
+            switch (duration)
+            {
+                case SearchDuration.Nothing:
+                    return "";
+
+                case SearchDuration.LastDay:
+                    return "within_last_day";
+
+                case SearchDuration.LastWeek:
+                    return "within_last_week";
+
+                case SearchDuration.LastMonth:
+                    return "within_last_month";
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(duration), duration, null);
+            }
+        }
     }
 }

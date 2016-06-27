@@ -20,6 +20,8 @@ namespace Pyxis.ViewModels.Search
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
         private PixivSearch _pixivSearch;
+        private SearchOptionParameter _searchOption;
+
         public INavigationService NavigationService { get; }
 
         public IncrementalObservableCollection<ThumbnailableViewModel> Results { get; }
@@ -37,8 +39,16 @@ namespace Pyxis.ViewModels.Search
         {
             SelectedIndex = (int) parameter.Sort;
             SearchQuery = parameter.Query;
+            _searchOption = new SearchOptionParameter
+            {
+                SearchType = parameter.SearchType,
+                Sort = parameter.Sort,
+                Target = parameter.Target,
+                Duration = parameter.Duration,
+                DurationQuery = parameter.DurationQuery
+            };
 
-            _pixivSearch = new PixivSearch(_pixivClient, parameter.SearchType);
+            _pixivSearch = new PixivSearch(_pixivClient);
             if (parameter.SearchType == SearchType.IllustsAndManga)
                 ModelHelper.ConnectTo(Results, _pixivSearch, w => w.ResultIllusts, CreatePixivImage);
             else if (parameter.SearchType == SearchType.Novels)
@@ -47,17 +57,33 @@ namespace Pyxis.ViewModels.Search
             Search();
         }
 
-        private void GenerateQueries(SearchResultParameter parameter)
+        private void GenerateQueries()
         {
-            ParameterQueries = new List<string>();
-            parameter.Sort = SearchSort.New;
+            var param1 = SearchResultParameter.Build(_searchOption);
+            param1.Sort = SearchSort.New;
+
+            var param2 = SearchResultParameter.Build(_searchOption);
+            param2.Sort = SearchSort.Popular;
+
+            var param3 = SearchResultParameter.Build(_searchOption);
+            param3.Sort = SearchSort.Old;
+
+            param1.Query = param2.Query = param3.Query = SearchQuery;
+
+            ParameterQueries = new List<string>
+            {
+                (string) param1.ToJson(),
+                (string) param2.ToJson(),
+                (string) param3.ToJson()
+            };
         }
 
         public void OnQuerySubmitted() => Search();
 
         private void Search()
         {
-            _pixivSearch.Search(SearchQuery);
+            GenerateQueries();
+            _pixivSearch.Search(SearchQuery, _searchOption);
         }
 
         #region Overrides of ViewModelBase
