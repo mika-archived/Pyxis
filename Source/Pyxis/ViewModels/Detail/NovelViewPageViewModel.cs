@@ -34,7 +34,9 @@ namespace Pyxis.ViewModels.Detail
                            .ObserveOnUIDispatcher()
                            .Subscribe(w => Text = w.NovelText)
                            .AddTo(this);
+#if !OFFLINE
             _pixivNovelText.Fetch();
+#endif
         }
 
         #region Overrides of ViewModelBase

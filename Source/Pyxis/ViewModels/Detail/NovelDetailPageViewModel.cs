@@ -164,8 +164,10 @@ namespace Pyxis.ViewModels.Detail
         {
             get
             {
+#if !OFFLINE
                 if (_iconPath == PyxisConstants.DummyIcon)
                     _pixivUser.ShowThumbnail();
+#endif
                 return _iconPath;
             }
             set { SetProperty(ref _iconPath, value); }

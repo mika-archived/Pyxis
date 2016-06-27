@@ -96,7 +96,11 @@ namespace Pyxis.Models
             }).AsAsyncOperation();
         }
 
+#if OFFLINE
+        public bool HasMoreItems => false;
+#else
         public bool HasMoreItems => true;
+#endif
 
         #endregion
     }

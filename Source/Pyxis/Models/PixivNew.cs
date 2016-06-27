@@ -29,7 +29,11 @@ namespace Pyxis.Models
             _contentType = contentType;
             _followType = followType;
             _pixivClient = pixivClient;
+#if OFFLINE
+            HasMoreItems = false;
+#else
             HasMoreItems = true;
+#endif
             NewIllusts = new ObservableCollection<IIllust>();
             NewNovels = new ObservableCollection<INovel>();
         }

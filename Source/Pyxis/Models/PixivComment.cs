@@ -26,7 +26,11 @@ namespace Pyxis.Models
         {
             _illust = illust;
             _pixivClient = pixivClient;
+#if OFFLINE
+            HasMoreItems = false;
+#else
             HasMoreItems = true;
+#endif
             Comments = new ObservableCollection<IComment>();
         }
 
@@ -34,7 +38,11 @@ namespace Pyxis.Models
         {
             _novel = novel;
             _pixivClient = pixivClient;
+#if OFFLINE
+            HasMoreItems = false;
+#else
             HasMoreItems = true;
+#endif
             Comments = new ObservableCollection<IComment>();
         }
 

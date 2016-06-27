@@ -32,7 +32,11 @@ namespace Pyxis.Models
             ResultIllusts = new ObservableCollection<IIllust>();
             ResultNovels = new ObservableCollection<INovel>();
             ResultUsers = new ObservableCollection<IUserPreview>();
+#if OFFLINE
+            HasMoreItems = false;
+#else
             HasMoreItems = true;
+#endif
         }
 
         public void Search(string query)

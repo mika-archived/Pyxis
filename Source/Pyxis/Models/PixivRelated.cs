@@ -62,7 +62,11 @@ namespace Pyxis.Models
             }).AsAsyncOperation();
         }
 
+#if OFFLINE
+        public bool HasMoreItems => false;
+#else
         public bool HasMoreItems => !string.IsNullOrWhiteSpace(_seedIds);
+#endif
 
         #endregion
     }

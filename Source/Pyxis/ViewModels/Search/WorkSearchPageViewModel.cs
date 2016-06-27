@@ -57,7 +57,9 @@ namespace Pyxis.ViewModels.Search
                       .Subscribe(w => TrendingTags.Add(w))
                       .AddTo(this);
             observable.Connect().AddTo(this);
+#if !OFFLINE
             _pixivTrending.Fetch();
+#endif
         }
 
         public async void OnButtonTapped() => await _dialogService.ShowDialogAsync("Dialogs.SearchOption", null);

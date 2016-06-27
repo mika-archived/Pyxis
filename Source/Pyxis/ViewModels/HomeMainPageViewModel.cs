@@ -60,8 +60,9 @@ namespace Pyxis.ViewModels
                 TopRanking = _pixivRanking.Ranking.ToReadOnlyReactiveCollection(CreateRankingImage).AddTo(this);
                 ModelHelper.ConnectTo(RecommendedItems, _pixivRecommended, w => w.RecommendedImages, CreatePixivImage);
             }
-
+#if !OFFLINE
             _pixivRanking.Fetch();
+#endif
         }
 
         #region Overrides of ViewModelBase

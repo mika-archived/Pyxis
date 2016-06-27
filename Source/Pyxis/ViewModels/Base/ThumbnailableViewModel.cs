@@ -19,8 +19,10 @@ namespace Pyxis.ViewModels.Base
         {
             get
             {
+#if !OFFLINE
                 if (_thumbnailPath == PyxisConstants.DummyImage)
                     Thumbnailable.ShowThumbnail();
+#endif
                 return _thumbnailPath;
             }
             set { SetProperty(ref _thumbnailPath, value); }
