@@ -65,7 +65,9 @@ namespace Pyxis.Alpha
                 throw new AuthenticateRequiredException();
 
             var client = new HttpClient(new PixivHttpClientHandler(this));
-            var param = string.Join("&", GetPrameter(parameters).Select(w => $"{w.Key}={Uri.EscapeDataString(w.Value)}"));
+            var param = string.Join("&", GetPrameter(parameters)
+                                             .Where(w => !string.IsNullOrWhiteSpace(w.Value))
+                                             .Select(w => $"{w.Key}={Uri.EscapeDataString(w.Value)}"));
             url += "?" + param;
             try
             {
@@ -88,7 +90,7 @@ namespace Pyxis.Alpha
                 throw new AuthenticateRequiredException();
 
             var client = new HttpClient(new PixivHttpClientHandler(this));
-            var param = GetPrameter(parameters);
+            var param = GetPrameter(parameters).Where(w => !string.IsNullOrWhiteSpace(w.Value)).ToList();
             var content = new FormUrlEncodedContent(param);
 
             try

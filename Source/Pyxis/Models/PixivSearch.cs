@@ -14,7 +14,9 @@ using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
 
 #if !OFFLINE
+
 using Pyxis.Helpers;
+
 #endif
 
 namespace Pyxis.Models
@@ -71,15 +73,7 @@ namespace Pyxis.Models
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         private async Task SearchIllust()
         {
-            IIllusts illusts;
-            if (_optionParam.Duration == SearchDuration.Nothing)
-                illusts = await _pixivClient.Search.IllustAsync(search_target => _optionParam.Target.ToParamString(),
-                                                                sort => _optionParam.Sort.ToParamString(),
-                                                                word => _query,
-                                                                filter => "for_ios",
-                                                                offset => Count());
-            else
-                illusts = await _pixivClient.Search.IllustAsync(duration => _optionParam.Duration.ToParamString(),
+            var illusts = await _pixivClient.Search.IllustAsync(duration => _optionParam.Duration.ToParamString(),
                                                                 search_target => _optionParam.Target.ToParamString(),
                                                                 sort => _optionParam.Sort.ToParamString(),
                                                                 word => _query,
@@ -93,14 +87,7 @@ namespace Pyxis.Models
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         private async Task SearchNovel()
         {
-            INovels novels;
-            if (_optionParam.Duration == SearchDuration.Nothing)
-                novels = await _pixivClient.Search.NovelAsync(search_target => _optionParam.Target.ToParamString(),
-                                                              sort => _optionParam.Sort.ToParamString(),
-                                                              word => _query,
-                                                              offset => Count());
-            else
-                novels = await _pixivClient.Search.NovelAsync(duration => _optionParam.Duration.ToParamString(),
+            var novels = await _pixivClient.Search.NovelAsync(duration => _optionParam.Duration.ToParamString(),
                                                               search_target => _optionParam.Target.ToParamString(),
                                                               sort => _optionParam.Sort.ToParamString(),
                                                               word => _query,

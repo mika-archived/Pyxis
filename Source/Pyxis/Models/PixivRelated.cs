@@ -24,19 +24,14 @@ namespace Pyxis.Models
         {
             _illust = illust;
             _pixivClient = pixivClient;
-            _seedIds = "a";
+            _seedIds = "";
             RelatedIllusts = new ObservableCollection<IIllust>();
         }
 
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         private async Task FetchRelatedItems()
         {
-            IIllusts illusts;
-            if (_seedIds == "a")
-                illusts = await _pixivClient.IllustV1.RelatedAsync(illust_id => _illust.Id,
-                                                                   filter => "for_ios");
-            else
-                illusts = await _pixivClient.IllustV1.RelatedAsync(illust_id => _illust.Id,
+            var illusts = await _pixivClient.IllustV1.RelatedAsync(illust_id => _illust.Id,
                                                                    filter => "for_ios",
                                                                    seed_illust_ids => _seedIds);
             illusts?.IllustList.ForEach(w => RelatedIllusts.Add(w));
@@ -46,9 +41,7 @@ namespace Pyxis.Models
                 return;
             }
             var str = illusts.NextUrl;
-            // ReSharper disable once StringIndexOfIsCultureSpecific.1
-            var seedIllustIds = str.Substring(str.IndexOf("seed_illust_ids=") + "seed_illust_ids=".Length);
-            _seedIds = seedIllustIds.Replace("%2C", ",");
+            _seedIds = UrlParameter.ParseQuery(str)["seed_illust_ids"].Replace("%2C", ",");
         }
 
         #region Implementation of ISupportIncrementalLoading
