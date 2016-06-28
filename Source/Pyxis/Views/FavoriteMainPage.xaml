@@ -145,7 +145,7 @@
                 </PivotItem.Header>
             </PivotItem>
         </Pivot>
-        <GridView x:Name="FavoriteQueryResult">
+        <GridView x:Name="FavoriteQueryResult" ItemsSource="{x:Bind ViewModel.FavoriteItems}">
             <i:Interaction.Behaviors>
                 <behaviors:AdjustControlSizeBehavior HeightOffset="-137"
                                                      IsSyncHeight="True" />

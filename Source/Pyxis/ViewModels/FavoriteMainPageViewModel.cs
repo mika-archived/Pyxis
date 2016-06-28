@@ -2,27 +2,34 @@
 
 using Prism.Windows.Navigation;
 
+using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Collections;
+using Pyxis.Helpers;
+using Pyxis.Models;
 using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
+using Pyxis.ViewModels.Items;
 
 namespace Pyxis.ViewModels
 {
     public class FavoriteMainPageViewModel : ViewModel
     {
+        private readonly IAccountService _accountService;
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
         private FavoriteOptionParameter _favoriteOption;
+        private PixivFavorite _pixivFavorite;
         public INavigationService NavigationService { get; }
 
         public IncrementalObservableCollection<TappableThumbnailViewModel> FavoriteItems { get; }
 
-        public FavoriteMainPageViewModel(IImageStoreService imageStoreService, IPixivClient pixivClient,
-                                         INavigationService navigationService)
+        public FavoriteMainPageViewModel(IAccountService accountService, IImageStoreService imageStoreService,
+                                         IPixivClient pixivClient, INavigationService navigationService)
         {
+            _accountService = accountService;
             _imageStoreService = imageStoreService;
             _pixivClient = pixivClient;
             NavigationService = navigationService;
@@ -32,7 +39,14 @@ namespace Pyxis.ViewModels
         private void Initialize(FavoriteOptionParameter parameter)
         {
             _favoriteOption = parameter;
+            _favoriteOption.UserId = _accountService.LoggedInAccount.Id;
             SelectedIndex = (int) parameter.Type;
+            _pixivFavorite = new PixivFavorite(_pixivClient);
+
+            if (parameter.Type == SearchType.IllustsAndManga)
+                ModelHelper.ConnectTo(FavoriteItems, _pixivFavorite, w => w.ResultIllusts, CreatePixivImage);
+            else
+                ModelHelper.ConnectTo(FavoriteItems, _pixivFavorite, w => w.ResultNovels, CreatePixivNovel);
 
             Sync();
         }
@@ -55,6 +69,7 @@ namespace Pyxis.ViewModels
         private void Sync()
         {
             GenerateQueries();
+            _pixivFavorite.Query(_favoriteOption);
         }
 
         #region Overrides of ViewModelBase
@@ -65,6 +80,16 @@ namespace Pyxis.ViewModels
             var parameter = ParameterBase.ToObject<FavoriteOptionParameter>((string) e?.Parameter);
             Initialize(parameter);
         }
+
+        #endregion
+
+        #region Converters
+
+        private PixivThumbnailViewModel CreatePixivImage(IIllust w) =>
+            new PixivThumbnailViewModel(w, _imageStoreService, NavigationService);
+
+        private PixivThumbnailViewModel CreatePixivNovel(INovel w) =>
+            new PixivThumbnailViewModel(w, _imageStoreService, NavigationService);
 
         #endregion
 

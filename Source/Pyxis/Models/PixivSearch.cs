@@ -15,8 +15,6 @@ using Pyxis.Models.Parameters;
 
 #if !OFFLINE
 
-using Pyxis.Helpers;
-
 #endif
 
 namespace Pyxis.Models
@@ -54,12 +52,16 @@ namespace Pyxis.Models
             _optionParam = optionParameter;
 #if !OFFLINE
             HasMoreItems = true;
-            RunHelper.RunLaterAsync(SearchAsync, TimeSpan.FromMilliseconds(500));
 #endif
         }
 
         private async Task SearchAsync()
         {
+            if (_optionParam == null || string.IsNullOrWhiteSpace(_query))
+            {
+                HasMoreItems = false;
+                return;
+            }
             if (_optionParam.SearchType == SearchType.IllustsAndManga)
                 await SearchIllust();
             else if (_optionParam.SearchType == SearchType.Novels)
