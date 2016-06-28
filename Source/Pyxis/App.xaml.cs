@@ -63,9 +63,9 @@ namespace Pyxis
             Container.RegisterType<IImageStoreService, ImageStoreService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IDialogService, DialogService>(new ContainerControlledLifetimeManager());
             // Container.RegisterInstance<IPixivClient>(new PixivWebClient(), new ContainerControlledLifetimeManager());
-
+#if !OFFLINE
             await accountService.Login();
-
+#endif
             await base.OnInitializeAsync(args);
         }
 

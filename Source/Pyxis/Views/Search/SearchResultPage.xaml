@@ -184,8 +184,87 @@
                 </PivotItem.Header>
             </PivotItem>
         </Pivot>
+        <!-- not ログイン -->
+        <Grid Background="#0074AA"
+              Visibility="{x:Bind ViewModel.IsLoggedInRequired, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <i:Interaction.Behaviors>
+                <behaviors:AdjustControlSizeBehavior HeightOffset="-137"
+                                                     IsSyncHeight="True" />
+            </i:Interaction.Behaviors>
+            <StackPanel HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center">
+                <TextBlock HorizontalAlignment="Center"
+                           FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                           Foreground="PaleGoldenrod"
+                           Style="{ThemeResource HeaderTextBlockStyle}"
+                           Text="&#xE946;" />
+                <TextBlock Margin="5"
+                           HorizontalAlignment="Center"
+                           Foreground="White"
+                           Style="{ThemeResource SubtitleTextBlockStyle}"
+                           Text="pixiv に登録もしくはログインしてください！" />
+
+                <Button Width="200"
+                        Margin="10"
+                        HorizontalAlignment="Center"
+                        Tapped="{x:Bind ViewModel.OnRegisterButtonTapped}">
+                    <TextBlock Foreground="White"
+                               Style="{ThemeResource SubtitleTextBlockStyle}"
+                               Text="登録" />
+                </Button>
+
+                <Button Width="200"
+                        Margin="10"
+                        HorizontalAlignment="Center"
+                        Tapped="{x:Bind ViewModel.OnLoginButtonTapped}">
+                    <TextBlock Foreground="White"
+                               Style="{ThemeResource SubtitleTextBlockStyle}"
+                               Text="ログイン" />
+                </Button>
+            </StackPanel>
+        </Grid>
+        <!-- not プレミア -->
+        <Grid Background="#0074AA"
+              Visibility="{x:Bind ViewModel.IsPremiumRequired, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <i:Interaction.Behaviors>
+                <behaviors:AdjustControlSizeBehavior HeightOffset="-137"
+                                                     IsSyncHeight="True" />
+            </i:Interaction.Behaviors>
+            <StackPanel HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Orientation="Vertical">
+                <TextBlock HorizontalAlignment="Center"
+                           FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                           Foreground="PaleGoldenrod"
+                           Style="{ThemeResource HeaderTextBlockStyle}"
+                           Text="&#xE946;" />
+                <TextBlock Margin="5"
+                           Foreground="White"
+                           Style="{ThemeResource SubtitleTextBlockStyle}"
+                           Text="pixiv プレミアムに登録する必要があります！" />
+                <TextBlock HorizontalAlignment="Center"
+                           Foreground="White"
+                           Style="{ThemeResource CaptionTextBlockStyle}"
+                           Text="この機能を有効にするには、ブラウザから pixiv プレミアムに登録し、" />
+                <TextBlock HorizontalAlignment="Center"
+                           Foreground="White"
+                           Style="{ThemeResource CaptionTextBlockStyle}"
+                           Text="アプリを再起動する必要があります。" />
+
+                <Button Width="200"
+                        Margin="10"
+                        HorizontalAlignment="Center"
+                        Tapped="{x:Bind ViewModel.OnRegisterPremiumButtonTapped}">
+                    <TextBlock Foreground="White"
+                               Style="{ThemeResource SubtitleTextBlockStyle}"
+                               Text="登録する" />
+                </Button>
+            </StackPanel>
+        </Grid>
+        <!-- プレミア -->
         <GridView x:Name="SearchResult"
-                  ItemsSource="{x:Bind ViewModel.Results}">
+                  ItemsSource="{x:Bind ViewModel.Results}"
+                  Visibility="{x:Bind ViewModel.IsPremiumRequired, Mode=OneWay, Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
             <i:Interaction.Behaviors>
                 <behaviors:AdjustControlSizeBehavior HeightOffset="-137"
                                                      IsSyncHeight="True" />

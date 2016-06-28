@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+
+using Windows.System;
 
 using Prism.Windows.Navigation;
 
@@ -17,6 +20,7 @@ namespace Pyxis.ViewModels.Search
 {
     public class SearchResultPageViewModel : ViewModel
     {
+        private readonly IAccountService _accountService;
         private readonly IDialogService _dialogService;
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
@@ -27,9 +31,11 @@ namespace Pyxis.ViewModels.Search
 
         public IncrementalObservableCollection<ThumbnailableViewModel> Results { get; }
 
-        public SearchResultPageViewModel(IDialogService dialogService, IImageStoreService imageStoreService,
-                                         INavigationService navigationService, IPixivClient pixivClient)
+        public SearchResultPageViewModel(IAccountService accountService, IDialogService dialogService,
+                                         IImageStoreService imageStoreService, INavigationService navigationService,
+                                         IPixivClient pixivClient)
         {
+            _accountService = accountService;
             _dialogService = dialogService;
             _imageStoreService = imageStoreService;
             NavigationService = navigationService;
@@ -41,6 +47,8 @@ namespace Pyxis.ViewModels.Search
         {
             SelectedIndex = (int) parameter.Sort;
             SearchQuery = parameter.Query;
+            IsLoggedInRequired = !_accountService.IsLoggedIn && parameter.Sort == SearchSort.Popular;
+            IsPremiumRequired = !_accountService.IsPremium && parameter.Sort == SearchSort.Popular;
             _searchOption = new SearchOptionParameter
             {
                 SearchType = parameter.SearchType,
@@ -96,6 +104,24 @@ namespace Pyxis.ViewModels.Search
             _pixivSearch.Search(SearchQuery, _searchOption);
         }
 
+        public async void OnRegisterButtonTapped()
+            => await Launcher.LaunchUriAsync(new Uri("https://accounts.pixiv.net/signup"));
+
+        public async void OnRegisterPremiumButtonTapped()
+            => await Launcher.LaunchUriAsync(new Uri("http://www.pixiv.net/premium.php"));
+
+        public void OnLoginButtonTapped()
+        {
+            var sp = SearchResultParameter.Build(_searchOption);
+            sp.Query = SearchQuery;
+            var parameter = new RedirectParameter
+            {
+                RedirectTo = "Search.SearchResult",
+                Parameter = sp
+            };
+            NavigationService.Navigate("Account.Login", parameter.ToJson());
+        }
+
         #region Overrides of ViewModelBase
 
         public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
@@ -137,6 +163,30 @@ namespace Pyxis.ViewModels.Search
         {
             get { return _selectedIndex; }
             set { SetProperty(ref _selectedIndex, value); }
+        }
+
+        #endregion
+
+        #region IsLoggedInRequired
+
+        private bool _isLoggedInRequired;
+
+        public bool IsLoggedInRequired
+        {
+            get { return _isLoggedInRequired; }
+            set { SetProperty(ref _isLoggedInRequired, value); }
+        }
+
+        #endregion
+
+        #region IsPremiumRequired
+
+        private bool _isPremiumRequired;
+
+        public bool IsPremiumRequired
+        {
+            get { return _isPremiumRequired; }
+            set { SetProperty(ref _isPremiumRequired, value); }
         }
 
         #endregion
