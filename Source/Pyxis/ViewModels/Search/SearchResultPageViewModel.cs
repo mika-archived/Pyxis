@@ -101,6 +101,8 @@ namespace Pyxis.ViewModels.Search
         private void Search()
         {
             GenerateQueries();
+            if (IsLoggedInRequired || IsPremiumRequired)
+                return;
             _pixivSearch.Search(SearchQuery, _searchOption);
         }
 
