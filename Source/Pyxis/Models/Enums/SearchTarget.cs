@@ -8,7 +8,11 @@ namespace Pyxis.Models.Enums
 
         TagTotal,
 
-        TitleCaption
+        TitleCaption,
+
+        Text,
+
+        Keyword
     }
 
     internal static class SearchTargetExt
@@ -25,6 +29,12 @@ namespace Pyxis.Models.Enums
 
                 case SearchTarget.TitleCaption:
                     return "title_and_caption";
+
+                case SearchTarget.Text:
+                    return "text";
+
+                case SearchTarget.Keyword:
+                    return "keyword";
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(target), target, null);
