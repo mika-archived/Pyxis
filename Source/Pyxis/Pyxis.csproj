@@ -122,6 +122,7 @@
     <Compile Include="Models\Enums\SearchSort.cs" />
     <Compile Include="Models\Enums\SearchTarget.cs" />
     <Compile Include="Models\Enums\SearchType.cs" />
+    <Compile Include="Models\Parameters\FavoriteOptionParameter.cs" />
     <Compile Include="Models\Parameters\NovelDetailParameter.cs" />
     <Compile Include="Models\Parameters\SearchHomeParameter.cs" />
     <Compile Include="Models\Parameters\SearchOptionParameter.cs" />
@@ -167,6 +168,7 @@
     <Compile Include="ViewModels\Detail\NovelDetailPageViewModel.cs" />
     <Compile Include="ViewModels\Detail\NovelViewPageViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\SearchOptionDialogViewModel.cs" />
+    <Compile Include="ViewModels\FavoriteMainPageViewModel.cs" />
     <Compile Include="ViewModels\Items\PixivCommentViewModel.cs" />
     <Compile Include="ViewModels\Detail\Items\PixivMangaImageViewModel.cs" />
     <Compile Include="ViewModels\Detail\MangaDetailPageViewModel.cs" />
@@ -203,9 +205,6 @@
     <Compile Include="Views\Account\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Bookmark\MainBookmarkPage.xaml.cs">
-      <DependentUpon>MainBookmarkPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\BrowsingHistory\IllustMangaBrowsingHistoryPage.xaml.cs">
       <DependentUpon>IllustMangaBrowsingHistoryPage.xaml</DependentUpon>
     </Compile>
@@ -239,14 +238,8 @@
     <Compile Include="Views\Error\PremiumRequiredPage.xaml.cs">
       <DependentUpon>PremiumRequiredPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Favorite\IllustMangaFavoritePage.xaml.cs">
-      <DependentUpon>IllustMangaFavoritePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Favorite\NovelFavoritePage.xaml.cs">
-      <DependentUpon>NovelFavoritePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Favorite\PivotTabFavorite.xaml.cs">
-      <DependentUpon>PivotTabFavorite.xaml</DependentUpon>
+    <Compile Include="Views\FavoriteMainPage.xaml.cs">
+      <DependentUpon>FavoriteMainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Follower\MainFollowerPage.xaml.cs">
       <DependentUpon>MainFollowerPage.xaml</DependentUpon>
@@ -407,10 +400,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Bookmark\MainBookmarkPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\BrowsingHistory\IllustMangaBrowsingHistoryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -455,15 +444,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Favorite\IllustMangaFavoritePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Favorite\NovelFavoritePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Favorite\PivotTabFavorite.xaml">
+    <Page Include="Views\FavoriteMainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -564,6 +545,8 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\Bookmark\" />
+    <Folder Include="Views\Favorite\" />
     <Folder Include="Views\Ranking\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
