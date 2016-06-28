@@ -10,9 +10,12 @@ using Microsoft.Practices.ObjectBuilder2;
 
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest;
-using Pyxis.Helpers;
 using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
+
+#if !OFFLINE
+using Pyxis.Helpers;
+#endif
 
 namespace Pyxis.Models
 {
@@ -47,8 +50,8 @@ namespace Pyxis.Models
             ResultUsers.Clear();
             _query = query;
             _optionParam = optionParameter;
-            HasMoreItems = true;
 #if !OFFLINE
+            HasMoreItems = true;
             RunHelper.RunLaterAsync(SearchAsync, TimeSpan.FromMilliseconds(500));
 #endif
         }
