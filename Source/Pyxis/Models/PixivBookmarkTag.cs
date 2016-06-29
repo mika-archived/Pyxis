@@ -36,8 +36,8 @@ namespace Pyxis.Models
         private void Reset()
         {
             BookmarkTags.Clear();
-            BookmarkTags.Add(new BookmarkTag {Name = "_All"});
-            BookmarkTags.Add(new BookmarkTag {Name = "Uncategorized"});
+            BookmarkTags.Add(new BookmarkTag {Name = "すべて"});
+            BookmarkTags.Add(new BookmarkTag {Name = "未分類"});
         }
 
         public void Query(SearchType searchType, RestrictType restrict)
