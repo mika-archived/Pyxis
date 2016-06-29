@@ -15,7 +15,7 @@ namespace Pyxis.Collections
         public IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count)
             => SupportIncrementalLoading.LoadMoreItemsAsync(count);
 
-        public bool HasMoreItems => SupportIncrementalLoading.HasMoreItems;
+        public bool HasMoreItems => SupportIncrementalLoading?.HasMoreItems ?? false;
 
         #endregion
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using Prism.Windows.Navigation;
 
@@ -72,13 +73,22 @@ namespace Pyxis.ViewModels
             _pixivFavorite.Query(_favoriteOption);
         }
 
+        private void RedirectoToLoginPage(FavoriteOptionParameter parameter)
+        {
+            var param = new RedirectParameter {RedirectTo = "FavoriteMain", Parameter = parameter};
+            NavigationService.Navigate("Error.LoginRequired", param.ToJson());
+        }
+
         #region Overrides of ViewModelBase
 
         public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
         {
             base.OnNavigatedTo(e, viewModelState);
             var parameter = ParameterBase.ToObject<FavoriteOptionParameter>((string) e?.Parameter);
-            Initialize(parameter);
+            if (_accountService.IsLoggedIn)
+                Initialize(parameter);
+            else
+                RunHelper.RunLater(RedirectoToLoginPage, parameter, TimeSpan.FromMilliseconds(10));
         }
 
         #endregion
