@@ -18,6 +18,7 @@ namespace Pyxis.Models
     internal class PixivSearch : ISupportIncrementalLoading
     {
         private readonly IPixivClient _pixivClient;
+        private string _offset;
         private SearchOptionParameter _optionParam;
 
         private string _query;
@@ -32,6 +33,7 @@ namespace Pyxis.Models
             ResultIllusts = new ObservableCollection<IIllust>();
             ResultNovels = new ObservableCollection<INovel>();
             ResultUsers = new ObservableCollection<IUserPreview>();
+            _offset = "";
 #if OFFLINE
             HasMoreItems = false;
 #else
@@ -45,6 +47,7 @@ namespace Pyxis.Models
             ResultNovels.Clear();
             ResultUsers.Clear();
             _query = query;
+            _offset = "";
             _optionParam = optionParameter;
 #if !OFFLINE
             HasMoreItems = true;
@@ -76,10 +79,12 @@ namespace Pyxis.Models
                                                                 sort => _optionParam.Sort.ToParamString(),
                                                                 word => _query,
                                                                 filter => "for_ios",
-                                                                offset => Count());
+                                                                offset => _offset);
             illusts?.IllustList.ForEach(w => ResultIllusts.Add(w));
             if (string.IsNullOrWhiteSpace(illusts?.NextUrl))
                 HasMoreItems = false;
+            else
+                _offset = UrlParameter.ParseQuery(illusts.NextUrl)["offset"];
         }
 
         [SuppressMessage("ReSharper", "InconsistentNaming")]
@@ -89,30 +94,23 @@ namespace Pyxis.Models
                                                               search_target => _optionParam.Target.ToParamString(),
                                                               sort => _optionParam.Sort.ToParamString(),
                                                               word => _query,
-                                                              offset => Count());
+                                                              offset => _offset);
 
             novels?.NovelList.ForEach(w => ResultNovels.Add(w));
             if (string.IsNullOrWhiteSpace(novels?.NextUrl))
                 HasMoreItems = false;
+            else
+                _offset = UrlParameter.ParseQuery(novels.NextUrl)["offset"];
         }
 
         private async Task SearchUser()
         {
-            var users = await _pixivClient.Search.UserAsync(word => _query, filter => "for_ios", offset => Count());
+            var users = await _pixivClient.Search.UserAsync(word => _query, filter => "for_ios", offset => _offset);
             users?.UserPreviewList.ForEach(w => ResultUsers.Add(w));
             if (string.IsNullOrWhiteSpace(users?.NextUrl))
                 HasMoreItems = false;
-        }
-
-        private int Count()
-        {
-            if (_optionParam.SearchType == SearchType.IllustsAndManga)
-                return ResultIllusts.Count;
-            if (_optionParam.SearchType == SearchType.Novels)
-                return ResultNovels.Count;
-            if (_optionParam.SearchType == SearchType.Users)
-                return ResultUsers.Count;
-            throw new NotSupportedException();
+            else
+                _offset = UrlParameter.ParseQuery(users.NextUrl)["offset"];
         }
 
         #region Implementation of ISupportIncrementalLoading

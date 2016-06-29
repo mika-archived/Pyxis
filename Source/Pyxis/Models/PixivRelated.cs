@@ -26,6 +26,11 @@ namespace Pyxis.Models
             _pixivClient = pixivClient;
             _seedIds = "";
             RelatedIllusts = new ObservableCollection<IIllust>();
+#if OFFLINE
+            HasMoreItems = false;
+#else
+            HasMoreItems = true;
+#endif
         }
 
         [SuppressMessage("ReSharper", "InconsistentNaming")]
@@ -36,12 +41,9 @@ namespace Pyxis.Models
                                                                    seed_illust_ids => _seedIds);
             illusts?.IllustList.ForEach(w => RelatedIllusts.Add(w));
             if (string.IsNullOrWhiteSpace(illusts?.NextUrl))
-            {
-                _seedIds = null;
-                return;
-            }
-            var str = illusts.NextUrl;
-            _seedIds = UrlParameter.ParseQuery(str)["seed_illust_ids"].Replace("%2C", ",");
+                HasMoreItems = false;
+            else
+                _seedIds = UrlParameter.ParseQuery(illusts.NextUrl)["seed_illust_ids"].Replace("%2C", ",");
         }
 
         #region Implementation of ISupportIncrementalLoading
@@ -55,11 +57,7 @@ namespace Pyxis.Models
             }).AsAsyncOperation();
         }
 
-#if OFFLINE
-        public bool HasMoreItems => false;
-#else
-        public bool HasMoreItems => !string.IsNullOrWhiteSpace(_seedIds);
-#endif
+        public bool HasMoreItems { get; private set; }
 
         #endregion
     }

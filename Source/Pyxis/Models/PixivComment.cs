@@ -19,6 +19,7 @@ namespace Pyxis.Models
         private readonly IIllust _illust;
         private readonly INovel _novel;
         private readonly IPixivClient _pixivClient;
+        private string _offset;
 
         public ObservableCollection<IComment> Comments { get; }
 
@@ -38,12 +39,13 @@ namespace Pyxis.Models
         {
             _novel = novel;
             _pixivClient = pixivClient;
+            Comments = new ObservableCollection<IComment>();
+            _offset = "";
 #if OFFLINE
             HasMoreItems = false;
 #else
             HasMoreItems = true;
 #endif
-            Comments = new ObservableCollection<IComment>();
         }
 
         public void Fetch() => RunHelper.RunAsync(FetchComments);
@@ -53,12 +55,14 @@ namespace Pyxis.Models
         {
             IComments comments;
             if (_illust != null)
-                comments = await _pixivClient.IllustV1.CommentsAsync(illust_id => _illust.Id, offset => Comments.Count);
+                comments = await _pixivClient.IllustV1.CommentsAsync(illust_id => _illust.Id, offset => _offset);
             else
-                comments = await _pixivClient.NovelV1.CommentsAsync(novel_id => _novel.Id, offset => Comments.Count);
+                comments = await _pixivClient.NovelV1.CommentsAsync(novel_id => _novel.Id, offset => _offset);
             comments?.CommentList.ForEach(w => Comments.Add(w));
             if (string.IsNullOrWhiteSpace(comments?.NextUrl))
                 HasMoreItems = false;
+            else
+                _offset = UrlParameter.ParseQuery(comments.NextUrl)["offset"];
         }
 
         #region Implementation of ISupportIncrementalLoading
