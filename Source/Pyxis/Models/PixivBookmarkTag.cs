@@ -7,6 +7,7 @@ using Windows.UI.Xaml.Data;
 
 using Microsoft.Practices.ObjectBuilder2;
 
+using Pyxis.Alpha.Models.v1;
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Models.Enums;
@@ -31,9 +32,16 @@ namespace Pyxis.Models
 #endif
         }
 
-        public void Query(RestrictType restrict)
+        private void Reset()
         {
             BookmarkTags.Clear();
+            BookmarkTags.Add(new BookmarkTag {Name = "_All"});
+            BookmarkTags.Add(new BookmarkTag {Name = "Uncategorized"});
+        }
+
+        public void Query(RestrictType restrict)
+        {
+            Reset();
             _restrict = restrict;
             _offset = "";
 #if !OFFLINE

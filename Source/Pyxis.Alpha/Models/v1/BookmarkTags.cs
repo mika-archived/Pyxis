@@ -21,7 +21,7 @@ namespace Pyxis.Alpha.Models.v1
         #region Implementation of IBookmarkTags
 
         [JsonProperty("bookmark_tags")]
-        [JsonConverter(typeof(InterfaceToConcrete<IList<BookmarkTags>>))]
+        [JsonConverter(typeof(InterfaceToConcrete<IList<BookmarkTag>>))]
         public IList<IBookmarkTag> BookmarkTagList { get; set; }
 
         #endregion

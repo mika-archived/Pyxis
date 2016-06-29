@@ -42,6 +42,8 @@ namespace Pyxis.Models
             ResultIllusts.Clear();
             ResultNovels.Clear();
             _optionParam = optionParameter;
+            // Magic number
+            _optionParam.Tag = optionParameter.Tag == "_All" ? "" : optionParameter.Tag;
             _maxBookmarkId = "";
 #if !OFFLINE
             HasMoreItems = true;

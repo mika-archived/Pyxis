@@ -19,6 +19,7 @@ namespace Pyxis.ViewModels
     public class FavoriteMainPageViewModel : ViewModel
     {
         private readonly IAccountService _accountService;
+        private readonly IDialogService _dialogService;
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
         private FavoriteOptionParameter _favoriteOption;
@@ -27,10 +28,12 @@ namespace Pyxis.ViewModels
 
         public IncrementalObservableCollection<TappableThumbnailViewModel> FavoriteItems { get; }
 
-        public FavoriteMainPageViewModel(IAccountService accountService, IImageStoreService imageStoreService,
-                                         IPixivClient pixivClient, INavigationService navigationService)
+        public FavoriteMainPageViewModel(IAccountService accountService, IDialogService dialogService,
+                                         IImageStoreService imageStoreService, IPixivClient pixivClient,
+                                         INavigationService navigationService)
         {
             _accountService = accountService;
+            _dialogService = dialogService;
             _imageStoreService = imageStoreService;
             _pixivClient = pixivClient;
             NavigationService = navigationService;
@@ -71,6 +74,15 @@ namespace Pyxis.ViewModels
         {
             GenerateQueries();
             _pixivFavorite.Query(_favoriteOption);
+        }
+
+        public async void OnButtonTapped()
+        {
+            var result = await _dialogService.ShowDialogAsync("Dialogs.FavoriteOption", _favoriteOption);
+            if (result == null)
+                return;
+            _favoriteOption = result as FavoriteOptionParameter;
+            Sync();
         }
 
         private void RedirectoToLoginPage(FavoriteOptionParameter parameter)

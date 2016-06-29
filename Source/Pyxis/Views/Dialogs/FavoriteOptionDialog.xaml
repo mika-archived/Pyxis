@@ -48,16 +48,23 @@
         </StackPanel>
         <StackPanel Style="{StaticResource SectionStackPanelStyle}">
             <TextBlock Text="タグ" />
-            <ListBox Width="250"
-                     Height="150"
-                     Margin="0,15,0,0"
-                     HorizontalAlignment="Center">
-                <ListBox.ItemTemplate>
+            <ListView Width="250"
+                      Height="150"
+                      SelectedItem="{x:Bind ViewModel.SelectedTag.Value, Mode=TwoWay}"
+                      Margin="0,15,0,0"
+                      HorizontalAlignment="Center"
+                      ItemsSource="{x:Bind ViewModel.Tags}">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsStackPanel />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding}" />
                     </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackPanel>
     </StackPanel>
 </ContentDialog>

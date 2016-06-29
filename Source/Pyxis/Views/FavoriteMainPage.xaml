@@ -123,7 +123,8 @@
                         Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                         Content="&#xE8FD;"
                         FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                        FontSize="24" />
+                        FontSize="24"
+                        Tapped="{x:Bind ViewModel.OnButtonTapped}" />
             </Pivot.RightHeader>
             <i:Interaction.Behaviors>
                 <behaviors:AttachNavigationToPivotBehavior NavigationService="{x:Bind ViewModel.NavigationService}" />
@@ -145,7 +146,8 @@
                 </PivotItem.Header>
             </PivotItem>
         </Pivot>
-        <GridView x:Name="FavoriteQueryResult" ItemsSource="{x:Bind ViewModel.FavoriteItems}">
+        <GridView x:Name="FavoriteQueryResult"
+                  ItemsSource="{x:Bind ViewModel.FavoriteItems}">
             <i:Interaction.Behaviors>
                 <behaviors:AdjustControlSizeBehavior HeightOffset="-137"
                                                      IsSyncHeight="True" />
