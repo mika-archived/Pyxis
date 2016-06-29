@@ -13,10 +13,6 @@ using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
 
-#if !OFFLINE
-
-#endif
-
 namespace Pyxis.Models
 {
     internal class PixivSearch : ISupportIncrementalLoading
