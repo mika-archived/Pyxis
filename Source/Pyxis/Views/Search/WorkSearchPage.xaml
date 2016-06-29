@@ -196,10 +196,8 @@
                                                      IsSyncHeight="True" />
             </i:Interaction.Behaviors>
             <GridView.Header>
-                <StackPanel>
-                    <local:TrendingTagView x:Name="TopTrend"
-                                           DataContext="{x:Bind ViewModel.TopTrendingTag, Mode=OneWay}" />
-                </StackPanel>
+                <local:TrendingTagView x:Name="TopTrend"
+                                       DataContext="{x:Bind ViewModel.TopTrendingTag, Mode=OneWay}" />
             </GridView.Header>
             <GridView.ItemContainerStyle>
                 <Style TargetType="GridViewItem">
