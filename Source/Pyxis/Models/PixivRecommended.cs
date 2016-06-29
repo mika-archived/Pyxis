@@ -37,7 +37,7 @@ namespace Pyxis.Models
 #if OFFLINE
             HasMoreItems = false;
 #else
-            HasMoreItem = true;
+            HasMoreItems = true;
 #endif
         }
 

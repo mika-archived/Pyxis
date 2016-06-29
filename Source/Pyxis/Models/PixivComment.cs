@@ -27,12 +27,13 @@ namespace Pyxis.Models
         {
             _illust = illust;
             _pixivClient = pixivClient;
+            _offset = "";
+            Comments = new ObservableCollection<IComment>();
 #if OFFLINE
             HasMoreItems = false;
 #else
             HasMoreItems = true;
 #endif
-            Comments = new ObservableCollection<IComment>();
         }
 
         public PixivComment(INovel novel, IPixivClient pixivClient)
