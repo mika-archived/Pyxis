@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 using Prism.Windows.Navigation;
 
-using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Models;
 using Pyxis.Models.Parameters;
 using Pyxis.Mvvm;
@@ -22,19 +21,16 @@ namespace Pyxis.ViewModels.Account
     {
         private readonly IAccountService _accountService;
         private readonly INavigationService _navigationService;
-        private readonly IPixivClient _pixivClient;
         private RedirectParameter _parameter;
 
         public ReactiveProperty<string> Username { get; }
         public ReactiveProperty<string> Password { get; }
         public ReactiveCommand LoginCommand { get; }
 
-        public LoginPageViewModel(IAccountService accountService, INavigationService navigationService,
-                                  IPixivClient pixivClient)
+        public LoginPageViewModel(IAccountService accountService, INavigationService navigationService)
         {
             _accountService = accountService;
             _navigationService = navigationService;
-            _pixivClient = pixivClient;
 
             Username = new ReactiveProperty<string>(string.Empty);
             Password = new ReactiveProperty<string>(string.Empty);
@@ -69,6 +65,7 @@ namespace Pyxis.ViewModels.Account
         {
             base.OnNavigatedTo(e, viewModelState);
             _parameter = ParameterBase.ToObject<RedirectParameter>(e?.Parameter.ToString());
+            _navigationService.RemoveAllPages("Error.LoginPage");
         }
 
         #endregion

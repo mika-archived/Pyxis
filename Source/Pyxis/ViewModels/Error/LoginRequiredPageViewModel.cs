@@ -31,7 +31,6 @@ namespace Pyxis.ViewModels.Error
         {
             base.OnNavigatedTo(e, viewModelState);
             _parameter = ParameterBase.ToObject<RedirectParameter>(e.Parameter?.ToString());
-            _navigationService.RemoveLastPage();
         }
 
         #endregion
