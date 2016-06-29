@@ -20,6 +20,7 @@ namespace Pyxis.Models
         private readonly ContentType _contentType;
         private readonly FollowType _followType;
         private readonly IPixivClient _pixivClient;
+        private string _maxIllustId;
         private string _maxNovelId;
         private string _offset;
         public ObservableCollection<IIllust> NewIllusts { get; }
@@ -34,6 +35,7 @@ namespace Pyxis.Models
             NewNovels = new ObservableCollection<INovel>();
             _offset = "";
             _maxNovelId = "";
+            _maxIllustId = "";
 #if OFFLINE
             HasMoreItems = false;
 #else
@@ -88,7 +90,10 @@ namespace Pyxis.Models
             if (string.IsNullOrWhiteSpace(illusts?.NextUrl))
                 HasMoreItems = false;
             else
-                _offset = UrlParameter.ParseQuery(illusts?.NextUrl)["offset"];
+            {
+                _offset = UrlParameter.ParseQuery(illusts.NextUrl).TryGet("offset");
+                _maxIllustId = UrlParameter.ParseQuery(illusts.NextUrl).TryGet("max_illust_id");
+            }
         }
 
         [SuppressMessage("ReSharper", "InconsistentNaming")]
@@ -101,7 +106,7 @@ namespace Pyxis.Models
                 illusts = await _pixivClient.IllustV2.MypixivAsync(offset => _offset);
             else if (_followType == FollowType.All)
                 illusts = await _pixivClient.IllustV1.NewAsync(filter => "for_ios", content_type => "illust",
-                                                               offset => _offset);
+                                                               max_illust_id => _maxIllustId);
             return illusts;
         }
 
