@@ -2,7 +2,7 @@
 
 namespace Pyxis.Models.Enums
 {
-    internal enum RestrictType
+    public enum RestrictType
     {
         All,
 

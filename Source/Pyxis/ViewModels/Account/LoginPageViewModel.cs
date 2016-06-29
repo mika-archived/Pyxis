@@ -65,7 +65,7 @@ namespace Pyxis.ViewModels.Account
         {
             base.OnNavigatedTo(e, viewModelState);
             _parameter = ParameterBase.ToObject<RedirectParameter>(e?.Parameter.ToString());
-            _navigationService.RemoveAllPages("Error.LoginPage");
+            _navigationService.RemoveAllPages("Error.LoginRequired");
         }
 
         #endregion

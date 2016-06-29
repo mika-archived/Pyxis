@@ -169,6 +169,7 @@
     <Compile Include="ViewModels\Detail\IllustDetailPageViewModel.cs" />
     <Compile Include="ViewModels\Detail\NovelDetailPageViewModel.cs" />
     <Compile Include="ViewModels\Detail\NovelViewPageViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\FavoriteOptionDialogViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\SearchOptionDialogViewModel.cs" />
     <Compile Include="ViewModels\FavoriteMainPageViewModel.cs" />
     <Compile Include="ViewModels\Items\PixivCommentViewModel.cs" />
@@ -230,6 +231,9 @@
     </Compile>
     <Compile Include="Views\Detail\NovelViewPage.xaml.cs">
       <DependentUpon>NovelViewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\FavoriteOptionDialog.xaml.cs">
+      <DependentUpon>FavoriteOptionDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Dialogs\SearchOptionDialog.xaml.cs">
       <DependentUpon>SearchOptionDialog.xaml</DependentUpon>
@@ -431,6 +435,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Detail\NovelViewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\FavoriteOptionDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
