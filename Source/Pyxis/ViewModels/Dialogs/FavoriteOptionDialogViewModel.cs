@@ -37,7 +37,7 @@ namespace Pyxis.ViewModels.Dialogs
             _bookmarkTag = new PixivBookmarkTag(_pixivClient);
             ModelHelper.ConnectTo(Tags, _bookmarkTag, w => w.BookmarkTags, w => w.Name);
 
-            _bookmarkTag.Query(_parameter.Restrict);
+            _bookmarkTag.Query(_parameter.Type, _parameter.Restrict);
         }
 
         public override void OnFinalize() => ResultValue = _parameter;

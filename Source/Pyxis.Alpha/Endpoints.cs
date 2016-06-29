@@ -74,6 +74,8 @@
 
         public static string UserBookmarkTagsIllust => $"{BaseUrl}/{Version1}/user/bookmark-tags/illust";
 
+        public static string UserBookmarkTagsNovel => $"{BaseUrl}/{Version1}/user/bookmark-tags/novel";
+
         public static string UserBookmarksIllust => $"{BaseUrl}/{Version1}/user/bookmarks/illust";
 
         public static string UserBookmarksNovel => $"{BaseUrl}/{Version1}/user/bookmarks/novel";

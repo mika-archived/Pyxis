@@ -19,6 +19,7 @@ namespace Pyxis.Models
         private readonly IPixivClient _pixivClient;
         private string _offset;
         private RestrictType _restrict;
+        private SearchType _searchType;
         public ObservableCollection<IBookmarkTag> BookmarkTags { get; }
 
         public PixivBookmarkTag(IPixivClient pixivClient)
@@ -39,9 +40,10 @@ namespace Pyxis.Models
             BookmarkTags.Add(new BookmarkTag {Name = "Uncategorized"});
         }
 
-        public void Query(RestrictType restrict)
+        public void Query(SearchType searchType, RestrictType restrict)
         {
             Reset();
+            _searchType = searchType;
             _restrict = restrict;
             _offset = "";
 #if !OFFLINE
@@ -51,8 +53,15 @@ namespace Pyxis.Models
 
         private async Task QueryAsync()
         {
-            var tags = await _pixivClient.User.BookmarkTags.IllustAsync(restrict => _restrict.ToParamString(),
+            IBookmarkTags tags;
+            if (_searchType == SearchType.IllustsAndManga)
+                tags = await _pixivClient.User.BookmarkTags.IllustAsync(restrict => _restrict.ToParamString(),
                                                                         offset => _offset);
+            else if (_searchType == SearchType.Novels)
+                tags = await _pixivClient.User.BookmarkTags.NovelAsync(restrict => _restrict.ToParamString(),
+                                                                       offset => _offset);
+            else
+                throw new NotSupportedException();
             tags?.BookmarkTagList.ForEach(w => BookmarkTags.Add(w));
             if (string.IsNullOrWhiteSpace(tags?.NextUrl))
                 HasMoreItems = false;

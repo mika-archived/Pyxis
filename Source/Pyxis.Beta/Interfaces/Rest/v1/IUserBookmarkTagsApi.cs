@@ -9,5 +9,7 @@ namespace Pyxis.Beta.Interfaces.Rest.v1
     public interface IUserBookmarkTagsApi
     {
         Task<IBookmarkTags> IllustAsync(params Expression<Func<string, object>>[] parameters);
+
+        Task<IBookmarkTags> NovelAsync(params Expression<Func<string, object>>[] parameters);
     }
 }

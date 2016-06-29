@@ -22,6 +22,9 @@ namespace Pyxis.Alpha.Rest.v1
         public async Task<IBookmarkTags> IllustAsync(params Expression<Func<string, object>>[] parameters)
             => await _client.GetAsync<BookmarkTags>(Endpoints.UserBookmarkTagsIllust, true, parameters);
 
+        public async Task<IBookmarkTags> NovelAsync(params Expression<Func<string, object>>[] parameters)
+            => await _client.GetAsync<BookmarkTags>(Endpoints.UserBookmarkTagsNovel, true, parameters);
+
         #endregion
     }
 }
