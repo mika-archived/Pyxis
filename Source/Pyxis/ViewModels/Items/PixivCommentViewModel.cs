@@ -22,7 +22,7 @@ namespace Pyxis.ViewModels.Items
         public PixivCommentViewModel(IComment comment, IImageStoreService imageStoreService)
         {
             _comment = comment;
-            Thumbnailable = new PixivUser(comment.User, imageStoreService);
+            Thumbnailable = new PixivUserImage(comment.User, imageStoreService);
             Thumbnailable.ObserveProperty(w => w.ThumbnailPath)
                          .Where(w => !string.IsNullOrWhiteSpace(w))
                          .ObserveOnUIDispatcher()

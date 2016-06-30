@@ -7,13 +7,13 @@ using Pyxis.Services.Interfaces;
 
 namespace Pyxis.Models
 {
-    internal class PixivUser : ThumbnailableBase
+    internal class PixivUserImage : ThumbnailableBase
     {
         private readonly IImageStoreService _imageStoreService;
 
         private readonly IUserBase _user;
 
-        public PixivUser(IUserBase user, IImageStoreService imageStoreService)
+        public PixivUserImage(IUserBase user, IImageStoreService imageStoreService)
         {
             _user = user;
             _imageStoreService = imageStoreService;

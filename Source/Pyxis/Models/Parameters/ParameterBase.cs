@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 using Newtonsoft.Json;
 
@@ -34,6 +35,7 @@ namespace Pyxis.Models.Parameters
             }
             catch (Exception e)
             {
+                Debug.WriteLine(e.Message);
                 return default(T);
             }
         }

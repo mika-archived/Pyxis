@@ -149,7 +149,7 @@
     <Compile Include="Models\Enums\ContentType.cs" />
     <Compile Include="Models\PixivSearch.cs" />
     <Compile Include="Models\PixivTrending.cs" />
-    <Compile Include="Models\PixivUser.cs" />
+    <Compile Include="Models\PixivUserImage.cs" />
     <Compile Include="Models\UrlParameter.cs" />
     <Compile Include="Mvvm\ViewModelHelper.cs" />
     <Compile Include="PyxisConstants.cs" />

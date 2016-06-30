@@ -32,7 +32,7 @@ namespace Pyxis.ViewModels.Detail
         private IIllust _illust;
         private PixivComment _pixivComment;
         private PixivRelated _pixivRelated;
-        private PixivUser _pixivUser;
+        private PixivUserImage _pixivUser;
 
         public ObservableCollection<PixivTagViewModel> Tags { get; }
         public ObservableCollection<PixivCommentViewModel> Comments { get; }
@@ -71,7 +71,7 @@ namespace Pyxis.ViewModels.Detail
                          .ObserveOnUIDispatcher()
                          .Subscribe(w => ThumbnailPath = w)
                          .AddTo(this);
-            _pixivUser = new PixivUser(_illust.User, _imageStoreService);
+            _pixivUser = new PixivUserImage(_illust.User, _imageStoreService);
             _pixivUser.ObserveProperty(w => w.ThumbnailPath)
                       .Where(w => !string.IsNullOrWhiteSpace(w))
                       .ObserveOnUIDispatcher()

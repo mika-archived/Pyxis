@@ -31,7 +31,7 @@ namespace Pyxis.ViewModels
         private void LoggedIn()
         {
             _disposable?.Dispose();
-            Thumbnailable = new PixivUser(_accountService.LoggedInAccount, _imageStoreService);
+            Thumbnailable = new PixivUserImage(_accountService.LoggedInAccount, _imageStoreService);
             Thumbnailable.ObserveProperty(w => w.ThumbnailPath)
                          .Where(w => !string.IsNullOrWhiteSpace(w))
                          .ObserveOnUIDispatcher()

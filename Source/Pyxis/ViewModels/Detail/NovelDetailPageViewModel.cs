@@ -30,7 +30,7 @@ namespace Pyxis.ViewModels.Detail
         private int _count;
         private INovel _novel;
         private PixivComment _pixivComment;
-        private PixivUser _pixivUser;
+        private PixivUserImage _pixivUser;
 
         public int Height => 221;
         public int Width => 176;
@@ -69,7 +69,7 @@ namespace Pyxis.ViewModels.Detail
                          .ObserveOnUIDispatcher()
                          .Subscribe(w => ThumbnailPath = w)
                          .AddTo(this);
-            _pixivUser = new PixivUser(_novel.User, _imageStoreService);
+            _pixivUser = new PixivUserImage(_novel.User, _imageStoreService);
             _pixivUser.ObserveProperty(w => w.ThumbnailPath)
                       .Where(w => !string.IsNullOrWhiteSpace(w))
                       .ObserveOnUIDispatcher()
