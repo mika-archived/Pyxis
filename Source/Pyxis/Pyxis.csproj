@@ -200,6 +200,7 @@
     <Compile Include="ViewModels\Base\ViewModel.cs" />
     <Compile Include="ViewModels\Search\Items\TrendingTagViewModel.cs" />
     <Compile Include="ViewModels\Search\SearchResultPageViewModel.cs" />
+    <Compile Include="ViewModels\Search\UserSearchPageViewModel.cs" />
     <Compile Include="ViewModels\Search\WorkSearchPageViewModel.cs" />
     <Compile Include="ViewModels\Work\IllustWorkPageViewModel.cs" />
     <Compile Include="ViewModels\Work\MangaWorkPageViewModel.cs" />
@@ -296,6 +297,9 @@
     </Compile>
     <Compile Include="Views\Search\TrendingTagView.xaml.cs">
       <DependentUpon>TrendingTagView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Search\UserSearchPage.xaml.cs">
+      <DependentUpon>UserSearchPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Search\WorkSearchPage.xaml.cs">
       <DependentUpon>WorkSearchPage.xaml</DependentUpon>
@@ -526,6 +530,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Search\TrendingTagView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Search\UserSearchPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

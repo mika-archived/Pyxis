@@ -1,0 +1,87 @@
+﻿<Page x:Class="Pyxis.Views.Search.UserSearchPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:attach="using:Pyxis.Attach"
+      xmlns:behaviors="using:Pyxis.Behaviors"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:prism="using:Prism.Windows.Mvvm"
+      xmlns:vm="using:Pyxis.ViewModels.Search"
+      d:DataContext="{d:DesignInstance vm:UserSearchPageViewModel}"
+      prism:ViewModelLocator.AutoWireViewModel="True"
+      mc:Ignorable="d">
+    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="48" />
+            </Grid.ColumnDefinitions>
+            <SearchBox Margin="5"
+                       QuerySubmitted="{x:Bind ViewModel.OnQuerySubmitted}"
+                       QueryText="{x:Bind ViewModel.QueryText, Mode=TwoWay}" />
+            <Button Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                    Content="&#xE8FD;"
+                    FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                    FontSize="24"
+                    Tapped="{x:Bind ViewModel.OnButtonTapped}" />
+        </Grid>
+        <Pivot SelectedIndex="2"
+               Style="{StaticResource MiniTabsStylePivotStyle}">
+            <interactivity:Interaction.Behaviors>
+                <behaviors:AttachNavigationToPivotBehavior NavigationService="{x:Bind ViewModel.NavigationService}" />
+            </interactivity:Interaction.Behaviors>
+            <PivotItem attach:NavigateTo.PageToken="Search.WorkSearch"
+                       attach:NavigateTo.Parameters="{}{&quot;SearchType&quot;:0}">
+                <PivotItem.Header>
+                    <TextBlock Width="70"
+                               Margin="2,5,2,7"
+                               HorizontalAlignment="Center"
+                               FontFamily="Segoe UI"
+                               IsTextScaleFactorEnabled="False"
+                               LineHeight="14"
+                               LineStackingStrategy="BlockLineHeight"
+                               MaxLines="2"
+                               Style="{StaticResource CaptionTextBlockStyle}"
+                               Text="イラスト・マンガ"
+                               TextAlignment="Center" />
+                </PivotItem.Header>
+            </PivotItem>
+            <PivotItem attach:NavigateTo.PageToken="Search.WorkSearch"
+                       attach:NavigateTo.Parameters="{}{&quot;SearchType&quot;:1}">
+                <PivotItem.Header>
+                    <TextBlock Width="70"
+                               Margin="2,5,2,7"
+                               HorizontalAlignment="Center"
+                               FontFamily="Segoe UI"
+                               IsTextScaleFactorEnabled="False"
+                               LineHeight="14"
+                               LineStackingStrategy="BlockLineHeight"
+                               MaxLines="2"
+                               Style="{StaticResource CaptionTextBlockStyle}"
+                               Text="小説"
+                               TextAlignment="Center" />
+                </PivotItem.Header>
+            </PivotItem>
+            <PivotItem attach:NavigateTo.PageToken="Search.UserSearch"
+                       attach:NavigateTo.Parameters="{}{&quot;SearchType&quot;:2}">
+                <PivotItem.Header>
+                    <TextBlock Width="70"
+                               Margin="2,5,2,7"
+                               HorizontalAlignment="Center"
+                               FontFamily="Segoe UI"
+                               IsTextScaleFactorEnabled="False"
+                               LineHeight="14"
+                               LineStackingStrategy="BlockLineHeight"
+                               MaxLines="2"
+                               Style="{StaticResource CaptionTextBlockStyle}"
+                               Text="ユーザー"
+                               TextAlignment="Center" />
+                </PivotItem.Header>
+            </PivotItem>
+        </Pivot>
+
+    </StackPanel>
+</Page>
