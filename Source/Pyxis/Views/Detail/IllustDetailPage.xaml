@@ -141,10 +141,10 @@
                             <StackPanel Orientation="Horizontal">
                                 <Border Width="48"
                                         Height="48"
-                                        Tapped="{x:Bind ViewModel.OnTappedUserIcon}"
                                         Margin="5"
                                         BorderBrush="Transparent"
-                                        CornerRadius="24">
+                                        CornerRadius="24"
+                                        Tapped="{x:Bind ViewModel.OnTappedUserIcon}">
                                     <Border.Background>
                                         <ImageBrush ImageSource="{x:Bind ViewModel.IconPath, Mode=OneWay}" />
                                     </Border.Background>
@@ -175,8 +175,11 @@
                         </StackPanel>
                     </Border>
                     <Border>
-                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}"
-                                   Text="{x:Bind ViewModel.Description, Mode=OneWay}" />
+                        <RichTextBlock Style="{ThemeResource BodyRichTextBlockStyle}">
+                            <i:Interaction.Behaviors>
+                                <behaviors:RichTextBlockBindingBehavior BindingDocument="{x:Bind ViewModel.Description, Mode=OneWay, Converter={StaticResource HtmlStringToBlockCollectionConverter}}" />
+                            </i:Interaction.Behaviors>
+                        </RichTextBlock>
                     </Border>
                     <Border>
                         <Grid Margin="5">

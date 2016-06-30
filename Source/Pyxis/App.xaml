@@ -11,7 +11,9 @@
             </ResourceDictionary.MergedDictionaries>
             <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
             <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+            <converters:NovelStringToBlockCollectionCOnverter x:Key="NovelStringToBlockCollectionCOnverter" />
             <converters:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter" />
+            <converters:HtmlStringToBlockCollectionConverter x:Key="HtmlStringToBlockCollectionConverter" />
             <converters:StringFormatConverter x:Key="StringFormatConverter" />
         </ResourceDictionary>
     </prism:PrismUnityApplication.Resources>

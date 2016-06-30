@@ -57,7 +57,7 @@ namespace Pyxis.ViewModels.Detail
             _count = 0;
             _illust = parameter.Illust;
             Title = _illust.Title;
-            Description = _illust.Caption.Replace("<br />", Environment.NewLine);
+            Description = _illust.Caption;
             CreatedAt = _illust.CreateDate.ToString("g");
             Username = _illust.User.Name;
             View = _illust.TotalView;

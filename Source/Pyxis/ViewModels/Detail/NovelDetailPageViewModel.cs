@@ -56,7 +56,7 @@ namespace Pyxis.ViewModels.Detail
             _count = 0;
             _novel = parameter.Novel;
             Title = _novel.Title;
-            Description = _novel.Caption.Replace("<br />", Environment.NewLine);
+            Description = _novel.Caption;
             CreatedAt = _novel.CreateDate.ToString("g");
             Username = _novel.User.Name;
             View = _novel.TotalView;

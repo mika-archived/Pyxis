@@ -190,8 +190,11 @@
                         </StackPanel>
                     </Border>
                     <Border>
-                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}"
-                                   Text="{x:Bind ViewModel.Description, Mode=OneWay}" />
+                        <RichTextBlock Style="{ThemeResource BodyRichTextBlockStyle}">
+                            <i:Interaction.Behaviors>
+                                <behaviors:RichTextBlockBindingBehavior BindingDocument="{x:Bind ViewModel.Description, Mode=OneWay, Converter={StaticResource HtmlStringToBlockCollectionConverter}}" />
+                            </i:Interaction.Behaviors>
+                        </RichTextBlock>
                     </Border>
                     <Border>
                         <Grid Margin="5">

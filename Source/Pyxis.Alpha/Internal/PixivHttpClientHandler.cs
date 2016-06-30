@@ -18,7 +18,7 @@ namespace Pyxis.Alpha.Internal
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
                                                                CancellationToken cancellationToken)
         {
-            request.Headers.Add("Accept-Encoding", "gzip, deflate");
+            // request.Headers.Add("Accept-Encoding", "gzip, deflate");
             request.Headers.Add("App-Version", "6.0.1");
             request.Headers.Add("App-OS", "ios");
             request.Headers.Add("App-OS-Version", "9.3.2");

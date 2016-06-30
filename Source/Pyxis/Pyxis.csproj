@@ -106,10 +106,13 @@
     <Compile Include="Behaviors\AttachNavigationToPivotBehavior.cs" />
     <Compile Include="Behaviors\FlipViewAutoMovePageBehavior.cs" />
     <Compile Include="Behaviors\GridViewEuqalitySizeBehavior.cs" />
+    <Compile Include="Behaviors\RichTextBlockBindingBehavior.cs" />
     <Compile Include="Collections\IncrementalObservableCollection.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\EnumToBooleanConverter.cs" />
+    <Compile Include="Converters\NovelStringToBlockCollectionCOnverter.cs" />
     <Compile Include="Converters\ReverseBooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\HtmlStringToBlockCollectionConverter.cs" />
     <Compile Include="Converters\StringFormatConverter.cs" />
     <Compile Include="Extensions\DictionaryExt.cs" />
     <Compile Include="Helpers\ModelHelper.cs" />
