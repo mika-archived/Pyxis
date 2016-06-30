@@ -88,11 +88,15 @@ namespace Pyxis.ViewModels.Detail
             ModelHelper.ConnectTo(RelatedItems, _pixivRelated, w => w.RelatedIllusts, CreatePixivImage);
         }
 
+        #region Events
+
         public void OnTappedUserIcon()
         {
             var parameter = new UserDetailParameter {User = _illust.User};
             _navigationService.Navigate("Detail.UserDetail", parameter.ToJson());
         }
+
+        #endregion
 
         #region Converters
 

@@ -42,6 +42,17 @@ namespace Pyxis.ViewModels.Account
             LoginCommand.Subscribe(async w => await LoginAsync()).AddTo(this);
         }
 
+        #region Overrides of ViewModelBase
+
+        public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
+        {
+            base.OnNavigatedTo(e, viewModelState);
+            _parameter = ParameterBase.ToObject<RedirectParameter>(e?.Parameter.ToString());
+            _navigationService.RemoveAllPages("Error.LoginRequired");
+        }
+
+        #endregion
+
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         private async Task LoginAsync()
         {
@@ -58,17 +69,6 @@ namespace Pyxis.ViewModels.Account
 
             _navigationService.Navigate(_parameter.RedirectTo, _parameter.Parameter.ToJson());
         }
-
-        #region Overrides of ViewModelBase
-
-        public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
-        {
-            base.OnNavigatedTo(e, viewModelState);
-            _parameter = ParameterBase.ToObject<RedirectParameter>(e?.Parameter.ToString());
-            _navigationService.RemoveAllPages("Error.LoginRequired");
-        }
-
-        #endregion
 
         #region IsProcessing
 
