@@ -128,6 +128,7 @@
     <Compile Include="Models\Parameters\SearchHomeParameter.cs" />
     <Compile Include="Models\Parameters\SearchOptionParameter.cs" />
     <Compile Include="Models\Parameters\SearchResultParameter.cs" />
+    <Compile Include="Models\Parameters\UserDetailParameter.cs" />
     <Compile Include="Models\PixivBookmarkTag.cs" />
     <Compile Include="Models\PixivComment.cs" />
     <Compile Include="Models\Parameters\HomeParameter.cs" />
@@ -171,6 +172,8 @@
     <Compile Include="ViewModels\Detail\IllustDetailPageViewModel.cs" />
     <Compile Include="ViewModels\Detail\NovelDetailPageViewModel.cs" />
     <Compile Include="ViewModels\Detail\NovelViewPageViewModel.cs" />
+    <Compile Include="ViewModels\Detail\UserDetailCollectionPageViewModel.cs" />
+    <Compile Include="ViewModels\Detail\UserDetailPageViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\FavoriteOptionDialogViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\SearchOptionDialogViewModel.cs" />
     <Compile Include="ViewModels\FavoriteMainPageViewModel.cs" />
@@ -233,6 +236,12 @@
     </Compile>
     <Compile Include="Views\Detail\NovelViewPage.xaml.cs">
       <DependentUpon>NovelViewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Detail\UserDetailCollectionPage.xaml.cs">
+      <DependentUpon>UserDetailCollectionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Detail\UserDetailPage.xaml.cs">
+      <DependentUpon>UserDetailPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Dialogs\FavoriteOptionDialog.xaml.cs">
       <DependentUpon>FavoriteOptionDialog.xaml</DependentUpon>
@@ -437,6 +446,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Detail\NovelViewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Detail\UserDetailCollectionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Detail\UserDetailPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

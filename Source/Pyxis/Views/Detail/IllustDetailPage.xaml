@@ -141,6 +141,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <Border Width="48"
                                         Height="48"
+                                        Tapped="{x:Bind ViewModel.OnTappedUserIcon}"
                                         Margin="5"
                                         BorderBrush="Transparent"
                                         CornerRadius="24">

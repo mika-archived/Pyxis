@@ -88,6 +88,12 @@ namespace Pyxis.ViewModels.Detail
             ModelHelper.ConnectTo(RelatedItems, _pixivRelated, w => w.RelatedIllusts, CreatePixivImage);
         }
 
+        public void OnTappedUserIcon()
+        {
+            var parameter = new UserDetailParameter {User = _illust.User};
+            _navigationService.Navigate("Detail.UserDetail", parameter.ToJson());
+        }
+
         #region Converters
 
         private PixivThumbnailViewModel CreatePixivImage(IIllust w) =>
