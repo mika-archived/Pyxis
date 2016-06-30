@@ -139,48 +139,24 @@
                        attach:NavigateTo.Parameters="{x:Bind ViewModel.ParameterQueries[0], Mode=OneWay}">
                 <PivotItem.Header>
                     <TextBlock Width="70"
-                               Margin="2,5,2,7"
-                               HorizontalAlignment="Center"
-                               FontFamily="Segoe UI"
-                               IsTextScaleFactorEnabled="False"
-                               LineHeight="14"
-                               LineStackingStrategy="BlockLineHeight"
-                               MaxLines="2"
-                               Style="{StaticResource CaptionTextBlockStyle}"
-                               Text="新着順"
-                               TextAlignment="Center" />
+                               Style="{StaticResource TabsStyleTextBlockStyle}"
+                               Text="新着順" />
                 </PivotItem.Header>
             </PivotItem>
             <PivotItem attach:NavigateTo.PageToken="Search.SearchResult"
                        attach:NavigateTo.Parameters="{x:Bind ViewModel.ParameterQueries[1], Mode=OneWay}">
                 <PivotItem.Header>
                     <TextBlock Width="70"
-                               Margin="2,5,2,7"
-                               HorizontalAlignment="Center"
-                               FontFamily="Segoe UI"
-                               IsTextScaleFactorEnabled="False"
-                               LineHeight="14"
-                               LineStackingStrategy="BlockLineHeight"
-                               MaxLines="2"
-                               Style="{StaticResource CaptionTextBlockStyle}"
-                               Text="人気順"
-                               TextAlignment="Center" />
+                               Style="{StaticResource TabsStyleTextBlockStyle}"
+                               Text="人気順" />
                 </PivotItem.Header>
             </PivotItem>
             <PivotItem attach:NavigateTo.PageToken="Search.SearchResult"
                        attach:NavigateTo.Parameters="{x:Bind ViewModel.ParameterQueries[2], Mode=OneWay}">
                 <PivotItem.Header>
                     <TextBlock Width="70"
-                               Margin="2,5,2,7"
-                               HorizontalAlignment="Center"
-                               FontFamily="Segoe UI"
-                               IsTextScaleFactorEnabled="False"
-                               LineHeight="14"
-                               LineStackingStrategy="BlockLineHeight"
-                               MaxLines="2"
-                               Style="{StaticResource CaptionTextBlockStyle}"
-                               Text="古い順"
-                               TextAlignment="Center" />
+                               Style="{StaticResource TabsStyleTextBlockStyle}"
+                               Text="古い順" />
                 </PivotItem.Header>
             </PivotItem>
         </Pivot>

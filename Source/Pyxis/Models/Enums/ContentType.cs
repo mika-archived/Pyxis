@@ -6,6 +6,8 @@
 
         Manga,
 
-        Novel
+        Novel,
+
+        User
     }
 }

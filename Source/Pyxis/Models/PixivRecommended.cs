@@ -25,6 +25,7 @@ namespace Pyxis.Models
 
         public ObservableCollection<IIllust> RecommendedImages { get; }
         public ObservableCollection<INovel> RecommendedNovels { get; }
+        public ObservableCollection<IUserPreview> RecommendedUsers { get; }
 
         public PixivRecommended(IAccountService accountService, IPixivClient pixivClient, ContentType contentType)
         {
@@ -34,6 +35,7 @@ namespace Pyxis.Models
             _offset = "";
             RecommendedNovels = new ObservableCollection<INovel>();
             RecommendedImages = new ObservableCollection<IIllust>();
+            RecommendedUsers = new ObservableCollection<IUserPreview>();
 #if OFFLINE
             HasMoreItems = false;
 #else
@@ -41,18 +43,20 @@ namespace Pyxis.Models
 #endif
         }
 
-        private async Task FetchRecommended(bool isClear)
+        private async Task FetchRecommended()
         {
             if (_contentType == ContentType.Novel)
-                await FetchNovels(isClear);
+                await FetchNovels();
+            else if (_contentType == ContentType.User)
+                await FetchUsers();
+            else if (_contentType == ContentType.Illust || _contentType == ContentType.Manga)
+                await FetchIllusts();
             else
-                await FetchIllusts(isClear);
+                throw new NotSupportedException();
         }
 
-        private async Task FetchIllusts(bool isClear)
+        private async Task FetchIllusts()
         {
-            if (isClear)
-                RecommendedImages.Clear();
             IRecommendedIllusts illusts = null;
             if (_contentType == ContentType.Illust)
                 illusts = await RecommendedAsync("illust");
@@ -77,10 +81,8 @@ namespace Pyxis.Models
                                                                        offset => _offset);
         }
 
-        private async Task FetchNovels(bool isClear)
+        private async Task FetchNovels()
         {
-            if (isClear)
-                RecommendedNovels.Clear();
             IRecommendedNovels novels;
             if (_accountService.IsLoggedIn)
                 novels = await _pixivClient.NovelV1.RecommendedAsync(offset => _offset);
@@ -93,13 +95,23 @@ namespace Pyxis.Models
                 _offset = UrlParameter.ParseQuery(novels.NextUrl)["offset"];
         }
 
+        private async Task FetchUsers()
+        {
+            var users = await _pixivClient.User.RecommendedAsync(offset => _offset);
+            users?.UserPreviewList.ForEach(w => RecommendedUsers.Add(w));
+            if (string.IsNullOrWhiteSpace(users?.NextUrl))
+                HasMoreItems = false;
+            else
+                _offset = UrlParameter.ParseQuery(users.NextUrl)["offset"];
+        }
+
         #region Implementation of ISupportIncrementalLoading
 
         public IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count)
         {
             return Task.Run(async () =>
             {
-                await FetchRecommended(false);
+                await FetchRecommended();
                 return new LoadMoreItemsResult {Count = 30};
             }).AsAsyncOperation();
         }

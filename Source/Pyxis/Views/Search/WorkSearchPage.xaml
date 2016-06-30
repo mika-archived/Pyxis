@@ -144,48 +144,24 @@
                        attach:NavigateTo.Parameters="{}{&quot;SearchType&quot;:0}">
                 <PivotItem.Header>
                     <TextBlock Width="70"
-                               Margin="2,5,2,7"
-                               HorizontalAlignment="Center"
-                               FontFamily="Segoe UI"
-                               IsTextScaleFactorEnabled="False"
-                               LineHeight="14"
-                               LineStackingStrategy="BlockLineHeight"
-                               MaxLines="2"
-                               Style="{StaticResource CaptionTextBlockStyle}"
-                               Text="イラスト・マンガ"
-                               TextAlignment="Center" />
+                               Style="{StaticResource TabsStyleTextBlockStyle}"
+                               Text="イラスト・マンガ" />
                 </PivotItem.Header>
             </PivotItem>
             <PivotItem attach:NavigateTo.PageToken="Search.WorkSearch"
                        attach:NavigateTo.Parameters="{}{&quot;SearchType&quot;:1}">
                 <PivotItem.Header>
                     <TextBlock Width="70"
-                               Margin="2,5,2,7"
-                               HorizontalAlignment="Center"
-                               FontFamily="Segoe UI"
-                               IsTextScaleFactorEnabled="False"
-                               LineHeight="14"
-                               LineStackingStrategy="BlockLineHeight"
-                               MaxLines="2"
-                               Style="{StaticResource CaptionTextBlockStyle}"
-                               Text="小説"
-                               TextAlignment="Center" />
+                               Style="{StaticResource TabsStyleTextBlockStyle}"
+                               Text="小説" />
                 </PivotItem.Header>
             </PivotItem>
             <PivotItem attach:NavigateTo.PageToken="Search.UserSearch"
                        attach:NavigateTo.Parameters="{}{&quot;SearchType&quot;:2}">
                 <PivotItem.Header>
                     <TextBlock Width="70"
-                               Margin="2,5,2,7"
-                               HorizontalAlignment="Center"
-                               FontFamily="Segoe UI"
-                               IsTextScaleFactorEnabled="False"
-                               LineHeight="14"
-                               LineStackingStrategy="BlockLineHeight"
-                               MaxLines="2"
-                               Style="{StaticResource CaptionTextBlockStyle}"
-                               Text="ユーザー"
-                               TextAlignment="Center" />
+                               Style="{StaticResource TabsStyleTextBlockStyle}"
+                               Text="ユーザー" />
                 </PivotItem.Header>
             </PivotItem>
         </Pivot>
