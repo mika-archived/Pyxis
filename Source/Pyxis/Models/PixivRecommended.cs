@@ -38,8 +38,6 @@ namespace Pyxis.Models
             RecommendedUsers = new ObservableCollection<IUserPreview>();
 #if OFFLINE
             HasMoreItems = false;
-            if (_contentType == ContentType.User)
-                HasMoreItems = true;
 #else
             HasMoreItems = true;
 #endif
