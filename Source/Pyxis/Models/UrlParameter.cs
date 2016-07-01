@@ -9,7 +9,7 @@ namespace Pyxis.Models
         {
             var dictionary = new Dictionary<string, string>();
             var param = url.Substring(url.IndexOf("?", StringComparison.Ordinal) + 1);
-            if (param.IndexOf("&", StringComparison.Ordinal) < 0)
+            if (param.IndexOf("=", StringComparison.Ordinal) < 0)
                 return dictionary;
             while (param != "")
             {
