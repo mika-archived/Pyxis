@@ -201,6 +201,7 @@
     <Compile Include="ViewModels\New\AllNewPageViewModel.cs" />
     <Compile Include="ViewModels\New\FollowMypixivNewPageViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModel.cs" />
+    <Compile Include="ViewModels\Search\Items\UserCardViewModel.cs" />
     <Compile Include="ViewModels\Search\Items\TrendingTagViewModel.cs" />
     <Compile Include="ViewModels\Search\SearchResultPageViewModel.cs" />
     <Compile Include="ViewModels\Search\UserSearchPageViewModel.cs" />
@@ -300,6 +301,9 @@
     </Compile>
     <Compile Include="Views\Search\TrendingTagView.xaml.cs">
       <DependentUpon>TrendingTagView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Search\UserCardView.xaml.cs">
+      <DependentUpon>UserCardView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Search\UserSearchPage.xaml.cs">
       <DependentUpon>UserSearchPage.xaml</DependentUpon>
@@ -533,6 +537,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Search\TrendingTagView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Search\UserCardView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

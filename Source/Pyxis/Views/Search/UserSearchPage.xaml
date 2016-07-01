@@ -5,6 +5,7 @@
       xmlns:behaviors="using:Pyxis.Behaviors"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:local="using:Pyxis.Views.Search"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:prism="using:Prism.Windows.Mvvm"
       xmlns:vm="using:Pyxis.ViewModels.Search"
@@ -58,6 +59,16 @@
                 </PivotItem.Header>
             </PivotItem>
         </Pivot>
-
+        <ListView ItemsSource="{x:Bind ViewModel.RecommendedUsers}">
+            <interactivity:Interaction.Behaviors>
+                <behaviors:AdjustControlSizeBehavior HeightOffset="-137"
+                                                     IsSyncHeight="True" />
+            </interactivity:Interaction.Behaviors>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <local:UserCardView DataContext="{Binding}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </StackPanel>
 </Page>
