@@ -64,6 +64,11 @@
                 <behaviors:AdjustControlSizeBehavior HeightOffset="-137"
                                                      IsSyncHeight="True" />
             </interactivity:Interaction.Behaviors>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Margin" Value="0,10" />
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <local:UserCardView DataContext="{Binding}" />

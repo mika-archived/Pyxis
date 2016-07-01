@@ -20,6 +20,14 @@ namespace Pyxis.ViewModels.Items
         protected INovel Novel { get; }
         protected IIllust Illust { get; }
 
+        /// <summary>
+        ///     Constructor for blank image.
+        /// </summary>
+        public PixivThumbnailViewModel()
+        {
+            ThumbnailPath = PyxisConstants.DummyImage;
+        }
+
         public PixivThumbnailViewModel(IIllust illust, IImageStoreService imageStoreService,
                                        INavigationService navigationService)
         {
@@ -60,7 +68,7 @@ namespace Pyxis.ViewModels.Items
                 NavigationService.Navigate(Illust.PageCount == 1 ? "Detail.IllustDetail" : "Detail.MangaDetail",
                                            parameter.ToJson());
             }
-            else
+            else if (Novel != null)
             {
                 var parameter = new NovelDetailParameter {Novel = Novel};
                 NavigationService.Navigate("Detail.NovelDetail", parameter.ToJson());

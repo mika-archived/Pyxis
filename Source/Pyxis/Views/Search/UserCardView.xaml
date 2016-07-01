@@ -4,8 +4,10 @@
       xmlns:core="using:Microsoft.Xaml.Interactions.Core"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
+      xmlns:items="using:Pyxis.Views.Items"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:vm="using:Pyxis.ViewModels.Search.Items"
+      d:DataContext="{d:DesignInstance vm:UserCardViewModel}"
       d:DesignHeight="150"
       d:DesignWidth="450"
       mc:Ignorable="d">
@@ -27,58 +29,65 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
-                <RowDefinition Height="48" />
+                <RowDefinition Height="48"
+                               MaxHeight="48" />
             </Grid.RowDefinitions>
-            <Image Grid.Row="0"
-                   Grid.RowSpan="2"
-                   Grid.Column="0"
-                   Source="http://placehold.jp/24/cccccc/999999/256x256.png?text=A"
-                   Stretch="Uniform" />
-            <Image Grid.Row="0"
-                   Grid.RowSpan="2"
-                   Grid.Column="1"
-                   Source="http://placehold.jp/24/cccccc/999999/256x256.png?text=A"
-                   Stretch="Uniform" />
-            <Image Grid.Row="0"
-                   Grid.RowSpan="2"
-                   Grid.Column="2"
-                   Source="http://placehold.jp/24/cccccc/999999/256x256.png?text=A"
-                   Stretch="Uniform" />
-            <StackPanel Grid.Row="1"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="3"
-                        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                        Orientation="Horizontal">
+            <items:ThumbnailView Grid.Row="0"
+                                 Grid.RowSpan="2"
+                                 Grid.Column="0"
+                                 DataContext="{Binding UserWorks[0],
+                                                       Mode=OneWay}" />
+            <items:ThumbnailView Grid.Row="0"
+                                 Grid.RowSpan="2"
+                                 Grid.Column="1"
+                                 DataContext="{Binding UserWorks[1],
+                                                       Mode=OneWay}" />
+            <items:ThumbnailView Grid.Row="0"
+                                 Grid.RowSpan="2"
+                                 Grid.Column="2"
+                                 DataContext="{Binding UserWorks[2],
+                                                       Mode=OneWay}" />
+            <Grid Grid.Row="1"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="3"
+                  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="110" />
+                </Grid.ColumnDefinitions>
                 <Border Width="64"
                         Height="64"
-                        Margin="5,-32,5,0"
+                        Margin="0,-32,0,0"
+                        HorizontalAlignment="Center"
                         BorderBrush="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                         BorderThickness="2.5"
                         CornerRadius="32">
                     <Border.Background>
-                        <ImageBrush ImageSource="http://placehold.jp/24/cccccc/999999/64x64.png?text=A" />
+                        <ImageBrush ImageSource="{Binding ThumbnailPath, Mode=OneWay}" />
                     </Border.Background>
                 </Border>
-                <TextBlock Margin="10,0"
+                <TextBlock Grid.Column="1"
+                           Margin="10,0"
                            VerticalAlignment="Center"
                            Style="{ThemeResource TitleTextBlockStyle}"
-                           Text="Username" />
-            </StackPanel>
-            <Button Grid.Row="1"
-                    Grid.Column="2"
-                    Margin="0,0,10,0"
-                    HorizontalAlignment="Right"
-                    Background="Transparent"
-                    BorderBrush="{ThemeResource SystemControlForegroundAccentBrush}"
-                    Foreground="{ThemeResource SystemControlForegroundAccentBrush}">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                               FontSize="17"
-                               Text="&#xE8FA;" />
-                    <TextBlock Margin="10,0,0,0"
-                               Text="フォロー" />
-                </StackPanel>
-            </Button>
+                           Text="{Binding Username}"
+                           TextTrimming="CharacterEllipsis" />
+                <Button Grid.Column="2"
+                        Margin="0,0,10,0"
+                        HorizontalAlignment="Right"
+                        Background="Transparent"
+                        BorderBrush="{ThemeResource SystemControlForegroundAccentBrush}"
+                        Foreground="{ThemeResource SystemControlForegroundAccentBrush}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                   FontSize="17"
+                                   Text="&#xE8FA;" />
+                        <TextBlock Margin="10,0,0,0"
+                                   Text="フォロー" />
+                    </StackPanel>
+                </Button>
+            </Grid>
         </Grid>
     </Border>
 </Page>

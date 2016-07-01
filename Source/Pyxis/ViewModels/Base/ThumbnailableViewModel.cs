@@ -19,7 +19,7 @@ namespace Pyxis.ViewModels.Base
         {
             get
             {
-#if !OFFLINE
+#if OFFLINE
                 if (_thumbnailPath == PyxisConstants.DummyImage)
                     Thumbnailable?.ShowThumbnail();
 #endif
