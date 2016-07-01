@@ -330,14 +330,11 @@
                             </StackPanel>
                         </ListBoxItem>
                         <ListBoxItem x:Name="AccountMain"
-                                     attach:NavigateTo.PageToken="Account.HomeAccount"
+                                     attach:NavigateTo.PageToken="Details.UserDetail"
+                                     attach:NavigateTo.Parameters="{}{&quot;User&quot;:null}"
                                      RelativePanel.Above="SettingsMain">
                             <StackPanel Orientation="Horizontal">
                                 <v:AccountInfoControl />
-                                <TextBlock Margin="10,0"
-                                           VerticalAlignment="Center"
-                                           FontSize="18"
-                                           Text="アカウント" />
                             </StackPanel>
                         </ListBoxItem>
                         <ListBoxItem x:Name="SettingsMain"

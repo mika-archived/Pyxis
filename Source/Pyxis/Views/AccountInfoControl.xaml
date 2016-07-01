@@ -11,13 +11,19 @@
              d:DesignWidth="400"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d">
-    <Grid Width="48"
-          Height="48">
-        <Border Margin="5"
-                CornerRadius="19">
-            <Border.Background>
-                <ImageBrush ImageSource="{x:Bind ViewModel.ThumbnailPath, Mode=OneWay}" />
-            </Border.Background>
-        </Border>
-    </Grid>
+    <StackPanel Orientation="Horizontal">
+        <Grid Width="48"
+              Height="48">
+            <Border Margin="5"
+                    CornerRadius="19">
+                <Border.Background>
+                    <ImageBrush ImageSource="{x:Bind ViewModel.ThumbnailPath, Mode=OneWay}" />
+                </Border.Background>
+            </Border>
+        </Grid>
+        <TextBlock Margin="10,0"
+                   VerticalAlignment="Center"
+                   FontSize="18"
+                   Text="{x:Bind ViewModel.Username, Mode=OneWay}" />
+    </StackPanel>
 </UserControl>

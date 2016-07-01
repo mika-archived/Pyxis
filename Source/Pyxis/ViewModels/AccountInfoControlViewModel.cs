@@ -20,7 +20,7 @@ namespace Pyxis.ViewModels
         {
             _accountService = accountService;
             _imageStoreService = imageStoreService;
-
+            Username = "アカウント";
             _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1)).Subscribe(w =>
             {
                 if (_accountService.IsLoggedIn)
@@ -31,6 +31,7 @@ namespace Pyxis.ViewModels
         private void LoggedIn()
         {
             _disposable?.Dispose();
+            Username = _accountService.LoggedInAccount.Name;
             Thumbnailable = new PixivUserImage(_accountService.LoggedInAccount, _imageStoreService);
             Thumbnailable.ObserveProperty(w => w.ThumbnailPath)
                          .Where(w => !string.IsNullOrWhiteSpace(w))
@@ -38,5 +39,17 @@ namespace Pyxis.ViewModels
                          .Subscribe(w => ThumbnailPath = w)
                          .AddTo(this);
         }
+
+        #region Username
+
+        private string _username;
+
+        public string Username
+        {
+            get { return _username; }
+            set { SetProperty(ref _username, value); }
+        }
+
+        #endregion
     }
 }

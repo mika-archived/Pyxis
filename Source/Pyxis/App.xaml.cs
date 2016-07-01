@@ -11,7 +11,6 @@ using Prism.Unity.Windows;
 
 using Pyxis.Alpha;
 using Pyxis.Beta.Interfaces.Rest;
-using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
 using Pyxis.Services;
 using Pyxis.Services.Interfaces;
@@ -72,7 +71,7 @@ namespace Pyxis
         protected override Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)
         {
             NavigationService.Navigate("HomeMain", "{\"ContentType\":0}");
-            var param = new FavoriteOptionParameter {Type = SearchType.IllustsAndManga, Restrict = RestrictType.Public};
+            var param = new UserDetailParameter {User = null};
             Debug.WriteLine(param.ToJson());
             return Task.CompletedTask;
         }
