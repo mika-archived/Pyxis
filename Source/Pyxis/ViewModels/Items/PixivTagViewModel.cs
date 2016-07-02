@@ -1,6 +1,8 @@
 ﻿using Prism.Windows.Navigation;
 
 using Pyxis.Beta.Interfaces.Models.v1;
+using Pyxis.Models.Enums;
+using Pyxis.Models.Parameters;
 using Pyxis.ViewModels.Base;
 
 namespace Pyxis.ViewModels.Items
@@ -16,6 +18,20 @@ namespace Pyxis.ViewModels.Items
         {
             _tag = tag;
             _navigationService = navigationService;
+        }
+
+        public void OnItemTapped()
+        {
+            var parameter = new SearchResultParameter
+            {
+                SearchType = SearchType.IllustsAndManga,
+                Target = SearchTarget.TagTotal,
+                Duration = SearchDuration.Nothing,
+                Sort = SearchSort.New,
+                DurationQuery = "",
+                Query = Name
+            };
+            _navigationService.Navigate("Search.SearchResult", parameter.ToJson());
         }
     }
 }
