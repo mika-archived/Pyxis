@@ -330,9 +330,8 @@
                             </StackPanel>
                         </ListBoxItem>
                         <ListBoxItem x:Name="AccountMain"
-                                     attach:NavigateTo.PageToken="Details.UserDetail"
-                                     attach:NavigateTo.Parameters="{}{&quot;User&quot;:null}"
-                                     RelativePanel.Above="SettingsMain">
+                                     RelativePanel.Above="SettingsMain"
+                                     IsEnabled="False">
                             <StackPanel Orientation="Horizontal">
                                 <v:AccountInfoControl />
                             </StackPanel>
