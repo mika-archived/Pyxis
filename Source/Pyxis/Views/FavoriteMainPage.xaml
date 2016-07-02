@@ -149,7 +149,7 @@
         <GridView x:Name="FavoriteQueryResult"
                   ItemsSource="{x:Bind ViewModel.FavoriteItems}">
             <i:Interaction.Behaviors>
-                <behaviors:AdjustControlSizeBehavior HeightOffset="-137"
+                <behaviors:AdjustControlSizeBehavior HeightOffset="-95"
                                                      IsSyncHeight="True" />
             </i:Interaction.Behaviors>
             <GridView.ItemTemplate>
