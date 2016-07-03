@@ -114,7 +114,8 @@ namespace Pyxis.Converters
 
         private Inline GenerateHyperlink(HtmlNode node)
         {
-            var hyperlink = new Hyperlink {NavigateUri = new Uri(node.Attributes["href"].Value)};
+            var hyperlink = new Hyperlink
+            {NavigateUri = new Uri(node.Attributes["href"].Value.Replace("pixiv://", "pyxis://"))};
             hyperlink.Inlines.Add(new Run {Text = GeneratePlainText(node)});
             return hyperlink;
         }
