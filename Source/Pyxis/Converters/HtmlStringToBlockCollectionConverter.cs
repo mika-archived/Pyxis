@@ -6,19 +6,25 @@ using System.Text.RegularExpressions;
 using Windows.Data.Html;
 using Windows.UI;
 using Windows.UI.Text;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Media;
 
 using HtmlAgilityPack;
 
+using Prism.Windows.Navigation;
+
+using Pyxis.Models.Parameters;
+
 namespace Pyxis.Converters
 {
     // string から List<Block> を作成する。
     // https://code.msdn.microsoft.com/Social-Media-Dashboard-135436da
-    internal class HtmlStringToBlockCollectionConverter : IValueConverter
+    internal class HtmlStringToBlockCollectionConverter : DependencyObject, IValueConverter
     {
         private readonly Regex _colorCode = new Regex("#[0-9A-Fa-f]{3,6}", RegexOptions.Compiled);
+        private INavigationService _navigationService;
 
         private List<Block> GenerateBlockContents(string html)
         {
@@ -114,8 +120,22 @@ namespace Pyxis.Converters
 
         private Inline GenerateHyperlink(HtmlNode node)
         {
-            var hyperlink = new Hyperlink
-            {NavigateUri = new Uri(node.Attributes["href"].Value.Replace("pixiv://", "pyxis://"))};
+            Hyperlink hyperlink;
+            if (node.Attributes["href"].Value.StartsWith("pixiv://"))
+            {
+                var uri = node.Attributes["href"].Value;
+                hyperlink = new Hyperlink();
+                hyperlink.Click += (sender, args) =>
+                {
+                    if (uri.StartsWith("pixiv://illusts"))
+                    {
+                        var parameter = new DetailByIdParameter {Id = uri.Replace("pixiv://illusts/", "")};
+                        _navigationService.Navigate("Detail.IllustDetail", parameter.ToJson());
+                    }
+                };
+            }
+            else
+                hyperlink = new Hyperlink {NavigateUri = new Uri(node.Attributes["href"].Value)};
             hyperlink.Inlines.Add(new Run {Text = GeneratePlainText(node)});
             return hyperlink;
         }
@@ -170,8 +190,12 @@ namespace Pyxis.Converters
 
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            var html = value as string;
-            return html == null ? null : GenerateBlockContents($"<p>{html}</p>");
+            var values = value as List<object>;
+            if (values == null)
+                return null;
+            var html = values[0] as string;
+            _navigationService = values[1] as INavigationService;
+            return GenerateBlockContents($"<p>{html}</p>");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

@@ -127,6 +127,7 @@
     <Compile Include="Models\Enums\SearchSort.cs" />
     <Compile Include="Models\Enums\SearchTarget.cs" />
     <Compile Include="Models\Enums\SearchType.cs" />
+    <Compile Include="Models\Parameters\DetailByIdParameter.cs" />
     <Compile Include="Models\Parameters\FavoriteOptionParameter.cs" />
     <Compile Include="Models\Parameters\NovelDetailParameter.cs" />
     <Compile Include="Models\Parameters\SearchHomeParameter.cs" />
@@ -153,7 +154,7 @@
     <Compile Include="Models\Enums\ContentType.cs" />
     <Compile Include="Models\PixivSearch.cs" />
     <Compile Include="Models\PixivTrending.cs" />
-    <Compile Include="Models\PixivUser.cs" />
+    <Compile Include="Models\PixivDetail.cs" />
     <Compile Include="Models\PixivUserImage.cs" />
     <Compile Include="Models\UrlParameter.cs" />
     <Compile Include="Mvvm\ViewModelHelper.cs" />

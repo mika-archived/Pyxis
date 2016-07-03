@@ -6,6 +6,7 @@ using Prism.Windows.Navigation;
 
 using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Models;
+using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
 using Pyxis.Mvvm;
 using Pyxis.Services.Interfaces;
@@ -21,7 +22,7 @@ namespace Pyxis.ViewModels.Detail
         private readonly IAccountService _accountService;
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
-        private PixivUser _pixivUser;
+        private PixivDetail _pixivUser;
         private PixivUserImage _pixivUserImage;
         public INavigationService NavigationService { get; }
 
@@ -60,7 +61,7 @@ namespace Pyxis.ViewModels.Detail
         private void Initialie(UserDetailParameter parameter)
         {
             var id = parameter.User?.Id ?? _accountService.LoggedInAccount.Id;
-            _pixivUser = new PixivUser(id, _pixivClient);
+            _pixivUser = new PixivDetail(id, SearchType.Users, _pixivClient);
             var observer = _pixivUser.ObserveProperty(w => w.UserDetail).Where(w => w != null).Publish();
             observer.Subscribe(w =>
             {
