@@ -2,6 +2,9 @@
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
+using Newtonsoft.Json;
+
+using Pyxis.Alpha.Converters;
 using Pyxis.Alpha.Models.v1;
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest.v1;
@@ -17,12 +20,22 @@ namespace Pyxis.Alpha.Rest.v1
             _client = client;
         }
 
+        public class IllustOwner
+        {
+            [JsonProperty("illust")]
+            [JsonConverter(typeof(InterfaceToConcrete<Illust>))]
+            public IIllust Illust { get; set; }
+        }
+
         #region Implementation of IIllustApi
 
         public IIllustBookmarkApi Bookmark => new IllustBookmarkApi(_client);
 
         public async Task<IComments> CommentsAsync(params Expression<Func<string, object>>[] parameters)
             => await _client.GetAsync<Comments>(Endpoints.IllustComments, false, parameters);
+
+        public async Task<IIllust> DetailAsync(params Expression<Func<string, object>>[] parameters)
+            => (await _client.GetAsync<IllustOwner>(Endpoints.IllustDetail, false, parameters))?.Illust;
 
         public async Task<IIllusts> NewAsync(params Expression<Func<string, object>>[] parameters)
             => await _client.GetAsync<Illusts>(Endpoints.IllustNew, false, parameters);

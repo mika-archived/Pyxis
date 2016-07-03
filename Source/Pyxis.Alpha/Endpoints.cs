@@ -20,6 +20,8 @@
 
         public static string IllustComments => $"{BaseUrl}/{Version1}/illust/comments";
 
+        public static string IllustDetail => $"{BaseUrl}/{Version1}/illust/detail";
+
         public static string IllustNew => $"{BaseUrl}/{Version1}/illust/new";
 
         public static string IllustRanking => $"{BaseUrl}/{Version1}/illust/ranking";

@@ -12,6 +12,8 @@ namespace Pyxis.Beta.Interfaces.Rest.v1
 
         Task<IComments> CommentsAsync(params Expression<Func<string, object>>[] parameters);
 
+        Task<IIllust> DetailAsync(params Expression<Func<string, object>>[] parameters);
+
         Task<IIllusts> NewAsync(params Expression<Func<string, object>>[] parameters);
 
         Task<IIllusts> RankingAsync(params Expression<Func<string, object>>[] parameters);
