@@ -15,6 +15,7 @@
             <converters:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter" />
             <converters:HtmlStringToBlockCollectionConverter x:Key="HtmlStringToBlockCollectionConverter" />
             <converters:StringFormatConverter x:Key="StringFormatConverter" />
+            <converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
         </ResourceDictionary>
     </prism:PrismUnityApplication.Resources>
 </prism:PrismUnityApplication>

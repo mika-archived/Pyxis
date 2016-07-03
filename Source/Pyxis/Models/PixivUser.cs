@@ -17,8 +17,9 @@ namespace Pyxis.Models
         {
             _id = id;
             _pixivClient = pixivClient;
-            RunHelper.RunAsync(UpdateUser);
         }
+
+        public void Fetch() => RunHelper.RunAsync(UpdateUser);
 
         private async Task UpdateUser()
         {
