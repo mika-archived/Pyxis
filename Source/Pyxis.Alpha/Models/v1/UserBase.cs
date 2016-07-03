@@ -17,7 +17,7 @@ namespace Pyxis.Alpha.Models.v1
         [JsonProperty("name")]
         public string Name { get; set; }
 
-        [JsonProperty("account_name")]
+        [JsonProperty("account")]
         public string AccountName { get; set; }
 
         [JsonProperty("profile_image_urls")]
