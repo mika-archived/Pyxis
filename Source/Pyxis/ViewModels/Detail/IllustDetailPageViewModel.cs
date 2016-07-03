@@ -31,7 +31,6 @@ namespace Pyxis.ViewModels.Detail
         private readonly IPixivClient _pixivClient;
         private int _count;
         private IIllust _illust;
-        private bool _isRequested;
         private PixivComment _pixivComment;
         private PixivDetail _pixivDetail;
         private PixivRelated _pixivRelated;
@@ -67,10 +66,8 @@ namespace Pyxis.ViewModels.Detail
 
         #region Initializers
 
-        private void Initialize(IllustDetailParameter parameter)
+        private void Initialize()
         {
-            _count = 0;
-            _illust = parameter.Illust;
             Title = _illust.Title;
             ConvertValues = new List<object> {_illust.Caption, _navigationService};
             CreatedAt = _illust.CreateDate.ToString("g");
@@ -101,6 +98,17 @@ namespace Pyxis.ViewModels.Detail
                          .AddTo(this);
             _pixivRelated = new PixivRelated(_illust, _pixivClient);
             ModelHelper.ConnectTo(RelatedItems, _pixivRelated, w => w.RelatedIllusts, CreatePixivImage);
+#if !OFFLINE
+            if (IconPath == PyxisConstants.DummyIcon)
+                RunHelper.RunLater(_pixivUser.ShowThumbnail, TimeSpan.FromMilliseconds(100));
+#endif
+        }
+
+        private void Initialize(IllustDetailParameter parameter)
+        {
+            _count = 0;
+            _illust = parameter.Illust;
+            Initialize();
         }
 
         private void Initialize(DetailByIdParameter parameter)
@@ -113,37 +121,7 @@ namespace Pyxis.ViewModels.Detail
                         .Subscribe(w =>
                         {
                             _illust = w;
-                            Title = _illust.Title;
-                            ConvertValues = new List<object> {_illust.Caption, _navigationService};
-                            CreatedAt = _illust.CreateDate.ToString("g");
-                            Username = _illust.User.Name;
-                            View = _illust.TotalView;
-                            Bookmark = _illust.TotalBookmarks;
-                            Height = _illust.Height;
-                            Width = _illust.Width;
-                            _illust.Tags.ForEach(v => Tags.Add(new PixivTagViewModel(v, _navigationService)));
-                            Thumbnailable = new PixivImage(_illust, _imageStoreService, true);
-                            Thumbnailable.ObserveProperty(v => v.ThumbnailPath)
-                                         .Where(v => !string.IsNullOrWhiteSpace(v))
-                                         .ObserveOnUIDispatcher()
-                                         .Subscribe(v => ThumbnailPath = v)
-                                         .AddTo(this);
-                            _pixivUser = new PixivUserImage(_illust.User, _imageStoreService);
-                            _pixivUser.ObserveProperty(v => v.ThumbnailPath)
-                                      .Where(v => !string.IsNullOrWhiteSpace(v))
-                                      .ObserveOnUIDispatcher()
-                                      .Subscribe(v => IconPath = v).AddTo(this);
-                            RunHelper.RunLater(_pixivUser.ShowThumbnail, TimeSpan.FromMilliseconds(100));
-                            _pixivComment = new PixivComment(_illust, _pixivClient);
-                            _pixivComment.Fetch();
-                            _pixivComment.Comments.ObserveAddChanged()
-                                         .Where(v => ++_count <= 5)
-                                         .Select(CreatePixivComment)
-                                         .ObserveOnUIDispatcher()
-                                         .Subscribe(v => Comments.Add(v))
-                                         .AddTo(this);
-                            _pixivRelated = new PixivRelated(_illust, _pixivClient);
-                            ModelHelper.ConnectTo(RelatedItems, _pixivRelated, v => v.RelatedIllusts, CreatePixivImage);
+                            Initialize();
                         }).AddTo(this);
             _pixivDetail.Fetch();
         }
@@ -245,18 +223,11 @@ namespace Pyxis.ViewModels.Detail
             {
 #if !OFFLINE
                 if (_iconPath == PyxisConstants.DummyIcon)
-                {
                     _pixivUser?.ShowThumbnail();
-                    _isRequested = true;
-                }
 #endif
                 return _iconPath;
             }
-            set
-            {
-                if (SetProperty(ref _iconPath, value) && _isRequested)
-                    _pixivUser?.ShowThumbnail();
-            }
+            set { SetProperty(ref _iconPath, value); }
         }
 
         #endregion

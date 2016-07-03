@@ -60,6 +60,18 @@ namespace Pyxis.Models
 
         #endregion
 
+        #region NovelDetail
+
+        private INovel _novelDetail;
+
+        public INovel NovelDetail
+        {
+            get { return _novelDetail; }
+            set { SetProperty(ref _novelDetail, value); }
+        }
+
+        #endregion
+
         #region UserDetail
 
         private IUserDetail _userDetail;

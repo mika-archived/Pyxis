@@ -81,7 +81,7 @@
         <Border>
             <RichTextBlock Style="{ThemeResource BodyRichTextBlockStyle}">
                 <i:Interaction.Behaviors>
-                    <behaviors:RichTextBlockBindingBehavior BindingDocument="{x:Bind ViewModel.Description, Mode=OneWay, Converter={StaticResource HtmlStringToBlockCollectionConverter}}" />
+                    <behaviors:RichTextBlockBindingBehavior BindingDocument="{x:Bind ViewModel.ConvertValues, Mode=OneWay, Converter={StaticResource HtmlStringToBlockCollectionConverter}}" />
                 </i:Interaction.Behaviors>
             </RichTextBlock>
         </Border>

@@ -9,7 +9,9 @@ using Prism.Windows.Navigation;
 
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest;
+using Pyxis.Helpers;
 using Pyxis.Models;
+using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
 using Pyxis.Mvvm;
 using Pyxis.Services.Interfaces;
@@ -29,7 +31,9 @@ namespace Pyxis.ViewModels.Detail
 
         private int _count;
         private INovel _novel;
+
         private PixivComment _pixivComment;
+        private PixivDetail _pixivDetail;
         private PixivUserImage _pixivUser;
 
         public int Height => 221;
@@ -51,12 +55,42 @@ namespace Pyxis.ViewModels.Detail
             IconPath = PyxisConstants.DummyIcon;
         }
 
-        private void Initialize(NovelDetailParameter parameter)
+        public void OnTappedButton()
         {
-            _count = 0;
-            _novel = parameter.Novel;
+            var parameter = new NovelDetailParameter {Novel = _novel};
+            _navigationService.Navigate("Detail.NovelView", parameter.ToJson());
+        }
+
+        #region Converters
+
+        private PixivCommentViewModel CreatePixivComment(IComment w) =>
+            new PixivCommentViewModel(w, _imageStoreService);
+
+        #endregion
+
+        #region Overrides of ViewModelBase
+
+        public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
+        {
+            base.OnNavigatedTo(e, viewModelState);
+            var parameter = ParameterBase.ToObject<NovelDetailParameter>((string) e.Parameter);
+            if (parameter.Novel != null)
+                Initialize(parameter);
+            else
+            {
+                var param = ParameterBase.ToObject<DetailByIdParameter>((string) e.Parameter);
+                Initialize(param);
+            }
+        }
+
+        #endregion
+
+        #region Initializer
+
+        private void Initialize()
+        {
             Title = _novel.Title;
-            Description = _novel.Caption;
+            ConvertValues = new List<object> {_novel.Caption, _navigationService};
             CreatedAt = _novel.CreateDate.ToString("g");
             Username = _novel.User.Name;
             View = _novel.TotalView;
@@ -82,28 +116,32 @@ namespace Pyxis.ViewModels.Detail
                          .ObserveOnUIDispatcher()
                          .Subscribe(w => Comments.Add(w))
                          .AddTo(this);
+#if !OFFLINE
+            if (IconPath == PyxisConstants.DummyIcon)
+                RunHelper.RunLater(_pixivUser.ShowThumbnail, TimeSpan.FromMilliseconds(100));
+#endif
         }
 
-        public void OnTappedButton()
+        private void Initialize(NovelDetailParameter parameter)
         {
-            var parameter = new NovelDetailParameter {Novel = _novel};
-            _navigationService.Navigate("Detail.NovelView", parameter.ToJson());
+            _count = 0;
+            _novel = parameter.Novel;
+            Initialize();
         }
 
-        #region Converters
-
-        private PixivCommentViewModel CreatePixivComment(IComment w) =>
-            new PixivCommentViewModel(w, _imageStoreService);
-
-        #endregion
-
-        #region Overrides of ViewModelBase
-
-        public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
+        private void Initialize(DetailByIdParameter parameter)
         {
-            base.OnNavigatedTo(e, viewModelState);
-            var parameter = ParameterBase.ToObject<NovelDetailParameter>((string) e.Parameter);
-            Initialize(parameter);
+            _count = 0;
+            _pixivDetail = new PixivDetail(parameter.Id, SearchType.Novels, _pixivClient);
+            _pixivDetail.ObserveProperty(w => w.NovelDetail)
+                        .Where(w => w != null)
+                        .ObserveOnUIDispatcher()
+                        .Subscribe(w =>
+                        {
+                            _novel = w;
+                            Initialize();
+                        }).AddTo(this);
+            _pixivDetail.Fetch();
         }
 
         #endregion
@@ -120,14 +158,14 @@ namespace Pyxis.ViewModels.Detail
 
         #endregion
 
-        #region Description
+        #region ConvertValues
 
-        private string _description;
+        private List<object> _convertValues;
 
-        public string Description
+        public List<object> ConvertValues
         {
-            get { return _description; }
-            set { SetProperty(ref _description, value); }
+            get { return _convertValues; }
+            set { SetProperty(ref _convertValues, value); }
         }
 
         #endregion

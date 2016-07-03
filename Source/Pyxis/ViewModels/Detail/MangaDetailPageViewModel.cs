@@ -12,6 +12,7 @@ using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Collections;
 using Pyxis.Helpers;
 using Pyxis.Models;
+using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
 using Pyxis.Mvvm;
 using Pyxis.Services.Interfaces;
@@ -31,6 +32,7 @@ namespace Pyxis.ViewModels.Detail
         private int _count;
         private IIllust _illust;
         private PixivComment _pixivComment;
+        private PixivDetail _pixivDetail;
         private PixivRelated _pixivRelated;
         private PixivUserImage _pixivUser;
         public ObservableCollection<PixivTagViewModel> Tags { get; }
@@ -51,12 +53,39 @@ namespace Pyxis.ViewModels.Detail
             IconPath = PyxisConstants.DummyIcon;
         }
 
-        private void Initialize(IllustDetailParameter parameter)
+        #region Overrides of TappableThumbnailViewModel
+
+        public override void OnItemTapped()
         {
-            _count = 0;
-            _illust = parameter.Illust;
+            var parameter = new IllustDetailParameter {Illust = _illust};
+            _navigationService.Navigate("Detail.MangaView", parameter.ToJson());
+        }
+
+        #endregion
+
+        #region Overrides of ViewModelBase
+
+        public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
+        {
+            base.OnNavigatedTo(e, viewModelState);
+            var parameter = ParameterBase.ToObject<IllustDetailParameter>((string) e.Parameter);
+            if (parameter.Illust != null)
+                Initialize(parameter);
+            else
+            {
+                var param = ParameterBase.ToObject<DetailByIdParameter>((string) e.Parameter);
+                Initialize(param);
+            }
+        }
+
+        #endregion
+
+        #region Initializers
+
+        private void Initialize()
+        {
             Title = _illust.Title;
-            Description = _illust.Caption;
+            ConvertValues = new List<object> {_illust.Caption, _navigationService};
             CreatedAt = _illust.CreateDate.ToString("g");
             Username = _illust.User.Name;
             View = _illust.TotalView;
@@ -86,25 +115,32 @@ namespace Pyxis.ViewModels.Detail
                          .AddTo(this);
             _pixivRelated = new PixivRelated(_illust, _pixivClient);
             ModelHelper.ConnectTo(RelatedItems, _pixivRelated, w => w.RelatedIllusts, CreatePixivImage);
+#if !OFFLINE
+            if (IconPath == PyxisConstants.DummyIcon)
+                RunHelper.RunLater(_pixivUser.ShowThumbnail, TimeSpan.FromMilliseconds(100));
+#endif
         }
 
-        #region Overrides of TappableThumbnailViewModel
-
-        public override void OnItemTapped()
+        private void Initialize(IllustDetailParameter parameter)
         {
-            var parameter = new IllustDetailParameter {Illust = _illust};
-            _navigationService.Navigate("Detail.MangaView", parameter.ToJson());
+            _count = 0;
+            _illust = parameter.Illust;
+            Initialize();
         }
 
-        #endregion
-
-        #region Overrides of ViewModelBase
-
-        public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
+        private void Initialize(DetailByIdParameter parameter)
         {
-            base.OnNavigatedTo(e, viewModelState);
-            var parameter = ParameterBase.ToObject<IllustDetailParameter>((string) e.Parameter);
-            Initialize(parameter);
+            _count = 0;
+            _pixivDetail = new PixivDetail(parameter.Id, SearchType.IllustsAndManga, _pixivClient);
+            _pixivDetail.ObserveProperty(w => w.IllustDetail)
+                        .Where(w => w != null)
+                        .ObserveOnUIDispatcher()
+                        .Subscribe(w =>
+                        {
+                            _illust = w;
+                            Initialize();
+                        }).AddTo(this);
+            _pixivDetail.Fetch();
         }
 
         #endregion
@@ -131,14 +167,14 @@ namespace Pyxis.ViewModels.Detail
 
         #endregion
 
-        #region Description
+        #region ConvertValues
 
-        private string _description;
+        private List<object> _convertValues;
 
-        public string Description
+        public List<object> ConvertValues
         {
-            get { return _description; }
-            set { SetProperty(ref _description, value); }
+            get { return _convertValues; }
+            set { SetProperty(ref _convertValues, value); }
         }
 
         #endregion
