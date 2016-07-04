@@ -93,6 +93,10 @@
                     <TextBlock HorizontalAlignment="Center"
                                Style="{ThemeResource CaptionTextBlockStyle}"
                                Text="{x:Bind ViewModel.ScreenName.Value, Mode=OneWay}" />
+                    <HyperlinkButton HorizontalAlignment="Center"
+                                     Content="{x:Bind ViewModel.Url.Value, Mode=OneWay}"
+                                     FontSize="12"
+                                     NavigateUri="{x:Bind ViewModel.NavigateUrl.Value, Mode=OneWay}" />
                 </StackPanel>
             </Grid>
         </Border>
@@ -129,11 +133,193 @@
         </Pivot>
         <ScrollViewer Grid.Row="2"
                       HorizontalScrollBarVisibility="Disabled">
-            <Grid>
+            <Grid Margin="10">
+                <Grid.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="TextWrapping" Value="Wrap" />
+                    </Style>
+                </Grid.Resources>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="2.5*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Text="性別"
+                           Visibility="{x:Bind ViewModel.Gender.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <TextBlock Grid.Row="0"
+                           Grid.Column="2"
+                           Text="{x:Bind ViewModel.Gender.Value, Mode=OneWay}"
+                           Visibility="{x:Bind ViewModel.Gender.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <TextBlock Grid.Row="1"
+                           Grid.Column="0"
+                           Text="住所"
+                           Visibility="{x:Bind ViewModel.Region.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <TextBlock Grid.Row="1"
+                           Grid.Column="2"
+                           Text="{x:Bind ViewModel.Region.Value, Mode=OneWay}"
+                           Visibility="{x:Bind ViewModel.Region.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <TextBlock Grid.Row="2"
+                           Grid.Column="0"
+                           Text="誕生日"
+                           Visibility="{x:Bind ViewModel.Birthday.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <TextBlock Grid.Row="2"
+                           Grid.Column="2"
+                           Text="{x:Bind ViewModel.Birthday.Value, Mode=OneWay}"
+                           Visibility="{x:Bind ViewModel.Birthday.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <TextBlock Grid.Row="3"
+                           Grid.Column="0"
+                           Text="職業"
+                           Visibility="{x:Bind ViewModel.Job.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <TextBlock Grid.Row="3"
+                           Grid.Column="2"
+                           Text="{x:Bind ViewModel.Job.Value, Mode=OneWay}"
+                           Visibility="{x:Bind ViewModel.Job.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <TextBlock Grid.Row="4"
+                           Grid.Column="0"
+                           Text="Twitter"
+                           Visibility="{x:Bind ViewModel.Twitter.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <HyperlinkButton Grid.Row="4"
+                                 Grid.Column="2"
+                                 Content="{x:Bind ViewModel.Twitter.Value, Mode=OneWay}"
+                                 FontSize="15"
+                                 NavigateUri="{x:Bind ViewModel.TwitterUrl.Value, Mode=OneWay}"
+                                 Padding="0"
+                                 Visibility="{x:Bind ViewModel.Twitter.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <TextBlock Grid.Row="5"
+                           Grid.Column="0"
+                           VerticalAlignment="Top"
+                           Text="コメント"
+                           Visibility="{x:Bind ViewModel.Description.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <TextBlock Grid.Row="5"
+                           Grid.Column="2"
+                           Text="{x:Bind ViewModel.Description.Value, Mode=OneWay}"
+                           Visibility="{x:Bind ViewModel.Description.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <TextBlock Grid.Row="7"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="3"
+                           Margin="10,0"
+                           Style="{ThemeResource SubtitleTextBlockStyle}"
+                           Text="作業環境" />
+                <TextBlock Grid.Row="8"
+                           Grid.Column="0"
+                           Text="PC"
+                           Visibility="{x:Bind ViewModel.Computer.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <TextBlock Grid.Row="8"
+                           Grid.Column="2"
+                           Text="{x:Bind ViewModel.Computer.Value, Mode=OneWay}"
+                           Visibility="{x:Bind ViewModel.Computer.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <TextBlock Grid.Row="9"
+                           Grid.Column="0"
+                           Text="モニター"
+                           Visibility="{x:Bind ViewModel.Monitor.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <TextBlock Grid.Row="9"
+                           Grid.Column="2"
+                           Text="{x:Bind ViewModel.Monitor.Value, Mode=OneWay}"
+                           Visibility="{x:Bind ViewModel.Monitor.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <TextBlock Grid.Row="10"
+                           Grid.Column="0"
+                           Text="ツール"
+                           Visibility="{x:Bind ViewModel.Software.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <TextBlock Grid.Row="10"
+                           Grid.Column="2"
+                           Text="{x:Bind ViewModel.Software.Value, Mode=OneWay}"
+                           Visibility="{x:Bind ViewModel.Software.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <TextBlock Grid.Row="11"
+                           Grid.Column="0"
+                           Text="スキャナー"
+                           Visibility="{x:Bind ViewModel.Scanner.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <TextBlock Grid.Row="11"
+                           Grid.Column="2"
+                           Text="{x:Bind ViewModel.Scanner.Value, Mode=OneWay}"
+                           Visibility="{x:Bind ViewModel.Scanner.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <TextBlock Grid.Row="12"
+                           Grid.Column="0"
+                           Text="タブレット"
+                           Visibility="{x:Bind ViewModel.Tablet.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <TextBlock Grid.Row="12"
+                           Grid.Column="2"
+                           Text="{x:Bind ViewModel.Tablet.Value, Mode=OneWay}"
+                           Visibility="{x:Bind ViewModel.Tablet.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <TextBlock Grid.Row="13"
+                           Grid.Column="0"
+                           Text="マウス"
+                           Visibility="{x:Bind ViewModel.Monitor.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <TextBlock Grid.Row="13"
+                           Grid.Column="2"
+                           Text="{x:Bind ViewModel.Mouse.Value, Mode=OneWay}"
+                           Visibility="{x:Bind ViewModel.Monitor.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <TextBlock Grid.Row="14"
+                           Grid.Column="0"
+                           Text="プリンター"
+                           Visibility="{x:Bind ViewModel.Printer.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <TextBlock Grid.Row="14"
+                           Grid.Column="2"
+                           Text="{x:Bind ViewModel.Printer.Value, Mode=OneWay}"
+                           Visibility="{x:Bind ViewModel.Printer.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <TextBlock Grid.Row="15"
+                           Grid.Column="0"
+                           Text="机の上にあるもの"
+                           Visibility="{x:Bind ViewModel.Desktop.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <TextBlock Grid.Row="15"
+                           Grid.Column="2"
+                           Text="{x:Bind ViewModel.Desktop.Value, Mode=OneWay}"
+                           Visibility="{x:Bind ViewModel.Desktop.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <TextBlock Grid.Row="16"
+                           Grid.Column="0"
+                           Text="作業用BGM"
+                           Visibility="{x:Bind ViewModel.Bgm.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <TextBlock Grid.Row="16"
+                           Grid.Column="2"
+                           Text="{x:Bind ViewModel.Bgm.Value, Mode=OneWay}"
+                           Visibility="{x:Bind ViewModel.Bgm.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <TextBlock Grid.Row="17"
+                           Grid.Column="0"
+                           Text="机"
+                           Visibility="{x:Bind ViewModel.Table.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <TextBlock Grid.Row="17"
+                           Grid.Column="2"
+                           Text="{x:Bind ViewModel.Table.Value, Mode=OneWay}"
+                           Visibility="{x:Bind ViewModel.Table.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <TextBlock Grid.Row="18"
+                           Grid.Column="0"
+                           Text="椅子"
+                           Visibility="{x:Bind ViewModel.Chair.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <TextBlock Grid.Row="18"
+                           Grid.Column="2"
+                           Text="{x:Bind ViewModel.Chair.Value, Mode=OneWay}"
+                           Visibility="{x:Bind ViewModel.Chair.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <TextBlock Grid.Row="19"
+                           Grid.Column="0"
+                           Text="その他"
+                           Visibility="{x:Bind ViewModel.Other.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                <TextBlock Grid.Row="19"
+                           Grid.Column="2"
+                           Text="{x:Bind ViewModel.Other.Value, Mode=OneWay}"
+                           Visibility="{x:Bind ViewModel.Other.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
             </Grid>
         </ScrollViewer>
     </Grid>

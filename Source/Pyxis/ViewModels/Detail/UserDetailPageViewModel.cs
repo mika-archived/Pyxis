@@ -29,11 +29,13 @@ namespace Pyxis.ViewModels.Detail
         public ReadOnlyReactiveProperty<string> Username { get; private set; }
         public ReadOnlyReactiveProperty<string> ScreenName { get; private set; }
         public ReadOnlyReactiveProperty<string> Url { get; private set; }
+        public ReadOnlyReactiveProperty<Uri> NavigateUrl { get; private set; }
         public ReadOnlyReactiveProperty<string> Gender { get; private set; }
         public ReadOnlyReactiveProperty<string> Region { get; private set; }
         public ReadOnlyReactiveProperty<string> Birthday { get; private set; }
         public ReadOnlyReactiveProperty<string> Job { get; private set; }
         public ReadOnlyReactiveProperty<string> Twitter { get; private set; }
+        public ReadOnlyReactiveProperty<Uri> TwitterUrl { get; private set; }
         public ReadOnlyReactiveProperty<string> Description { get; private set; }
         public ReadOnlyReactiveProperty<string> Computer { get; private set; }
         public ReadOnlyReactiveProperty<string> Monitor { get; private set; }
@@ -75,11 +77,21 @@ namespace Pyxis.ViewModels.Detail
             Username = observer.Select(w => w.User.Name).ToReadOnlyReactiveProperty().AddTo(this);
             ScreenName = observer.Select(w => $"@{w.User.AccountName}").ToReadOnlyReactiveProperty().AddTo(this);
             Url = observer.Select(w => w.Profile.Webpage).ToReadOnlyReactiveProperty().AddTo(this);
+            NavigateUrl = observer.Select(w => w.Profile.Webpage)
+                                  .Where(w => !string.IsNullOrWhiteSpace(w))
+                                  .Select(w => new Uri(w))
+                                  .ToReadOnlyReactiveProperty()
+                                  .AddTo(this);
             Gender = observer.Select(w => w.Profile.Gender).ToReadOnlyReactiveProperty().AddTo(this);
             Region = observer.Select(w => w.Profile.Region).ToReadOnlyReactiveProperty().AddTo(this);
             Birthday = observer.Select(w => w.Profile.Birth).ToReadOnlyReactiveProperty().AddTo(this);
             Job = observer.Select(w => w.Profile.Job).ToReadOnlyReactiveProperty().AddTo(this);
-            Twitter = observer.Select(w => w.Profile.TwitterAccountUrl).ToReadOnlyReactiveProperty().AddTo(this);
+            Twitter = observer.Select(w => w.Profile.TwitterAccount).ToReadOnlyReactiveProperty().AddTo(this);
+            TwitterUrl = observer.Select(w => w.Profile.TwitterAccount)
+                                 .Where(w => !string.IsNullOrWhiteSpace(w))
+                                 .Select(w => new Uri($"https://twitter.com/{w}"))
+                                 .ToReadOnlyReactiveProperty()
+                                 .AddTo(this);
             Description = observer.Select(w => w.User.Comment).ToReadOnlyReactiveProperty().AddTo(this);
             Computer = observer.Select(w => w.Workspace.Pc).ToReadOnlyReactiveProperty().AddTo(this);
             Monitor = observer.Select(w => w.Workspace.Monitor).ToReadOnlyReactiveProperty().AddTo(this);

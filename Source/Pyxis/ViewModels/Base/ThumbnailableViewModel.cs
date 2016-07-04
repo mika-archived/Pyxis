@@ -1,4 +1,12 @@
-﻿using Pyxis.Models.Base;
+﻿using System;
+
+using Pyxis.Models.Base;
+
+#if !OFFLINE
+
+using Pyxis.Helpers;
+
+#endif
 
 namespace Pyxis.ViewModels.Base
 {
