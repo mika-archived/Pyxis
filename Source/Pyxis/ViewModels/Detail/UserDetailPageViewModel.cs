@@ -60,7 +60,7 @@ namespace Pyxis.ViewModels.Detail
 
         private void Initialie(UserDetailParameter parameter)
         {
-            var id = parameter.User?.Id ?? _accountService.LoggedInAccount.Id;
+            var id = string.IsNullOrWhiteSpace(parameter.Id) ? _accountService.LoggedInAccount.Id : parameter.Id;
             _pixivUser = new PixivDetail(id, SearchType.Users, _pixivClient);
             var observer = _pixivUser.ObserveProperty(w => w.UserDetail).Where(w => w != null).Publish();
             observer.Subscribe(w =>

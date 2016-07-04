@@ -85,6 +85,12 @@ namespace Pyxis.ViewModels.Detail
 
         #endregion
 
+        public void OnTappedUserIcon()
+        {
+            var parameter = new UserDetailParameter {Id = _novel.User.Id};
+            _navigationService.Navigate("Detail.UserDetail", parameter.ToJson());
+        }
+
         #region Initializer
 
         private void Initialize()

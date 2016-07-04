@@ -48,7 +48,8 @@
                             Height="48"
                             Margin="5"
                             BorderBrush="Transparent"
-                            CornerRadius="24">
+                            CornerRadius="24"
+                            Tapped="{x:Bind ViewModel.OnTappedUserIcon}">
                         <Border.Background>
                             <ImageBrush ImageSource="{x:Bind ViewModel.IconPath, Mode=OneWay}" />
                         </Border.Background>

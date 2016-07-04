@@ -132,6 +132,11 @@ namespace Pyxis.Converters
                         var parameter = new DetailByIdParameter {Id = uri.Replace("pixiv://illusts/", "")};
                         _navigationService.Navigate("Detail.IllustDetail", parameter.ToJson());
                     }
+                    else if (uri.StartsWith("pixiv://users"))
+                    {
+                        var parameter = new UserDetailParameter {Id = uri.Replace("pixiv://users/", "")};
+                        _navigationService.Navigate("Detail.UserDetail", parameter.ToJson());
+                    }
                 };
             }
             else

@@ -50,7 +50,7 @@ namespace Pyxis.ViewModels.Search.Items
 
         public override void OnItemTapped()
         {
-            var parameter = new UserDetailParameter {User = _userPreview.User};
+            var parameter = new UserDetailParameter {Id = _userPreview.User.Id};
             _navigationService.Navigate("Detail.UserDetail", parameter.ToJson());
         }
 
