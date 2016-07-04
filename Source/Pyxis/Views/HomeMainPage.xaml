@@ -159,7 +159,7 @@
                       VerticalAlignment="Stretch"
                       ItemsSource="{x:Bind ViewModel.RecommendedItems}">
                 <i:Interaction.Behaviors>
-                    <behaviors:AdjustControlSizeBehavior HeightOffset="-95"
+                    <behaviors:AdjustControlSizeBehavior HeightOffset="-96"
                                                          IsSyncHeight="True" />
                 </i:Interaction.Behaviors>
                 <GridView.Header>

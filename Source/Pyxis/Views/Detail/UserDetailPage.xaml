@@ -13,7 +13,7 @@
       d:DataContext="{d:DesignInstance vm:UserDetailPageViewModel}"
       prism:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d">
-    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState x:Name="Phone">
@@ -59,7 +59,13 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="48" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
         <Border x:Name="UserHeader"
+                Grid.Row="0"
                 BorderBrush="{ThemeResource SystemControlForegroundChromeMediumBrush}"
                 BorderThickness="0,0,0,1">
             <Grid>
@@ -90,7 +96,8 @@
                 </StackPanel>
             </Grid>
         </Border>
-        <Pivot SelectedIndex="0"
+        <Pivot Grid.Row="1"
+               SelectedIndex="0"
                Style="{StaticResource TabsStylePivotStyle}">
             <i:Interaction.Behaviors>
                 <behaviors:AttachNavigationToPivotBehavior NavigationService="{x:Bind ViewModel.NavigationService}" />
@@ -120,5 +127,14 @@
                 </PivotItem.Header>
             </PivotItem>
         </Pivot>
-    </StackPanel>
+        <ScrollViewer Grid.Row="2"
+                      HorizontalScrollBarVisibility="Disabled">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="2.5*" />
+                </Grid.ColumnDefinitions>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
 </Page>
