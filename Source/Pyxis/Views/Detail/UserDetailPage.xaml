@@ -106,24 +106,23 @@
             <i:Interaction.Behaviors>
                 <behaviors:AttachNavigationToPivotBehavior NavigationService="{x:Bind ViewModel.NavigationService}" />
             </i:Interaction.Behaviors>
-            <PivotItem attach:NavigateTo.PageToken="Detail.UserDetail"
-                       attach:NavigateTo.Parameters="">
+            <PivotItem attach:NavigateTo.PageToken="Detail.UserDetail">
                 <PivotItem.Header>
                     <TextBlock Width="80"
                                Style="{StaticResource TabsStyleTextBlockStyle}"
                                Text="プロフィール" />
                 </PivotItem.Header>
             </PivotItem>
-            <PivotItem attach:NavigateTo.PageToken="FavoriteMain"
-                       attach:NavigateTo.Parameters="">
+            <PivotItem attach:NavigateTo.PageToken="Detail.UserDetailCollection"
+                       attach:NavigateTo.Parameters="{x:Bind ViewModel.Parameter[0], Mode=OneWay}">
                 <PivotItem.Header>
                     <TextBlock Width="80"
                                Style="{StaticResource TabsStyleTextBlockStyle}"
                                Text="作品" />
                 </PivotItem.Header>
             </PivotItem>
-            <PivotItem attach:NavigateTo.PageToken="FavoriteMain"
-                       attach:NavigateTo.Parameters="">
+            <PivotItem attach:NavigateTo.PageToken="Detail.UserDetailCollection"
+                       attach:NavigateTo.Parameters="{x:Bind ViewModel.Parameter[1], Mode=OneWay}">
                 <PivotItem.Header>
                     <TextBlock Width="80"
                                Style="{StaticResource TabsStyleTextBlockStyle}"

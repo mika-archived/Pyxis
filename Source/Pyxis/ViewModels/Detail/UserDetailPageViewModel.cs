@@ -64,7 +64,7 @@ namespace Pyxis.ViewModels.Detail
             var id = string.IsNullOrWhiteSpace(parameter.Id) ? _accountService.LoggedInAccount.Id : parameter.Id;
             _pixivUser = new PixivDetail(id, SearchType.Users, _pixivClient);
             var observer = _pixivUser.ObserveProperty(w => w.UserDetail).Where(w => w != null).Publish();
-            observer.Subscribe(w =>
+            observer.ObserveOnUIDispatcher().Subscribe(w =>
             {
                 Thumbnailable = new PixivUserImage(w.User, _imageStoreService);
                 Thumbnailable.ObserveProperty(v => v.ThumbnailPath)
@@ -72,6 +72,11 @@ namespace Pyxis.ViewModels.Detail
                              .ObserveOnUIDispatcher()
                              .Subscribe(v => ThumbnailPath = v)
                              .AddTo(this);
+                Parameter = new List<string>
+                {
+                    (string) new UserDetailParameter {Detail = w, ProfileType = ProfileType.Work}.ToJson(),
+                    (string) new UserDetailParameter {Detail = w, ProfileType = ProfileType.Favorite}.ToJson()
+                };
             });
             Username = observer.Select(w => w.User.Name).ToReadOnlyReactiveProperty().AddTo(this);
             ScreenName = observer.Select(w => $"@{w.User.AccountName}").ToReadOnlyReactiveProperty().AddTo(this);
@@ -116,6 +121,18 @@ namespace Pyxis.ViewModels.Detail
             base.OnNavigatedTo(e, viewModelState);
             var parameter = ParameterBase.ToObject<DetailByIdParameter>((string) e?.Parameter);
             Initialie(parameter);
+        }
+
+        #endregion
+
+        #region Parameter
+
+        private List<string> _parameter;
+
+        public List<string> Parameter
+        {
+            get { return _parameter; }
+            set { SetProperty(ref _parameter, value); }
         }
 
         #endregion

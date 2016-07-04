@@ -122,6 +122,7 @@
     <Compile Include="Models\Base\ThumbnailableBase.cs" />
     <Compile Include="Models\Enums\FollowType.cs" />
     <Compile Include="Models\Enums\ContentType2.cs" />
+    <Compile Include="Models\Enums\ProfileType.cs" />
     <Compile Include="Models\Enums\RestrictType.cs" />
     <Compile Include="Models\Enums\SearchDuration.cs" />
     <Compile Include="Models\Enums\SearchSort.cs" />
