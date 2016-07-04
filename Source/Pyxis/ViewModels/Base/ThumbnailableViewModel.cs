@@ -1,13 +1,12 @@
-﻿using System;
-
-using Pyxis.Helpers;
-using Pyxis.Models.Base;
+﻿using Pyxis.Models.Base;
 
 namespace Pyxis.ViewModels.Base
 {
     public class ThumbnailableViewModel : ViewModel
     {
+#pragma warning disable 169
         private bool _isRequested;
+#pragma warning restore 169
 
         protected ThumbnailableViewModel()
         {
@@ -23,8 +22,10 @@ namespace Pyxis.ViewModels.Base
             get { return _thumbnailable; }
             set
             {
+#if OFFLINE
+                SetProperty(ref _thumbnailable, value);
+#else
                 if (SetProperty(ref _thumbnailable, value) && _isRequested)
-#if !OFFLINE
                     RunHelper.RunLater(_thumbnailable.ShowThumbnail, TimeSpan.FromMilliseconds(100));
 #endif
             }
