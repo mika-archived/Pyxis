@@ -23,7 +23,6 @@ namespace Pyxis.ViewModels.Detail
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
         private PixivDetail _pixivUser;
-        private PixivUserImage _pixivUserImage;
         public INavigationService NavigationService { get; }
 
         public ReadOnlyReactiveProperty<string> Username { get; private set; }
@@ -60,7 +59,7 @@ namespace Pyxis.ViewModels.Detail
             ThumbnailPath = PyxisConstants.DummyIcon;
         }
 
-        private void Initialie(UserDetailParameter parameter)
+        private void Initialie(DetailByIdParameter parameter)
         {
             var id = string.IsNullOrWhiteSpace(parameter.Id) ? _accountService.LoggedInAccount.Id : parameter.Id;
             _pixivUser = new PixivDetail(id, SearchType.Users, _pixivClient);
@@ -115,7 +114,7 @@ namespace Pyxis.ViewModels.Detail
         public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
         {
             base.OnNavigatedTo(e, viewModelState);
-            var parameter = ParameterBase.ToObject<UserDetailParameter>((string) e?.Parameter);
+            var parameter = ParameterBase.ToObject<DetailByIdParameter>((string) e?.Parameter);
             Initialie(parameter);
         }
 

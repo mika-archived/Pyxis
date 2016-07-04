@@ -87,7 +87,7 @@ namespace Pyxis.ViewModels.Detail
 
         public void OnTappedUserIcon()
         {
-            var parameter = new UserDetailParameter {Id = _novel.User.Id};
+            var parameter = new DetailByIdParameter {Id = _novel.User.Id};
             _navigationService.Navigate("Detail.UserDetail", parameter.ToJson());
         }
 

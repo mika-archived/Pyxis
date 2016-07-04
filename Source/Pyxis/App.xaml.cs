@@ -81,7 +81,7 @@ namespace Pyxis
         protected override Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)
         {
             NavigationService.Navigate("HomeMain", "{\"ContentType\":0}");
-            var param = new UserDetailParameter {Id = null};
+            var param = new DetailByIdParameter {Id = null};
             Debug.WriteLine(param.ToJson());
             return Task.CompletedTask;
         }

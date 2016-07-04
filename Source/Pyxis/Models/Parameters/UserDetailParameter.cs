@@ -1,8 +1,15 @@
-﻿namespace Pyxis.Models.Parameters
+﻿using Newtonsoft.Json;
+
+using Pyxis.Alpha.Converters;
+using Pyxis.Alpha.Models.v1;
+using Pyxis.Beta.Interfaces.Models.v1;
+
+namespace Pyxis.Models.Parameters
 {
     internal class UserDetailParameter : ParameterBase
     {
-        public string Id { get; set; }
+        [JsonConverter(typeof(InterfaceToConcrete<User>))]
+        public IUser User { get; set; }
 
         #region Overrides of ParameterBase
 

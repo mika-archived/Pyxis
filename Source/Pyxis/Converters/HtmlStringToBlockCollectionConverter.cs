@@ -134,7 +134,7 @@ namespace Pyxis.Converters
                     }
                     else if (uri.StartsWith("pixiv://users"))
                     {
-                        var parameter = new UserDetailParameter {Id = uri.Replace("pixiv://users/", "")};
+                        var parameter = new DetailByIdParameter {Id = uri.Replace("pixiv://users/", "")};
                         _navigationService.Navigate("Detail.UserDetail", parameter.ToJson());
                     }
                 };
