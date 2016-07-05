@@ -174,7 +174,7 @@
                             </StackPanel>
                         </StackPanel>
                     </Border>
-                    <Border>
+                    <Border Visibility="{x:Bind ViewModel.ConvertValues[0], Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}">
                         <RichTextBlock Style="{ThemeResource BodyRichTextBlockStyle}">
                             <i:Interaction.Behaviors>
                                 <behaviors:RichTextBlockBindingBehavior BindingDocument="{x:Bind ViewModel.ConvertValues, Mode=OneWay, Converter={StaticResource HtmlStringToBlockCollectionConverter}}" />
