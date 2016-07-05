@@ -4,12 +4,17 @@ using System.Reactive.Linq;
 
 using Prism.Windows.Navigation;
 
+using Pyxis.Beta.Interfaces.Models.v1;
+using Pyxis.Beta.Interfaces.Rest;
+using Pyxis.Collections;
+using Pyxis.Helpers;
 using Pyxis.Models;
 using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
 using Pyxis.Mvvm;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
+using Pyxis.ViewModels.Items;
 
 using Reactive.Bindings.Extensions;
 
@@ -18,15 +23,19 @@ namespace Pyxis.ViewModels.Detail
     public class UserDetailCollectionPageViewModel : ThumbnailableViewModel
     {
         private readonly IImageStoreService _imageStoreService;
-
+        private readonly IPixivClient _pixivClient;
+        private PixivWork _pixivWork;
         public INavigationService NavigationService { get; }
+        public IncrementalObservableCollection<ThumbnailableViewModel> Collection { get; }
 
         public UserDetailCollectionPageViewModel(IImageStoreService imageStoreService,
-                                                 INavigationService navigationService)
+                                                 INavigationService navigationService, IPixivClient pixivClient)
         {
             _imageStoreService = imageStoreService;
             NavigationService = navigationService;
+            _pixivClient = pixivClient;
             ThumbnailPath = PyxisConstants.DummyIcon;
+            Collection = new IncrementalObservableCollection<ThumbnailableViewModel>();
         }
 
         private void Initialize(UserDetailParameter parameter)
@@ -42,13 +51,28 @@ namespace Pyxis.ViewModels.Detail
                          .ObserveOnUIDispatcher()
                          .Subscribe(v => ThumbnailPath = v)
                          .AddTo(this);
+            var param1 = new UserDetailParameter
+            {
+                Detail = parameter.Detail,
+                ProfileType = ProfileType.Work,
+                SearchType = SearchType.IllustsAndManga
+            };
+            var param2 = param1.Clone();
+            param2.ProfileType = ProfileType.Favorite;
             Parameter = new List<string>
             {
                 (string) new DetailByIdParameter {Id = parameter.Detail.User.Id}.ToJson(),
-                (string) new UserDetailParameter {Detail = parameter.Detail, ProfileType = ProfileType.Work}.ToJson(),
-                (string)
-                    new UserDetailParameter {Detail = parameter.Detail, ProfileType = ProfileType.Favorite}.ToJson()
+                (string) param1.ToJson(),
+                (string) param2.ToJson()
             };
+            if (parameter.ProfileType == ProfileType.Work)
+            {
+                _pixivWork = new PixivWork(parameter.Detail.User.Id, parameter.SearchType, _pixivClient);
+                if (parameter.SearchType == SearchType.IllustsAndManga)
+                    ModelHelper.ConnectTo(Collection, _pixivWork, w => w.Illusts, CreatePixivImage);
+                else
+                    ModelHelper.ConnectTo(Collection, _pixivWork, w => w.Novels, CreatePixivNovel);
+            }
         }
 
         #region Overrides of ViewModelBase
@@ -59,6 +83,16 @@ namespace Pyxis.ViewModels.Detail
             var parameter = ParameterBase.ToObject<UserDetailParameter>((string) e?.Parameter);
             Initialize(parameter);
         }
+
+        #endregion
+
+        #region Converters
+
+        private PixivThumbnailViewModel CreatePixivImage(IIllust w) =>
+            new PixivThumbnailViewModel(w, _imageStoreService, NavigationService);
+
+        private PixivThumbnailViewModel CreatePixivNovel(INovel w) =>
+            new PixivThumbnailViewModel(w, _imageStoreService, NavigationService);
 
         #endregion
 

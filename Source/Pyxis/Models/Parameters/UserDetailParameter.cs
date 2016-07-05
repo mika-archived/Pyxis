@@ -14,6 +14,18 @@ namespace Pyxis.Models.Parameters
 
         public ProfileType ProfileType { get; set; }
 
+        public SearchType SearchType { get; set; }
+
+        public UserDetailParameter Clone()
+        {
+            return new UserDetailParameter
+            {
+                Detail = Detail,
+                ProfileType = ProfileType,
+                SearchType = SearchType
+            };
+        }
+
         #region Overrides of ParameterBase
 
         protected override bool ParseJson => true;

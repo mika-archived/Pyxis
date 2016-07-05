@@ -72,10 +72,18 @@ namespace Pyxis.ViewModels.Detail
                              .ObserveOnUIDispatcher()
                              .Subscribe(v => ThumbnailPath = v)
                              .AddTo(this);
+                var param1 = new UserDetailParameter
+                {
+                    Detail = w,
+                    ProfileType = ProfileType.Work,
+                    SearchType = SearchType.IllustsAndManga
+                };
+                var param2 = param1.Clone();
+                param2.ProfileType = ProfileType.Favorite;
                 Parameter = new List<string>
                 {
-                    (string) new UserDetailParameter {Detail = w, ProfileType = ProfileType.Work}.ToJson(),
-                    (string) new UserDetailParameter {Detail = w, ProfileType = ProfileType.Favorite}.ToJson()
+                    (string) param1.ToJson(),
+                    (string) param2.ToJson()
                 };
             });
             Username = observer.Select(w => w.User.Name).ToReadOnlyReactiveProperty().AddTo(this);
