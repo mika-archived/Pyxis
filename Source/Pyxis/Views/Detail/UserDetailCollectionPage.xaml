@@ -7,6 +7,7 @@
       xmlns:behaviors="using:Pyxis.Behaviors"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
+      xmlns:items="using:Pyxis.Views.Items"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:prism="using:Prism.Windows.Mvvm"
       xmlns:vm="using:Pyxis.ViewModels.Detail"
@@ -59,7 +60,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <GridView>
+        <GridView ItemsSource="{x:Bind ViewModel.Collection}">
             <GridView.Header>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -136,7 +137,11 @@
                     </Pivot>
                 </Grid>
             </GridView.Header>
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <items:ThumbnailView DataContext="{Binding}" />
+                </DataTemplate>
+            </GridView.ItemTemplate>
         </GridView>
-
     </Grid>
 </Page>
