@@ -76,7 +76,7 @@ namespace Pyxis.ViewModels.Detail
                 {
                     Detail = w,
                     ProfileType = ProfileType.Work,
-                    SearchType = SearchType.IllustsAndManga
+                    ContentType = ContentType.Illust
                 };
                 var param2 = param1.Clone();
                 param2.ProfileType = ProfileType.Favorite;

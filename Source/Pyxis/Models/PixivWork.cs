@@ -16,19 +16,20 @@ namespace Pyxis.Models
 {
     internal class PixivWork : ISupportIncrementalLoading
     {
+        private readonly ContentType _contentType;
         private readonly string _id;
         private readonly IPixivClient _pixivClient;
-        private readonly SearchType _searchType;
         private string _offset;
 
         public ObservableCollection<IIllust> Illusts { get; }
         public ObservableCollection<INovel> Novels { get; }
 
-        public PixivWork(string id, SearchType searchType, IPixivClient pixivClient)
+        public PixivWork(string id, ContentType contentType, IPixivClient pixivClient)
         {
             _id = id;
-            _searchType = searchType;
+            _contentType = contentType;
             _pixivClient = pixivClient;
+            _offset = "";
             Illusts = new ObservableCollection<IIllust>();
             Novels = new ObservableCollection<INovel>();
 #if OFFLINE
@@ -40,18 +41,20 @@ namespace Pyxis.Models
 
         private async Task FetchAsync()
         {
-            if (_searchType == SearchType.IllustsAndManga)
-                await FetchIllusts();
-            else if (_searchType == SearchType.Novels)
+            if (_contentType == ContentType.Illust)
+                await FetchIllusts("illust");
+            else if (_contentType == ContentType.Manga)
+                await FetchIllusts("manga");
+            else if (_contentType == ContentType.Novel)
                 await FetchNovels();
             else
                 throw new NotSupportedException();
         }
 
         [SuppressMessage("ReSharper", "InconsistentNaming")]
-        private async Task FetchIllusts()
+        private async Task FetchIllusts(string contentType)
         {
-            var illusts = await _pixivClient.User.IllustsAsync(user_id => _id, filter => "for_ios", type => "illust",
+            var illusts = await _pixivClient.User.IllustsAsync(user_id => _id, filter => "for_ios", type => contentType,
                                                                offset => _offset);
             illusts?.IllustList.ForEach(w => Illusts.Add(w));
             if (string.IsNullOrWhiteSpace(illusts?.NextUrl))

@@ -14,7 +14,7 @@ namespace Pyxis.Models.Parameters
 
         public ProfileType ProfileType { get; set; }
 
-        public SearchType SearchType { get; set; }
+        public ContentType ContentType { get; set; }
 
         public UserDetailParameter Clone()
         {
@@ -22,7 +22,7 @@ namespace Pyxis.Models.Parameters
             {
                 Detail = Detail,
                 ProfileType = ProfileType,
-                SearchType = SearchType
+                ContentType = ContentType
             };
         }
 

@@ -23,6 +23,18 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="UserHeader.Height" Value="160" />
+                        <Setter Target="Works.ItemsPanel">
+                            <Setter.Value>
+                                <ItemsPanelTemplate>
+                                    <ItemsWrapGrid attach:AssumSize.AssumSize="100"
+                                                   Orientation="Horizontal">
+                                        <i:Interaction.Behaviors>
+                                            <behaviors:GridViewEuqalitySizeBehavior />
+                                        </i:Interaction.Behaviors>
+                                    </ItemsWrapGrid>
+                                </ItemsPanelTemplate>
+                            </Setter.Value>
+                        </Setter>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="PhoneLarge">
@@ -31,6 +43,18 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="UserHeader.Height" Value="180" />
+                        <Setter Target="Works.ItemsPanel">
+                            <Setter.Value>
+                                <ItemsPanelTemplate>
+                                    <ItemsWrapGrid attach:AssumSize.AssumSize="100"
+                                                   Orientation="Horizontal">
+                                        <i:Interaction.Behaviors>
+                                            <behaviors:GridViewEuqalitySizeBehavior />
+                                        </i:Interaction.Behaviors>
+                                    </ItemsWrapGrid>
+                                </ItemsPanelTemplate>
+                            </Setter.Value>
+                        </Setter>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Tablet">
@@ -40,6 +64,18 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="UserHeader.Height" Value="230" />
+                        <Setter Target="Works.ItemsPanel">
+                            <Setter.Value>
+                                <ItemsPanelTemplate>
+                                    <ItemsWrapGrid attach:AssumSize.AssumSize="150"
+                                                   Orientation="Horizontal">
+                                        <i:Interaction.Behaviors>
+                                            <behaviors:GridViewEuqalitySizeBehavior />
+                                        </i:Interaction.Behaviors>
+                                    </ItemsWrapGrid>
+                                </ItemsPanelTemplate>
+                            </Setter.Value>
+                        </Setter>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Desktop">
@@ -48,6 +84,18 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="UserHeader.Height" Value="280" />
+                        <Setter Target="Works.ItemsPanel">
+                            <Setter.Value>
+                                <ItemsPanelTemplate>
+                                    <ItemsWrapGrid attach:AssumSize.AssumSize="200"
+                                                   Orientation="Horizontal">
+                                        <i:Interaction.Behaviors>
+                                            <behaviors:GridViewEuqalitySizeBehavior />
+                                        </i:Interaction.Behaviors>
+                                    </ItemsWrapGrid>
+                                </ItemsPanelTemplate>
+                            </Setter.Value>
+                        </Setter>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="DesktopHD">
@@ -56,17 +104,30 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="UserHeader.Height" Value="350" />
+                        <Setter Target="Works.ItemsPanel">
+                            <Setter.Value>
+                                <ItemsPanelTemplate>
+                                    <ItemsWrapGrid attach:AssumSize.AssumSize="200"
+                                                   Orientation="Horizontal">
+                                        <i:Interaction.Behaviors>
+                                            <behaviors:GridViewEuqalitySizeBehavior />
+                                        </i:Interaction.Behaviors>
+                                    </ItemsWrapGrid>
+                                </ItemsPanelTemplate>
+                            </Setter.Value>
+                        </Setter>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <GridView ItemsSource="{x:Bind ViewModel.Collection}">
+        <GridView x:Name="Works"
+                  ItemsSource="{x:Bind ViewModel.Collection}">
             <GridView.Header>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="48" />
-                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Border x:Name="UserHeader"
                             Grid.Row="0"
@@ -132,6 +193,38 @@
                                 <TextBlock Width="80"
                                            Style="{StaticResource TabsStyleTextBlockStyle}"
                                            Text="お気に入り" />
+                            </PivotItem.Header>
+                        </PivotItem>
+                    </Pivot>
+                    <Pivot Grid.Row="2"
+                           SelectedIndex="{x:Bind ViewModel.SubSelectedIndex, Mode=OneWay}"
+                           Style="{StaticResource MiniTabsStylePivotStyle}"
+                           Visibility="{x:Bind ViewModel.IsEnabledSubMenu, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <i:Interaction.Behaviors>
+                            <behaviors:AttachNavigationToPivotBehavior NavigationService="{x:Bind ViewModel.NavigationService}" />
+                        </i:Interaction.Behaviors>
+                        <PivotItem attach:NavigateTo.PageToken="Detail.UserDetailCollection"
+                                   attach:NavigateTo.Parameters="{x:Bind ViewModel.SubParameters[0]}">
+                            <PivotItem.Header>
+                                <TextBlock Width="64"
+                                           Style="{StaticResource TabsStyleTextBlockStyle}"
+                                           Text="イラスト" />
+                            </PivotItem.Header>
+                        </PivotItem>
+                        <PivotItem attach:NavigateTo.PageToken="Detail.UserDetailCollection"
+                                   attach:NavigateTo.Parameters="{x:Bind ViewModel.SubParameters[1]}">
+                            <PivotItem.Header>
+                                <TextBlock Width="64"
+                                           Style="{StaticResource TabsStyleTextBlockStyle}"
+                                           Text="マンガ" />
+                            </PivotItem.Header>
+                        </PivotItem>
+                        <PivotItem attach:NavigateTo.PageToken="Detail.UserDetailCollection"
+                                   attach:NavigateTo.Parameters="{x:Bind ViewModel.SubParameters[2]}">
+                            <PivotItem.Header>
+                                <TextBlock Width="64"
+                                           Style="{StaticResource TabsStyleTextBlockStyle}"
+                                           Text="小説" />
                             </PivotItem.Header>
                         </PivotItem>
                     </Pivot>

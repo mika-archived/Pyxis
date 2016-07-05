@@ -24,6 +24,7 @@ namespace Pyxis.ViewModels.Detail
     {
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
+        private PixivFavorite _pixivFavorite;
         private PixivWork _pixivWork;
         public INavigationService NavigationService { get; }
         public IncrementalObservableCollection<ThumbnailableViewModel> Collection { get; }
@@ -41,10 +42,12 @@ namespace Pyxis.ViewModels.Detail
         private void Initialize(UserDetailParameter parameter)
         {
             SelectedIndex = (int) parameter.ProfileType;
+            SubSelectedIndex = (int) parameter.ContentType;
             Username = parameter.Detail.User.Name;
             ScreenName = $"@{parameter.Detail.User.AccountName}";
             Url = parameter.Detail.Profile.Webpage;
-            NavigateUrl = new Uri(parameter.Detail.Profile.Webpage);
+            if (!string.IsNullOrWhiteSpace(parameter.Detail.Profile.Webpage))
+                NavigateUrl = new Uri(parameter.Detail.Profile.Webpage);
             Thumbnailable = new PixivUserImage(parameter.Detail.User, _imageStoreService);
             Thumbnailable.ObserveProperty(v => v.ThumbnailPath)
                          .Where(v => !string.IsNullOrWhiteSpace(v))
@@ -55,7 +58,7 @@ namespace Pyxis.ViewModels.Detail
             {
                 Detail = parameter.Detail,
                 ProfileType = ProfileType.Work,
-                SearchType = SearchType.IllustsAndManga
+                ContentType = ContentType.Illust
             };
             var param2 = param1.Clone();
             param2.ProfileType = ProfileType.Favorite;
@@ -65,14 +68,31 @@ namespace Pyxis.ViewModels.Detail
                 (string) param1.ToJson(),
                 (string) param2.ToJson()
             };
+
             if (parameter.ProfileType == ProfileType.Work)
             {
-                _pixivWork = new PixivWork(parameter.Detail.User.Id, parameter.SearchType, _pixivClient);
-                if (parameter.SearchType == SearchType.IllustsAndManga)
+                InitializeSubMenu(param1);
+                _pixivWork = new PixivWork(parameter.Detail.User.Id, parameter.ContentType, _pixivClient);
+                if (parameter.ContentType != ContentType.Novel)
                     ModelHelper.ConnectTo(Collection, _pixivWork, w => w.Illusts, CreatePixivImage);
                 else
                     ModelHelper.ConnectTo(Collection, _pixivWork, w => w.Novels, CreatePixivNovel);
             }
+        }
+
+        private void InitializeSubMenu(UserDetailParameter param)
+        {
+            IsEnabledSubMenu = true;
+            var param3 = param.Clone();
+            param3.ContentType = ContentType.Manga;
+            var param4 = param.Clone();
+            param4.ContentType = ContentType.Novel;
+            SubParameters = new List<string>
+            {
+                (string) param.ToJson(),
+                (string) param3.ToJson(),
+                (string) param4.ToJson()
+            };
         }
 
         #region Overrides of ViewModelBase
@@ -104,6 +124,18 @@ namespace Pyxis.ViewModels.Detail
         {
             get { return _selectedIndex; }
             set { SetProperty(ref _selectedIndex, value); }
+        }
+
+        #endregion
+
+        #region SubSelectedIndex
+
+        private int _subSelectedIndex;
+
+        public int SubSelectedIndex
+        {
+            get { return _subSelectedIndex; }
+            set { SetProperty(ref _subSelectedIndex, value); }
         }
 
         #endregion
@@ -164,6 +196,30 @@ namespace Pyxis.ViewModels.Detail
         {
             get { return _parameter; }
             set { SetProperty(ref _parameter, value); }
+        }
+
+        #endregion
+
+        #region IsEnabledSubMenu
+
+        private bool _isEnabledSubMenu;
+
+        public bool IsEnabledSubMenu
+        {
+            get { return _isEnabledSubMenu; }
+            set { SetProperty(ref _isEnabledSubMenu, value); }
+        }
+
+        #endregion
+
+        #region SubParameters
+
+        private List<string> _subParameters;
+
+        public List<string> SubParameters
+        {
+            get { return _subParameters; }
+            set { SetProperty(ref _subParameters, value); }
         }
 
         #endregion
