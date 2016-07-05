@@ -42,7 +42,10 @@ namespace Pyxis.ViewModels.Detail
         private void Initialize(UserDetailParameter parameter)
         {
             SelectedIndex = (int) parameter.ProfileType;
-            SubSelectedIndex = (int) parameter.ContentType;
+            if (parameter.ProfileType == ProfileType.Work)
+                SubSelectedIndex1 = (int) parameter.ContentType;
+            else
+                SubSelectedIndex2 = parameter.ContentType == ContentType.Illust ? 0 : 1;
             Username = parameter.Detail.User.Name;
             ScreenName = $"@{parameter.Detail.User.AccountName}";
             Url = parameter.Detail.Profile.Webpage;
@@ -71,21 +74,39 @@ namespace Pyxis.ViewModels.Detail
 
             if (parameter.ProfileType == ProfileType.Work)
             {
-                InitializeSubMenu(param1);
+                InitializeSubMenu(param1, true);
                 _pixivWork = new PixivWork(parameter.Detail.User.Id, parameter.ContentType, _pixivClient);
                 if (parameter.ContentType != ContentType.Novel)
                     ModelHelper.ConnectTo(Collection, _pixivWork, w => w.Illusts, CreatePixivImage);
                 else
                     ModelHelper.ConnectTo(Collection, _pixivWork, w => w.Novels, CreatePixivNovel);
             }
+            else
+            {
+                InitializeSubMenu(param1, false);
+                _pixivFavorite = new PixivFavorite(_pixivClient);
+                if (parameter.ContentType != ContentType.Novel)
+                    ModelHelper.ConnectTo(Collection, _pixivFavorite, w => w.ResultIllusts, CreatePixivImage);
+                else
+                    ModelHelper.ConnectTo(Collection, _pixivFavorite, w => w.ResultNovels, CreatePixivNovel);
+                _pixivFavorite.Query(new FavoriteOptionParameter
+                {
+                    Restrict = RestrictType.Public,
+                    Type = parameter.ContentType.ToSearchType(),
+                    Tag = "",
+                    UserId = parameter.Detail.User.Id
+                });
+            }
         }
 
-        private void InitializeSubMenu(UserDetailParameter param)
+        private void InitializeSubMenu(UserDetailParameter param, bool mode)
         {
-            IsEnabledSubMenu = true;
-            var param3 = param.Clone();
+            IsEnabledSubMenu = mode;
+            var param2 = param.Clone();
+            param2.ProfileType = (ProfileType) SelectedIndex;
+            var param3 = param2.Clone();
             param3.ContentType = ContentType.Manga;
-            var param4 = param.Clone();
+            var param4 = param2.Clone();
             param4.ContentType = ContentType.Novel;
             SubParameters = new List<string>
             {
@@ -128,14 +149,26 @@ namespace Pyxis.ViewModels.Detail
 
         #endregion
 
-        #region SubSelectedIndex
+        #region SubSelectedIndex1
 
-        private int _subSelectedIndex;
+        private int _subSelectedIndex1;
 
-        public int SubSelectedIndex
+        public int SubSelectedIndex1
         {
-            get { return _subSelectedIndex; }
-            set { SetProperty(ref _subSelectedIndex, value); }
+            get { return _subSelectedIndex1; }
+            set { SetProperty(ref _subSelectedIndex1, value); }
+        }
+
+        #endregion
+
+        #region SubSelectedIndex2
+
+        private int _subSelectedIndex2;
+
+        public int SubSelectedIndex2
+        {
+            get { return _subSelectedIndex2; }
+            set { SetProperty(ref _subSelectedIndex2, value); }
         }
 
         #endregion
