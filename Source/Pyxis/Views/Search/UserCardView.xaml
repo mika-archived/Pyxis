@@ -4,16 +4,16 @@
       xmlns:core="using:Microsoft.Xaml.Interactions.Core"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
-      xmlns:items="using:Pyxis.Views.Items"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:vm="using:Pyxis.ViewModels.Search.Items"
       d:DataContext="{d:DesignInstance vm:UserCardViewModel}"
-      d:DesignHeight="150"
+      d:DesignHeight="64"
       d:DesignWidth="450"
       mc:Ignorable="d">
     <Border BorderBrush="{ThemeResource AppBarBorderThemeBrush}"
             BorderThickness="1">
         <Grid x:Name="RootGrid"
+              Height="64"
               Background="{ThemeResource AppBarBackgroundThemeBrush}">
             <i:Interaction.Behaviors>
                 <core:EventTriggerBehavior EventName="Tapped"
@@ -27,28 +27,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="48"
-                               MaxHeight="48" />
-            </Grid.RowDefinitions>
-            <items:ThumbnailView Grid.Row="0"
-                                 Grid.RowSpan="2"
-                                 Grid.Column="0"
-                                 DataContext="{Binding UserWorks[0],
-                                                       Mode=OneWay}" />
-            <items:ThumbnailView Grid.Row="0"
-                                 Grid.RowSpan="2"
-                                 Grid.Column="1"
-                                 DataContext="{Binding UserWorks[1],
-                                                       Mode=OneWay}" />
-            <items:ThumbnailView Grid.Row="0"
-                                 Grid.RowSpan="2"
-                                 Grid.Column="2"
-                                 DataContext="{Binding UserWorks[2],
-                                                       Mode=OneWay}" />
-            <Grid Grid.Row="1"
-                  Grid.Column="0"
+            <Grid Grid.Column="0"
                   Grid.ColumnSpan="3"
                   Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
                 <Grid.ColumnDefinitions>
@@ -56,9 +35,8 @@
                     <ColumnDefinition />
                     <ColumnDefinition Width="110" />
                 </Grid.ColumnDefinitions>
-                <Border Width="64"
-                        Height="64"
-                        Margin="0,-32,0,0"
+                <Border Width="48"
+                        Height="48"
                         HorizontalAlignment="Center"
                         BorderBrush="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                         BorderThickness="2.5"
