@@ -14,6 +14,14 @@ namespace Pyxis.Models.Parameters
         protected override bool ParseJson => true;
         protected override bool TypeNamingRequired => false;
 
+        public override object Clone()
+        {
+            return new HomeParameter
+            {
+                ContentType = ContentType
+            };
+        }
+
         #endregion
     }
 }

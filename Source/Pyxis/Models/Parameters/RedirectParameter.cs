@@ -11,6 +11,15 @@
         protected override bool ParseJson => true;
         protected override bool TypeNamingRequired => true;
 
+        public override object Clone()
+        {
+            return new RedirectParameter
+            {
+                Parameter = (ParameterBase) Parameter.Clone(),
+                RedirectTo = RedirectTo
+            };
+        }
+
         #endregion
     }
 }

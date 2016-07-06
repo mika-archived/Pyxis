@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using Windows.System;
 
@@ -8,6 +9,7 @@ using Prism.Windows.Navigation;
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Collections;
+using Pyxis.Extensions;
 using Pyxis.Helpers;
 using Pyxis.Models;
 using Pyxis.Models.Enums;
@@ -68,23 +70,10 @@ namespace Pyxis.ViewModels.Search
 
         private void GenerateQueries()
         {
-            var param1 = SearchResultParameter.Build(_searchOption);
-            param1.Sort = SearchSort.New;
-
-            var param2 = SearchResultParameter.Build(_searchOption);
-            param2.Sort = SearchSort.Popular;
-
-            var param3 = SearchResultParameter.Build(_searchOption);
-            param3.Sort = SearchSort.Old;
-
-            param1.Query = param2.Query = param3.Query = SearchQuery;
-
-            ParameterQueries = new List<string>
-            {
-                (string) param1.ToJson(),
-                (string) param2.ToJson(),
-                (string) param3.ToJson()
-            };
+            ParameterQueries = ParamGen.GenerateRaw(SearchResultParameter.Build(_searchOption), w => w.Sort)
+                                       .Do(w => w.Query = SearchQuery)
+                                       .Select(w => (string) w.ToJson())
+                                       .ToList();
         }
 
         public async void OnButtonTapped()

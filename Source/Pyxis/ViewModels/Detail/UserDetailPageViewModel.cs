@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reactive.Linq;
 
 using Prism.Windows.Navigation;
@@ -78,13 +79,7 @@ namespace Pyxis.ViewModels.Detail
                     ProfileType = ProfileType.Work,
                     ContentType = ContentType.Illust
                 };
-                var param2 = param1.Clone();
-                param2.ProfileType = ProfileType.Favorite;
-                Parameter = new List<string>
-                {
-                    (string) param1.ToJson(),
-                    (string) param2.ToJson()
-                };
+                Parameter = ParamGen.Generate(param1, v => v.ProfileType).Skip(1).ToList();
             });
             Username = observer.Select(w => w.User.Name).ToReadOnlyReactiveProperty().AddTo(this);
             ScreenName = observer.Select(w => $"@{w.User.AccountName}").ToReadOnlyReactiveProperty().AddTo(this);

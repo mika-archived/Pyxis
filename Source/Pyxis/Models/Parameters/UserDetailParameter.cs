@@ -16,7 +16,7 @@ namespace Pyxis.Models.Parameters
 
         public ContentType ContentType { get; set; }
 
-        public UserDetailParameter Clone()
+        public override object Clone()
         {
             return new UserDetailParameter
             {

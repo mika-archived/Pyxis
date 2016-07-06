@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reactive.Linq;
 
 using Prism.Windows.Navigation;
@@ -7,6 +8,7 @@ using Prism.Windows.Navigation;
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Collections;
+using Pyxis.Extensions;
 using Pyxis.Helpers;
 using Pyxis.Models;
 using Pyxis.Models.Enums;
@@ -63,7 +65,7 @@ namespace Pyxis.ViewModels.Detail
                 ProfileType = ProfileType.Work,
                 ContentType = ContentType.Illust
             };
-            var param2 = param1.Clone();
+            var param2 = (UserDetailParameter) param1.Clone();
             param2.ProfileType = ProfileType.Favorite;
             Parameter = new List<string>
             {
@@ -102,18 +104,10 @@ namespace Pyxis.ViewModels.Detail
         private void InitializeSubMenu(UserDetailParameter param, bool mode)
         {
             IsEnabledSubMenu = mode;
-            var param2 = param.Clone();
-            param2.ProfileType = (ProfileType) SelectedIndex;
-            var param3 = param2.Clone();
-            param3.ContentType = ContentType.Manga;
-            var param4 = param2.Clone();
-            param4.ContentType = ContentType.Novel;
-            SubParameters = new List<string>
-            {
-                (string) param.ToJson(),
-                (string) param3.ToJson(),
-                (string) param4.ToJson()
-            };
+            SubParameters = ParamGen.GenerateRaw(param, w => w.ContentType)
+                                    .Do(w => w.ProfileType = (ProfileType) SelectedIndex)
+                                    .Select(w => (string) w.ToJson())
+                                    .ToList();
         }
 
         #region Overrides of ViewModelBase

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using Prism.Windows.Navigation;
 
@@ -55,24 +56,9 @@ namespace Pyxis.ViewModels
             Sync();
         }
 
-        private void GenerateQueries()
-        {
-            var param1 = _favoriteOption.Clone();
-            param1.Type = SearchType.IllustsAndManga;
-
-            var param2 = _favoriteOption.Clone();
-            param2.Type = SearchType.Novels;
-
-            ParameterQueries = new List<string>
-            {
-                (string) param1.ToJson(),
-                (string) param2.ToJson()
-            };
-        }
-
         private void Sync()
         {
-            GenerateQueries();
+            ParameterQueries = ParamGen.Generate(_favoriteOption, w => w.Type).ToList();
             _pixivFavorite.Query(_favoriteOption);
         }
 

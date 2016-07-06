@@ -12,7 +12,12 @@ namespace Pyxis.Models.Parameters
 
         public string Tag { get; set; } = "";
 
-        public FavoriteOptionParameter Clone()
+        #region Overrides of ParameterBase
+
+        protected override bool ParseJson => true;
+        protected override bool TypeNamingRequired => false;
+
+        public override object Clone()
         {
             return new FavoriteOptionParameter
             {
@@ -22,11 +27,6 @@ namespace Pyxis.Models.Parameters
                 Tag = Tag
             };
         }
-
-        #region Overrides of ParameterBase
-
-        protected override bool ParseJson => true;
-        protected override bool TypeNamingRequired => false;
 
         #endregion
     }

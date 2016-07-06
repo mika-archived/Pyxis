@@ -33,6 +33,19 @@ namespace Pyxis.Models.Parameters
         protected override bool ParseJson => true;
         protected override bool TypeNamingRequired => false;
 
+        public override object Clone()
+        {
+            return new SearchResultParameter
+            {
+                Duration = Duration,
+                DurationQuery = DurationQuery,
+                Query = Query,
+                SearchType = SearchType,
+                Sort = Sort,
+                Target = Target
+            };
+        }
+
         #endregion
     }
 }

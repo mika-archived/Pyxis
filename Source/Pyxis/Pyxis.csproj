@@ -116,6 +116,7 @@
     <Compile Include="Converters\StringFormatConverter.cs" />
     <Compile Include="Converters\StringToVisibilityConverter.cs" />
     <Compile Include="Extensions\DictionaryExt.cs" />
+    <Compile Include="Extensions\IEnumerableExt.cs" />
     <Compile Include="Helpers\ModelHelper.cs" />
     <Compile Include="Helpers\RunHelper.cs" />
     <Compile Include="Models\AccountInfo.cs" />
@@ -131,6 +132,7 @@
     <Compile Include="Models\Parameters\DetailByIdParameter.cs" />
     <Compile Include="Models\Parameters\FavoriteOptionParameter.cs" />
     <Compile Include="Models\Parameters\NovelDetailParameter.cs" />
+    <Compile Include="Models\Parameters\ParamGen.cs" />
     <Compile Include="Models\Parameters\SearchHomeParameter.cs" />
     <Compile Include="Models\Parameters\SearchOptionParameter.cs" />
     <Compile Include="Models\Parameters\SearchResultParameter.cs" />

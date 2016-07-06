@@ -13,6 +13,8 @@ namespace Pyxis.Models.Parameters
 
         protected abstract bool TypeNamingRequired { get; }
 
+        public abstract object Clone();
+
         public object ToJson()
         {
             if (!ParseJson)
