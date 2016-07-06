@@ -137,6 +137,7 @@
     <Compile Include="Models\Parameters\SearchOptionParameter.cs" />
     <Compile Include="Models\Parameters\SearchResultParameter.cs" />
     <Compile Include="Models\Parameters\UserDetailParameter.cs" />
+    <Compile Include="Models\Parameters\WorkParameter.cs" />
     <Compile Include="Models\PixivBookmarkTag.cs" />
     <Compile Include="Models\PixivComment.cs" />
     <Compile Include="Models\Parameters\HomeParameter.cs" />
@@ -193,8 +194,6 @@
     <Compile Include="ViewModels\Detail\MangaViewPageViewModel.cs" />
     <Compile Include="ViewModels\Error\LoginRequiredPageViewModel.cs" />
     <Compile Include="ViewModels\Error\PremiumRequiredPageViewModel.cs" />
-    <Compile Include="ViewModels\Favorite\IllustMangaFavoritePageViewModel.cs" />
-    <Compile Include="ViewModels\Favorite\NovelFavoritePageViewModel.cs" />
     <Compile Include="ViewModels\Follower\MainFollowerPageViewModel.cs" />
     <Compile Include="ViewModels\Following\PrivateFollowingPageViewModel.cs" />
     <Compile Include="ViewModels\Following\PublicFollowingPageViewModel.cs" />
@@ -213,9 +212,7 @@
     <Compile Include="ViewModels\Search\SearchResultPageViewModel.cs" />
     <Compile Include="ViewModels\Search\UserSearchPageViewModel.cs" />
     <Compile Include="ViewModels\Search\WorkSearchPageViewModel.cs" />
-    <Compile Include="ViewModels\Work\IllustWorkPageViewModel.cs" />
-    <Compile Include="ViewModels\Work\MangaWorkPageViewModel.cs" />
-    <Compile Include="ViewModels\Work\NovelWorkPageViewModel.cs" />
+    <Compile Include="ViewModels\WorkMainPageViewModel.cs" />
     <Compile Include="Views\AccountInfoControl.xaml.cs">
       <DependentUpon>AccountInfoControl.xaml</DependentUpon>
     </Compile>
@@ -321,17 +318,8 @@
     <Compile Include="Views\Settings\HomeSettingsPage.xaml.cs">
       <DependentUpon>HomeSettingsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Work\IllustWorkPage.xaml.cs">
-      <DependentUpon>IllustWorkPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Work\MangaWorkPage.xaml.cs">
-      <DependentUpon>MangaWorkPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Work\NovelWorkPage.xaml.cs">
-      <DependentUpon>NovelWorkPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Work\PivotTabWork.xaml.cs">
-      <DependentUpon>PivotTabWork.xaml</DependentUpon>
+    <Compile Include="Views\WorkMainPage.xaml.cs">
+      <DependentUpon>WorkMainPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -563,19 +551,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Work\IllustWorkPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Work\MangaWorkPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Work\NovelWorkPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Work\PivotTabWork.xaml">
+    <Page Include="Views\WorkMainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -601,7 +577,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Bookmark\" />
-    <Folder Include="Views\Favorite\" />
     <Folder Include="Views\Ranking\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

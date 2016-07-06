@@ -11,6 +11,7 @@ using Prism.Unity.Windows;
 
 using Pyxis.Alpha;
 using Pyxis.Beta.Interfaces.Rest;
+using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
 using Pyxis.Services;
 using Pyxis.Services.Interfaces;
@@ -81,7 +82,7 @@ namespace Pyxis
         protected override Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)
         {
             NavigationService.Navigate("HomeMain", "{\"ContentType\":0}");
-            var param = new DetailByIdParameter {Id = null};
+            var param = new WorkParameter {ContentType = ContentType.Illust};
             Debug.WriteLine(param.ToJson());
             return Task.CompletedTask;
         }

@@ -12,77 +12,6 @@
       mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <!-- 0 - Phone (Small) -->
-                <VisualState x:Name="Default">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowHeight="0"
-                                         MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="HamburgerMenu.ItemsPanel">
-                            <Setter.Value>
-                                <ItemsPanelTemplate>
-                                    <StackPanel />
-                                </ItemsPanelTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Setter Target="RootSplitView.DisplayMode" Value="Overlay" />
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="Large_X">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowHeight="641"
-                                         MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="HamburgerMenu.ItemsPanel">
-                            <Setter.Value>
-                                <ItemsPanelTemplate>
-                                    <RelativePanel HorizontalAlignment="Stretch"
-                                                   VerticalAlignment="Stretch" />
-                                </ItemsPanelTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Setter Target="RootSplitView.DisplayMode" Value="Overlay" />
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="Large_Y">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowHeight="0"
-                                         MinWindowWidth="641" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="HamburgerMenu.ItemsPanel">
-                            <Setter.Value>
-                                <ItemsPanelTemplate>
-                                    <StackPanel />
-                                </ItemsPanelTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Setter Target="RootSplitView.DisplayMode" Value="CompactOverlay" />
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="Large_XY">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowHeight="641"
-                                         MinWindowWidth="641" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="HamburgerMenu.ItemsPanel">
-                            <Setter.Value>
-                                <ItemsPanelTemplate>
-                                    <RelativePanel HorizontalAlignment="Stretch"
-                                                   VerticalAlignment="Stretch" />
-                                </ItemsPanelTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Setter Target="RootSplitView.DisplayMode" Value="CompactOverlay" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
         <StackPanel Height="48"
                     Margin="48,0,0,0"
                     HorizontalAlignment="Stretch"
@@ -206,7 +135,8 @@
                                     BorderThickness=".25" />
                         </ListBoxItem>
                         <ListBoxItem x:Name="WorkMain"
-                                     attach:NavigateTo.PageToken="Work.IllustWork"
+                                     attach:NavigateTo.PageToken="WorkMain"
+                                     attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:0}"
                                      RelativePanel.Below="Separator1">
                             <StackPanel Orientation="Horizontal">
                                 <FontIcon Width="48"
@@ -330,8 +260,8 @@
                             </StackPanel>
                         </ListBoxItem>
                         <ListBoxItem x:Name="AccountMain"
-                                     RelativePanel.Above="SettingsMain"
-                                     IsEnabled="False">
+                                     IsEnabled="False"
+                                     RelativePanel.Above="SettingsMain">
                             <StackPanel Orientation="Horizontal">
                                 <v:AccountInfoControl />
                             </StackPanel>
@@ -369,5 +299,76 @@
                       IsChecked="{Binding ElementName=RootSplitView,
                                           Path=IsPaneOpen,
                                           Mode=TwoWay}" />
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <!-- 0 - Phone (Small) -->
+                <VisualState x:Name="Default">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowHeight="0"
+                                         MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="HamburgerMenu.ItemsPanel">
+                            <Setter.Value>
+                                <ItemsPanelTemplate>
+                                    <StackPanel />
+                                </ItemsPanelTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="RootSplitView.DisplayMode" Value="Overlay" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Large_X">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowHeight="641"
+                                         MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="HamburgerMenu.ItemsPanel">
+                            <Setter.Value>
+                                <ItemsPanelTemplate>
+                                    <RelativePanel HorizontalAlignment="Stretch"
+                                                   VerticalAlignment="Stretch" />
+                                </ItemsPanelTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="RootSplitView.DisplayMode" Value="Overlay" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Large_Y">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowHeight="0"
+                                         MinWindowWidth="641" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="HamburgerMenu.ItemsPanel">
+                            <Setter.Value>
+                                <ItemsPanelTemplate>
+                                    <StackPanel />
+                                </ItemsPanelTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="RootSplitView.DisplayMode" Value="CompactOverlay" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Large_XY">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowHeight="641"
+                                         MinWindowWidth="641" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="HamburgerMenu.ItemsPanel">
+                            <Setter.Value>
+                                <ItemsPanelTemplate>
+                                    <RelativePanel HorizontalAlignment="Stretch"
+                                                   VerticalAlignment="Stretch" />
+                                </ItemsPanelTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="RootSplitView.DisplayMode" Value="CompactOverlay" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 </Page>
