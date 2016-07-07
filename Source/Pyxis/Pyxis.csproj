@@ -161,6 +161,7 @@
     <Compile Include="Models\PixivDetail.cs" />
     <Compile Include="Models\PixivUserImage.cs" />
     <Compile Include="Models\PixivWork.cs" />
+    <Compile Include="Models\PyxisSchemeActivator.cs" />
     <Compile Include="Models\UrlParameter.cs" />
     <Compile Include="Mvvm\ViewModelHelper.cs" />
     <Compile Include="PyxisConstants.cs" />

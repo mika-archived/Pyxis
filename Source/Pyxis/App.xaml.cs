@@ -11,6 +11,7 @@ using Prism.Unity.Windows;
 
 using Pyxis.Alpha;
 using Pyxis.Beta.Interfaces.Rest;
+using Pyxis.Models;
 using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
 using Pyxis.Services;
@@ -44,9 +45,13 @@ namespace Pyxis
 
         #region Overrides of PrismApplication
 
-        protected override Task OnActivateApplicationAsync(IActivatedEventArgs args)
+        protected override Task OnActivateApplicationAsync(IActivatedEventArgs e)
         {
-            Debug.WriteLine(args.PreviousExecutionState);
+            var args = e as ProtocolActivatedEventArgs;
+            if (args == null)
+                return Task.CompletedTask;
+
+            PyxisSchemeActivator.Activate(args.Uri, NavigationService);
             return Task.CompletedTask;
         }
 
