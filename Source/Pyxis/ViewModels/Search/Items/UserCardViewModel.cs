@@ -1,16 +1,10 @@
-﻿using System;
-using System.Reactive.Linq;
-
-using Prism.Windows.Navigation;
+﻿using Prism.Windows.Navigation;
 
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Models;
 using Pyxis.Models.Parameters;
-using Pyxis.Mvvm;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
-
-using Reactive.Bindings.Extensions;
 
 namespace Pyxis.ViewModels.Search.Items
 {
@@ -28,11 +22,6 @@ namespace Pyxis.ViewModels.Search.Items
             _navigationService = navigationService;
             ThumbnailPath = PyxisConstants.DummyIcon;
             Thumbnailable = new PixivUserImage(userPreview.User, imageStoreService);
-            Thumbnailable.ObserveProperty(w => w.ThumbnailPath)
-                         .Where(w => !string.IsNullOrWhiteSpace(w))
-                         .ObserveOnUIDispatcher()
-                         .Subscribe(w => ThumbnailPath = w)
-                         .AddTo(this);
         }
 
         #region Overrides of TappableThumbnailViewModel

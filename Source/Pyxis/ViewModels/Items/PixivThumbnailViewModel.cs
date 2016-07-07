@@ -1,16 +1,10 @@
-﻿using System;
-using System.Reactive.Linq;
-
-using Prism.Windows.Navigation;
+﻿using Prism.Windows.Navigation;
 
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Models;
 using Pyxis.Models.Parameters;
-using Pyxis.Mvvm;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
-
-using Reactive.Bindings.Extensions;
 
 namespace Pyxis.ViewModels.Items
 {
@@ -36,11 +30,6 @@ namespace Pyxis.ViewModels.Items
 
             ThumbnailPath = PyxisConstants.DummyImage;
             Thumbnailable = new PixivImage(illust, imageStoreService);
-            Thumbnailable.ObserveProperty(w => w.ThumbnailPath)
-                         .Where(w => !string.IsNullOrWhiteSpace(w))
-                         .ObserveOnUIDispatcher()
-                         .Subscribe(w => ThumbnailPath = w)
-                         .AddTo(this);
         }
 
         public PixivThumbnailViewModel(INovel novel, IImageStoreService imageStoreService,
@@ -51,11 +40,6 @@ namespace Pyxis.ViewModels.Items
 
             ThumbnailPath = PyxisConstants.DummyImage;
             Thumbnailable = new PixivNovel(novel, imageStoreService);
-            Thumbnailable.ObserveProperty(w => w.ThumbnailPath)
-                         .Where(w => !string.IsNullOrWhiteSpace(w))
-                         .ObserveOnUIDispatcher()
-                         .Subscribe(w => ThumbnailPath = w)
-                         .AddTo(this);
         }
 
         #region Overrides of TappableThumbnailViewModel

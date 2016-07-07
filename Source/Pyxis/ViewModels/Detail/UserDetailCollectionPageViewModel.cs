@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reactive.Linq;
 
 using Prism.Windows.Navigation;
 
@@ -13,12 +12,9 @@ using Pyxis.Helpers;
 using Pyxis.Models;
 using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
-using Pyxis.Mvvm;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
 using Pyxis.ViewModels.Items;
-
-using Reactive.Bindings.Extensions;
 
 namespace Pyxis.ViewModels.Detail
 {
@@ -54,11 +50,6 @@ namespace Pyxis.ViewModels.Detail
             if (!string.IsNullOrWhiteSpace(parameter.Detail.Profile.Webpage))
                 NavigateUrl = new Uri(parameter.Detail.Profile.Webpage);
             Thumbnailable = new PixivUserImage(parameter.Detail.User, _imageStoreService);
-            Thumbnailable.ObserveProperty(v => v.ThumbnailPath)
-                         .Where(v => !string.IsNullOrWhiteSpace(v))
-                         .ObserveOnUIDispatcher()
-                         .Subscribe(v => ThumbnailPath = v)
-                         .AddTo(this);
             var param1 = new UserDetailParameter
             {
                 Detail = parameter.Detail,

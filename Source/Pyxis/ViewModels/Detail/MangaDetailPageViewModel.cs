@@ -100,11 +100,6 @@ namespace Pyxis.ViewModels.Detail
             Width = _illust.Width;
             _illust.Tags.ForEach(w => Tags.Add(new PixivTagViewModel(w, _navigationService)));
             Thumbnailable = new PixivImage(_illust, _imageStoreService, true);
-            Thumbnailable.ObserveProperty(w => w.ThumbnailPath)
-                         .Where(w => !string.IsNullOrWhiteSpace(w))
-                         .ObserveOnUIDispatcher()
-                         .Subscribe(w => ThumbnailPath = w)
-                         .AddTo(this);
             _pixivUser = new PixivUserImage(_illust.User, _imageStoreService);
             _pixivUser.ObserveProperty(w => w.ThumbnailPath)
                       .Where(w => !string.IsNullOrWhiteSpace(w))

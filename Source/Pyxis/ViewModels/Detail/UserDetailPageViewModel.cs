@@ -68,11 +68,6 @@ namespace Pyxis.ViewModels.Detail
             observer.ObserveOnUIDispatcher().Subscribe(w =>
             {
                 Thumbnailable = new PixivUserImage(w.User, _imageStoreService);
-                Thumbnailable.ObserveProperty(v => v.ThumbnailPath)
-                             .Where(v => !string.IsNullOrWhiteSpace(v))
-                             .ObserveOnUIDispatcher()
-                             .Subscribe(v => ThumbnailPath = v)
-                             .AddTo(this);
                 var param1 = new UserDetailParameter
                 {
                     Detail = w,

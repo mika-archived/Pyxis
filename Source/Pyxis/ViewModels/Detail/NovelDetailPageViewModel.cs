@@ -104,11 +104,6 @@ namespace Pyxis.ViewModels.Detail
             TextLength = $"{_novel.TextLength.ToString("##,###")}文字";
             _novel.Tags.ForEach(w => Tags.Add(new PixivTagViewModel(w, _navigationService)));
             Thumbnailable = new PixivNovel(_novel, _imageStoreService);
-            Thumbnailable.ObserveProperty(w => w.ThumbnailPath)
-                         .Where(w => !string.IsNullOrWhiteSpace(w))
-                         .ObserveOnUIDispatcher()
-                         .Subscribe(w => ThumbnailPath = w)
-                         .AddTo(this);
             _pixivUser = new PixivUserImage(_novel.User, _imageStoreService);
             _pixivUser.ObserveProperty(w => w.ThumbnailPath)
                       .Where(w => !string.IsNullOrWhiteSpace(w))

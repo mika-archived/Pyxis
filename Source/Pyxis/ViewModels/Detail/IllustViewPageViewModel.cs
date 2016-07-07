@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reactive.Linq;
+﻿using System.Collections.Generic;
 
 using Prism.Windows.Navigation;
 
@@ -8,8 +6,6 @@ using Pyxis.Models;
 using Pyxis.Models.Parameters;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
-
-using Reactive.Bindings.Extensions;
 
 namespace Pyxis.ViewModels.Detail
 {
@@ -30,10 +26,6 @@ namespace Pyxis.ViewModels.Detail
 
             var parameter = ParameterBase.ToObject<IllustDetailParameter>((string) e.Parameter);
             Thumbnailable = new PixivImage(parameter.Illust, _imageStoreService, true);
-            Thumbnailable.ObserveProperty(w => w.ThumbnailPath)
-                         .Where(w => !string.IsNullOrWhiteSpace(w))
-                         .ObserveOnUIDispatcher()
-                         .Subscribe(w => ThumbnailPath = w);
         }
 
         #endregion
