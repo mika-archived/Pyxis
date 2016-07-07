@@ -23,7 +23,7 @@ using Reactive.Bindings.Extensions;
 
 namespace Pyxis.ViewModels.Detail
 {
-    public class IllustDetailPageViewModel : ThumbnailableViewModel
+    public class IllustDetailPageViewModel : TappableThumbnailViewModel
     {
         private readonly IAccountService _accountService;
         private readonly IImageStoreService _imageStoreService;
@@ -53,6 +53,16 @@ namespace Pyxis.ViewModels.Detail
             ThumbnailPath = PyxisConstants.DummyImage;
             IconPath = PyxisConstants.DummyIcon;
         }
+
+        #region Overrides of TappableThumbnailViewModel
+
+        public override void OnItemTapped()
+        {
+            var parameter = new IllustDetailParameter {Illust = _illust};
+            _navigationService.Navigate("Detail.IllustView", parameter.ToJson());
+        }
+
+        #endregion
 
         #region Events
 
