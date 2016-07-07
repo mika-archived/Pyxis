@@ -55,10 +55,6 @@ namespace Pyxis
             return Task.CompletedTask;
         }
 
-        #endregion
-
-        #region Overrides of PrismApplication
-
         protected override UIElement CreateShell(Frame rootFrame)
         {
             var shell = Container.Resolve<AppShell>();
