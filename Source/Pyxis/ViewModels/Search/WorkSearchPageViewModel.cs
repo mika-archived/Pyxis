@@ -47,7 +47,7 @@ namespace Pyxis.ViewModels.Search
             _searchOption = new SearchOptionParameter
             {
                 SearchType = parameter.SearchType,
-                Target = SearchTarget.TitleCaption,
+                Target = SearchTarget.TagPartial,
                 Duration = SearchDuration.Nothing
             };
             SelectedIndex = (int) parameter.SearchType;
