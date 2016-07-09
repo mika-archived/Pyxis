@@ -10,10 +10,12 @@
       d:DesignHeight="64"
       d:DesignWidth="450"
       mc:Ignorable="d">
-    <Border BorderBrush="{ThemeResource AppBarBorderThemeBrush}"
+    <Border HorizontalAlignment="Stretch"
+            BorderBrush="{ThemeResource AppBarBorderThemeBrush}"
             BorderThickness="1">
         <Grid x:Name="RootGrid"
               Height="64"
+              HorizontalAlignment="Stretch"
               Background="{ThemeResource AppBarBackgroundThemeBrush}">
             <i:Interaction.Behaviors>
                 <core:EventTriggerBehavior EventName="Tapped"
@@ -50,6 +52,7 @@
                            VerticalAlignment="Center"
                            Style="{ThemeResource TitleTextBlockStyle}"
                            Text="{Binding Username}"
+                           TextWrapping="NoWrap"
                            TextTrimming="CharacterEllipsis" />
                 <Button Grid.Column="2"
                         Margin="0,0,10,0"
