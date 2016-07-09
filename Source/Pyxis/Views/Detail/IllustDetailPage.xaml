@@ -16,131 +16,6 @@
       prism:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d">
     <Grid>
-        <GridView x:Name="RootPanel"
-                  ItemsSource="{x:Bind ViewModel.RelatedItems}">
-            <GridView.Header>
-                <StackPanel Margin="10"
-                            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-                    <StackPanel.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="BorderThickness" Value="0,0,0,1" />
-                            <Setter Property="BorderBrush" Value="LightGray" />
-                            <Setter Property="Padding" Value="5" />
-                        </Style>
-                    </StackPanel.Resources>
-                    <Border>
-                        <Grid Tapped="{x:Bind ViewModel.OnItemTapped}">
-                            <Image x:Name="MainImage"
-                                   MaxWidth="{x:Bind ViewModel.Width, Mode=OneWay}"
-                                   MaxHeight="{x:Bind ViewModel.Height, Mode=OneWay}"
-                                   Margin="0,0,0,10"
-                                   Source="{x:Bind ViewModel.ThumbnailPath, Mode=OneWay}"
-                                   Stretch="Uniform"
-                                   Tag="-105" />
-                        </Grid>
-                    </Border>
-                    <Border>
-                        <StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Border Width="48"
-                                        Height="48"
-                                        Margin="5"
-                                        BorderBrush="Transparent"
-                                        CornerRadius="24"
-                                        Tapped="{x:Bind ViewModel.OnTappedUserIcon}">
-                                    <Border.Background>
-                                        <ImageBrush ImageSource="{x:Bind ViewModel.IconPath, Mode=OneWay}" />
-                                    </Border.Background>
-                                </Border>
-                                <StackPanel Margin="10,0">
-                                    <TextBlock Style="{ThemeResource TitleTextBlockStyle}"
-                                               Text="{x:Bind ViewModel.Title, Mode=OneWay}"
-                                               TextWrapping="Wrap" />
-                                    <TextBlock Foreground="{ThemeResource ComboBoxItemDisabledForegroundThemeBrush}"
-                                               Style="{ThemeResource CaptionTextBlockStyle}"
-                                               Text="{x:Bind ViewModel.Username, Mode=OneWay}" />
-                                </StackPanel>
-                            </StackPanel>
-                            <StackPanel Margin="5"
-                                        Orientation="Horizontal">
-                                <StackPanel.Resources>
-                                    <Style BasedOn="{StaticResource CaptionTextBlockStyle}"
-                                           TargetType="TextBlock">
-                                        <Setter Property="Foreground" Value="{ThemeResource ComboBoxDisabledForegroundThemeBrush}" />
-                                    </Style>
-                                </StackPanel.Resources>
-                                <TextBlock Foreground="{ThemeResource ComboBoxDisabledForegroundThemeBrush}"
-                                           Text="{x:Bind ViewModel.CreatedAt, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}at {0}'}" />
-                                <TextBlock Margin="10,0"
-                                           Text="{x:Bind ViewModel.View, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0} views'}" />
-                                <TextBlock Text="{x:Bind ViewModel.Bookmark, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0} bookmarks'}" />
-                            </StackPanel>
-                        </StackPanel>
-                    </Border>
-                    <Border Visibility="{x:Bind ViewModel.ConvertValues[0], Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}">
-                        <RichTextBlock Style="{ThemeResource BodyRichTextBlockStyle}">
-                            <i:Interaction.Behaviors>
-                                <behaviors:RichTextBlockBindingBehavior BindingDocument="{x:Bind ViewModel.ConvertValues, Mode=OneWay, Converter={StaticResource HtmlStringToBlockCollectionConverter}}" />
-                            </i:Interaction.Behaviors>
-                        </RichTextBlock>
-                    </Border>
-                    <Border>
-                        <Grid Margin="5">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="40" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0"
-                                       VerticalAlignment="Top"
-                                       FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                                       Style="{ThemeResource TitleTextBlockStyle}"
-                                       Text="&#xE8EC;" />
-                            <ItemsControl Grid.Column="1"
-                                          ItemsSource="{x:Bind ViewModel.Tags}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <winrt:WrapPanel />
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <items:TagView DataContext="{Binding}" />
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </Grid>
-                    </Border>
-                    <Border>
-                        <StackPanel>
-                            <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}"
-                                       Text="コメント" />
-                            <ItemsControl HorizontalContentAlignment="Stretch"
-                                          ItemsSource="{x:Bind ViewModel.Comments}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <StackPanel />
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <items:CommentView DataContext="{Binding}" />
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                            <!-- もっとみる。 -->
-                        </StackPanel>
-                    </Border>
-                    <TextBlock Margin="5,0"
-                               Style="{ThemeResource SubtitleTextBlockStyle}"
-                               Text="関連作品" />
-                </StackPanel>
-            </GridView.Header>
-            <GridView.ItemTemplate>
-                <DataTemplate>
-                    <items:ThumbnailView DataContext="{Binding}" />
-                </DataTemplate>
-            </GridView.ItemTemplate>
-        </GridView>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState x:Name="Phone">
@@ -240,5 +115,138 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
+        <GridView x:Name="RootPanel"
+                  ItemsSource="{x:Bind ViewModel.RelatedItems}">
+            <GridView.Header>
+                <StackPanel Margin="10"
+                            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                    <StackPanel.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="BorderThickness" Value="0,0,0,1" />
+                            <Setter Property="BorderBrush" Value="LightGray" />
+                            <Setter Property="Padding" Value="5" />
+                        </Style>
+                    </StackPanel.Resources>
+                    <Border>
+                        <Grid Tapped="{x:Bind ViewModel.OnItemTapped}">
+                            <Image x:Name="MainImage"
+                                   MaxWidth="{x:Bind ViewModel.Width, Mode=OneWay}"
+                                   MaxHeight="{x:Bind ViewModel.Height, Mode=OneWay}"
+                                   Margin="0,0,0,10"
+                                   Source="{x:Bind ViewModel.ThumbnailPath, Mode=OneWay}"
+                                   Stretch="Uniform"
+                                   Tag="-105" />
+                        </Grid>
+                    </Border>
+                    <Border>
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Border Width="48"
+                                        Height="48"
+                                        Margin="5"
+                                        BorderBrush="Transparent"
+                                        CornerRadius="24"
+                                        Tapped="{x:Bind ViewModel.OnTappedUserIcon}">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="{x:Bind ViewModel.IconPath, Mode=OneWay}" />
+                                    </Border.Background>
+                                </Border>
+                                <StackPanel Margin="10,0">
+                                    <TextBlock Style="{ThemeResource TitleTextBlockStyle}"
+                                               Text="{x:Bind ViewModel.Title, Mode=OneWay}"
+                                               TextWrapping="Wrap" />
+                                    <TextBlock Foreground="{ThemeResource ComboBoxItemDisabledForegroundThemeBrush}"
+                                               Style="{ThemeResource CaptionTextBlockStyle}"
+                                               Text="{x:Bind ViewModel.Username, Mode=OneWay}" />
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Margin="5"
+                                        Orientation="Horizontal">
+                                <StackPanel.Resources>
+                                    <Style BasedOn="{StaticResource CaptionTextBlockStyle}"
+                                           TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="{ThemeResource ComboBoxDisabledForegroundThemeBrush}" />
+                                    </Style>
+                                </StackPanel.Resources>
+                                <TextBlock Foreground="{ThemeResource ComboBoxDisabledForegroundThemeBrush}"
+                                           Text="{x:Bind ViewModel.CreatedAt, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}at {0}'}" />
+                                <TextBlock Margin="10,0"
+                                           Text="{x:Bind ViewModel.View, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0} views'}" />
+                                <TextBlock Text="{x:Bind ViewModel.Bookmark, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0} bookmarks'}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                    <Border Visibility="{x:Bind ViewModel.ConvertValues[0], Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}">
+                        <RichTextBlock Style="{ThemeResource BodyRichTextBlockStyle}">
+                            <i:Interaction.Behaviors>
+                                <behaviors:RichTextBlockBindingBehavior BindingDocument="{x:Bind ViewModel.ConvertValues, Mode=OneWay, Converter={StaticResource HtmlStringToBlockCollectionConverter}}" />
+                            </i:Interaction.Behaviors>
+                        </RichTextBlock>
+                    </Border>
+                    <Border>
+                        <Grid Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       VerticalAlignment="Top"
+                                       FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                       Style="{ThemeResource TitleTextBlockStyle}"
+                                       Text="&#xE8EC;" />
+                            <ItemsControl Grid.Column="1"
+                                          ItemsSource="{x:Bind ViewModel.Tags}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <winrt:WrapPanel />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <items:TagView DataContext="{Binding}" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Grid>
+                    </Border>
+                    <Border>
+                        <StackPanel>
+                            <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       Text="コメント" />
+                            <TextBlock x:Name="CommentNotPostedMes"
+                                       HorizontalAlignment="Center"
+                                       Foreground="{ThemeResource ComboBoxItemDisabledForegroundThemeBrush}"
+                                       Style="{ThemeResource BodyTextBlockStyle}"
+                                       Text="コメントはありません" />
+                            <ItemsControl HorizontalContentAlignment="Stretch"
+                                          ItemsSource="{x:Bind ViewModel.Comments}">
+                                <i:Interaction.Behaviors>
+                                    <behaviors:ListBoxEmptyBehavior Target="{Binding ElementName=CommentNotPostedMes}" />
+                                </i:Interaction.Behaviors>
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <items:CommentView DataContext="{Binding}" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                            <!-- もっとみる。 -->
+                        </StackPanel>
+                    </Border>
+                    <TextBlock Margin="5,0"
+                               Style="{ThemeResource SubtitleTextBlockStyle}"
+                               Text="関連作品" />
+                </StackPanel>
+            </GridView.Header>
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <items:ThumbnailView DataContext="{Binding}" />
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
     </Grid>
 </Page>
