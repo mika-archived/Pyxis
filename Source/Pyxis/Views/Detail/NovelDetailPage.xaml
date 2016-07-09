@@ -115,7 +115,15 @@
         <StackPanel>
             <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}"
                        Text="コメント" />
+            <TextBlock x:Name="CommentNotPostedMes"
+                       HorizontalAlignment="Center"
+                       Foreground="{ThemeResource ComboBoxItemDisabledForegroundThemeBrush}"
+                       Style="{ThemeResource BodyTextBlockStyle}"
+                       Text="コメントはありません" />
             <ItemsControl ItemsSource="{x:Bind ViewModel.Comments}">
+                <i:Interaction.Behaviors>
+                    <behaviors:ListBoxEmptyBehavior Target="{Binding ElementName=CommentNotPostedMes}" />
+                </i:Interaction.Behaviors>
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel />
