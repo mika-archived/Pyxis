@@ -59,6 +59,7 @@ namespace Pyxis
         {
             var shell = Container.Resolve<AppShell>();
             shell.SetContentFrame(rootFrame);
+            shell.SetCategoryService(Container.Resolve<ICategoryService>());
             return shell;
         }
 
@@ -73,6 +74,7 @@ namespace Pyxis
             Container.RegisterInstance<IAccountService>(accountService, new ContainerControlledLifetimeManager());
             Container.RegisterType<IImageStoreService, ImageStoreService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IDialogService, DialogService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<ICategoryService, CategoryService>(new ContainerControlledLifetimeManager());
             // Container.RegisterInstance<IPixivClient>(new PixivWebClient(), new ContainerControlledLifetimeManager());
 #if !OFFLINE
             await accountService.Login();

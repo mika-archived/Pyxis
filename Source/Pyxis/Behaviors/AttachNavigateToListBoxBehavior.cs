@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Reactive.Linq;
 
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -10,6 +11,9 @@ using Microsoft.Xaml.Interactivity;
 
 using Pyxis.Attach;
 using Pyxis.Helpers;
+using Pyxis.Services.Interfaces;
+
+using Reactive.Bindings.Extensions;
 
 namespace Pyxis.Behaviors
 {
@@ -27,8 +31,14 @@ namespace Pyxis.Behaviors
             DependencyProperty.Register(nameof(TitleTextBlock), typeof(TextBlock),
                                         typeof(AttachNavigateToListBoxBehavior), new PropertyMetadata(null));
 
+        public static readonly DependencyProperty CategoryServiceProperty =
+            DependencyProperty.Register(nameof(CategoryService), typeof(ICategoryService),
+                                        typeof(AttachNavigateToListBoxBehavior), new PropertyMetadata(null));
+
         private readonly Stack<int> _pageStack;
-        private bool _isAttached;
+
+        private int _categoryOldIndex;
+        private IDisposable _disposable;
         private int _oldIndex;
 
         public Frame RootFrame
@@ -49,11 +59,17 @@ namespace Pyxis.Behaviors
             set { SetValue(TitleTextBlockProperty, value); }
         }
 
+        public ICategoryService CategoryService
+        {
+            get { return (ICategoryService) GetValue(CategoryServiceProperty); }
+            set { SetValue(CategoryServiceProperty, value); }
+        }
+
         public AttachNavigateToListBoxBehavior()
         {
             _pageStack = new Stack<int>();
-            _isAttached = false;
             _oldIndex = 1;
+            _categoryOldIndex = 0;
         }
 
         // https://github.com/PrismLibrary/Prism/blob/3dded2/Source/Windows10/Prism.Windows/PrismApplication.cs#L148-L171
@@ -83,6 +99,20 @@ namespace Pyxis.Behaviors
             if (RootFrame != null)
             {
                 RootFrame.Navigating += RootFrameOnNavigating;
+                _disposable = Observable.Interval(TimeSpan.FromMilliseconds(100))
+                                        .ObserveOnUIDispatcher()
+                                        .Where(w => _categoryOldIndex != CategoryService.Index)
+                                        .Subscribe(w =>
+                                        {
+                                            AssociatedObject.SelectionChanged -= OnSelectionChanged;
+                                            _categoryOldIndex = CategoryService.Index;
+                                            if (_categoryOldIndex != 0)
+                                            {
+                                                AssociatedObject.SelectedIndex = CategoryService.Index;
+                                                SetTitle(CategoryService.Name);
+                                            }
+                                            AssociatedObject.SelectionChanged += OnSelectionChanged;
+                                        });
                 return;
             }
             RunHelper.RunLater(AddEventHandler, TimeSpan.FromMilliseconds(100));
@@ -134,6 +164,12 @@ namespace Pyxis.Behaviors
                 TitleTextBlock.Text = str;
         }
 
+        private void SetTitle(string title)
+        {
+            if (TitleTextBlock != null && !string.IsNullOrWhiteSpace(title))
+                TitleTextBlock.Text = title;
+        }
+
         #region Overrides of Behavior
 
         protected override void OnAttached()
@@ -146,6 +182,7 @@ namespace Pyxis.Behaviors
         protected override void OnDetaching()
         {
             AssociatedObject.SelectionChanged -= OnSelectionChanged;
+            _disposable.Dispose();
             base.OnDetaching();
         }
 

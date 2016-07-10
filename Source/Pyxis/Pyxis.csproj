@@ -122,6 +122,7 @@
     <Compile Include="Helpers\RunHelper.cs" />
     <Compile Include="Models\AccountInfo.cs" />
     <Compile Include="Models\Base\ThumbnailableBase.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Enums\FollowType.cs" />
     <Compile Include="Models\Enums\ContentType2.cs" />
     <Compile Include="Models\Enums\ProfileType.cs" />
@@ -167,11 +168,13 @@
     <Compile Include="Mvvm\ViewModelHelper.cs" />
     <Compile Include="PyxisConstants.cs" />
     <Compile Include="Services\AccountService.cs" />
+    <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\DialogService.cs" />
     <Compile Include="Services\ImageStoreService.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Interfaces\IAccountService.cs" />
+    <Compile Include="Services\Interfaces\ICategoryService.cs" />
     <Compile Include="Services\Interfaces\IDialogService.cs" />
     <Compile Include="Services\Interfaces\IImageStoreService.cs" />
     <Compile Include="ViewModels\AccountInfoControlViewModel.cs" />

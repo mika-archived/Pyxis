@@ -23,6 +23,7 @@ namespace Pyxis.ViewModels.Search
     public class SearchResultPageViewModel : ViewModel
     {
         private readonly IAccountService _accountService;
+        private readonly ICategoryService _categoryService;
         private readonly IDialogService _dialogService;
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
@@ -33,11 +34,12 @@ namespace Pyxis.ViewModels.Search
 
         public IncrementalObservableCollection<ThumbnailableViewModel> Results { get; }
 
-        public SearchResultPageViewModel(IAccountService accountService, IDialogService dialogService,
-                                         IImageStoreService imageStoreService, INavigationService navigationService,
-                                         IPixivClient pixivClient)
+        public SearchResultPageViewModel(IAccountService accountService, ICategoryService categoryService,
+                                         IDialogService dialogService, IImageStoreService imageStoreService,
+                                         INavigationService navigationService, IPixivClient pixivClient)
         {
             _accountService = accountService;
+            _categoryService = categoryService;
             _dialogService = dialogService;
             _imageStoreService = imageStoreService;
             NavigationService = navigationService;
@@ -47,6 +49,7 @@ namespace Pyxis.ViewModels.Search
 
         private void Initialize(SearchResultParameter parameter)
         {
+            _categoryService.UpdateCategory();
             SelectedIndex = (int) parameter.Sort;
             SearchQuery = parameter.Query;
             IsLoggedInRequired = !_accountService.IsLoggedIn && parameter.Sort == SearchSort.Popular;

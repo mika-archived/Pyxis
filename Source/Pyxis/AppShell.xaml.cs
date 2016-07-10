@@ -5,6 +5,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 using Pyxis.Annotations;
+using Pyxis.Services.Interfaces;
 
 // 空白ページのアイテム テンプレートについては、http://go.microsoft.com/fwlink/?LinkId=234238 を参照してください
 
@@ -29,6 +30,8 @@ namespace Pyxis
             StoreContentFrame(frame);
         }
 
+        public void SetCategoryService(ICategoryService categoryService) => CategoryService = categoryService;
+
         public void StoreContentFrame(Frame frame) => AppRootFrame = frame;
 
         [NotifyPropertyChangedInvocator]
@@ -49,6 +52,24 @@ namespace Pyxis
                 if (_appRootFrame == value)
                     return;
                 _appRootFrame = value;
+                OnPropertyChanged();
+            }
+        }
+
+        #endregion
+
+        #region CategoryService
+
+        private ICategoryService _categoryService;
+
+        public ICategoryService CategoryService
+        {
+            get { return _categoryService; }
+            set
+            {
+                if (_categoryService == value)
+                    return;
+                _categoryService = value;
                 OnPropertyChanged();
             }
         }

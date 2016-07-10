@@ -10,7 +10,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:v="using:Pyxis.Views"
       mc:Ignorable="d">
-
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel Height="48"
                     Margin="48,0,0,0"
@@ -63,7 +62,8 @@
                             </ItemsPanelTemplate>
                         </ListBox.ItemsPanel>
                         <i:Interaction.Behaviors>
-                            <behaviors:AttachNavigateToListBoxBehavior ParentSplitView="{Binding ElementName=RootSplitView}"
+                            <behaviors:AttachNavigateToListBoxBehavior CategoryService="{x:Bind CategoryService}"
+                                                                       ParentSplitView="{Binding ElementName=RootSplitView}"
                                                                        RootFrame="{x:Bind AppRootFrame}"
                                                                        TitleTextBlock="{Binding ElementName=TitleBar}" />
                         </i:Interaction.Behaviors>
