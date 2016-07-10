@@ -142,21 +142,8 @@ namespace Pyxis.Behaviors
             if (!string.IsNullOrWhiteSpace(pageToken))
                 RootFrame?.Navigate(GetPageType(pageToken), param);
 
-            SetTitle(item?.Content);
             if (ParentSplitView != null)
                 ParentSplitView.IsPaneOpen = false;
-        }
-
-        // マジックナンバーなおしたい
-
-        private void SetTitle(object content)
-        {
-            var stackPanel = content as StackPanel;
-            if (stackPanel == null)
-                return;
-            var str = (stackPanel.Children[1] as TextBlock)?.Text;
-            if (TitleTextBlock != null && !string.IsNullOrWhiteSpace(str))
-                TitleTextBlock.Text = str;
         }
 
         private void SetTitle(string title)
