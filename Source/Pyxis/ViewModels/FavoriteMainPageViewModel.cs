@@ -20,6 +20,7 @@ namespace Pyxis.ViewModels
     public class FavoriteMainPageViewModel : ViewModel
     {
         private readonly IAccountService _accountService;
+        private readonly ICategoryService _categoryService;
         private readonly IDialogService _dialogService;
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
@@ -29,11 +30,12 @@ namespace Pyxis.ViewModels
 
         public IncrementalObservableCollection<TappableThumbnailViewModel> FavoriteItems { get; }
 
-        public FavoriteMainPageViewModel(IAccountService accountService, IDialogService dialogService,
-                                         IImageStoreService imageStoreService, IPixivClient pixivClient,
-                                         INavigationService navigationService)
+        public FavoriteMainPageViewModel(IAccountService accountService, ICategoryService categoryService,
+                                         IDialogService dialogService, IImageStoreService imageStoreService,
+                                         INavigationService navigationService, IPixivClient pixivClient)
         {
             _accountService = accountService;
+            _categoryService = categoryService;
             _dialogService = dialogService;
             _imageStoreService = imageStoreService;
             _pixivClient = pixivClient;
@@ -43,6 +45,7 @@ namespace Pyxis.ViewModels
 
         private void Initialize(FavoriteOptionParameter parameter)
         {
+            _categoryService.UpdateCategory();
             _favoriteOption = parameter;
             _favoriteOption.UserId = _accountService.LoggedInAccount.Id;
             SelectedIndex = (int) parameter.Type;

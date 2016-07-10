@@ -20,6 +20,7 @@ namespace Pyxis.ViewModels.Detail
 {
     public class UserDetailCollectionPageViewModel : ThumbnailableViewModel
     {
+        private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
         private PixivFavorite _pixivFavorite;
@@ -27,9 +28,10 @@ namespace Pyxis.ViewModels.Detail
         public INavigationService NavigationService { get; }
         public IncrementalObservableCollection<ThumbnailableViewModel> Collection { get; }
 
-        public UserDetailCollectionPageViewModel(IImageStoreService imageStoreService,
+        public UserDetailCollectionPageViewModel(ICategoryService categoryService, IImageStoreService imageStoreService,
                                                  INavigationService navigationService, IPixivClient pixivClient)
         {
+            _categoryService = categoryService;
             _imageStoreService = imageStoreService;
             NavigationService = navigationService;
             _pixivClient = pixivClient;
@@ -37,8 +39,22 @@ namespace Pyxis.ViewModels.Detail
             Collection = new IncrementalObservableCollection<ThumbnailableViewModel>();
         }
 
+        #region Overrides of ViewModelBase
+
+        public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
+        {
+            base.OnNavigatedTo(e, viewModelState);
+            var parameter = ParameterBase.ToObject<UserDetailParameter>((string) e?.Parameter);
+            Initialize(parameter);
+        }
+
+        #endregion
+
+        #region Initializers
+
         private void Initialize(UserDetailParameter parameter)
         {
+            _categoryService.UpdateCategory();
             SelectedIndex = (int) parameter.ProfileType;
             if (parameter.ProfileType == ProfileType.Work)
                 SubSelectedIndex1 = (int) parameter.ContentType;
@@ -99,15 +115,6 @@ namespace Pyxis.ViewModels.Detail
                                     .Do(w => w.ProfileType = (ProfileType) SelectedIndex)
                                     .Select(w => (string) w.ToJson())
                                     .ToList();
-        }
-
-        #region Overrides of ViewModelBase
-
-        public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
-        {
-            base.OnNavigatedTo(e, viewModelState);
-            var parameter = ParameterBase.ToObject<UserDetailParameter>((string) e?.Parameter);
-            Initialize(parameter);
         }
 
         #endregion

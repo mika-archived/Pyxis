@@ -26,6 +26,7 @@ namespace Pyxis.ViewModels.Detail
     public class IllustDetailPageViewModel : TappableThumbnailViewModel
     {
         private readonly IAccountService _accountService;
+        private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
         private readonly INavigationService _navigationService;
         private readonly IPixivClient _pixivClient;
@@ -40,10 +41,12 @@ namespace Pyxis.ViewModels.Detail
         public ObservableCollection<PixivCommentViewModel> Comments { get; }
         public IncrementalObservableCollection<PixivThumbnailViewModel> RelatedItems { get; }
 
-        public IllustDetailPageViewModel(IAccountService accountService, IImageStoreService imageStoreService,
-                                         INavigationService navigationService, IPixivClient pixivClient)
+        public IllustDetailPageViewModel(IAccountService accountService, ICategoryService categoryService,
+                                         IImageStoreService imageStoreService, INavigationService navigationService,
+                                         IPixivClient pixivClient)
         {
             _accountService = accountService;
+            _categoryService = categoryService;
             _imageStoreService = imageStoreService;
             _navigationService = navigationService;
             _pixivClient = pixivClient;
@@ -54,22 +57,27 @@ namespace Pyxis.ViewModels.Detail
             IconPath = PyxisConstants.DummyIcon;
         }
 
-        #region Overrides of TappableThumbnailViewModel
+        #region Overrides of ViewModelBase
 
-        public override void OnItemTapped()
+        public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
         {
-            var parameter = new IllustDetailParameter {Illust = _illust};
-            _navigationService.Navigate(IsManga ? "Detail.MangaView" : "Detail.IllustView", parameter.ToJson());
+            base.OnNavigatedTo(e, viewModelState);
+            var parameter = ParameterBase.ToObject<IllustDetailParameter>((string) e.Parameter);
+            if (parameter.Illust != null)
+                Initialize(parameter);
+            else
+            {
+                var param = ParameterBase.ToObject<DetailByIdParameter>((string) e.Parameter);
+                Initialize(param);
+            }
         }
 
-        #endregion
-
-        #region Events
-
-        public void OnTappedUserIcon()
+        public override void OnNavigatingFrom(NavigatingFromEventArgs e, Dictionary<string, object> viewModelState,
+                                              bool suspending)
         {
-            var parameter = new DetailByIdParameter {Id = _illust.User.Id};
-            _navigationService.Navigate("Detail.UserDetail", parameter.ToJson());
+            if (suspending)
+                viewModelState["Illust"] = new IllustDetailParameter {Illust = _illust}.ToJson();
+            base.OnNavigatingFrom(e, viewModelState, suspending);
         }
 
         #endregion
@@ -78,6 +86,7 @@ namespace Pyxis.ViewModels.Detail
 
         private void Initialize()
         {
+            _categoryService.UpdateCategory();
             Title = _illust.Title;
             ConvertValues = new List<object> {_illust.Caption, _navigationService};
             CreatedAt = _illust.CreateDate.ToString("g");
@@ -134,27 +143,18 @@ namespace Pyxis.ViewModels.Detail
 
         #endregion
 
-        #region Overrides of ViewModelBase
+        #region Events
 
-        public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
+        public override void OnItemTapped()
         {
-            base.OnNavigatedTo(e, viewModelState);
-            var parameter = ParameterBase.ToObject<IllustDetailParameter>((string) e.Parameter);
-            if (parameter.Illust != null)
-                Initialize(parameter);
-            else
-            {
-                var param = ParameterBase.ToObject<DetailByIdParameter>((string) e.Parameter);
-                Initialize(param);
-            }
+            var parameter = new IllustDetailParameter {Illust = _illust};
+            _navigationService.Navigate(IsManga ? "Detail.MangaView" : "Detail.IllustView", parameter.ToJson());
         }
 
-        public override void OnNavigatingFrom(NavigatingFromEventArgs e, Dictionary<string, object> viewModelState,
-                                              bool suspending)
+        public void OnTappedUserIcon()
         {
-            if (suspending)
-                viewModelState["Illust"] = new IllustDetailParameter {Illust = _illust}.ToJson();
-            base.OnNavigatingFrom(e, viewModelState, suspending);
+            var parameter = new DetailByIdParameter {Id = _illust.User.Id};
+            _navigationService.Navigate("Detail.UserDetail", parameter.ToJson());
         }
 
         #endregion

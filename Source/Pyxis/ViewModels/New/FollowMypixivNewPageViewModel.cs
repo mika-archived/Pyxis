@@ -21,6 +21,7 @@ namespace Pyxis.ViewModels.New
     public class FollowMypixivNewPageViewModel : ViewModel
     {
         private readonly IAccountService _accountService;
+        private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
         private PixivNew _pixivNew;
@@ -28,18 +29,34 @@ namespace Pyxis.ViewModels.New
 
         public IncrementalObservableCollection<TappableThumbnailViewModel> NewItems { get; }
 
-        public FollowMypixivNewPageViewModel(IAccountService accountService, IImageStoreService imageStoreService,
-                                             IPixivClient pixivClient, INavigationService navigationService)
+        public FollowMypixivNewPageViewModel(IAccountService accountService, ICategoryService categoryService,
+                                             IImageStoreService imageStoreService, INavigationService navigationService,
+                                             IPixivClient pixivClient)
         {
             _accountService = accountService;
+            _categoryService = categoryService;
             _imageStoreService = imageStoreService;
             _pixivClient = pixivClient;
             NavigationService = navigationService;
             NewItems = new IncrementalObservableCollection<TappableThumbnailViewModel>();
         }
 
+        #region Overrides of ViewModelBase
+
+        public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
+        {
+            base.OnNavigatedTo(e, viewModelState);
+            var parameters = ParameterBase.ToObject<NewParameter>(e.Parameter?.ToString());
+            Initialize(parameters);
+        }
+
+        #endregion
+
+        #region Initializers
+
         private void Initialize(NewParameter parameter)
         {
+            _categoryService.UpdateCategory();
             SelectedIndex = (int) parameter.FollowType;
             SubSelectdIndex = (int) parameter.ContentType;
             IsLoggedInRequired = !_accountService.IsLoggedIn;
@@ -53,6 +70,10 @@ namespace Pyxis.ViewModels.New
             else
                 ModelHelper.ConnectTo(NewItems, _pixivNew, w => w.NewNovels, CreatePixivNovel);
         }
+
+        #endregion
+
+        #region Events
 
         public async void OnRegisterButtonTapped()
             => await Launcher.LaunchUriAsync(new Uri("https://accounts.pixiv.net/signup"));
@@ -71,14 +92,15 @@ namespace Pyxis.ViewModels.New
             NavigationService.Navigate("Account.Login", parameter.ToJson());
         }
 
-        #region Overrides of ViewModelBase
+        #endregion
 
-        public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
-        {
-            base.OnNavigatedTo(e, viewModelState);
-            var parameters = ParameterBase.ToObject<NewParameter>(e.Parameter?.ToString());
-            Initialize(parameters);
-        }
+        #region Converters
+
+        private PixivThumbnailViewModel CreatePixivImage(IIllust w) =>
+            new PixivThumbnailViewModel(w, _imageStoreService, NavigationService);
+
+        private PixivThumbnailViewModel CreatePixivNovel(INovel w) =>
+            new PixivThumbnailViewModel(w, _imageStoreService, NavigationService);
 
         #endregion
 
@@ -115,16 +137,6 @@ namespace Pyxis.ViewModels.New
             get { return _subSelectedIndex; }
             set { SetProperty(ref _subSelectedIndex, value); }
         }
-
-        #endregion
-
-        #region Converters
-
-        private PixivThumbnailViewModel CreatePixivImage(IIllust w) =>
-            new PixivThumbnailViewModel(w, _imageStoreService, NavigationService);
-
-        private PixivThumbnailViewModel CreatePixivNovel(INovel w) =>
-            new PixivThumbnailViewModel(w, _imageStoreService, NavigationService);
 
         #endregion
     }

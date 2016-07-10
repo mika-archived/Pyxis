@@ -47,6 +47,19 @@ namespace Pyxis.ViewModels.Search
             Results = new IncrementalObservableCollection<ThumbnailableViewModel>();
         }
 
+        #region Overrides of ViewModelBase
+
+        public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
+        {
+            base.OnNavigatedTo(e, viewModelState);
+            var parameter = ParameterBase.ToObject<SearchResultParameter>((string) e?.Parameter);
+            Initialize(parameter);
+        }
+
+        #endregion
+
+        #region Initializers
+
         private void Initialize(SearchResultParameter parameter)
         {
             _categoryService.UpdateCategory();
@@ -78,6 +91,10 @@ namespace Pyxis.ViewModels.Search
                                        .Select(w => (string) w.ToJson())
                                        .ToList();
         }
+
+        #endregion
+
+        #region Events
 
         public async void OnButtonTapped()
         {
@@ -114,15 +131,6 @@ namespace Pyxis.ViewModels.Search
                 Parameter = sp
             };
             NavigationService.Navigate("Account.Login", parameter.ToJson());
-        }
-
-        #region Overrides of ViewModelBase
-
-        public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
-        {
-            base.OnNavigatedTo(e, viewModelState);
-            var parameter = ParameterBase.ToObject<SearchResultParameter>((string) e?.Parameter);
-            Initialize(parameter);
         }
 
         #endregion

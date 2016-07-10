@@ -20,11 +20,6 @@ namespace Pyxis.ViewModels.Error
             _navigationService = navigationService;
         }
 
-        public async void OnRegisterButtonTapped()
-            => await Launcher.LaunchUriAsync(new Uri("https://accounts.pixiv.net/signup"));
-
-        public void OnLoginButtonTapped() => _navigationService.Navigate("Account.Login", _parameter.ToJson());
-
         #region Overrides of ViewModelBase
 
         public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
@@ -32,6 +27,15 @@ namespace Pyxis.ViewModels.Error
             base.OnNavigatedTo(e, viewModelState);
             _parameter = ParameterBase.ToObject<RedirectParameter>(e.Parameter?.ToString());
         }
+
+        #endregion
+
+        #region Events
+
+        public async void OnRegisterButtonTapped()
+            => await Launcher.LaunchUriAsync(new Uri("https://accounts.pixiv.net/signup"));
+
+        public void OnLoginButtonTapped() => _navigationService.Navigate("Account.Login", _parameter.ToJson());
 
         #endregion
     }

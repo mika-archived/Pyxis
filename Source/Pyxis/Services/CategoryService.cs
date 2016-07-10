@@ -22,7 +22,7 @@ namespace Pyxis.Services
             new Category("Follower", "フォロワー", 11),
             new Category("Mypixiv", "マイピク", 12),
             new Category("Settings", "設定", 14),
-            new Category("Detail", "詳細", -1)
+            new Category("Detail", "詳細", 0)
         };
 
         public CategoryService()
@@ -32,8 +32,24 @@ namespace Pyxis.Services
 
         #region Implementation of ICategoryService
 
-        public string Name { get; private set; }
+        #region Name
+
+        private string _name;
+
+        public string Name
+        {
+            get
+            {
+                UpdateRequired = false;
+                return _name;
+            }
+            private set { _name = value; }
+        }
+
+        #endregion
+
         public int Index { get; private set; }
+        public bool UpdateRequired { get; private set; }
 
         public void UpdateCategory([CallerFilePath] string filePath = "")
         {
@@ -41,7 +57,7 @@ namespace Pyxis.Services
             var firstIndex = filePath.IndexOf("Source\\Pyxis");
             var fullName = Path.GetFileNameWithoutExtension(filePath.Substring(firstIndex + "Source\\".Length)
                                                                     .Replace("\\", "."));
-            var classNameWithNamespace = fullName.Replace(typeof(App).Namespace + ".ViewModels", "");
+            var classNameWithNamespace = fullName.Replace(typeof(App).Namespace + ".ViewModels.", "");
             var index = 0;
             var name = "";
             foreach (var kvp in _categoryTable)
@@ -61,14 +77,9 @@ namespace Pyxis.Services
                     name = kvp.Name;
                 }
             }
-            if (index <= 0)
-            {
-                Index = 0;
-                return;
-            }
-
             Index = index;
             Name = name;
+            UpdateRequired = true;
         }
 
         #endregion

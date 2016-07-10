@@ -8,6 +8,8 @@ namespace Pyxis.Services.Interfaces
 
         int Index { get; }
 
+        bool UpdateRequired { get; }
+
         void UpdateCategory([CallerFilePath] string filePath = "");
     }
 }

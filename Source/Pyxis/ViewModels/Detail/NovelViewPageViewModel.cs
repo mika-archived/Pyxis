@@ -8,6 +8,7 @@ using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Models;
 using Pyxis.Models.Parameters;
 using Pyxis.Mvvm;
+using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
 
 using Reactive.Bindings.Extensions;
@@ -16,17 +17,20 @@ namespace Pyxis.ViewModels.Detail
 {
     public class NovelViewPageViewModel : ViewModel
     {
+        private readonly ICategoryService _categoryService;
         private readonly IPixivClient _pixivClient;
         private PixivNovelText _pixivNovelText;
 
-        public NovelViewPageViewModel(IPixivClient pixivClient)
+        public NovelViewPageViewModel(ICategoryService categoryService, IPixivClient pixivClient)
         {
+            _categoryService = categoryService;
             _pixivClient = pixivClient;
             Text = "読込中...";
         }
 
         private void Initialize(NovelDetailParameter parameter)
         {
+            _categoryService.UpdateCategory();
             var novel = parameter.Novel;
             _pixivNovelText = new PixivNovelText(novel, _pixivClient);
             _pixivNovelText.ObserveProperty(w => w.Text)

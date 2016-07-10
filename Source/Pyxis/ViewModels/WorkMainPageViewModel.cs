@@ -19,6 +19,7 @@ namespace Pyxis.ViewModels
     public class WorkMainPageViewModel : ViewModel
     {
         private readonly IAccountService _accountService;
+        private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
         private PixivWork _pixivWork;
@@ -26,10 +27,12 @@ namespace Pyxis.ViewModels
         public INavigationService NavigationService { get; }
         public IncrementalObservableCollection<TappableThumbnailViewModel> WorkItems { get; }
 
-        public WorkMainPageViewModel(IAccountService accountService, IImageStoreService imageStoreService,
-                                     INavigationService navigationService, IPixivClient pixivClient)
+        public WorkMainPageViewModel(IAccountService accountService, ICategoryService categoryService,
+                                     IImageStoreService imageStoreService, INavigationService navigationService,
+                                     IPixivClient pixivClient)
         {
             _accountService = accountService;
+            _categoryService = categoryService;
             _imageStoreService = imageStoreService;
             NavigationService = navigationService;
             _pixivClient = pixivClient;
@@ -38,6 +41,7 @@ namespace Pyxis.ViewModels
 
         private void Initialize(WorkParameter parameter)
         {
+            _categoryService.UpdateCategory();
             SelectedIndex = (int) parameter.ContentType;
             _pixivWork = new PixivWork(_accountService.LoggedInAccount.Id, parameter.ContentType, _pixivClient);
             if (parameter.ContentType != ContentType.Novel)

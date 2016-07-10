@@ -21,6 +21,7 @@ namespace Pyxis.ViewModels.Detail
     public class UserDetailPageViewModel : ThumbnailableViewModel
     {
         private readonly IAccountService _accountService;
+        private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
         private PixivDetail _pixivUser;
@@ -50,18 +51,34 @@ namespace Pyxis.ViewModels.Detail
         public ReadOnlyReactiveProperty<string> Chair { get; private set; }
         public ReadOnlyReactiveProperty<string> Other { get; private set; }
 
-        public UserDetailPageViewModel(IAccountService accountService, IImageStoreService imageStoreService,
-                                       INavigationService navigationService, IPixivClient pixivClient)
+        public UserDetailPageViewModel(IAccountService accountService, ICategoryService categoryService,
+                                       IImageStoreService imageStoreService, INavigationService navigationService,
+                                       IPixivClient pixivClient)
         {
             _accountService = accountService;
+            _categoryService = categoryService;
             _imageStoreService = imageStoreService;
             NavigationService = navigationService;
             _pixivClient = pixivClient;
             ThumbnailPath = PyxisConstants.DummyIcon;
         }
 
+        #region Overrides of ViewModelBase
+
+        public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
+        {
+            base.OnNavigatedTo(e, viewModelState);
+            var parameter = ParameterBase.ToObject<DetailByIdParameter>((string) e?.Parameter);
+            Initialie(parameter);
+        }
+
+        #endregion
+
+        #region Initializers
+
         private void Initialie(DetailByIdParameter parameter)
         {
+            _categoryService.UpdateCategory();
             var id = string.IsNullOrWhiteSpace(parameter.Id) ? _accountService.LoggedInAccount.Id : parameter.Id;
             _pixivUser = new PixivDetail(id, SearchType.Users, _pixivClient);
             var observer = _pixivUser.ObserveProperty(w => w.UserDetail).Where(w => w != null).Publish();
@@ -110,15 +127,6 @@ namespace Pyxis.ViewModels.Detail
             observer.Connect().AddTo(this);
 
             _pixivUser.Fetch();
-        }
-
-        #region Overrides of ViewModelBase
-
-        public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
-        {
-            base.OnNavigatedTo(e, viewModelState);
-            var parameter = ParameterBase.ToObject<DetailByIdParameter>((string) e?.Parameter);
-            Initialie(parameter);
         }
 
         #endregion

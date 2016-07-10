@@ -25,6 +25,7 @@ namespace Pyxis.ViewModels
     public class HomeMainPageViewModel : ViewModel
     {
         private readonly IAccountService _accountService;
+        private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
         private PixivRanking _pixivRanking;
@@ -34,10 +35,12 @@ namespace Pyxis.ViewModels
         public ReadOnlyReactiveCollection<RankingViewModel> TopRanking { get; private set; }
         public IncrementalObservableCollection<TappableThumbnailViewModel> RecommendedItems { get; }
 
-        public HomeMainPageViewModel(IAccountService accountService, IImageStoreService imageStoreService,
-                                     IPixivClient pixivClient, INavigationService navigationService)
+        public HomeMainPageViewModel(IAccountService accountService, ICategoryService categoryService,
+                                     IImageStoreService imageStoreService, IPixivClient pixivClient,
+                                     INavigationService navigationService)
         {
             _accountService = accountService;
+            _categoryService = categoryService;
             _imageStoreService = imageStoreService;
             _pixivClient = pixivClient;
             NavigationService = navigationService;
@@ -46,6 +49,7 @@ namespace Pyxis.ViewModels
 
         private void Initialize(HomeParameter parameter)
         {
+            _categoryService.UpdateCategory();
             SelectedIndex = (int) parameter.ContentType;
             _pixivRanking = new PixivRanking(_pixivClient, parameter.ContentType);
             _pixivRecommended = new PixivRecommended(_accountService, _pixivClient, parameter.ContentType);

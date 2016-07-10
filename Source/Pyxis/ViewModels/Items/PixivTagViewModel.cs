@@ -20,6 +20,8 @@ namespace Pyxis.ViewModels.Items
             _navigationService = navigationService;
         }
 
+        #region Events
+
         public void OnItemTapped()
         {
             var parameter = new SearchResultParameter
@@ -33,5 +35,7 @@ namespace Pyxis.ViewModels.Items
             };
             _navigationService.Navigate("Search.SearchResult", parameter.ToJson());
         }
+
+        #endregion
     }
 }

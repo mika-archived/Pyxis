@@ -21,6 +21,7 @@ namespace Pyxis.ViewModels.Search
 {
     public class WorkSearchPageViewModel : ViewModel
     {
+        private readonly ICategoryService _categoryService;
         private readonly IDialogService _dialogService;
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
@@ -30,10 +31,11 @@ namespace Pyxis.ViewModels.Search
         public INavigationService NavigationService { get; }
         public ObservableCollection<TrendingTagViewModel> TrendingTags { get; }
 
-        public WorkSearchPageViewModel(IDialogService dialogService, IImageStoreService imageStoreService,
-                                       INavigationService navigationService,
+        public WorkSearchPageViewModel(ICategoryService categoryService, IDialogService dialogService,
+                                       IImageStoreService imageStoreService, INavigationService navigationService,
                                        IPixivClient pixivClient)
         {
+            _categoryService = categoryService;
             _dialogService = dialogService;
             _imageStoreService = imageStoreService;
             NavigationService = navigationService;
@@ -41,8 +43,22 @@ namespace Pyxis.ViewModels.Search
             TrendingTags = new ObservableCollection<TrendingTagViewModel>();
         }
 
+        #region Overrides of ViewModelBase
+
+        public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
+        {
+            base.OnNavigatedTo(e, viewModelState);
+            var parameter = ParameterBase.ToObject<SearchHomeParameter>((string) e.Parameter);
+            Initialize(parameter);
+        }
+
+        #endregion
+
+        #region Initializers
+
         private void Initialize(SearchHomeParameter parameter)
         {
+            _categoryService.UpdateCategory();
             _count = 0;
             _searchOption = new SearchOptionParameter
             {
@@ -69,6 +85,17 @@ namespace Pyxis.ViewModels.Search
 #endif
         }
 
+        #endregion
+
+        #region Converters
+
+        private TrendingTagViewModel CreateTrendingTag(ITrendTag trendTag)
+            => new TrendingTagViewModel((SearchType) SelectedIndex, trendTag, _imageStoreService, NavigationService);
+
+        #endregion
+
+        #region Events
+
         public async void OnButtonTapped()
         {
             var result = await _dialogService.ShowDialogAsync("Dialogs.SearchOption", _searchOption);
@@ -88,22 +115,6 @@ namespace Pyxis.ViewModels.Search
             };
             NavigationService.Navigate("Search.SearchResult", parameter.ToJson());
         }
-
-        #region Overrides of ViewModelBase
-
-        public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
-        {
-            base.OnNavigatedTo(e, viewModelState);
-            var parameter = ParameterBase.ToObject<SearchHomeParameter>((string) e.Parameter);
-            Initialize(parameter);
-        }
-
-        #endregion
-
-        #region Converters
-
-        private TrendingTagViewModel CreateTrendingTag(ITrendTag trendTag)
-            => new TrendingTagViewModel((SearchType) SelectedIndex, trendTag, _imageStoreService, NavigationService);
 
         #endregion
 

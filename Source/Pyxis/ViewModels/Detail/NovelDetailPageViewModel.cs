@@ -25,6 +25,7 @@ namespace Pyxis.ViewModels.Detail
     public class NovelDetailPageViewModel : ThumbnailableViewModel
     {
         private readonly IAccountService _accountService;
+        private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
         private readonly INavigationService _navigationService;
         private readonly IPixivClient _pixivClient;
@@ -42,10 +43,12 @@ namespace Pyxis.ViewModels.Detail
         public ObservableCollection<PixivTagViewModel> Tags { get; }
         public ObservableCollection<PixivCommentViewModel> Comments { get; }
 
-        public NovelDetailPageViewModel(IAccountService accountService, IImageStoreService imageStoreService,
-                                        INavigationService navigationService, IPixivClient pixivClient)
+        public NovelDetailPageViewModel(IAccountService accountService, ICategoryService categoryService,
+                                        IImageStoreService imageStoreService, INavigationService navigationService,
+                                        IPixivClient pixivClient)
         {
             _accountService = accountService;
+            _categoryService = categoryService;
             _imageStoreService = imageStoreService;
             _navigationService = navigationService;
             _pixivClient = pixivClient;
@@ -54,19 +57,6 @@ namespace Pyxis.ViewModels.Detail
             ThumbnailPath = PyxisConstants.DummyImage;
             IconPath = PyxisConstants.DummyIcon;
         }
-
-        public void OnTappedButton()
-        {
-            var parameter = new NovelDetailParameter {Novel = _novel};
-            _navigationService.Navigate("Detail.NovelView", parameter.ToJson());
-        }
-
-        #region Converters
-
-        private PixivCommentViewModel CreatePixivComment(IComment w) =>
-            new PixivCommentViewModel(w, _imageStoreService);
-
-        #endregion
 
         #region Overrides of ViewModelBase
 
@@ -85,16 +75,18 @@ namespace Pyxis.ViewModels.Detail
 
         #endregion
 
-        public void OnTappedUserIcon()
-        {
-            var parameter = new DetailByIdParameter {Id = _novel.User.Id};
-            _navigationService.Navigate("Detail.UserDetail", parameter.ToJson());
-        }
+        #region Converters
+
+        private PixivCommentViewModel CreatePixivComment(IComment w) =>
+            new PixivCommentViewModel(w, _imageStoreService);
+
+        #endregion
 
         #region Initializer
 
         private void Initialize()
         {
+            _categoryService.UpdateCategory();
             Title = _novel.Title;
             ConvertValues = new List<object> {_novel.Caption, _navigationService};
             CreatedAt = _novel.CreateDate.ToString("g");
@@ -143,6 +135,22 @@ namespace Pyxis.ViewModels.Detail
                             Initialize();
                         }).AddTo(this);
             _pixivDetail.Fetch();
+        }
+
+        #endregion
+
+        #region Events
+
+        public void OnTappedButton()
+        {
+            var parameter = new NovelDetailParameter {Novel = _novel};
+            _navigationService.Navigate("Detail.NovelView", parameter.ToJson());
+        }
+
+        public void OnTappedUserIcon()
+        {
+            var parameter = new DetailByIdParameter {Id = _novel.User.Id};
+            _navigationService.Navigate("Detail.UserDetail", parameter.ToJson());
         }
 
         #endregion

@@ -18,6 +18,7 @@ namespace Pyxis.ViewModels.Search
     public class UserSearchPageViewModel : ViewModel
     {
         private readonly IAccountService _accountService;
+        private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
         private PixivRecommended _pixivRecommended;
@@ -26,23 +27,41 @@ namespace Pyxis.ViewModels.Search
 
         public IncrementalObservableCollection<TappableThumbnailViewModel> Users { get; }
 
-        public UserSearchPageViewModel(IAccountService accountService, IImageStoreService imageStoreService,
-                                       INavigationService navigationService,
+        public UserSearchPageViewModel(IAccountService accountService, ICategoryService categoryService,
+                                       IImageStoreService imageStoreService, INavigationService navigationService,
                                        IPixivClient pixivClient)
         {
             _accountService = accountService;
+            _categoryService = categoryService;
             _imageStoreService = imageStoreService;
             _pixivClient = pixivClient;
             NavigationService = navigationService;
             Users = new IncrementalObservableCollection<TappableThumbnailViewModel>();
         }
 
+        #region Overrides of ViewModelBase
+
+        public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
+        {
+            base.OnNavigatedTo(e, viewModelState);
+            Initialize();
+        }
+
+        #endregion
+
+        #region Initializers
+
         private void Initialize()
         {
+            _categoryService.UpdateCategory();
             _pixivRecommended = new PixivRecommended(_accountService, _pixivClient, ContentType.User);
             _pixivSearch = new PixivSearch(_pixivClient);
             ModelHelper.ConnectTo(Users, _pixivRecommended, w => w.RecommendedUsers, CreateUserViewModel);
         }
+
+        #endregion
+
+        #region Events
 
         public void OnQuerySubmitted()
         {
@@ -55,20 +74,12 @@ namespace Pyxis.ViewModels.Search
             _pixivSearch.Search(QueryText, new SearchOptionParameter {SearchType = SearchType.Users});
         }
 
+        #endregion
+
         #region Converters
 
         private TappableThumbnailViewModel CreateUserViewModel(IUserPreview userPreview)
             => new UserCardViewModel(userPreview, _imageStoreService, NavigationService, _pixivClient);
-
-        #endregion
-
-        #region Overrides of ViewModelBase
-
-        public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
-        {
-            base.OnNavigatedTo(e, viewModelState);
-            Initialize();
-        }
 
         #endregion
 

@@ -11,10 +11,12 @@ namespace Pyxis.ViewModels.Detail
 {
     public class IllustViewPageViewModel : ThumbnailableViewModel
     {
+        private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
 
-        public IllustViewPageViewModel(IImageStoreService imageStoreService)
+        public IllustViewPageViewModel(ICategoryService categoryService, IImageStoreService imageStoreService)
         {
+            _categoryService = categoryService;
             _imageStoreService = imageStoreService;
         }
 
@@ -25,6 +27,7 @@ namespace Pyxis.ViewModels.Detail
             base.OnNavigatedTo(e, viewModelState);
 
             var parameter = ParameterBase.ToObject<IllustDetailParameter>((string) e.Parameter);
+            _categoryService.UpdateCategory();
             Thumbnailable = new PixivImage(parameter.Illust, _imageStoreService, true);
         }
 

@@ -37,7 +37,6 @@ namespace Pyxis.Behaviors
 
         private readonly Stack<int> _pageStack;
 
-        private int _categoryOldIndex;
         private IDisposable _disposable;
         private int _oldIndex;
 
@@ -69,7 +68,6 @@ namespace Pyxis.Behaviors
         {
             _pageStack = new Stack<int>();
             _oldIndex = 1;
-            _categoryOldIndex = 0;
         }
 
         // https://github.com/PrismLibrary/Prism/blob/3dded2/Source/Windows10/Prism.Windows/PrismApplication.cs#L148-L171
@@ -101,16 +99,13 @@ namespace Pyxis.Behaviors
                 RootFrame.Navigating += RootFrameOnNavigating;
                 _disposable = Observable.Interval(TimeSpan.FromMilliseconds(100))
                                         .ObserveOnUIDispatcher()
-                                        .Where(w => _categoryOldIndex != CategoryService.Index)
+                                        .Where(w => CategoryService.UpdateRequired)
                                         .Subscribe(w =>
                                         {
                                             AssociatedObject.SelectionChanged -= OnSelectionChanged;
-                                            _categoryOldIndex = CategoryService.Index;
-                                            if (_categoryOldIndex != 0)
-                                            {
+                                            if (CategoryService.Index > 0)
                                                 AssociatedObject.SelectedIndex = CategoryService.Index;
-                                                SetTitle(CategoryService.Name);
-                                            }
+                                            SetTitle(CategoryService.Name);
                                             AssociatedObject.SelectionChanged += OnSelectionChanged;
                                         });
                 return;

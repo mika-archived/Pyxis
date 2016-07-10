@@ -14,18 +14,21 @@ namespace Pyxis.ViewModels.Detail
     // TODO: モバイル実機限定で、3ページ目だけ何故か表示されないことがある。
     public class MangaViewPageViewModel : ViewModel
     {
+        private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
 
         public ObservableCollection<PixivMangaImageViewModel> MangaPages { get; }
 
-        public MangaViewPageViewModel(IImageStoreService imageStoreService)
+        public MangaViewPageViewModel(ICategoryService categoryService, IImageStoreService imageStoreService)
         {
+            _categoryService = categoryService;
             _imageStoreService = imageStoreService;
             MangaPages = new ObservableCollection<PixivMangaImageViewModel>();
         }
 
         private void Initialize(IllustDetailParameter parameter)
         {
+            _categoryService.UpdateCategory();
             foreach (var item in parameter.Illust.MetaPages.Select((w, i) => new {Index = i}).Reverse())
                 MangaPages.Add(new PixivMangaImageViewModel(parameter.Illust, item.Index, _imageStoreService));
             SelectedIndex = parameter.Illust.MetaPages.Count - 1;
