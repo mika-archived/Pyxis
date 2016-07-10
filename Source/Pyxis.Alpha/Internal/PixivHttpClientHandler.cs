@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Net;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,7 +19,11 @@ namespace Pyxis.Alpha.Internal
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
                                                                CancellationToken cancellationToken)
         {
-            // request.Headers.Add("Accept-Encoding", "gzip, deflate");
+            if (InnerHandler is HttpClientHandler)
+            {
+                ((HttpClientHandler) InnerHandler).AutomaticDecompression =
+                    DecompressionMethods.GZip | DecompressionMethods.Deflate;
+            }
             request.Headers.Add("App-Version", "6.0.1");
             request.Headers.Add("App-OS", "ios");
             request.Headers.Add("App-OS-Version", "9.3.2");
