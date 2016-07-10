@@ -8,6 +8,7 @@ using Pyxis.Collections;
 using Pyxis.Helpers;
 using Pyxis.Models;
 using Pyxis.Models.Enums;
+using Pyxis.Models.Parameters;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
 using Pyxis.ViewModels.Search.Items;
@@ -20,9 +21,10 @@ namespace Pyxis.ViewModels.Search
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
         private PixivRecommended _pixivRecommended;
+        private PixivSearch _pixivSearch;
         public INavigationService NavigationService { get; }
 
-        public IncrementalObservableCollection<TappableThumbnailViewModel> RecommendedUsers { get; }
+        public IncrementalObservableCollection<TappableThumbnailViewModel> Users { get; }
 
         public UserSearchPageViewModel(IAccountService accountService, IImageStoreService imageStoreService,
                                        INavigationService navigationService,
@@ -32,23 +34,25 @@ namespace Pyxis.ViewModels.Search
             _imageStoreService = imageStoreService;
             _pixivClient = pixivClient;
             NavigationService = navigationService;
-            RecommendedUsers = new IncrementalObservableCollection<TappableThumbnailViewModel>();
+            Users = new IncrementalObservableCollection<TappableThumbnailViewModel>();
         }
 
         private void Initialize()
         {
             _pixivRecommended = new PixivRecommended(_accountService, _pixivClient, ContentType.User);
-            ModelHelper.ConnectTo(RecommendedUsers, _pixivRecommended, w => w.RecommendedUsers, CreateUserViewModel);
+            _pixivSearch = new PixivSearch(_pixivClient);
+            ModelHelper.ConnectTo(Users, _pixivRecommended, w => w.RecommendedUsers, CreateUserViewModel);
         }
 
         public void OnQuerySubmitted()
         {
-
-        }
-
-        public void OnButtonTapped()
-        {
-
+            if (_pixivRecommended != null)
+            {
+                _pixivRecommended = null;
+                Users.Clear();
+                ModelHelper.ConnectTo(Users, _pixivSearch, w => w.ResultUsers, CreateUserViewModel);
+            }
+            _pixivSearch.Search(QueryText, new SearchOptionParameter {SearchType = SearchType.Users});
         }
 
         #region Converters

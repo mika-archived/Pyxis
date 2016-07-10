@@ -27,7 +27,7 @@
                     Content="&#xE8FD;"
                     FontFamily="{ThemeResource SymbolThemeFontFamily}"
                     FontSize="24"
-                    Tapped="{x:Bind ViewModel.OnButtonTapped}" />
+                    IsEnabled="False" />
         </Grid>
         <Pivot SelectedIndex="2"
                Style="{StaticResource MiniTabsStylePivotStyle}">
@@ -59,7 +59,7 @@
                 </PivotItem.Header>
             </PivotItem>
         </Pivot>
-        <ListView ItemsSource="{x:Bind ViewModel.RecommendedUsers}">
+        <ListView ItemsSource="{x:Bind ViewModel.Users}">
             <interactivity:Interaction.Behaviors>
                 <behaviors:AdjustControlSizeBehavior HeightOffset="-137"
                                                      IsSyncHeight="True" />
