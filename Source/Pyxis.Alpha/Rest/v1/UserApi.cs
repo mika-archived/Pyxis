@@ -36,6 +36,9 @@ namespace Pyxis.Alpha.Rest.v1
         public async Task<IIllusts> IllustsAsync(params Expression<Func<string, object>>[] parameters)
             => await _client.GetAsync<Illusts>(Endpoints.UserIllusts, false, parameters);
 
+        public async Task<IUsers> ListAsync(params Expression<Func<string, object>>[] parameters)
+            => await _client.GetAsync<Users>(Endpoints.UserList, false, parameters);
+
         public async Task<IUserPreviews> MypixivAsync(params Expression<Func<string, object>>[] parameters)
             => await _client.GetAsync<UserPreviews>(Endpoints.UserMypixiv, false, parameters);
 

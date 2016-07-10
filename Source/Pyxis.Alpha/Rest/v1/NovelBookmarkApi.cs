@@ -20,6 +20,9 @@ namespace Pyxis.Alpha.Rest.v1
         public async Task AddAsync(params Expression<Func<string, object>>[] parameters)
             => await _client.PostAsync<Task>(Endpoints.NovelBookmarkAdd, true, parameters);
 
+        public async Task DeleteAsync(params Expression<Func<string, object>>[] parameters)
+            => await _client.PostAsync<Task>(Endpoints.NovelBookmarkDelete, true, parameters);
+
         #endregion
     }
 }

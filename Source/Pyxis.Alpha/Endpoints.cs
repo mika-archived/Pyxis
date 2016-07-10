@@ -18,6 +18,8 @@
 
         public static string IllustBookmarkAdd => $"{BaseUrl}/{Version1}/illust/bookmark/add";
 
+        public static string IllustBookmarkDelete => $"{BaseUrl}/{Version1}/illust/bookmark/delete";
+
         public static string IllustComments => $"{BaseUrl}/{Version1}/illust/comments";
 
         public static string IllustDetail => $"{BaseUrl}/{Version1}/illust/detail";
@@ -35,6 +37,8 @@
         public static string MangaRecommended => $"{BaseUrl}/{Version1}/manga/recommended";
 
         public static string NovelBookmarkAdd => $"{BaseUrl}/{Version1}/novel/bookmark/add";
+
+        public static string NovelBookmarkDelete => $"{BaseUrl}/{Version1}/novel/bookmark/delete";
 
         public static string NovelComments => $"{BaseUrl}/{Version1}/novel/comments";
 
@@ -90,11 +94,15 @@
 
         public static string UserFollowAdd => $"{BaseUrl}/{Version1}/user/follow/add";
 
+        public static string UserFollowDelete => $"{BaseUrl}/{Version1}/user/follow/delete";
+
         public static string UserFollower => $"{BaseUrl}/{Version1}/user/follower";
 
         public static string UserFollowing => $"{BaseUrl}/{Version1}/user/following";
 
         public static string UserIllusts => $"{BaseUrl}/{Version1}/user/illusts";
+
+        public static string UserList => $"{BaseUrl}/{Version1}/user/list";
 
         public static string UserMypixiv => $"{BaseUrl}/{Version1}/user/mypixiv";
 

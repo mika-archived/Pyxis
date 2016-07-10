@@ -7,11 +7,11 @@ namespace Pyxis.Beta.Interfaces.Models.v1
     /// <summary>
     ///     ブックマークユーザー
     /// </summary>
-    public interface IBookmark : IIndex
+    public interface IUsers : IIndex
     {
         /// <summary>
         ///     ブックマークしているユーザー
         /// </summary>
-        IList<IUser> Users { get; }
+        IList<IUser> UserList { get; }
     }
 }

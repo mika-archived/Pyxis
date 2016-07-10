@@ -20,6 +20,9 @@ namespace Pyxis.Alpha.Rest.v1
         public async Task AddAsync(params Expression<Func<string, object>>[] parameters)
             => await _client.PostAsync<Task>(Endpoints.UserFollowAdd, true, parameters);
 
+        public async Task DeleteAsunc(params Expression<Func<string, object>>[] parameters)
+            => await _client.PostAsync<Task>(Endpoints.UserFollowDelete, true, parameters);
+
         #endregion
     }
 }
