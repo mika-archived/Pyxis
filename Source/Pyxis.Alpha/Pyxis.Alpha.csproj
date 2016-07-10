@@ -114,7 +114,7 @@
     <Compile Include="Models\v1\Account.cs" />
     <Compile Include="Models\v1\ApplicationInfo.cs" />
     <Compile Include="Models\v1\AutoComplete.cs" />
-    <Compile Include="Models\v1\Bookmark.cs" />
+    <Compile Include="Models\v1\Users.cs" />
     <Compile Include="Models\v1\BookmarkTag.cs" />
     <Compile Include="Models\v1\BookmarkTags.cs" />
     <Compile Include="Models\v1\Comment.cs" />

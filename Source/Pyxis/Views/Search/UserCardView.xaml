@@ -13,31 +13,28 @@
     <Border HorizontalAlignment="Stretch"
             BorderBrush="{ThemeResource AppBarBorderThemeBrush}"
             BorderThickness="1">
-        <Grid x:Name="RootGrid"
-              Height="64"
-              HorizontalAlignment="Stretch"
-              Background="{ThemeResource AppBarBackgroundThemeBrush}">
-            <i:Interaction.Behaviors>
-                <core:EventTriggerBehavior EventName="Tapped"
-                                           SourceObject="{Binding ElementName=RootGrid}">
-                    <core:CallMethodAction MethodName="OnItemTapped"
-                                           TargetObject="{Binding}" />
-                </core:EventTriggerBehavior>
-            </i:Interaction.Behaviors>
+        <Grid Height="64"
+              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="150" />
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0"
-                  Grid.ColumnSpan="3"
-                  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <Grid x:Name="TappableGrid"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="80" />
                     <ColumnDefinition />
-                    <ColumnDefinition Width="110" />
                 </Grid.ColumnDefinitions>
-                <Border Width="48"
+                <i:Interaction.Behaviors>
+                    <core:EventTriggerBehavior EventName="Tapped"
+                                               SourceObject="{Binding ElementName=TappableGrid}">
+                        <core:CallMethodAction MethodName="OnItemTapped"
+                                               TargetObject="{Binding}" />
+                    </core:EventTriggerBehavior>
+                </i:Interaction.Behaviors>
+                <Border Grid.Column="0"
+                        Width="48"
                         Height="48"
                         HorizontalAlignment="Center"
                         BorderBrush="{ThemeResource ApplicationPageBackgroundThemeBrush}"
@@ -52,23 +49,34 @@
                            VerticalAlignment="Center"
                            Style="{ThemeResource TitleTextBlockStyle}"
                            Text="{Binding Username}"
-                           TextWrapping="NoWrap"
-                           TextTrimming="CharacterEllipsis" />
-                <Button Grid.Column="2"
-                        Margin="0,0,10,0"
-                        HorizontalAlignment="Right"
-                        Background="Transparent"
-                        BorderBrush="{ThemeResource SystemControlForegroundAccentBrush}"
-                        Foreground="{ThemeResource SystemControlForegroundAccentBrush}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                                   FontSize="17"
-                                   Text="&#xE8FA;" />
-                        <TextBlock Margin="10,0,0,0"
-                                   Text="フォロー" />
-                    </StackPanel>
-                </Button>
+                           TextTrimming="CharacterEllipsis"
+                           TextWrapping="NoWrap" />
+
             </Grid>
+            <Button Grid.Column="1"
+                    Margin="0,0,10,0"
+                    HorizontalAlignment="Right"
+                    Background="Transparent"
+                    BorderBrush="{ThemeResource SystemControlForegroundAccentBrush}"
+                    Command="{Binding FollowCommand}"
+                    Foreground="{ThemeResource SystemControlForegroundAccentBrush}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                               FontSize="17"
+                               Text="&#xE8FA;" />
+                    <Grid Margin="10,0,0,0">
+                        <TextBlock HorizontalAlignment="Center"
+                                   Text="フォロー"
+                                   Visibility="{Binding IsFollowing,
+                                                        Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
+                        <TextBlock HorizontalAlignment="Center"
+                                   Text="フォロー解除"
+                                   Visibility="{Binding IsFollowing,
+                                                        Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    </Grid>
+                </StackPanel>
+            </Button>
         </Grid>
+
     </Border>
 </Page>

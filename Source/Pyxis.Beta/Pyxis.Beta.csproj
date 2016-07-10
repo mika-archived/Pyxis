@@ -113,7 +113,7 @@
     <Compile Include="Interfaces\Models\v1\IAccount.cs" />
     <Compile Include="Interfaces\Models\v1\IApplicationInfo.cs" />
     <Compile Include="Interfaces\Models\v1\IAutoComplete.cs" />
-    <Compile Include="Interfaces\Models\v1\IBookmark.cs" />
+    <Compile Include="Interfaces\Models\v1\IUsers.cs" />
     <Compile Include="Interfaces\Models\v1\IMetaPage.cs" />
     <Compile Include="Interfaces\Models\v2\IBookmarkDetail.cs" />
     <Compile Include="Interfaces\Models\v2\IBookmarkDetailTag.cs" />

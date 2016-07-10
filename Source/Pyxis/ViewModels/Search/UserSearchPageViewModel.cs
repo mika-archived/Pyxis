@@ -54,7 +54,7 @@ namespace Pyxis.ViewModels.Search
         #region Converters
 
         private TappableThumbnailViewModel CreateUserViewModel(IUserPreview userPreview)
-            => new UserCardViewModel(userPreview, _imageStoreService, NavigationService);
+            => new UserCardViewModel(userPreview, _imageStoreService, NavigationService, _pixivClient);
 
         #endregion
 
