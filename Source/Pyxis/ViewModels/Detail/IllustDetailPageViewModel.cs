@@ -23,7 +23,6 @@ using Reactive.Bindings.Extensions;
 
 namespace Pyxis.ViewModels.Detail
 {
-    // TODO: IllustDetail と MangaDetail を同じにする
     public class IllustDetailPageViewModel : TappableThumbnailViewModel
     {
         private readonly IAccountService _accountService;
