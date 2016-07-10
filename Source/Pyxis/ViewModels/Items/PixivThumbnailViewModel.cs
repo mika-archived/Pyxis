@@ -49,8 +49,7 @@ namespace Pyxis.ViewModels.Items
             if (Illust != null)
             {
                 var parameter = new IllustDetailParameter {Illust = Illust};
-                NavigationService.Navigate(Illust.PageCount == 1 ? "Detail.IllustDetail" : "Detail.MangaDetail",
-                                           parameter.ToJson());
+                NavigationService.Navigate("Detail.IllustDetail", parameter.ToJson());
             }
             else if (Novel != null)
             {

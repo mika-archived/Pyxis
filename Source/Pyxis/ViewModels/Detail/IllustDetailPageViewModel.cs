@@ -23,6 +23,7 @@ using Reactive.Bindings.Extensions;
 
 namespace Pyxis.ViewModels.Detail
 {
+    // TODO: IllustDetail と MangaDetail を同じにする
     public class IllustDetailPageViewModel : TappableThumbnailViewModel
     {
         private readonly IAccountService _accountService;
@@ -59,7 +60,7 @@ namespace Pyxis.ViewModels.Detail
         public override void OnItemTapped()
         {
             var parameter = new IllustDetailParameter {Illust = _illust};
-            _navigationService.Navigate("Detail.IllustView", parameter.ToJson());
+            _navigationService.Navigate(IsManga ? "Detail.MangaView" : "Detail.IllustView", parameter.ToJson());
         }
 
         #endregion
@@ -86,6 +87,7 @@ namespace Pyxis.ViewModels.Detail
             Bookmark = _illust.TotalBookmarks;
             Height = _illust.Height;
             Width = _illust.Width;
+            IsManga = _illust.PageCount > 1;
             _illust.Tags.ForEach(w => Tags.Add(new PixivTagViewModel(w, _navigationService)));
             Thumbnailable = new PixivImage(_illust, _imageStoreService, true);
             _pixivUser = new PixivUserImage(_illust.User, _imageStoreService);
@@ -133,24 +135,12 @@ namespace Pyxis.ViewModels.Detail
 
         #endregion
 
-        #region Converters
-
-        private PixivThumbnailViewModel CreatePixivImage(IIllust w) =>
-            new PixivThumbnailViewModel(w, _imageStoreService, _navigationService);
-
-        private PixivCommentViewModel CreatePixivComment(IComment w) =>
-            new PixivCommentViewModel(w, _imageStoreService);
-
-        #endregion
-
         #region Overrides of ViewModelBase
 
         public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
         {
             base.OnNavigatedTo(e, viewModelState);
             var parameter = ParameterBase.ToObject<IllustDetailParameter>((string) e.Parameter);
-            if (parameter.Illust == null && viewModelState.ContainsKey("Illust"))
-                parameter = viewModelState["Illust"] as IllustDetailParameter;
             if (parameter.Illust != null)
                 Initialize(parameter);
             else
@@ -167,6 +157,16 @@ namespace Pyxis.ViewModels.Detail
                 viewModelState["Illust"] = new IllustDetailParameter {Illust = _illust}.ToJson();
             base.OnNavigatingFrom(e, viewModelState, suspending);
         }
+
+        #endregion
+
+        #region Converters
+
+        private PixivThumbnailViewModel CreatePixivImage(IIllust w) =>
+            new PixivThumbnailViewModel(w, _imageStoreService, _navigationService);
+
+        private PixivCommentViewModel CreatePixivComment(IComment w) =>
+            new PixivCommentViewModel(w, _imageStoreService);
 
         #endregion
 
@@ -281,6 +281,18 @@ namespace Pyxis.ViewModels.Detail
         {
             get { return _width; }
             set { SetProperty(ref _width, value); }
+        }
+
+        #endregion
+
+        #region IsManga
+
+        private bool _isManga;
+
+        public bool IsManga
+        {
+            get { return _isManga; }
+            set { SetProperty(ref _isManga, value); }
         }
 
         #endregion
