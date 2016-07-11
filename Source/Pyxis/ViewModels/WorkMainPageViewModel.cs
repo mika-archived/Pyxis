@@ -10,6 +10,7 @@ using Pyxis.Helpers;
 using Pyxis.Models;
 using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
+using Pyxis.Mvvm;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
 using Pyxis.ViewModels.Items;
@@ -61,9 +62,9 @@ namespace Pyxis.ViewModels
             SelectedIndex = (int) parameter.ContentType;
             _pixivWork = new PixivWork(_accountService.LoggedInAccount.Id, parameter.ContentType, _pixivClient);
             if (parameter.ContentType != ContentType.Novel)
-                ModelHelper.ConnectTo(WorkItems, _pixivWork, w => w.Illusts, CreatePixivImage);
+                ModelHelper.ConnectTo(WorkItems, _pixivWork, w => w.Illusts, CreatePixivImage).AddTo(this);
             else
-                ModelHelper.ConnectTo(WorkItems, _pixivWork, w => w.Novels, CreatePixivNovel);
+                ModelHelper.ConnectTo(WorkItems, _pixivWork, w => w.Novels, CreatePixivNovel).AddTo(this);
         }
 
         private void RedirectoToLoginPage(WorkParameter parameter)

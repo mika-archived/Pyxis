@@ -112,7 +112,7 @@ namespace Pyxis.ViewModels.Detail
                          .Subscribe(w => Comments.Add(w))
                          .AddTo(this);
             _pixivRelated = new PixivRelated(_illust, _pixivClient);
-            ModelHelper.ConnectTo(RelatedItems, _pixivRelated, w => w.RelatedIllusts, CreatePixivImage);
+            ModelHelper.ConnectTo(RelatedItems, _pixivRelated, w => w.RelatedIllusts, CreatePixivImage).AddTo(this);
 #if !OFFLINE
             if (IconPath == PyxisConstants.DummyIcon)
                 RunHelper.RunLater(_pixivUser.ShowThumbnail, TimeSpan.FromMilliseconds(100));

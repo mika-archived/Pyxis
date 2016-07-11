@@ -14,6 +14,7 @@ using Pyxis.Helpers;
 using Pyxis.Models;
 using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
+using Pyxis.Mvvm;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
 using Pyxis.ViewModels.Items;
@@ -77,9 +78,9 @@ namespace Pyxis.ViewModels.Search
 
             _pixivSearch = new PixivSearch(_pixivClient);
             if (parameter.SearchType == SearchType.IllustsAndManga)
-                ModelHelper.ConnectTo(Results, _pixivSearch, w => w.ResultIllusts, CreatePixivImage);
+                ModelHelper.ConnectTo(Results, _pixivSearch, w => w.ResultIllusts, CreatePixivImage).AddTo(this);
             else if (parameter.SearchType == SearchType.Novels)
-                ModelHelper.ConnectTo(Results, _pixivSearch, w => w.ResultNovels, CreatePixivNovel);
+                ModelHelper.ConnectTo(Results, _pixivSearch, w => w.ResultNovels, CreatePixivNovel).AddTo(this);
 
             Search();
         }

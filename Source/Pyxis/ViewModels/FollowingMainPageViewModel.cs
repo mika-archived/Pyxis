@@ -8,6 +8,7 @@ using Pyxis.Collections;
 using Pyxis.Helpers;
 using Pyxis.Models;
 using Pyxis.Models.Parameters;
+using Pyxis.Mvvm;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
 using Pyxis.ViewModels.Items;
@@ -55,7 +56,7 @@ namespace Pyxis.ViewModels
             _categoryService.UpdateCategory();
             SelectedIndex = (int) parameter.Restrict - 1;
             _pixivFollow = new PixivFollow(_accountService.LoggedInAccount.Id, parameter.Restrict, _pixivClient);
-            ModelHelper.ConnectTo(FollowingUsers, _pixivFollow, w => w.Users, CreateUserViewModel);
+            ModelHelper.ConnectTo(FollowingUsers, _pixivFollow, w => w.Users, CreateUserViewModel).AddTo(this);
         }
 
         #endregion

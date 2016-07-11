@@ -11,6 +11,7 @@ using Pyxis.Helpers;
 using Pyxis.Models;
 using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
+using Pyxis.Mvvm;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
 using Pyxis.ViewModels.Items;
@@ -68,9 +69,9 @@ namespace Pyxis.ViewModels
             _pixivFavorite = new PixivFavorite(_pixivClient);
 
             if (parameter.Type == SearchType.IllustsAndManga)
-                ModelHelper.ConnectTo(FavoriteItems, _pixivFavorite, w => w.ResultIllusts, CreatePixivImage);
+                ModelHelper.ConnectTo(FavoriteItems, _pixivFavorite, w => w.ResultIllusts, CreatePixivImage).AddTo(this);
             else
-                ModelHelper.ConnectTo(FavoriteItems, _pixivFavorite, w => w.ResultNovels, CreatePixivNovel);
+                ModelHelper.ConnectTo(FavoriteItems, _pixivFavorite, w => w.ResultNovels, CreatePixivNovel).AddTo(this);
 
             Sync();
         }

@@ -9,6 +9,7 @@ using Pyxis.Helpers;
 using Pyxis.Models;
 using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
+using Pyxis.Mvvm;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
 using Pyxis.ViewModels.Items;
@@ -56,7 +57,7 @@ namespace Pyxis.ViewModels.Search
             _categoryService.UpdateCategory();
             _pixivRecommended = new PixivRecommended(_accountService, _pixivClient, ContentType.User);
             _pixivSearch = new PixivSearch(_pixivClient);
-            ModelHelper.ConnectTo(Users, _pixivRecommended, w => w.RecommendedUsers, CreateUserViewModel);
+            ModelHelper.ConnectTo(Users, _pixivRecommended, w => w.RecommendedUsers, CreateUserViewModel).AddTo(this);
         }
 
         #endregion
@@ -69,7 +70,7 @@ namespace Pyxis.ViewModels.Search
             {
                 _pixivRecommended = null;
                 Users.Clear();
-                ModelHelper.ConnectTo(Users, _pixivSearch, w => w.ResultUsers, CreateUserViewModel);
+                ModelHelper.ConnectTo(Users, _pixivSearch, w => w.ResultUsers, CreateUserViewModel).AddTo(this);
             }
             _pixivSearch.Search(QueryText, new SearchOptionParameter {SearchType = SearchType.Users});
         }

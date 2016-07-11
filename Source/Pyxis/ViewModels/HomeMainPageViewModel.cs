@@ -70,12 +70,14 @@ namespace Pyxis.ViewModels
             if (parameter.ContentType == ContentType.Novel)
             {
                 TopRanking = _pixivRanking.RankingOfNovels.ToReadOnlyReactiveCollection(CreateRankingNovel).AddTo(this);
-                ModelHelper.ConnectTo(RecommendedItems, _pixivRecommended, w => w.RecommendedNovels, CreatePixivNovel);
+                ModelHelper.ConnectTo(RecommendedItems, _pixivRecommended, w => w.RecommendedNovels, CreatePixivNovel)
+                           .AddTo(this);
             }
             else
             {
                 TopRanking = _pixivRanking.Ranking.ToReadOnlyReactiveCollection(CreateRankingImage).AddTo(this);
-                ModelHelper.ConnectTo(RecommendedItems, _pixivRecommended, w => w.RecommendedImages, CreatePixivImage);
+                ModelHelper.ConnectTo(RecommendedItems, _pixivRecommended, w => w.RecommendedImages, CreatePixivImage)
+                           .AddTo(this);
             }
 #if !OFFLINE
             _pixivRanking.Fetch();

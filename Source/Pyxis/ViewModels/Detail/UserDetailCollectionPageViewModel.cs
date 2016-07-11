@@ -12,6 +12,7 @@ using Pyxis.Helpers;
 using Pyxis.Models;
 using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
+using Pyxis.Mvvm;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
 using Pyxis.ViewModels.Items;
@@ -86,18 +87,19 @@ namespace Pyxis.ViewModels.Detail
                 InitializeSubMenu(param1, true);
                 _pixivWork = new PixivWork(parameter.Detail.User.Id, parameter.ContentType, _pixivClient);
                 if (parameter.ContentType != ContentType.Novel)
-                    ModelHelper.ConnectTo(Collection, _pixivWork, w => w.Illusts, CreatePixivImage);
+                    ModelHelper.ConnectTo(Collection, _pixivWork, w => w.Illusts, CreatePixivImage).AddTo(this);
                 else
-                    ModelHelper.ConnectTo(Collection, _pixivWork, w => w.Novels, CreatePixivNovel);
+                    ModelHelper.ConnectTo(Collection, _pixivWork, w => w.Novels, CreatePixivNovel).AddTo(this);
             }
             else
             {
                 InitializeSubMenu(param1, false);
                 _pixivFavorite = new PixivFavorite(_pixivClient);
                 if (parameter.ContentType != ContentType.Novel)
-                    ModelHelper.ConnectTo(Collection, _pixivFavorite, w => w.ResultIllusts, CreatePixivImage);
+                    ModelHelper.ConnectTo(Collection, _pixivFavorite, w => w.ResultIllusts, CreatePixivImage)
+                               .AddTo(this);
                 else
-                    ModelHelper.ConnectTo(Collection, _pixivFavorite, w => w.ResultNovels, CreatePixivNovel);
+                    ModelHelper.ConnectTo(Collection, _pixivFavorite, w => w.ResultNovels, CreatePixivNovel).AddTo(this);
                 _pixivFavorite.Query(new FavoriteOptionParameter
                 {
                     Restrict = RestrictType.Public,

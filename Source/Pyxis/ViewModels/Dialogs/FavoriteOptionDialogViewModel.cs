@@ -4,6 +4,7 @@ using Pyxis.Helpers;
 using Pyxis.Models;
 using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
+using Pyxis.Mvvm;
 using Pyxis.ViewModels.Base;
 
 using Reactive.Bindings;
@@ -35,7 +36,7 @@ namespace Pyxis.ViewModels.Dialogs
             RestrictType = _parameter.ToReactivePropertyAsSynchronized(w => w.Restrict);
             SelectedTag = _parameter.ToReactivePropertyAsSynchronized(w => w.Tag);
             _bookmarkTag = new PixivBookmarkTag(_pixivClient);
-            ModelHelper.ConnectTo(Tags, _bookmarkTag, w => w.BookmarkTags, w => w.Name);
+            ModelHelper.ConnectTo(Tags, _bookmarkTag, w => w.BookmarkTags, w => w.Name).AddTo(this);
 
             _bookmarkTag.Query(_parameter.Type, _parameter.Restrict);
         }

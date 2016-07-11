@@ -12,6 +12,7 @@ using Pyxis.Helpers;
 using Pyxis.Models;
 using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
+using Pyxis.Mvvm;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
 using Pyxis.ViewModels.Items;
@@ -66,9 +67,9 @@ namespace Pyxis.ViewModels.New
 
             _pixivNew = new PixivNew(parameter.ContentType.Convert(), parameter.FollowType, _pixivClient);
             if (parameter.ContentType == ContentType2.IllustAndManga)
-                ModelHelper.ConnectTo(NewItems, _pixivNew, w => w.NewIllusts, CreatePixivImage);
+                ModelHelper.ConnectTo(NewItems, _pixivNew, w => w.NewIllusts, CreatePixivImage).AddTo(this);
             else
-                ModelHelper.ConnectTo(NewItems, _pixivNew, w => w.NewNovels, CreatePixivNovel);
+                ModelHelper.ConnectTo(NewItems, _pixivNew, w => w.NewNovels, CreatePixivNovel).AddTo(this);
         }
 
         #endregion
