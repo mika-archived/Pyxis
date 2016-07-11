@@ -298,7 +298,6 @@
                                            Text="フォロー" />
                             </StackPanel>
                         </ListBoxItem>
-                        <!-- TODO: Not Implementation -->
                         <ListBoxItem x:Name="FollowerMain"
                                      attach:NavigateTo.PageToken="FollowerMain"
                                      RelativePanel.Below="FollowingMain">
