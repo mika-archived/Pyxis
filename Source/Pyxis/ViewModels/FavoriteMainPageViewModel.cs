@@ -43,6 +43,22 @@ namespace Pyxis.ViewModels
             FavoriteItems = new IncrementalObservableCollection<TappableThumbnailViewModel>();
         }
 
+        #region Overrides of ViewModelBase
+
+        public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
+        {
+            base.OnNavigatedTo(e, viewModelState);
+            var parameter = ParameterBase.ToObject<FavoriteOptionParameter>((string) e?.Parameter);
+            if (_accountService.IsLoggedIn)
+                Initialize(parameter);
+            else
+                RunHelper.RunLater(RedirectoToLoginPage, parameter, TimeSpan.FromMilliseconds(10));
+        }
+
+        #endregion
+
+        #region Initializers
+
         private void Initialize(FavoriteOptionParameter parameter)
         {
             _categoryService.UpdateCategory();
@@ -59,6 +75,16 @@ namespace Pyxis.ViewModels
             Sync();
         }
 
+        private void RedirectoToLoginPage(FavoriteOptionParameter parameter)
+        {
+            var param = new RedirectParameter {RedirectTo = "FavoriteMain", Parameter = parameter};
+            NavigationService.Navigate("Error.LoginRequired", param.ToJson());
+        }
+
+        #endregion
+
+        #region Events
+
         private void Sync()
         {
             ParameterQueries = ParamGen.Generate(_favoriteOption, w => w.Type).ToList();
@@ -72,24 +98,6 @@ namespace Pyxis.ViewModels
                 return;
             _favoriteOption = result as FavoriteOptionParameter;
             Sync();
-        }
-
-        private void RedirectoToLoginPage(FavoriteOptionParameter parameter)
-        {
-            var param = new RedirectParameter {RedirectTo = "FavoriteMain", Parameter = parameter};
-            NavigationService.Navigate("Error.LoginRequired", param.ToJson());
-        }
-
-        #region Overrides of ViewModelBase
-
-        public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
-        {
-            base.OnNavigatedTo(e, viewModelState);
-            var parameter = ParameterBase.ToObject<FavoriteOptionParameter>((string) e?.Parameter);
-            if (_accountService.IsLoggedIn)
-                Initialize(parameter);
-            else
-                RunHelper.RunLater(RedirectoToLoginPage, parameter, TimeSpan.FromMilliseconds(10));
         }
 
         #endregion

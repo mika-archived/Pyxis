@@ -39,6 +39,22 @@ namespace Pyxis.ViewModels
             WorkItems = new IncrementalObservableCollection<TappableThumbnailViewModel>();
         }
 
+        #region Overrides of ViewModelBase
+
+        public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
+        {
+            base.OnNavigatedTo(e, viewModelState);
+            var parameter = ParameterBase.ToObject<WorkParameter>((string) e?.Parameter);
+            if (_accountService.IsLoggedIn)
+                Initialize(parameter);
+            else
+                RunHelper.RunLater(RedirectoToLoginPage, parameter, TimeSpan.FromMilliseconds(10));
+        }
+
+        #endregion
+
+        #region Initializers
+
         private void Initialize(WorkParameter parameter)
         {
             _categoryService.UpdateCategory();
@@ -54,18 +70,6 @@ namespace Pyxis.ViewModels
         {
             var param = new RedirectParameter {RedirectTo = "WorkMain", Parameter = parameter};
             NavigationService.Navigate("Error.LoginRequired", param.ToJson());
-        }
-
-        #region Overrides of ViewModelBase
-
-        public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
-        {
-            base.OnNavigatedTo(e, viewModelState);
-            var parameter = ParameterBase.ToObject<WorkParameter>((string) e?.Parameter);
-            if (_accountService.IsLoggedIn)
-                Initialize(parameter);
-            else
-                RunHelper.RunLater(RedirectoToLoginPage, parameter, TimeSpan.FromMilliseconds(10));
         }
 
         #endregion

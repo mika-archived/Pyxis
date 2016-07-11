@@ -47,6 +47,19 @@ namespace Pyxis.ViewModels
             RecommendedItems = new IncrementalObservableCollection<TappableThumbnailViewModel>();
         }
 
+        #region Overrides of ViewModelBase
+
+        public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
+        {
+            base.OnNavigatedTo(e, viewModelState);
+            var parameters = ParameterBase.ToObject<HomeParameter>(e.Parameter?.ToString());
+            Initialize(parameters);
+        }
+
+        #endregion
+
+        #region Initializers
+
         private void Initialize(HomeParameter parameter)
         {
             _categoryService.UpdateCategory();
@@ -69,27 +82,6 @@ namespace Pyxis.ViewModels
 #endif
         }
 
-        #region Overrides of ViewModelBase
-
-        public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
-        {
-            base.OnNavigatedTo(e, viewModelState);
-            var parameters = ParameterBase.ToObject<HomeParameter>(e.Parameter?.ToString());
-            Initialize(parameters);
-        }
-
-        #endregion
-
-        #region SelectdIndex
-
-        private int _selectedIndex;
-
-        public int SelectedIndex
-        {
-            get { return _selectedIndex; }
-            set { SetProperty(ref _selectedIndex, value); }
-        }
-
         #endregion
 
         #region Converters
@@ -105,6 +97,18 @@ namespace Pyxis.ViewModels
 
         private PixivThumbnailViewModel CreatePixivNovel(INovel w) =>
             new PixivThumbnailViewModel(w, _imageStoreService, NavigationService);
+
+        #endregion
+
+        #region SelectdIndex
+
+        private int _selectedIndex;
+
+        public int SelectedIndex
+        {
+            get { return _selectedIndex; }
+            set { SetProperty(ref _selectedIndex, value); }
+        }
 
         #endregion
     }
