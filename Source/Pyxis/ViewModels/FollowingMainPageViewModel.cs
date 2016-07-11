@@ -44,8 +44,18 @@ namespace Pyxis.ViewModels
         {
             base.OnNavigatedTo(e, viewModelState);
             var parameter = ParameterBase.ToObject<FollowingParameter>((string) e.Parameter);
-            Initialize(parameter);
+            if (_accountService.IsLoggedIn)
+                Initialize(parameter);
+            else
+                RedirectoToLoginPage(parameter);
         }
+
+        #endregion
+
+        #region Converters
+
+        private TappableThumbnailViewModel CreateUserViewModel(IUserPreview userPreview)
+            => new UserCardViewModel(userPreview, _imageStoreService, NavigationService, _pixivClient);
 
         #endregion
 
@@ -59,12 +69,11 @@ namespace Pyxis.ViewModels
             ModelHelper.ConnectTo(FollowingUsers, _pixivFollow, w => w.Users, CreateUserViewModel).AddTo(this);
         }
 
-        #endregion
-
-        #region Converters
-
-        private TappableThumbnailViewModel CreateUserViewModel(IUserPreview userPreview)
-            => new UserCardViewModel(userPreview, _imageStoreService, NavigationService, _pixivClient);
+        private void RedirectoToLoginPage(FollowingParameter parameter)
+        {
+            var param = new RedirectParameter {RedirectTo = "FollowingMain", Parameter = parameter};
+            NavigationService.Navigate("Error.LoginRequired", param.ToJson());
+        }
 
         #endregion
 
