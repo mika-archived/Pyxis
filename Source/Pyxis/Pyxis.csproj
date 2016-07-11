@@ -133,6 +133,7 @@
     <Compile Include="Models\Enums\SearchType.cs" />
     <Compile Include="Models\Parameters\DetailByIdParameter.cs" />
     <Compile Include="Models\Parameters\FavoriteOptionParameter.cs" />
+    <Compile Include="Models\Parameters\FollowingParameter.cs" />
     <Compile Include="Models\Parameters\NovelDetailParameter.cs" />
     <Compile Include="Models\Parameters\ParamGen.cs" />
     <Compile Include="Models\Parameters\SearchHomeParameter.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="Models\Parameters\ParameterBase.cs" />
     <Compile Include="Models\Parameters\RedirectParameter.cs" />
     <Compile Include="Models\PixivFavorite.cs" />
+    <Compile Include="Models\PixivFollow.cs" />
     <Compile Include="Models\PixivNovelText.cs" />
     <Compile Include="Models\PixivRelated.cs" />
     <Compile Include="Models\PixivImage.cs" />
@@ -194,14 +196,13 @@
     <Compile Include="ViewModels\Dialogs\FavoriteOptionDialogViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\SearchOptionDialogViewModel.cs" />
     <Compile Include="ViewModels\FavoriteMainPageViewModel.cs" />
+    <Compile Include="ViewModels\FollowingMainPageViewModel.cs" />
     <Compile Include="ViewModels\Items\PixivCommentViewModel.cs" />
     <Compile Include="ViewModels\Detail\Items\PixivMangaImageViewModel.cs" />
     <Compile Include="ViewModels\Detail\MangaViewPageViewModel.cs" />
     <Compile Include="ViewModels\Error\LoginRequiredPageViewModel.cs" />
     <Compile Include="ViewModels\Error\PremiumRequiredPageViewModel.cs" />
     <Compile Include="ViewModels\Follower\MainFollowerPageViewModel.cs" />
-    <Compile Include="ViewModels\Following\PrivateFollowingPageViewModel.cs" />
-    <Compile Include="ViewModels\Following\PublicFollowingPageViewModel.cs" />
     <Compile Include="ViewModels\HomeMainPageViewModel.cs" />
     <Compile Include="ViewModels\Home\Base\RankingViewModel.cs" />
     <Compile Include="ViewModels\Home\RankingImageViewModel.cs" />
@@ -212,7 +213,7 @@
     <Compile Include="ViewModels\New\AllNewPageViewModel.cs" />
     <Compile Include="ViewModels\New\FollowMypixivNewPageViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModel.cs" />
-    <Compile Include="ViewModels\Search\Items\UserCardViewModel.cs" />
+    <Compile Include="ViewModels\Items\UserCardViewModel.cs" />
     <Compile Include="ViewModels\Search\Items\TrendingTagViewModel.cs" />
     <Compile Include="ViewModels\Search\SearchResultPageViewModel.cs" />
     <Compile Include="ViewModels\Search\UserSearchPageViewModel.cs" />
@@ -275,14 +276,8 @@
     <Compile Include="Views\Follower\MainFollowerPage.xaml.cs">
       <DependentUpon>MainFollowerPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Following\PivotTabFollowing.xaml.cs">
-      <DependentUpon>PivotTabFollowing.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Following\PrivateFollowingPage.xaml.cs">
-      <DependentUpon>PrivateFollowingPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Following\PublicFollowingPage.xaml.cs">
-      <DependentUpon>PublicFollowingPage.xaml</DependentUpon>
+    <Compile Include="Views\FollowingMainPage.xaml.cs">
+      <DependentUpon>FollowingMainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HomeMainPage.xaml.cs">
       <DependentUpon>HomeMainPage.xaml</DependentUpon>
@@ -311,7 +306,7 @@
     <Compile Include="Views\Search\TrendingTagView.xaml.cs">
       <DependentUpon>TrendingTagView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Search\UserCardView.xaml.cs">
+    <Compile Include="Views\Items\UserCardView.xaml.cs">
       <DependentUpon>UserCardView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Search\UserSearchPage.xaml.cs">
@@ -492,15 +487,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Following\PivotTabFollowing.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Following\PrivateFollowingPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Following\PublicFollowingPage.xaml">
+    <Page Include="Views\FollowingMainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -540,7 +527,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Search\UserCardView.xaml">
+    <Page Include="Views\Items\UserCardView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,0 +1,56 @@
+﻿<Page x:Class="Pyxis.Views.FollowingMainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:attach="using:Pyxis.Attach"
+      xmlns:behaviors="using:Pyxis.Behaviors"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:items="using:Pyxis.Views.Items"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:prism="using:Prism.Windows.Mvvm"
+      xmlns:vm="using:Pyxis.ViewModels"
+      d:DataContext="{d:DesignInstance vm:FollowingMainPageViewModel}"
+      prism:ViewModelLocator.AutoWireViewModel="True"
+      mc:Ignorable="d">
+    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Pivot SelectedIndex="{x:Bind ViewModel.SelectedIndex, Mode=OneWay}"
+               Style="{StaticResource TabsStylePivotStyle}">
+            <interactivity:Interaction.Behaviors>
+                <behaviors:AttachNavigationToPivotBehavior NavigationService="{x:Bind ViewModel.NavigationService}" />
+            </interactivity:Interaction.Behaviors>
+            <PivotItem attach:NavigateTo.PageToken="FollowingMain"
+                       attach:NavigateTo.Parameters="{}{&quot;Restrict&quot;:1}">
+                <PivotItem.Header>
+                    <TextBlock Width="80"
+                               Style="{StaticResource TabsStyleTextBlockStyle}"
+                               Text="公開" />
+                </PivotItem.Header>
+            </PivotItem>
+            <PivotItem attach:NavigateTo.PageToken="FollowingMain"
+                       attach:NavigateTo.Parameters="{}{&quot;Restrict&quot;:2}">
+                <PivotItem.Header>
+                    <TextBlock Width="80"
+                               Style="{StaticResource TabsStyleTextBlockStyle}"
+                               Text="非公開" />
+                </PivotItem.Header>
+            </PivotItem>
+        </Pivot>
+        <ListView ItemsSource="{x:Bind ViewModel.FollowingUsers}">
+            <interactivity:Interaction.Behaviors>
+                <behaviors:AdjustControlSizeBehavior HeightOffset="-96"
+                                                     IsSyncHeight="True" />
+            </interactivity:Interaction.Behaviors>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Margin" Value="0,5" />
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <items:UserCardView DataContext="{Binding}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackPanel>
+</Page>

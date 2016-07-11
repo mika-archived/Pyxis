@@ -11,6 +11,77 @@
       xmlns:v="using:Pyxis.Views"
       mc:Ignorable="d">
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <!-- 0 - Phone (Small) -->
+                <VisualState x:Name="Default">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowHeight="0"
+                                         MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="HamburgerMenu.ItemsPanel">
+                            <Setter.Value>
+                                <ItemsPanelTemplate>
+                                    <StackPanel />
+                                </ItemsPanelTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="RootSplitView.DisplayMode" Value="Overlay" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Large_X">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowHeight="641"
+                                         MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="HamburgerMenu.ItemsPanel">
+                            <Setter.Value>
+                                <ItemsPanelTemplate>
+                                    <RelativePanel HorizontalAlignment="Stretch"
+                                                   VerticalAlignment="Stretch" />
+                                </ItemsPanelTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="RootSplitView.DisplayMode" Value="Overlay" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Large_Y">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowHeight="0"
+                                         MinWindowWidth="641" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="HamburgerMenu.ItemsPanel">
+                            <Setter.Value>
+                                <ItemsPanelTemplate>
+                                    <StackPanel />
+                                </ItemsPanelTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="RootSplitView.DisplayMode" Value="CompactOverlay" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Large_XY">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowHeight="641"
+                                         MinWindowWidth="641" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="HamburgerMenu.ItemsPanel">
+                            <Setter.Value>
+                                <ItemsPanelTemplate>
+                                    <RelativePanel HorizontalAlignment="Stretch"
+                                                   VerticalAlignment="Stretch" />
+                                </ItemsPanelTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="RootSplitView.DisplayMode" Value="CompactOverlay" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <StackPanel Height="48"
                     Margin="48,0,0,0"
                     HorizontalAlignment="Stretch"
@@ -164,6 +235,7 @@
                                            Text="お気に入り" />
                             </StackPanel>
                         </ListBoxItem>
+                        <!-- TODO: Not Implementation -->
                         <ListBoxItem x:Name="BrowsingHistory"
                                      attach:NavigateTo.PageToken="BrowsingHistory.IllustMangaBrowsingHistory"
                                      RelativePanel.Below="FavoriteMain">
@@ -178,6 +250,7 @@
                                            Text="閲覧履歴" />
                             </StackPanel>
                         </ListBoxItem>
+                        <!-- TODO: Not Implementation -->
                         <ListBoxItem x:Name="BookmarkMain"
                                      attach:NavigateTo.PageToken="Bookmark.MainBookmark"
                                      RelativePanel.Below="BrowsingHistory">
@@ -200,7 +273,8 @@
                                     BorderThickness=".25" />
                         </ListBoxItem>
                         <ListBoxItem x:Name="FollowingMain"
-                                     attach:NavigateTo.PageToken="Following.PublicFollowing"
+                                     attach:NavigateTo.PageToken="FollowingMain"
+                                     attach:NavigateTo.Parameters="{}{&quot;Restrict&quot;:1}"
                                      RelativePanel.Below="Separator2">
                             <StackPanel Orientation="Horizontal">
                                 <Grid Width="48"
@@ -224,6 +298,7 @@
                                            Text="フォロー" />
                             </StackPanel>
                         </ListBoxItem>
+                        <!-- TODO: Not Implementation -->
                         <ListBoxItem x:Name="FollowerMain"
                                      attach:NavigateTo.PageToken="Follower.MainFollower"
                                      RelativePanel.Below="FollowingMain">
@@ -245,6 +320,7 @@
                                            Text="フォロワー" />
                             </StackPanel>
                         </ListBoxItem>
+                        <!-- TODO: Not Implementation -->
                         <ListBoxItem x:Name="MypixivMain"
                                      attach:NavigateTo.PageToken="Mypixiv.MainMypixiv"
                                      RelativePanel.Below="FollowerMain">
@@ -266,6 +342,7 @@
                                 <v:AccountInfoControl />
                             </StackPanel>
                         </ListBoxItem>
+                        <!-- TODO: Not Implementation -->
                         <ListBoxItem x:Name="SettingsMain"
                                      attach:NavigateTo.PageToken="Settings.HomeSettings"
                                      RelativePanel.AlignBottomWithPanel="True">
@@ -299,76 +376,5 @@
                       IsChecked="{Binding ElementName=RootSplitView,
                                           Path=IsPaneOpen,
                                           Mode=TwoWay}" />
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <!-- 0 - Phone (Small) -->
-                <VisualState x:Name="Default">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowHeight="0"
-                                         MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="HamburgerMenu.ItemsPanel">
-                            <Setter.Value>
-                                <ItemsPanelTemplate>
-                                    <StackPanel />
-                                </ItemsPanelTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Setter Target="RootSplitView.DisplayMode" Value="Overlay" />
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="Large_X">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowHeight="641"
-                                         MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="HamburgerMenu.ItemsPanel">
-                            <Setter.Value>
-                                <ItemsPanelTemplate>
-                                    <RelativePanel HorizontalAlignment="Stretch"
-                                                   VerticalAlignment="Stretch" />
-                                </ItemsPanelTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Setter Target="RootSplitView.DisplayMode" Value="Overlay" />
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="Large_Y">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowHeight="0"
-                                         MinWindowWidth="641" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="HamburgerMenu.ItemsPanel">
-                            <Setter.Value>
-                                <ItemsPanelTemplate>
-                                    <StackPanel />
-                                </ItemsPanelTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Setter Target="RootSplitView.DisplayMode" Value="CompactOverlay" />
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="Large_XY">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowHeight="641"
-                                         MinWindowWidth="641" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="HamburgerMenu.ItemsPanel">
-                            <Setter.Value>
-                                <ItemsPanelTemplate>
-                                    <RelativePanel HorizontalAlignment="Stretch"
-                                                   VerticalAlignment="Stretch" />
-                                </ItemsPanelTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Setter Target="RootSplitView.DisplayMode" Value="CompactOverlay" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
     </Grid>
 </Page>

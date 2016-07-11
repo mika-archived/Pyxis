@@ -11,7 +11,7 @@ using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
-using Pyxis.ViewModels.Search.Items;
+using Pyxis.ViewModels.Items;
 
 namespace Pyxis.ViewModels.Search
 {

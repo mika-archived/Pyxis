@@ -11,7 +11,7 @@ using Pyxis.Models.Parameters;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
 
-namespace Pyxis.ViewModels.Search.Items
+namespace Pyxis.ViewModels.Items
 {
     internal class UserCardViewModel : TappableThumbnailViewModel
     {
