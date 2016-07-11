@@ -49,7 +49,7 @@ namespace Pyxis.ViewModels
             if (_accountService.IsLoggedIn)
                 Initialize(parameter);
             else
-                RunHelper.RunLater(RedirectoToLoginPage, parameter, TimeSpan.FromMilliseconds(10));
+                RunHelper.RunLater(RedirectToLoginPage, parameter, TimeSpan.FromMilliseconds(10));
         }
 
         #endregion
@@ -67,7 +67,7 @@ namespace Pyxis.ViewModels
                 ModelHelper.ConnectTo(WorkItems, _pixivWork, w => w.Novels, CreatePixivNovel).AddTo(this);
         }
 
-        private void RedirectoToLoginPage(WorkParameter parameter)
+        private void RedirectToLoginPage(WorkParameter parameter)
         {
             var param = new RedirectParameter {RedirectTo = "WorkMain", Parameter = parameter};
             NavigationService.Navigate("Error.LoginRequired", param.ToJson());

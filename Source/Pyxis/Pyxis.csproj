@@ -150,6 +150,7 @@
     <Compile Include="Models\Parameters\RedirectParameter.cs" />
     <Compile Include="Models\PixivFavorite.cs" />
     <Compile Include="Models\PixivFollow.cs" />
+    <Compile Include="Models\PixivFollower.cs" />
     <Compile Include="Models\PixivNovelText.cs" />
     <Compile Include="Models\PixivRelated.cs" />
     <Compile Include="Models\PixivImage.cs" />
@@ -196,13 +197,13 @@
     <Compile Include="ViewModels\Dialogs\FavoriteOptionDialogViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\SearchOptionDialogViewModel.cs" />
     <Compile Include="ViewModels\FavoriteMainPageViewModel.cs" />
+    <Compile Include="ViewModels\FollowerMainPageViewModel.cs" />
     <Compile Include="ViewModels\FollowingMainPageViewModel.cs" />
     <Compile Include="ViewModels\Items\PixivCommentViewModel.cs" />
     <Compile Include="ViewModels\Detail\Items\PixivMangaImageViewModel.cs" />
     <Compile Include="ViewModels\Detail\MangaViewPageViewModel.cs" />
     <Compile Include="ViewModels\Error\LoginRequiredPageViewModel.cs" />
     <Compile Include="ViewModels\Error\PremiumRequiredPageViewModel.cs" />
-    <Compile Include="ViewModels\Follower\MainFollowerPageViewModel.cs" />
     <Compile Include="ViewModels\HomeMainPageViewModel.cs" />
     <Compile Include="ViewModels\Home\Base\RankingViewModel.cs" />
     <Compile Include="ViewModels\Home\RankingImageViewModel.cs" />
@@ -273,8 +274,8 @@
     <Compile Include="Views\FavoriteMainPage.xaml.cs">
       <DependentUpon>FavoriteMainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Follower\MainFollowerPage.xaml.cs">
-      <DependentUpon>MainFollowerPage.xaml</DependentUpon>
+    <Compile Include="Views\FollowerMainPage.xaml.cs">
+      <DependentUpon>FollowerMainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FollowingMainPage.xaml.cs">
       <DependentUpon>FollowingMainPage.xaml</DependentUpon>
@@ -483,7 +484,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Follower\MainFollowerPage.xaml">
+    <Page Include="Views\FollowerMainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

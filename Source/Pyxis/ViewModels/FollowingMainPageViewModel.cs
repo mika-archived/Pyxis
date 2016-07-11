@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using Prism.Windows.Navigation;
 
@@ -47,7 +48,7 @@ namespace Pyxis.ViewModels
             if (_accountService.IsLoggedIn)
                 Initialize(parameter);
             else
-                RedirectoToLoginPage(parameter);
+                RunHelper.RunLater(RedirectToLoginPage, parameter, TimeSpan.FromMilliseconds(10));
         }
 
         #endregion
@@ -69,7 +70,7 @@ namespace Pyxis.ViewModels
             ModelHelper.ConnectTo(FollowingUsers, _pixivFollow, w => w.Users, CreateUserViewModel).AddTo(this);
         }
 
-        private void RedirectoToLoginPage(FollowingParameter parameter)
+        private void RedirectToLoginPage(FollowingParameter parameter)
         {
             var param = new RedirectParameter {RedirectTo = "FollowingMain", Parameter = parameter};
             NavigationService.Navigate("Error.LoginRequired", param.ToJson());

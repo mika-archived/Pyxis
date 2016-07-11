@@ -53,7 +53,7 @@ namespace Pyxis.ViewModels
             if (_accountService.IsLoggedIn)
                 Initialize(parameter);
             else
-                RunHelper.RunLater(RedirectoToLoginPage, parameter, TimeSpan.FromMilliseconds(10));
+                RunHelper.RunLater(RedirectToLoginPage, parameter, TimeSpan.FromMilliseconds(10));
         }
 
         #endregion
@@ -76,7 +76,7 @@ namespace Pyxis.ViewModels
             Sync();
         }
 
-        private void RedirectoToLoginPage(FavoriteOptionParameter parameter)
+        private void RedirectToLoginPage(FavoriteOptionParameter parameter)
         {
             var param = new RedirectParameter {RedirectTo = "FavoriteMain", Parameter = parameter};
             NavigationService.Navigate("Error.LoginRequired", param.ToJson());

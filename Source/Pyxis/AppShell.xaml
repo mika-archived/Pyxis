@@ -300,7 +300,7 @@
                         </ListBoxItem>
                         <!-- TODO: Not Implementation -->
                         <ListBoxItem x:Name="FollowerMain"
-                                     attach:NavigateTo.PageToken="Follower.MainFollower"
+                                     attach:NavigateTo.PageToken="FollowerMain"
                                      RelativePanel.Below="FollowingMain">
                             <StackPanel Orientation="Horizontal">
                                 <Grid Width="48"
