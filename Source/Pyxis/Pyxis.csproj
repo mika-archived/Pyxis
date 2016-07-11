@@ -151,6 +151,7 @@
     <Compile Include="Models\PixivFavorite.cs" />
     <Compile Include="Models\PixivFollow.cs" />
     <Compile Include="Models\PixivFollower.cs" />
+    <Compile Include="Models\PixivMypixiv.cs" />
     <Compile Include="Models\PixivNovelText.cs" />
     <Compile Include="Models\PixivRelated.cs" />
     <Compile Include="Models\PixivImage.cs" />
@@ -210,7 +211,7 @@
     <Compile Include="ViewModels\Home\RankingNovelViewModel.cs" />
     <Compile Include="ViewModels\Items\PixivThumbnailViewModel.cs" />
     <Compile Include="ViewModels\Items\PixivTagViewModel.cs" />
-    <Compile Include="ViewModels\Mypixiv\MainMypixivPageViewModel.cs" />
+    <Compile Include="ViewModels\MypixivMainPageViewModel.cs" />
     <Compile Include="ViewModels\New\AllNewPageViewModel.cs" />
     <Compile Include="ViewModels\New\FollowMypixivNewPageViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModel.cs" />
@@ -292,8 +293,8 @@
     <Compile Include="Views\Items\ThumbnailView.xaml.cs">
       <DependentUpon>ThumbnailView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Mypixiv\MainMypixivPage.xaml.cs">
-      <DependentUpon>MainMypixivPage.xaml</DependentUpon>
+    <Compile Include="Views\MypixivMainPage.xaml.cs">
+      <DependentUpon>MypixivMainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\New\AllNewPage.xaml.cs">
       <DependentUpon>AllNewPage.xaml</DependentUpon>
@@ -508,7 +509,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Mypixiv\MainMypixivPage.xaml">
+    <Page Include="Views\MypixivMainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

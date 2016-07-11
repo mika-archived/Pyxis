@@ -320,9 +320,8 @@
                                            Text="フォロワー" />
                             </StackPanel>
                         </ListBoxItem>
-                        <!-- TODO: Not Implementation -->
                         <ListBoxItem x:Name="MypixivMain"
-                                     attach:NavigateTo.PageToken="Mypixiv.MainMypixiv"
+                                     attach:NavigateTo.PageToken="MypixivMain"
                                      RelativePanel.Below="FollowerMain">
                             <StackPanel Orientation="Horizontal">
                                 <FontIcon Width="48"
