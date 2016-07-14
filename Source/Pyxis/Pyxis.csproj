@@ -321,6 +321,9 @@
     <Compile Include="Views\Settings\SettingsAboutView.xaml.cs">
       <DependentUpon>SettingsAboutView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Settings\SettingsGeneralView.xaml.cs">
+      <DependentUpon>SettingsGeneralView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Settings\SettingsMainPage.xaml.cs">
       <DependentUpon>SettingsMainPage.xaml</DependentUpon>
     </Compile>
@@ -546,6 +549,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Settings\SettingsAboutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Settings\SettingsGeneralView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

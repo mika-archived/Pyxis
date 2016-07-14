@@ -7,9 +7,9 @@ namespace Pyxis.Views.Settings
     /// <summary>
     ///     それ自体で使用できる空白ページまたはフレーム内に移動できる空白ページ。
     /// </summary>
-    public sealed partial class SettingsAboutView : UserControl
+    public sealed partial class SettingsGeneralView : UserControl
     {
-        public SettingsAboutView()
+        public SettingsGeneralView()
         {
             InitializeComponent();
         }
