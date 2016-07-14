@@ -10,11 +10,37 @@
       prism:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d">
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Pivot>
-            <PivotItem Header="全般" />
-            <PivotItem Header="アカウント" />
-            <PivotItem Header="Pyxis について">
-                <local:SettingsAboutView />
+        <Pivot Style="{StaticResource TabsStylePivotStyle}">
+            <PivotItem>
+                <PivotItem.Header>
+                    <TextBlock Width="80"
+                               Style="{StaticResource TabsStyleTextBlockStyle}"
+                               Text="全般" />
+                </PivotItem.Header>
+                <StackPanel Margin="10">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="キャッシュを削除" />
+                        <TextBlock Text="現在: 123.45MB" />
+                    </StackPanel>
+                </StackPanel>
+            </PivotItem>
+            <PivotItem>
+                <PivotItem.Header>
+                    <TextBlock Width="80"
+                               Style="{StaticResource TabsStyleTextBlockStyle}"
+                               Text="アカウント" />
+                </PivotItem.Header>
+                <StackPanel Margin="10">
+                    <Button Content="ログアウト" />
+                </StackPanel>
+            </PivotItem>
+            <PivotItem>
+                <PivotItem.Header>
+                    <TextBlock Width="80"
+                               Style="{StaticResource TabsStyleTextBlockStyle}"
+                               Text="Pyxis について" />
+                </PivotItem.Header>
+                <local:SettingsAboutView Margin="10" />
             </PivotItem>
         </Pivot>
     </Grid>
