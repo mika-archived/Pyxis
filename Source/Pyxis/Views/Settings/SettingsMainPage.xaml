@@ -17,12 +17,7 @@
                                Style="{StaticResource TabsStyleTextBlockStyle}"
                                Text="全般" />
                 </PivotItem.Header>
-                <StackPanel Margin="10">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="キャッシュを削除" />
-                        <TextBlock Text="現在: 123.45MB" />
-                    </StackPanel>
-                </StackPanel>
+                <local:SettingsGeneralView Margin="10" />
             </PivotItem>
             <PivotItem>
                 <PivotItem.Header>

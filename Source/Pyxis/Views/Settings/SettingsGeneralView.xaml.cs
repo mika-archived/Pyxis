@@ -1,5 +1,7 @@
 ﻿using Windows.UI.Xaml.Controls;
 
+using Pyxis.ViewModels.Settings;
+
 // 空白ページのアイテム テンプレートについては、http://go.microsoft.com/fwlink/?LinkId=234238 を参照してください
 
 namespace Pyxis.Views.Settings
@@ -9,6 +11,8 @@ namespace Pyxis.Views.Settings
     /// </summary>
     public sealed partial class SettingsGeneralView : UserControl
     {
+        public SettingsGeneralViewModel ViewModel => DataContext as SettingsGeneralViewModel;
+
         public SettingsGeneralView()
         {
             InitializeComponent();

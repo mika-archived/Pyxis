@@ -220,6 +220,7 @@
     <Compile Include="ViewModels\Search\SearchResultPageViewModel.cs" />
     <Compile Include="ViewModels\Search\UserSearchPageViewModel.cs" />
     <Compile Include="ViewModels\Search\WorkSearchPageViewModel.cs" />
+    <Compile Include="ViewModels\Settings\SettingsGeneralViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsMainPageViewModel.cs" />
     <Compile Include="ViewModels\WorkMainPageViewModel.cs" />
     <Compile Include="Views\AccountInfoControl.xaml.cs">
