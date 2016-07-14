@@ -23,13 +23,17 @@ namespace Pyxis.ViewModels.Settings
         }
 
         // よくない
-        public async Task ClearCache()
+        public void ClearCache()
         {
+            FileCount = $"0個の項目";
             CacheSize = "0 Byte";
             IsEnabled = false;
-            var temporaryFolder = ApplicationData.Current.TemporaryFolder;
-            var files = await temporaryFolder.GetFilesAsync();
-            files.AsParallel().ForEach(async w => await w.DeleteAsync());
+            Task.Run(async () =>
+            {
+                var temporaryFolder = ApplicationData.Current.TemporaryFolder;
+                var files = await temporaryFolder.GetFilesAsync();
+                files.AsParallel().ForEach(async w => await w.DeleteAsync());
+            });
         }
 
         private async Task Load()
