@@ -12,6 +12,8 @@
         <TextBlock Text="画像キャッシュ" />
         <TextBlock Style="{ThemeResource CaptionTextBlockStyle}"
                    Text="キャッシュを削除すると、画像の表示まで時間がかかる場合があります。" />
+        <TextBlock Style="{ThemeResource CaptionTextBlockStyle}"
+                   Text="キャッシュの項目数が多い場合、クリア完了までに時間がかかることがあります。" />
         <StackPanel Margin="0,5"
                     Orientation="Horizontal">
             <TextBlock Text="{x:Bind ViewModel.FileCount, Mode=OneWay}" />
