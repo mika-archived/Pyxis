@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Reactive.Linq;
+using System.Windows.Input;
 
 using Microsoft.Practices.ObjectBuilder2;
 
+using Prism.Commands;
 using Prism.Windows.Navigation;
 
 using Pyxis.Beta.Interfaces.Models.v1;
@@ -92,10 +95,11 @@ namespace Pyxis.ViewModels.Detail
             CreatedAt = _illust.CreateDate.ToString("g");
             Username = _illust.User.Name;
             View = _illust.TotalView;
-            Bookmark = _illust.TotalBookmarks;
+            BookmarkCount = _illust.TotalBookmarks;
             Height = _illust.Height;
             Width = _illust.Width;
             IsManga = _illust.PageCount > 1;
+            IsBookmarked = _illust.IsBookmarked;
             _illust.Tags.ForEach(w => Tags.Add(new PixivTagViewModel(w, _navigationService)));
             Thumbnailable = new PixivImage(_illust, _imageStoreService, true);
             _pixivUser = new PixivUserImage(_illust.User, _imageStoreService);
@@ -156,6 +160,27 @@ namespace Pyxis.ViewModels.Detail
             var parameter = new DetailByIdParameter {Id = _illust.User.Id};
             _navigationService.Navigate("Detail.UserDetail", parameter.ToJson());
         }
+
+        #region BookmarkCommand
+
+        private ICommand _bookmarkCommand;
+
+        public ICommand BookmarkCommand
+            => _bookmarkCommand ?? (_bookmarkCommand = new DelegateCommand(Bookmark, CanBookmark));
+
+        [SuppressMessage("ReSharper", "InconsistentNaming")]
+        private async void Bookmark()
+        {
+            if (IsBookmarked)
+                await _pixivClient.IllustV1.Bookmark.DeleteAsync(illust_id => _illust.Id, restrict => "public");
+            else
+                await _pixivClient.IllustV1.Bookmark.AddAsync(illust_id => _illust.Id, restrict => "public");
+            IsBookmarked = !IsBookmarked;
+        }
+
+        private bool CanBookmark() => _accountService.IsLoggedIn;
+
+        #endregion
 
         #endregion
 
@@ -248,14 +273,14 @@ namespace Pyxis.ViewModels.Detail
 
         #endregion
 
-        #region Bookmark
+        #region BookmarkCount
 
-        private int _bookmark;
+        private int _bookmarkCount;
 
-        public int Bookmark
+        public int BookmarkCount
         {
-            get { return _bookmark; }
-            set { SetProperty(ref _bookmark, value); }
+            get { return _bookmarkCount; }
+            set { SetProperty(ref _bookmarkCount, value); }
         }
 
         #endregion
@@ -292,6 +317,18 @@ namespace Pyxis.ViewModels.Detail
         {
             get { return _isManga; }
             set { SetProperty(ref _isManga, value); }
+        }
+
+        #endregion
+
+        #region IsBookmarked
+
+        private bool _isBookmarked;
+
+        public bool IsBookmarked
+        {
+            get { return _isBookmarked; }
+            set { SetProperty(ref _isBookmarked, value); }
         }
 
         #endregion

@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Reactive.Linq;
+using System.Windows.Input;
 
 using Microsoft.Practices.ObjectBuilder2;
 
+using Prism.Commands;
 using Prism.Windows.Navigation;
 
 using Pyxis.Beta.Interfaces.Models.v1;
@@ -92,7 +95,8 @@ namespace Pyxis.ViewModels.Detail
             CreatedAt = _novel.CreateDate.ToString("g");
             Username = _novel.User.Name;
             View = _novel.TotalView;
-            Bookmark = _novel.TotalBookmarks;
+            BookmarkCount = _novel.TotalBookmarks;
+            IsBookmarked = _novel.IsBookmarked;
             TextLength = $"{_novel.TextLength.ToString("##,###")}文字";
             _novel.Tags.ForEach(w => Tags.Add(new PixivTagViewModel(w, _navigationService)));
             Thumbnailable = new PixivNovel(_novel, _imageStoreService);
@@ -152,6 +156,27 @@ namespace Pyxis.ViewModels.Detail
             var parameter = new DetailByIdParameter {Id = _novel.User.Id};
             _navigationService.Navigate("Detail.UserDetail", parameter.ToJson());
         }
+
+        #region BookmarkCommand
+
+        private ICommand _bookmarkCommand;
+
+        public ICommand BookmarkCommand
+            => _bookmarkCommand ?? (_bookmarkCommand = new DelegateCommand(Bookmark, CanBookmark));
+
+        [SuppressMessage("ReSharper", "InconsistentNaming")]
+        private async void Bookmark()
+        {
+            if (IsBookmarked)
+                await _pixivClient.NovelV1.Bookmark.DeleteAsync(novel_id => _novel.Id, restrict => "public");
+            else
+                await _pixivClient.NovelV1.Bookmark.AddAsync(novel_id => _novel.Id, restrict => "public");
+            IsBookmarked = !IsBookmarked;
+        }
+
+        private bool CanBookmark() => _accountService.IsLoggedIn;
+
+        #endregion
 
         #endregion
 
@@ -234,14 +259,14 @@ namespace Pyxis.ViewModels.Detail
 
         #endregion
 
-        #region Bookmark
+        #region BookmarkCount
 
-        private int _bookmark;
+        private int _bookmarkCount;
 
-        public int Bookmark
+        public int BookmarkCount
         {
-            get { return _bookmark; }
-            set { SetProperty(ref _bookmark, value); }
+            get { return _bookmarkCount; }
+            set { SetProperty(ref _bookmarkCount, value); }
         }
 
         #endregion
@@ -254,6 +279,18 @@ namespace Pyxis.ViewModels.Detail
         {
             get { return _textLength; }
             set { SetProperty(ref _textLength, value); }
+        }
+
+        #endregion
+
+        #region IsBookmarked
+
+        private bool _isBookmarked;
+
+        public bool IsBookmarked
+        {
+            get { return _isBookmarked; }
+            set { SetProperty(ref _isBookmarked, value); }
         }
 
         #endregion

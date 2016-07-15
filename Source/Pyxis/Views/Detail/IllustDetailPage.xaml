@@ -5,6 +5,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:attach="using:Pyxis.Attach"
       xmlns:behaviors="using:Pyxis.Behaviors"
+      xmlns:core="using:Microsoft.Xaml.Interactions.Core"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:items="using:Pyxis.Views.Items"
@@ -152,10 +153,15 @@
                     </Border>
                     <Border>
                         <StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Border Width="48"
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="48" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="48" />
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.Column="0"
+                                        Width="48"
                                         Height="48"
-                                        Margin="5"
                                         BorderBrush="Transparent"
                                         CornerRadius="24"
                                         Tapped="{x:Bind ViewModel.OnTappedUserIcon}">
@@ -163,16 +169,55 @@
                                         <ImageBrush ImageSource="{x:Bind ViewModel.IconPath, Mode=OneWay}" />
                                     </Border.Background>
                                 </Border>
-                                <StackPanel Margin="10,0">
+                                <StackPanel Grid.Column="1"
+                                            Margin="10,0">
                                     <TextBlock Style="{ThemeResource TitleTextBlockStyle}"
                                                Text="{x:Bind ViewModel.Title, Mode=OneWay}"
-                                               TextWrapping="Wrap" />
+                                               TextTrimming="CharacterEllipsis"
+                                               TextWrapping="NoWrap" />
                                     <TextBlock Foreground="{ThemeResource ComboBoxItemDisabledForegroundThemeBrush}"
                                                Style="{ThemeResource CaptionTextBlockStyle}"
                                                Text="{x:Bind ViewModel.Username, Mode=OneWay}" />
                                 </StackPanel>
-                            </StackPanel>
-                            <StackPanel Margin="5"
+                                <Button x:Name="BookmarkButton"
+                                        Grid.Column="2"
+                                        Width="48"
+                                        Height="48"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        Command="{x:Bind ViewModel.BookmarkCommand}"
+                                        Content="&#xE0A5;"
+                                        FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                        FontSize="24">
+                                    <i:Interaction.Behaviors>
+                                        <core:DataTriggerBehavior Binding="{Binding IsBookmarked,
+                                                                                    Mode=OneWay}"
+                                                                  ComparisonCondition="Equal"
+                                                                  Value="True">
+                                            <core:ChangePropertyAction PropertyName="Foreground"
+                                                                       TargetObject="{Binding ElementName=BookmarkButton}">
+                                                <core:ChangePropertyAction.Value>
+                                                    <SolidColorBrush>Salmon</SolidColorBrush>
+                                                </core:ChangePropertyAction.Value>
+                                            </core:ChangePropertyAction>
+                                        </core:DataTriggerBehavior>
+                                        <core:DataTriggerBehavior Binding="{Binding IsBookmarked,
+                                                                                    Mode=OneWay}"
+                                                                  ComparisonCondition="Equal"
+                                                                  Value="False">
+                                            <core:ChangePropertyAction PropertyName="Foreground"
+                                                                       TargetObject="{Binding ElementName=BookmarkButton}">
+                                                <core:ChangePropertyAction.Value>
+                                                    <SolidColorBrush>Black</SolidColorBrush>
+                                                </core:ChangePropertyAction.Value>
+                                            </core:ChangePropertyAction>
+                                        </core:DataTriggerBehavior>
+                                    </i:Interaction.Behaviors>
+                                </Button>
+                            </Grid>
+                            <StackPanel Margin="10,5,5,5"
                                         Orientation="Horizontal">
                                 <StackPanel.Resources>
                                     <Style BasedOn="{StaticResource CaptionTextBlockStyle}"
@@ -184,7 +229,7 @@
                                            Text="{x:Bind ViewModel.CreatedAt, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}at {0}'}" />
                                 <TextBlock Margin="10,0"
                                            Text="{x:Bind ViewModel.View, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0} views'}" />
-                                <TextBlock Text="{x:Bind ViewModel.Bookmark, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0} bookmarks'}" />
+                                <TextBlock Text="{x:Bind ViewModel.BookmarkCount, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0} bookmarks'}" />
                             </StackPanel>
                         </StackPanel>
                     </Border>
