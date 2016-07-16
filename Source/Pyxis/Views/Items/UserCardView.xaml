@@ -25,6 +25,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="80" />
                     <ColumnDefinition />
+                    <ColumnDefinition Width="130" />
                 </Grid.ColumnDefinitions>
                 <i:Interaction.Behaviors>
                     <core:EventTriggerBehavior EventName="Tapped"
@@ -68,10 +69,12 @@
                         <TextBlock HorizontalAlignment="Center"
                                    Text="フォロー"
                                    Visibility="{Binding IsFollowing,
+                                                        Mode=OneWay,
                                                         Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
                         <TextBlock HorizontalAlignment="Center"
                                    Text="フォロー解除"
                                    Visibility="{Binding IsFollowing,
+                                                        Mode=OneWay,
                                                         Converter={StaticResource BooleanToVisibilityConverter}}" />
                     </Grid>
                 </StackPanel>
