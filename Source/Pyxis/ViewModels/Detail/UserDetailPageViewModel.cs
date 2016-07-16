@@ -6,6 +6,8 @@ using System.Reactive.Linq;
 
 using Prism.Windows.Navigation;
 
+using Pyxis.Alpha.Models.v1;
+using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Models;
 using Pyxis.Models.Enums;
@@ -27,6 +29,7 @@ namespace Pyxis.ViewModels.Detail
         private readonly IPixivClient _pixivClient;
         private string _id;
         private PixivDetail _pixivUser;
+        private IUserDetail _userDetail;
         public INavigationService NavigationService { get; }
 
         public ReadOnlyReactiveProperty<string> Username { get; private set; }
@@ -87,6 +90,7 @@ namespace Pyxis.ViewModels.Detail
             var observer = _pixivUser.ObserveProperty(w => w.UserDetail).Where(w => w != null).Publish();
             observer.ObserveOnUIDispatcher().Subscribe(w =>
             {
+                _userDetail = w;
                 Thumbnailable = new PixivUserImage(w.User, _imageStoreService);
                 var param1 = new UserDetailParameter
                 {
@@ -144,7 +148,15 @@ namespace Pyxis.ViewModels.Detail
                 await _pixivClient.User.Follow.DeleteAsunc(user_id => _id, restrict => "public");
             else
                 await _pixivClient.User.Follow.AddAsync(user_id => _id, restrict => "public");
-            IsFollowing.Value = true;
+            IsFollowing.Value = !IsFollowing.Value;
+            ((User) _userDetail.User).IsFollowed = IsFollowing.Value;
+            var param1 = new UserDetailParameter
+            {
+                Detail = _userDetail,
+                ProfileType = ProfileType.Work,
+                ContentType = ContentType.Illust
+            };
+            Parameter = ParamGen.Generate(param1, v => v.ProfileType).Skip(1).ToList();
         }
 
         #endregion

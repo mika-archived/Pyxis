@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 using Prism.Windows.Navigation;
 
+using Pyxis.Alpha.Models.v1;
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Collections;
@@ -24,6 +26,7 @@ namespace Pyxis.ViewModels.Detail
         private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
+        private string _id;
         private PixivFavorite _pixivFavorite;
         private PixivWork _pixivWork;
         public INavigationService NavigationService { get; }
@@ -51,9 +54,26 @@ namespace Pyxis.ViewModels.Detail
 
         #endregion
 
+        #region Events
+
+        [SuppressMessage("ReSharper", "InconsistentNaming")]
+        public async void OnFollowButtonTapped()
+        {
+            if (IsFollowing)
+                await _pixivClient.User.Follow.DeleteAsunc(user_id => _id, restrict => "public");
+            else
+                await _pixivClient.User.Follow.AddAsync(user_id => _id, restrict => "public");
+            IsFollowing = !IsFollowing;
+            var param = ParameterBase.ToObject<UserDetailParameter>(Parameter[1]);
+            ((User) param.Detail.User).IsFollowed = IsFollowing;
+            Initialize(param, false);
+        }
+
+        #endregion
+
         #region Initializers
 
-        private void Initialize(UserDetailParameter parameter)
+        private void Initialize(UserDetailParameter parameter, bool full = true)
         {
             _categoryService.UpdateCategory();
             SelectedIndex = (int) parameter.ProfileType;
@@ -64,9 +84,12 @@ namespace Pyxis.ViewModels.Detail
             Username = parameter.Detail.User.Name;
             ScreenName = $"@{parameter.Detail.User.AccountName}";
             Url = parameter.Detail.Profile.Webpage;
+            IsFollowing = parameter.Detail.User.IsFollowed;
+            _id = parameter.Detail.User.Id;
             if (!string.IsNullOrWhiteSpace(parameter.Detail.Profile.Webpage))
                 NavigateUrl = new Uri(parameter.Detail.Profile.Webpage);
-            Thumbnailable = new PixivUserImage(parameter.Detail.User, _imageStoreService);
+            if (full)
+                Thumbnailable = new PixivUserImage(parameter.Detail.User, _imageStoreService);
             var param1 = new UserDetailParameter
             {
                 Detail = parameter.Detail,
@@ -85,6 +108,8 @@ namespace Pyxis.ViewModels.Detail
             if (parameter.ProfileType == ProfileType.Work)
             {
                 InitializeSubMenu(param1, true);
+                if (!full)
+                    return;
                 _pixivWork = new PixivWork(parameter.Detail.User.Id, parameter.ContentType, _pixivClient);
                 if (parameter.ContentType != ContentType.Novel)
                     ModelHelper.ConnectTo(Collection, _pixivWork, w => w.Illusts, CreatePixivImage).AddTo(this);
@@ -94,6 +119,8 @@ namespace Pyxis.ViewModels.Detail
             else
             {
                 InitializeSubMenu(param1, false);
+                if (!full)
+                    return;
                 _pixivFavorite = new PixivFavorite(_pixivClient);
                 if (parameter.ContentType != ContentType.Novel)
                     ModelHelper.ConnectTo(Collection, _pixivFavorite, w => w.ResultIllusts, CreatePixivImage)
@@ -211,6 +238,18 @@ namespace Pyxis.ViewModels.Detail
         {
             get { return _navigateUrl; }
             set { SetProperty(ref _navigateUrl, value); }
+        }
+
+        #endregion
+
+        #region IsFollowing
+
+        private bool _isFollowing;
+
+        public bool IsFollowing
+        {
+            get { return _isFollowing; }
+            set { SetProperty(ref _isFollowing, value); }
         }
 
         #endregion

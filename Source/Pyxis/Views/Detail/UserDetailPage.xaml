@@ -103,10 +103,10 @@
                             <Grid>
                                 <TextBlock HorizontalAlignment="Center"
                                            Text="フォロー"
-                                           Visibility="{x:Bind ViewModel.IsFollowing, Mode=OneWay, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
+                                           Visibility="{x:Bind ViewModel.IsFollowing.Value, Mode=OneWay, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
                                 <TextBlock HorizontalAlignment="Center"
                                            Text="フォロー解除"
-                                           Visibility="{x:Bind ViewModel.IsFollowing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                           Visibility="{x:Bind ViewModel.IsFollowing.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}" />
                             </Grid>
                         </Button>
                     </Grid>
