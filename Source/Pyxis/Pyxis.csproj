@@ -138,6 +138,7 @@
     <Compile Include="Models\Parameters\ParamGen.cs" />
     <Compile Include="Models\Parameters\SearchHomeParameter.cs" />
     <Compile Include="Models\Parameters\SearchOptionParameter.cs" />
+    <Compile Include="Models\Parameters\SearchResultAndTrendingParameter.cs" />
     <Compile Include="Models\Parameters\SearchResultParameter.cs" />
     <Compile Include="Models\Parameters\UserDetailParameter.cs" />
     <Compile Include="Models\Parameters\WorkParameter.cs" />

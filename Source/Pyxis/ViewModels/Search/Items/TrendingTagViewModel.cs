@@ -29,13 +29,14 @@ namespace Pyxis.ViewModels.Search.Items
         {
             if (Illust != null)
             {
-                var param = new SearchResultParameter
+                var param = new SearchResultAndTrendingParameter
                 {
                     SearchType = _searchType,
                     Query = TagName,
                     Duration = SearchDuration.Nothing,
                     Sort = SearchSort.New,
-                    Target = SearchTarget.TagTotal
+                    Target = SearchTarget.TagTotal,
+                    TrendingIllust = Illust
                 };
                 NavigationService.Navigate("Search.SearchResult", param.ToJson());
             }

@@ -53,7 +53,7 @@ namespace Pyxis.ViewModels.Search
         public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
         {
             base.OnNavigatedTo(e, viewModelState);
-            var parameter = ParameterBase.ToObject<SearchResultParameter>((string) e?.Parameter);
+            var parameter = ParameterBase.ToObject<SearchResultAndTrendingParameter>((string) e?.Parameter);
             Initialize(parameter);
         }
 
@@ -61,11 +61,14 @@ namespace Pyxis.ViewModels.Search
 
         #region Initializers
 
-        private void Initialize(SearchResultParameter parameter)
+        private void Initialize(SearchResultAndTrendingParameter parameter)
         {
             _categoryService.UpdateCategory();
             SelectedIndex = (int) parameter.Sort;
             SearchQuery = parameter.Query;
+            HasTrendingTag = parameter.TrendingIllust != null;
+            if (HasTrendingTag)
+                ThumbnailableViewModel = CreatePixivImage(parameter.TrendingIllust);
             IsLoggedInRequired = !_accountService.IsLoggedIn && parameter.Sort == SearchSort.Popular;
             IsPremiumRequired = !_accountService.IsPremium && parameter.Sort == SearchSort.Popular;
             _searchOption = new SearchOptionParameter
@@ -166,6 +169,30 @@ namespace Pyxis.ViewModels.Search
         {
             get { return _selectedIndex; }
             set { SetProperty(ref _selectedIndex, value); }
+        }
+
+        #endregion
+
+        #region HasTrendingTag
+
+        private bool _hasTrendingTag;
+
+        public bool HasTrendingTag
+        {
+            get { return _hasTrendingTag; }
+            set { SetProperty(ref _hasTrendingTag, value); }
+        }
+
+        #endregion
+
+        #region ThumbnailableViewModel
+
+        private ThumbnailableViewModel _thumbnailableViewModel;
+
+        public ThumbnailableViewModel ThumbnailableViewModel
+        {
+            get { return _thumbnailableViewModel; }
+            set { SetProperty(ref _thumbnailableViewModel, value); }
         }
 
         #endregion
