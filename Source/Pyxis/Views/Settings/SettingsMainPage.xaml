@@ -25,9 +25,7 @@
                                Style="{StaticResource TabsStyleTextBlockStyle}"
                                Text="アカウント" />
                 </PivotItem.Header>
-                <StackPanel Margin="10">
-                    <Button Content="ログアウト" />
-                </StackPanel>
+                <local:SettingsAccountView Margin="10" />
             </PivotItem>
             <PivotItem>
                 <PivotItem.Header>

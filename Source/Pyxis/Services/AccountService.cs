@@ -41,6 +41,9 @@ namespace Pyxis.Services
                 var resources = vault.FindAllByResource(PyxisConstants.ApplicationKey);
                 foreach (var credential in resources)
                     vault.Remove(credential);
+                IsLoggedIn = false;
+                IsPremium = false;
+                LoggedInAccount = null;
             }
             catch (Exception e)
             {
