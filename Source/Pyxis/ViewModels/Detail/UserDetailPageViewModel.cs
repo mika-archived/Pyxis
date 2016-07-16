@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reactive.Linq;
 
@@ -24,6 +25,7 @@ namespace Pyxis.ViewModels.Detail
         private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
+        private string _id;
         private PixivDetail _pixivUser;
         public INavigationService NavigationService { get; }
 
@@ -50,6 +52,7 @@ namespace Pyxis.ViewModels.Detail
         public ReadOnlyReactiveProperty<string> Table { get; private set; }
         public ReadOnlyReactiveProperty<string> Chair { get; private set; }
         public ReadOnlyReactiveProperty<string> Other { get; private set; }
+        public ReactiveProperty<bool> IsFollowing { get; private set; }
 
         public UserDetailPageViewModel(IAccountService accountService, ICategoryService categoryService,
                                        IImageStoreService imageStoreService, INavigationService navigationService,
@@ -79,8 +82,8 @@ namespace Pyxis.ViewModels.Detail
         private void Initialie(DetailByIdParameter parameter)
         {
             _categoryService.UpdateCategory();
-            var id = string.IsNullOrWhiteSpace(parameter.Id) ? _accountService.LoggedInAccount.Id : parameter.Id;
-            _pixivUser = new PixivDetail(id, SearchType.Users, _pixivClient);
+            _id = string.IsNullOrWhiteSpace(parameter.Id) ? _accountService.LoggedInAccount.Id : parameter.Id;
+            _pixivUser = new PixivDetail(_id, SearchType.Users, _pixivClient);
             var observer = _pixivUser.ObserveProperty(w => w.UserDetail).Where(w => w != null).Publish();
             observer.ObserveOnUIDispatcher().Subscribe(w =>
             {
@@ -124,9 +127,24 @@ namespace Pyxis.ViewModels.Detail
             Table = observer.Select(w => w.Workspace.Desk).ToReadOnlyReactiveProperty().AddTo(this);
             Chair = observer.Select(w => w.Workspace.Chair).ToReadOnlyReactiveProperty().AddTo(this);
             Other = observer.Select(w => w.Workspace.Comment).ToReadOnlyReactiveProperty().AddTo(this);
+            IsFollowing = observer.Select(w => w.User.IsFollowed).ToReactiveProperty().AddTo(this);
             observer.Connect().AddTo(this);
 
             _pixivUser.Fetch();
+        }
+
+        #endregion
+
+        #region Events
+
+        [SuppressMessage("ReSharper", "InconsistentNaming")]
+        public async void OnFollowButtonTapped()
+        {
+            if (IsFollowing.Value)
+                await _pixivClient.User.Follow.DeleteAsunc(user_id => _id, restrict => "public");
+            else
+                await _pixivClient.User.Follow.AddAsync(user_id => _id, restrict => "public");
+            IsFollowing.Value = true;
         }
 
         #endregion

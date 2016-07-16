@@ -74,18 +74,42 @@
                        Stretch="UniformToFill" />
                 <Border Background="White"
                         Opacity=".75" />
-                <StackPanel HorizontalAlignment="Center"
+                <StackPanel HorizontalAlignment="Stretch"
                             VerticalAlignment="Center">
-                    <Border Width="96"
-                            Height="96"
-                            BorderBrush="Silver"
-                            BorderThickness="1"
-                            CornerRadius="48">
-                        <Border.Background>
-                            <ImageBrush ImageSource="{x:Bind ViewModel.ThumbnailPath, Mode=OneWay}"
-                                        Stretch="Uniform" />
-                        </Border.Background>
-                    </Border>
+                    <Grid Height="96"
+                          HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="96" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="1"
+                                BorderBrush="Silver"
+                                BorderThickness="1"
+                                CornerRadius="48">
+                            <Border.Background>
+                                <ImageBrush ImageSource="{x:Bind ViewModel.ThumbnailPath, Mode=OneWay}"
+                                            Stretch="Uniform" />
+                            </Border.Background>
+                        </Border>
+                        <Button Grid.Column="2"
+                                Width="100"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Background="Transparent"
+                                BorderBrush="{ThemeResource SystemControlForegroundAccentBrush}"
+                                Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
+                                Tapped="{x:Bind ViewModel.OnFollowButtonTapped}">
+                            <Grid>
+                                <TextBlock HorizontalAlignment="Center"
+                                           Text="フォロー"
+                                           Visibility="{x:Bind ViewModel.IsFollowing, Mode=OneWay, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
+                                <TextBlock HorizontalAlignment="Center"
+                                           Text="フォロー解除"
+                                           Visibility="{x:Bind ViewModel.IsFollowing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            </Grid>
+                        </Button>
+                    </Grid>
                     <TextBlock Margin="0,5"
                                HorizontalAlignment="Center"
                                Style="{ThemeResource BodyTextBlockStyle}"
