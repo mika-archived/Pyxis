@@ -120,7 +120,7 @@ namespace Pyxis.Models
                 throw new NotSupportedException("Mypixiv");
             if (_followType == FollowType.All)
                 illusts = await _pixivClient.IllustV1.NewAsync(filter => "for_ios", content_type => "manga",
-                                                               offset => _offset);
+                                                               max_illust_id => _maxIllustId);
             return illusts;
         }
 
