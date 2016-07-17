@@ -99,7 +99,7 @@
                    Margin="0,48,0,0" />
             <SplitView.Pane>
                 <!-- スライドでなんか上下できるのは仕様？ -->
-                <RelativePanel Margin="0,0,0,0">
+                <RelativePanel Margin="0,48,0,0">
                     <RelativePanel.Resources>
                         <Style TargetType="Button">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -138,18 +138,11 @@
                                                                        RootFrame="{x:Bind AppRootFrame}"
                                                                        TitleTextBlock="{Binding ElementName=TitleBar}" />
                         </i:Interaction.Behaviors>
-                        <ListBoxItem x:Name="Blank"
-                                     attach:NavigateTo.PageToken="HomeMain"
-                                     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                                     IsEnabled="False"
-                                     RelativePanel.AlignTopWithPanel="True">
-                            <Grid Height="48" />
-                        </ListBoxItem>
                         <ListBoxItem x:Name="HomeMain"
                                      attach:NavigateTo.PageToken="HomeMain"
                                      attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:0}"
                                      IsSelected="True"
-                                     RelativePanel.Below="Blank">
+                                     RelativePanel.AlignTopWithPanel="True">
                             <StackPanel Orientation="Horizontal">
                                 <FontIcon Width="48"
                                           Height="48"
@@ -203,7 +196,7 @@
                                      RelativePanel.Below="SearchMain">
                             <Border Margin="5,0"
                                     BorderBrush="{ThemeResource ListBoxBorderThemeBrush}"
-                                    BorderThickness=".25" />
+                                    BorderThickness=".49" />
                         </ListBoxItem>
                         <ListBoxItem x:Name="WorkMain"
                                      attach:NavigateTo.PageToken="WorkMain"
@@ -270,7 +263,7 @@
                                      RelativePanel.Below="BookmarkMain">
                             <Border Margin="5,0"
                                     BorderBrush="{ThemeResource ListBoxBorderThemeBrush}"
-                                    BorderThickness=".25" />
+                                    BorderThickness=".49" />
                         </ListBoxItem>
                         <ListBoxItem x:Name="FollowingMain"
                                      attach:NavigateTo.PageToken="FollowingMain"
@@ -366,7 +359,7 @@
                       VerticalAlignment="Top"
                       HorizontalContentAlignment="Center"
                       VerticalContentAlignment="Center"
-                      Background="Transparent"
+                      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                       Content="&#xE700;"
                       FontFamily="{ThemeResource SymbolThemeFontFamily}"
                       FontSize="20"

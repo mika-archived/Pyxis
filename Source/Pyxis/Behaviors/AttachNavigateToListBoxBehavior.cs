@@ -103,7 +103,7 @@ namespace Pyxis.Behaviors
                                         .Subscribe(w =>
                                         {
                                             AssociatedObject.SelectionChanged -= OnSelectionChanged;
-                                            if (CategoryService.Index > 0)
+                                            if (CategoryService.Index >= 0)
                                                 AssociatedObject.SelectedIndex = CategoryService.Index;
                                             SetTitle(CategoryService.Name);
                                             AssociatedObject.SelectionChanged += OnSelectionChanged;
