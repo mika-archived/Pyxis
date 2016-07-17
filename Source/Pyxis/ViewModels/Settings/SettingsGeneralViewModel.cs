@@ -25,41 +25,49 @@ namespace Pyxis.ViewModels.Settings
         // よくない
         public void ClearCache()
         {
-            FileCount = $"0個の項目";
-            CacheSize = "0 Byte";
+            FileCount = "0個の項目";
+            CacheSize = ((ulong) 0).GetSizeString();
             IsEnabled = false;
             Task.Run(async () =>
             {
                 var temporaryFolder = ApplicationData.Current.TemporaryFolder;
-                var files = await temporaryFolder.GetFilesAsync();
-                files.AsParallel().ForEach(async w => await w.DeleteAsync());
+                var tasks = new[]
+                {
+                    await temporaryFolder.GetFolderAsync("original"),
+                    await temporaryFolder.GetFolderAsync("thumbnails"),
+                    await temporaryFolder.GetFolderAsync("users")
+                }.Select(async w => await w.DeleteAsync());
+                await Task.WhenAll(tasks);
             });
         }
 
         private async Task Load()
         {
             var temporaryFolder = ApplicationData.Current.TemporaryFolder;
-            var files = await temporaryFolder.GetFilesAsync();
-            FileCount = $"{files.Count}個の項目";
-            if (files.Count == 0)
+            var size = 0UL;
+            var count = 0U;
+            var tasks = new[]
             {
-                CacheSize = "0 Byte";
-                IsEnabled = false;
-                return;
-            }
-            IsEnabled = true;
-            ulong size = 0;
-            foreach (var storageFile in files)
-                size += await storageFile.GetSizeAsync();
-
-            if (size < 1024)
-                CacheSize = $"{size} Bytes";
-            else if (size < 1024 * 1024)
-                CacheSize = $"{size / 1024} KB";
-            else if (size < 1024 * 1024 * 1024)
-                CacheSize = $"{size / (1024 * 1024)} MB";
-            else
-                CacheSize = $"{size / Math.Pow(1024, 3)} GB";
+                await temporaryFolder.GetFolderAsync("original"),
+                await temporaryFolder.GetFolderAsync("thumbnails"),
+                await temporaryFolder.GetFolderAsync("users")
+            }.Select(async w =>
+            {
+                var s = 0UL;
+                var files = await w.GetFilesAsync();
+                foreach (var file in files)
+                    s += await file.GetSizeAsync();
+                return new Tuple<uint, ulong>((uint) files.Count, s);
+            });
+            (await Task.WhenAll(tasks)).Select(w => w).ForEach(w =>
+            {
+                count += w.Item1;
+                size += w.Item2;
+            });
+            CacheSize = size.GetSizeString();
+            FileCount = $"{count}個";
+            if (count > 0)
+                IsEnabled = true;
         }
 
         #region FileCount

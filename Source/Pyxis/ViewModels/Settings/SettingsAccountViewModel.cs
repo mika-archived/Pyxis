@@ -11,7 +11,7 @@ namespace Pyxis.ViewModels.Settings
     {
         private readonly IAccountService _accountService;
 
-        public string Username => $"@{_accountService.LoggedInAccount.AccountName}";
+        public string Username => $"@{_accountService.LoggedInAccount?.AccountName ?? ""}";
 
         public SettingsAccountViewModel(IAccountService accountService)
         {

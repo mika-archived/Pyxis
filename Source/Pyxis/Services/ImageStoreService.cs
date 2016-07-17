@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 using Windows.Storage;
@@ -14,7 +15,9 @@ namespace Pyxis.Services
     internal class ImageStoreService : IImageStoreService
     {
         private readonly IPixivClient _client;
+        private readonly Regex _origRegex = new Regex(@"^[0-9]+_p[0-9]+$", RegexOptions.Compiled);
         private readonly StorageFolder _temporaryFolder;
+        private readonly Regex _userRegex = new Regex(@"^[0-9]+$", RegexOptions.Compiled);
 
         public ImageStoreService(IPixivClient client)
         {
@@ -27,8 +30,8 @@ namespace Pyxis.Services
             try
             {
                 var stream = await _client.Pximg.GetAsync(url);
-                var storageFile =
-                    await _temporaryFolder.CreateFileAsync(GetFileId(url), CreationCollisionOption.FailIfExists);
+                var storageFile = await (await GetDirectory(url))
+                    .CreateFileAsync(GetFileId(url), CreationCollisionOption.FailIfExists);
                 using (var transaction = await storageFile.OpenTransactedWriteAsync())
                 {
                     using (var writer = new DataWriter(transaction.Stream))
@@ -53,7 +56,7 @@ namespace Pyxis.Services
         {
             try
             {
-                await _temporaryFolder.GetFileAsync(GetFileId(url));
+                await (await GetDirectory(url)).GetFileAsync(GetFileId(url));
                 return true;
             }
             catch
@@ -64,8 +67,20 @@ namespace Pyxis.Services
 
         public async Task<string> LoadImageAsync(string url)
         {
-            var storageFile = await _temporaryFolder.GetFileAsync(GetFileId(url));
+            var storageFile = await (await GetDirectory(url)).GetFileAsync(GetFileId(url));
             return storageFile.Path;
+        }
+
+        private async Task<StorageFolder> GetDirectory(string url)
+        {
+            var value = Path.GetFileNameWithoutExtension(GetFileId(url));
+            if (value.EndsWith("square1200"))
+                return await _temporaryFolder.CreateFolderAsync("thumbnails", CreationCollisionOption.OpenIfExists);
+            if (_origRegex.IsMatch(value))
+                return await _temporaryFolder.CreateFolderAsync("original", CreationCollisionOption.OpenIfExists);
+            if (value.EndsWith("170") || value.EndsWith("_s") || _userRegex.IsMatch(value))
+                return await _temporaryFolder.CreateFolderAsync("users", CreationCollisionOption.OpenIfExists);
+            return _temporaryFolder;
         }
 
         private string GetFileId(string url)
