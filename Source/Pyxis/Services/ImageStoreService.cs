@@ -15,14 +15,15 @@ namespace Pyxis.Services
     internal class ImageStoreService : IImageStoreService
     {
         private readonly IPixivClient _client;
-        private readonly Regex _origRegex = new Regex(@"^[0-9]+_p[0-9]+$", RegexOptions.Compiled);
+        private readonly Regex _origRegex = new Regex(@"^\d+_p\d+$", RegexOptions.Compiled);
         private readonly StorageFolder _temporaryFolder;
-        private readonly Regex _userRegex = new Regex(@"^[0-9]+$", RegexOptions.Compiled);
+        private readonly Regex _userRegex = new Regex(@"^\d+$", RegexOptions.Compiled);
 
         public ImageStoreService(IPixivClient client)
         {
             _client = client;
             _temporaryFolder = ApplicationData.Current.TemporaryFolder;
+            Regex.CacheSize = short.MaxValue;
         }
 
         public async Task<string> SaveImageAsync(string url)
