@@ -108,6 +108,7 @@
     <Compile Include="Behaviors\GridViewEuqalitySizeBehavior.cs" />
     <Compile Include="Behaviors\ListBoxEmptyBehavior.cs" />
     <Compile Include="Behaviors\RichTextBlockBindingBehavior.cs" />
+    <Compile Include="Behaviors\UniformToParentControlBehavior.cs" />
     <Compile Include="Collections\IncrementalObservableCollection.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\EnumToBooleanConverter.cs" />

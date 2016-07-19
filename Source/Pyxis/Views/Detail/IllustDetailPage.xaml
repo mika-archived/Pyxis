@@ -129,12 +129,17 @@
                         </Style>
                     </StackPanel.Resources>
                     <Border>
-                        <Grid Tapped="{x:Bind ViewModel.OnItemTapped}">
+                        <Grid x:Name="ParentGrid"
+                              Tapped="{x:Bind ViewModel.OnItemTapped}">
                             <Image MaxWidth="{x:Bind ViewModel.Width, Mode=OneWay}"
                                    MaxHeight="{x:Bind ViewModel.Height, Mode=OneWay}"
                                    Margin="0,0,0,10"
                                    Source="{x:Bind ViewModel.ThumbnailPath, Mode=OneWay}"
-                                   Stretch="Uniform" />
+                                   Stretch="Uniform">
+                                <i:Interaction.Behaviors>
+                                    <behaviors:UniformToParentControlBehavior Target="{Binding ElementName=ParentGrid}" />
+                                </i:Interaction.Behaviors>
+                            </Image>
                             <Grid HorizontalAlignment="Right"
                                   VerticalAlignment="Top"
                                   Opacity=".8"
