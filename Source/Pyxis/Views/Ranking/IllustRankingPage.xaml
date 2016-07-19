@@ -1,19 +1,17 @@
 ﻿<!-- ReSharper disable UnusedMember.Local -->
 <!-- ReSharper disable NotAccessedField.Local -->
-<Page x:Class="Pyxis.Views.HomeMainPage"
+<Page x:Class="Pyxis.Views.Ranking.IllustRankingPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:attach="using:Pyxis.Attach"
       xmlns:behaviors="using:Pyxis.Behaviors"
-      xmlns:core="using:Microsoft.Xaml.Interactions.Core"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:homeBase="using:Pyxis.ViewModels.Home.Base"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:items="using:Pyxis.Views.Items"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:prism="using:Prism.Windows.Mvvm"
-      xmlns:viewModels="using:Pyxis.ViewModels"
-      d:DataContext="{d:DesignInstance viewModels:HomeMainPageViewModel}"
+      xmlns:vm="using:Pyxis.ViewModels.Ranking"
+      d:DataContext="{d:DesignInstance vm:IllustRankingPageViewModel}"
       prism:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d">
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -24,8 +22,7 @@
                         <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="Ranking.Height" Value="160" />
-                        <Setter Target="Recommended.ItemsPanel">
+                        <Setter Target="Ranking.ItemsPanel">
                             <Setter.Value>
                                 <ItemsPanelTemplate>
                                     <ItemsWrapGrid attach:AssumSize.AssumSize="100"
@@ -44,8 +41,7 @@
                         <AdaptiveTrigger MinWindowWidth="361" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="Ranking.Height" Value="180" />
-                        <Setter Target="Recommended.ItemsPanel">
+                        <Setter Target="Ranking.ItemsPanel">
                             <Setter.Value>
                                 <ItemsPanelTemplate>
                                     <ItemsWrapGrid attach:AssumSize.AssumSize="100"
@@ -65,8 +61,7 @@
                         <AdaptiveTrigger MinWindowWidth="500" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="Ranking.Height" Value="230" />
-                        <Setter Target="Recommended.ItemsPanel">
+                        <Setter Target="Ranking.ItemsPanel">
                             <Setter.Value>
                                 <ItemsPanelTemplate>
                                     <ItemsWrapGrid attach:AssumSize.AssumSize="150"
@@ -85,8 +80,7 @@
                         <AdaptiveTrigger MinWindowWidth="1025" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="Ranking.Height" Value="280" />
-                        <Setter Target="Recommended.ItemsPanel">
+                        <Setter Target="Ranking.ItemsPanel">
                             <Setter.Value>
                                 <ItemsPanelTemplate>
                                     <ItemsWrapGrid attach:AssumSize.AssumSize="200"
@@ -105,8 +99,7 @@
                         <AdaptiveTrigger MinWindowWidth="1367" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="Ranking.Height" Value="350" />
-                        <Setter Target="Recommended.ItemsPanel">
+                        <Setter Target="Ranking.ItemsPanel">
                             <Setter.Value>
                                 <ItemsPanelTemplate>
                                     <ItemsWrapGrid attach:AssumSize.AssumSize="200"
@@ -124,118 +117,74 @@
         </VisualStateManager.VisualStateGroups>
         <StackPanel Orientation="Vertical">
             <Pivot SelectedIndex="{x:Bind ViewModel.SelectedIndex, Mode=OneWay}"
-                   Style="{StaticResource TabsStylePivotStyle}">
+                   Style="{StaticResource MaxiTabsStylePivotStyle}">
                 <i:Interaction.Behaviors>
                     <behaviors:AttachNavigationToPivotBehavior NavigationService="{x:Bind ViewModel.NavigationService}" />
                 </i:Interaction.Behaviors>
-                <PivotItem attach:NavigateTo.PageToken="HomeMain"
-                           attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:0}">
+                <PivotItem attach:NavigateTo.PageToken="Ranking.IllustRanking"
+                           attach:NavigateTo.Parameters="{}{&quot;RankingType&quot;:0,&quot;RankingMode&quot;:0}">
                     <PivotItem.Header>
                         <TextBlock Width="64"
                                    Style="{StaticResource TabsStyleTextBlockStyle}"
-                                   Text="イラスト" />
+                                   Text="デイリー" />
                     </PivotItem.Header>
                 </PivotItem>
-                <PivotItem attach:NavigateTo.PageToken="HomeMain"
-                           attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:1}">
+                <PivotItem attach:NavigateTo.PageToken="Ranking.IllustRanking"
+                           attach:NavigateTo.Parameters="{}{&quot;RankingType&quot;:0,&quot;RankingMode&quot;:1}">
                     <PivotItem.Header>
                         <TextBlock Width="64"
                                    Style="{StaticResource TabsStyleTextBlockStyle}"
-                                   Text="マンガ" />
+                                   Text="男子に人気" />
                     </PivotItem.Header>
                 </PivotItem>
-                <PivotItem attach:NavigateTo.PageToken="HomeMain"
-                           attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:2}">
+                <PivotItem attach:NavigateTo.PageToken="Ranking.IllustRanking"
+                           attach:NavigateTo.Parameters="{}{&quot;RankingType&quot;:0,&quot;RankingMode&quot;:2}">
                     <PivotItem.Header>
                         <TextBlock Width="64"
                                    Style="{StaticResource TabsStyleTextBlockStyle}"
-                                   Text="小説" />
+                                   Text="女子に人気" />
+                    </PivotItem.Header>
+                </PivotItem>
+                <PivotItem attach:NavigateTo.PageToken="Ranking.IllustRanking"
+                           attach:NavigateTo.Parameters="{}{&quot;RankingType&quot;:0,&quot;RankingMode&quot;:3}">
+                    <PivotItem.Header>
+                        <TextBlock Width="64"
+                                   Style="{StaticResource TabsStyleTextBlockStyle}"
+                                   Text="オリジナル" />
+                    </PivotItem.Header>
+                </PivotItem>
+                <PivotItem attach:NavigateTo.PageToken="Ranking.IllustRanking"
+                           attach:NavigateTo.Parameters="{}{&quot;RankingType&quot;:0,&quot;RankingMode&quot;:4}">
+                    <PivotItem.Header>
+                        <TextBlock Width="64"
+                                   Style="{StaticResource TabsStyleTextBlockStyle}"
+                                   Text="ルーキー" />
+                    </PivotItem.Header>
+                </PivotItem>
+                <PivotItem attach:NavigateTo.PageToken="Ranking.IllustRanking"
+                           attach:NavigateTo.Parameters="{}{&quot;RankingType&quot;:0,&quot;RankingMode&quot;:5}">
+                    <PivotItem.Header>
+                        <TextBlock Width="64"
+                                   Style="{StaticResource TabsStyleTextBlockStyle}"
+                                   Text="ウィークリー" />
+                    </PivotItem.Header>
+                </PivotItem>
+                <PivotItem attach:NavigateTo.PageToken="Ranking.IllustRanking"
+                           attach:NavigateTo.Parameters="{}{&quot;RankingType&quot;:0,&quot;RankingMode&quot;:6}">
+                    <PivotItem.Header>
+                        <TextBlock Width="64"
+                                   Style="{StaticResource TabsStyleTextBlockStyle}"
+                                   Text="マンスリー" />
                     </PivotItem.Header>
                 </PivotItem>
             </Pivot>
-            <!-- Height != NaN かつ、 IncrementalLoading の対象にならない値 -->
-            <!-- AdjustControlSizeBehavior が調節してくれるので、仮の値で良い -->
-            <GridView x:Name="Recommended"
+            <GridView x:Name="Ranking"
                       Height="500"
-                      VerticalAlignment="Stretch"
-                      ItemsSource="{x:Bind ViewModel.RecommendedItems}">
+                      ItemsSource="{x:Bind ViewModel.RankingItems}">
                 <i:Interaction.Behaviors>
                     <behaviors:AdjustControlSizeBehavior HeightOffset="-96"
                                                          IsSyncHeight="True" />
                 </i:Interaction.Behaviors>
-                <GridView.Header>
-                    <StackPanel>
-                        <FlipView x:Name="Ranking"
-                                  HorizontalAlignment="Stretch"
-                                  VerticalAlignment="Top"
-                                  ItemsSource="{x:Bind ViewModel.TopRanking}">
-                            <i:Interaction.Behaviors>
-                                <behaviors:FlipViewAutoMovePageBehavior />
-                            </i:Interaction.Behaviors>
-                            <FlipView.ItemTemplate>
-                                <DataTemplate x:DataType="homeBase:RankingViewModel">
-                                    <Grid x:Name="TappableGrid">
-                                        <i:Interaction.Behaviors>
-                                            <core:EventTriggerBehavior EventName="Tapped"
-                                                                       SourceObject="{Binding ElementName=TappableGrid}">
-                                                <core:CallMethodAction MethodName="OnItemTapped"
-                                                                       TargetObject="{Binding}" />
-                                            </core:EventTriggerBehavior>
-                                        </i:Interaction.Behaviors>
-                                        <Image VerticalAlignment="Center"
-                                               Source="{Binding ThumbnailPath,
-                                                                Mode=OneWay}"
-                                               Stretch="UniformToFill" />
-                                        <Border HorizontalAlignment="Stretch"
-                                                VerticalAlignment="Stretch">
-                                            <Border.Background>
-                                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                                    <GradientStop Offset="-0.1" Color="{ThemeResource SystemBaseHighColor}" />
-                                                    <GradientStop Offset="0.5" Color="Transparent" />
-                                                    <GradientStop Offset="1.1" Color="{ThemeResource SystemBaseHighColor}" />
-                                                </LinearGradientBrush>
-                                            </Border.Background>
-                                            <Grid>
-                                                <StackPanel HorizontalAlignment="Left"
-                                                            VerticalAlignment="Top"
-                                                            Orientation="Horizontal">
-                                                    <FontIcon Margin="5,0"
-                                                              FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                                                              Foreground="Yellow"
-                                                              Glyph="&#xE735;" />
-                                                    <TextBlock HorizontalAlignment="Center"
-                                                               Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                                                               Style="{StaticResource SubtitleTextBlockStyle}"
-                                                               Text="{Binding Category,
-                                                                              Mode=OneWay}" />
-                                                </StackPanel>
-                                                <TextBlock Height="40"
-                                                           HorizontalAlignment="Center"
-                                                           VerticalAlignment="Bottom"
-                                                           Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                                                           Style="{StaticResource TitleTextBlockStyle}"
-                                                           Text="{Binding Title,
-                                                                          Mode=OneWay}"
-                                                           TextTrimming="CharacterEllipsis"
-                                                           TextWrapping="NoWrap" />
-                                            </Grid>
-                                        </Border>
-                                    </Grid>
-                                </DataTemplate>
-                            </FlipView.ItemTemplate>
-                        </FlipView>
-                        <StackPanel Margin="5"
-                                    Orientation="Horizontal">
-                            <TextBlock Margin="2"
-                                       FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                                       Foreground="HotPink"
-                                       Style="{ThemeResource FlyoutPickerTitleTextBlockStyle}"
-                                       Text="&#xE0A5;" />
-                            <TextBlock Margin="5,0"
-                                       Text="あなたへのおすすめ" />
-                        </StackPanel>
-                    </StackPanel>
-                </GridView.Header>
                 <GridView.ItemTemplate>
                     <DataTemplate>
                         <items:ThumbnailView DataContext="{Binding}" />

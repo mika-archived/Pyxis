@@ -11,6 +11,16 @@ namespace Pyxis.Behaviors
 {
     internal class GridViewEuqalitySizeBehavior : Behavior<ItemsWrapGrid>
     {
+        public static DependencyProperty IsEnabledHeightProperty =
+            DependencyProperty.Register(nameof(IsEnabledHeight), typeof(bool), typeof(GridViewEuqalitySizeBehavior),
+                                        new PropertyMetadata(true));
+
+        public bool IsEnabledHeight
+        {
+            get { return (bool) GetValue(IsEnabledHeightProperty); }
+            set { SetValue(IsEnabledHeightProperty, value); }
+        }
+
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             var size = e.NewSize;
@@ -19,7 +29,8 @@ namespace Pyxis.Behaviors
             var maxColumn = Math.Floor(size.Width / assumSize);
             var adjustedSize = assumSize + size.Width % assumSize / maxColumn;
 
-            AssociatedObject.ItemHeight = adjustedSize;
+            if (IsEnabledHeight)
+                AssociatedObject.ItemHeight = adjustedSize;
             AssociatedObject.ItemWidth = adjustedSize;
         }
 

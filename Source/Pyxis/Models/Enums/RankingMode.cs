@@ -87,5 +87,51 @@ namespace Pyxis.Models.Enums
                     throw new ArgumentOutOfRangeException(nameof(mode), mode, null);
             }
         }
+
+        public static string ToParamString(this RankingMode mode, ContentType type = ContentType.Illust)
+        {
+            switch (mode)
+            {
+                case RankingMode.Daily:
+                    if (type == ContentType.Illust || type == ContentType.Novel)
+                        return "day";
+                    return "day_manga";
+
+                case RankingMode.DailyMale:
+                    if (type == ContentType.Manga)
+                        throw new NotSupportedException();
+                    return "day_male";
+
+                case RankingMode.DailyFemale:
+                    if (type == ContentType.Manga)
+                        throw new NotSupportedException();
+                    return "day_female";
+
+                case RankingMode.WeeklyOriginal:
+                    if (type != ContentType.Illust)
+                        throw new NotSupportedException();
+                    return "week_original";
+
+                case RankingMode.WeeklyRookie:
+                    if (type == ContentType.Illust || type == ContentType.Novel)
+                        return "week_rookie";
+                    return "week_rookie_manga";
+
+                case RankingMode.Weekly:
+                    if (type == ContentType.Illust || type == ContentType.Novel)
+                        return "week";
+                    return "week_manga";
+
+                case RankingMode.Monthly:
+                    if (type == ContentType.Novel)
+                        throw new NotSupportedException();
+                    if (type == ContentType.Illust)
+                        return "month";
+                    return "month_manga";
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(mode), mode, null);
+            }
+        }
     }
 }

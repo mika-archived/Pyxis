@@ -22,7 +22,10 @@ namespace Pyxis.Services
             new Category("Follower", "フォロワー", 10),
             new Category("Mypixiv", "マイピク", 11),
             new Category("Settings", "設定", 13),
-            new Category("Detail", "詳細", -1)
+            new Category("Detail", "詳細", -1),
+            new Category("Ranking.Illust", "イラストランキング", -1),
+            new Category("Ranking.Manga", "漫画ランキング", -1),
+            new Category("Ranking.Novel", "小説ランキング", -1)
         };
 
         public CategoryService()

@@ -85,7 +85,7 @@ namespace Pyxis
         protected override Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)
         {
             NavigationService.Navigate("HomeMain", "{\"ContentType\":0}");
-            var param = new FollowingParameter {Restrict = RestrictType.Public};
+            var param = new RankingParameter {RankingMode = RankingMode.Daily, RankingType = ContentType.Illust};
             Debug.WriteLine(param.ToJson());
             return Task.CompletedTask;
         }

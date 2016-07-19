@@ -136,6 +136,7 @@
     <Compile Include="Models\Parameters\FollowingParameter.cs" />
     <Compile Include="Models\Parameters\NovelDetailParameter.cs" />
     <Compile Include="Models\Parameters\ParamGen.cs" />
+    <Compile Include="Models\Parameters\RankingParameter.cs" />
     <Compile Include="Models\Parameters\SearchHomeParameter.cs" />
     <Compile Include="Models\Parameters\SearchOptionParameter.cs" />
     <Compile Include="Models\Parameters\SearchResultAndTrendingParameter.cs" />
@@ -217,6 +218,7 @@
     <Compile Include="ViewModels\New\FollowMypixivNewPageViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModel.cs" />
     <Compile Include="ViewModels\Items\UserCardViewModel.cs" />
+    <Compile Include="ViewModels\Ranking\IllustRankingPageViewModel.cs" />
     <Compile Include="ViewModels\Search\Items\TrendingTagViewModel.cs" />
     <Compile Include="ViewModels\Search\SearchResultPageViewModel.cs" />
     <Compile Include="ViewModels\Search\UserSearchPageViewModel.cs" />
@@ -305,6 +307,9 @@
     </Compile>
     <Compile Include="Views\New\FollowMypixivNewPage.xaml.cs">
       <DependentUpon>FollowMypixivNewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Ranking\IllustRankingPage.xaml.cs">
+      <DependentUpon>IllustRankingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Search\SearchResultPage.xaml.cs">
       <DependentUpon>SearchResultPage.xaml</DependentUpon>
@@ -525,6 +530,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Ranking\IllustRankingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Search\SearchResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -587,7 +596,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Bookmark\" />
-    <Folder Include="Views\Ranking\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

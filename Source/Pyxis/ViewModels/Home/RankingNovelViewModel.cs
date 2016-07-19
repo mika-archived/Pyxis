@@ -19,5 +19,14 @@ namespace Pyxis.ViewModels.Home
             ThumbnailPath = PyxisConstants.DummyImage;
             Thumbnailable = new PixivNovel(novel, imageStoreService);
         }
+
+        #region Overrides of TappableThumbnailViewModel
+
+        public override void OnItemTapped()
+        {
+            NavigationService.Navigate("Ranking.NovelRanking", null);
+        }
+
+        #endregion
     }
 }

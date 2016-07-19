@@ -80,7 +80,7 @@ namespace Pyxis.ViewModels
                            .AddTo(this);
             }
 #if !OFFLINE
-            _pixivRanking.Fetch();
+            _pixivRanking.FetchAll();
 #endif
         }
 
