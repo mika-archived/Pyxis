@@ -1,6 +1,7 @@
 ﻿using Prism.Windows.Navigation;
 
 using Pyxis.Beta.Interfaces.Models.v1;
+using Pyxis.Extensions;
 using Pyxis.Models;
 using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
@@ -33,7 +34,8 @@ namespace Pyxis.ViewModels.Home
                 RankingMode = RankingMode,
                 RankingType = _illust.Type == "manga" ? ContentType.Manga : ContentType.Illust
             };
-            NavigationService.Navigate("Ranking.IllustRanking", parameter.ToJson());
+            NavigationService.Navigate($"Ranking.{_illust.Type.FirstCharToUpper()}Ranking",
+                                       parameter.ToJson());
         }
 
         #endregion
