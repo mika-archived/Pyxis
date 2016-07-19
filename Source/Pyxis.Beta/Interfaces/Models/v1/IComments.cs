@@ -7,7 +7,7 @@ namespace Pyxis.Beta.Interfaces.Models.v1
     /// <summary>
     ///     コメント
     /// </summary>
-    public interface IComments : IIndex
+    public interface IComments : IErrorResponse, IIndex
     {
         /// <summary>
         ///     コメント数

@@ -10,8 +10,8 @@ namespace Pyxis.Beta.Interfaces.Rest.v1
     {
         Task<IUsers> UsersAsync(params Expression<Func<string, object>>[] parameters);
 
-        Task AddAsync(params Expression<Func<string, object>>[] parameters);
+        Task<IVoidReturn> AddAsync(params Expression<Func<string, object>>[] parameters);
 
-        Task DeleteAsync(params Expression<Func<string, object>>[] parameters);
+        Task<IVoidReturn> DeleteAsync(params Expression<Func<string, object>>[] parameters);
     }
 }

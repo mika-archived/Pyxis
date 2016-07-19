@@ -2,6 +2,8 @@
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
+using Pyxis.Alpha.Models.v1;
+using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest.v1;
 
 namespace Pyxis.Alpha.Rest.v1
@@ -17,8 +19,8 @@ namespace Pyxis.Alpha.Rest.v1
 
         #region Implementation of INovelMarkerApi
 
-        public async Task AddAsync(params Expression<Func<string, object>>[] parameters)
-            => await _client.PostAsync<Task>(Endpoints.NovelMarkerAdd, true, parameters);
+        public async Task<IVoidReturn> AddAsync(params Expression<Func<string, object>>[] parameters)
+            => await _client.PostAsync<VoidReturn>(Endpoints.NovelMarkerAdd, true, parameters);
 
         #endregion
     }

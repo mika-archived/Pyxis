@@ -25,5 +25,14 @@ namespace Pyxis.Alpha.Models.v1
         public IList<IUserPreview> UserPreviewList { get; set; }
 
         #endregion
+
+        #region Implementation of IErrorResponse
+
+        [JsonProperty("error")]
+        public dynamic Error { get; set; }
+
+        public bool HasError => Error != null;
+
+        #endregion
     }
 }

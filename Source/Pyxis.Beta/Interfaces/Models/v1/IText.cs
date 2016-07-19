@@ -1,6 +1,8 @@
-﻿namespace Pyxis.Beta.Interfaces.Models.v1
+﻿using Pyxis.Beta.Interfaces.Models.Internal;
+
+namespace Pyxis.Beta.Interfaces.Models.v1
 {
-    public interface IText
+    public interface IText : IErrorResponse
     {
         INovelMarker NovelMarker { get; }
 

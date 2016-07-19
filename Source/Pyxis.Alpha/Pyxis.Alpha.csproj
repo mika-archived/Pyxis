@@ -147,6 +147,7 @@
     <Compile Include="Models\v1\UserDetail.cs" />
     <Compile Include="Models\v1\UserPreview.cs" />
     <Compile Include="Models\v1\UserPreviews.cs" />
+    <Compile Include="Models\v1\VoidReturn.cs" />
     <Compile Include="Models\v1\Workspace.cs" />
     <Compile Include="Models\v1\ZipUrls.cs" />
     <Compile Include="Models\v2\BookmarkDetail.cs" />

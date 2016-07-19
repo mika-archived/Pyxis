@@ -22,11 +22,11 @@ namespace Pyxis.Alpha.Rest.v1
         public async Task<IUsers> UsersAsync(params Expression<Func<string, object>>[] parameters)
             => await _client.GetAsync<Users>(Endpoints.IllustBookmarkUsers, false, parameters);
 
-        public async Task AddAsync(params Expression<Func<string, object>>[] parameters)
-            => await _client.PostAsync<Task>(Endpoints.IllustBookmarkAdd, true, parameters);
+        public async Task<IVoidReturn> AddAsync(params Expression<Func<string, object>>[] parameters)
+            => await _client.PostAsync<VoidReturn>(Endpoints.IllustBookmarkAdd, true, parameters);
 
-        public async Task DeleteAsync(params Expression<Func<string, object>>[] parameters)
-            => await _client.PostAsync<Task>(Endpoints.IllustBookmarkDelete, true, parameters);
+        public async Task<IVoidReturn> DeleteAsync(params Expression<Func<string, object>>[] parameters)
+            => await _client.PostAsync<VoidReturn>(Endpoints.IllustBookmarkDelete, true, parameters);
 
         #endregion
     }

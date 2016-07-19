@@ -7,7 +7,7 @@ namespace Pyxis.Beta.Interfaces.Models.v1
     /// <summary>
     ///     ブックマークユーザー
     /// </summary>
-    public interface IUsers : IIndex
+    public interface IUsers : IErrorResponse, IIndex
     {
         /// <summary>
         ///     ブックマークしているユーザー

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 using Pyxis.Beta.Interfaces.Models.v1;
 
@@ -8,15 +6,8 @@ using Pyxis.Beta.Interfaces.Models.v1;
 
 namespace Pyxis.Alpha.Models.v1
 {
-    public class AutoComplete : IAutoComplete
+    internal class VoidReturn : IVoidReturn
     {
-        #region Implementation of IAutoComplete
-
-        [JsonProperty("search_auto_complete_keywords")]
-        public IList<string> SearchAutoCompleteKeywords { get; set; }
-
-        #endregion
-
         #region Implementation of IErrorResponse
 
         [JsonProperty("error")]

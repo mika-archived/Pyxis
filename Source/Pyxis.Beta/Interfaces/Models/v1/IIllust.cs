@@ -8,7 +8,7 @@ namespace Pyxis.Beta.Interfaces.Models.v1
     /// <summary>
     ///     イラスト
     /// </summary>
-    public interface IIllust : IIdentity
+    public interface IIllust : IErrorResponse, IIdentity
     {
         /// <summary>
         ///     タイトル

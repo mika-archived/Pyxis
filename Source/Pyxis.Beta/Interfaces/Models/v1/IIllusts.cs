@@ -7,7 +7,7 @@ namespace Pyxis.Beta.Interfaces.Models.v1
     /// <summary>
     ///     イラスト
     /// </summary>
-    public interface IIllusts : IIndex
+    public interface IIllusts : IErrorResponse, IIndex
     {
         /// <summary>
         ///     イラスト
