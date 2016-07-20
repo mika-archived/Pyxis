@@ -222,6 +222,7 @@
     <Compile Include="ViewModels\Items\UserCardViewModel.cs" />
     <Compile Include="ViewModels\Ranking\IllustRankingPageViewModel.cs" />
     <Compile Include="ViewModels\Ranking\MangaRankingPageViewModel.cs" />
+    <Compile Include="ViewModels\Ranking\NovelRankingPageViewModel.cs" />
     <Compile Include="ViewModels\Search\Items\TrendingTagViewModel.cs" />
     <Compile Include="ViewModels\Search\SearchResultPageViewModel.cs" />
     <Compile Include="ViewModels\Search\UserSearchPageViewModel.cs" />
@@ -316,6 +317,9 @@
     </Compile>
     <Compile Include="Views\Ranking\MangaRankingPage.xaml.cs">
       <DependentUpon>MangaRankingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Ranking\NovelRankingPage.xaml.cs">
+      <DependentUpon>NovelRankingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Search\SearchResultPage.xaml.cs">
       <DependentUpon>SearchResultPage.xaml</DependentUpon>
@@ -541,6 +545,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Ranking\MangaRankingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Ranking\NovelRankingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

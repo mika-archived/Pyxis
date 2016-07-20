@@ -3,6 +3,7 @@
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Models;
 using Pyxis.Models.Enums;
+using Pyxis.Models.Parameters;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Home.Base;
 
@@ -24,7 +25,12 @@ namespace Pyxis.ViewModels.Home
 
         public override void OnItemTapped()
         {
-            NavigationService.Navigate("Ranking.NovelRanking", null);
+            var parameter = new RankingParameter
+            {
+                RankingMode = RankingMode,
+                RankingType = ContentType.Novel
+            };
+            NavigationService.Navigate("Ranking.NovelRanking", parameter.ToJson());
         }
 
         #endregion
