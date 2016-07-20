@@ -14,7 +14,7 @@
     <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <ListView ItemsSource="{x:Bind ViewModel.FollowerUsers}">
             <interactivity:Interaction.Behaviors>
-                <behaviors:AdjustControlSizeBehavior HeightOffset="-96"
+                <behaviors:AdjustControlSizeBehavior HeightOffset="-48"
                                                      IsSyncHeight="True" />
             </interactivity:Interaction.Behaviors>
             <ListView.ItemContainerStyle>

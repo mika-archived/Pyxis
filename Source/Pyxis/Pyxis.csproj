@@ -145,6 +145,7 @@
     <Compile Include="Models\Parameters\SearchResultParameter.cs" />
     <Compile Include="Models\Parameters\UserDetailParameter.cs" />
     <Compile Include="Models\Parameters\WorkParameter.cs" />
+    <Compile Include="Models\PixivBookmark.cs" />
     <Compile Include="Models\PixivBookmarkTag.cs" />
     <Compile Include="Models\PixivComment.cs" />
     <Compile Include="Models\Parameters\HomeParameter.cs" />
@@ -190,7 +191,7 @@
     <Compile Include="ViewModels\Base\DialogViewModel.cs" />
     <Compile Include="ViewModels\Base\TappableThumbnailViewModel.cs" />
     <Compile Include="ViewModels\Base\ThumbnailableViewModel.cs" />
-    <Compile Include="ViewModels\Bookmark\MainBookmarkPageViewModel.cs" />
+    <Compile Include="ViewModels\BookmarkMainPageViewModel.cs" />
     <Compile Include="ViewModels\BrowsingHistory\IllustMangaBrowsingHistoryPageViewModel.cs" />
     <Compile Include="ViewModels\BrowsingHistory\NovelBrowsingHistoryPageViewModel.cs" />
     <Compile Include="ViewModels\Detail\IllustDetailPageViewModel.cs" />
@@ -239,6 +240,9 @@
     </Compile>
     <Compile Include="Views\Account\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BookmarkMainPage.xaml.cs">
+      <DependentUpon>BookmarkMainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\BrowsingHistory\IllustMangaBrowsingHistoryPage.xaml.cs">
       <DependentUpon>IllustMangaBrowsingHistoryPage.xaml</DependentUpon>
@@ -444,6 +448,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\BookmarkMainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\BrowsingHistory\IllustMangaBrowsingHistoryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -612,9 +620,7 @@
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Bookmark\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

@@ -243,9 +243,8 @@
                                            Text="閲覧履歴" />
                             </StackPanel>
                         </ListBoxItem>
-                        <!-- TODO: Not Implementation -->
                         <ListBoxItem x:Name="BookmarkMain"
-                                     attach:NavigateTo.PageToken="Bookmark.MainBookmark"
+                                     attach:NavigateTo.PageToken="BookmarkMain"
                                      RelativePanel.Below="BrowsingHistory">
                             <StackPanel Orientation="Horizontal">
                                 <FontIcon Width="48"
