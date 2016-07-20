@@ -13,7 +13,6 @@ using Prism.Windows.Navigation;
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Collections;
-using Pyxis.Extensions;
 using Pyxis.Helpers;
 using Pyxis.Models;
 using Pyxis.Models.Enums;
@@ -153,7 +152,10 @@ namespace Pyxis.ViewModels.Detail
         public override void OnItemTapped()
         {
             var parameter = new IllustDetailParameter {Illust = _illust};
-            _navigationService.Navigate($"Detail.{_illust.Type.FirstCharToUpper()}View", parameter.ToJson());
+            var type = "Illust";
+            if (IsManga)
+                type = "Manga";
+            _navigationService.Navigate($"Detail.{type}View", parameter.ToJson());
         }
 
         public void OnTappedUserIcon()
