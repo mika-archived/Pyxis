@@ -63,7 +63,13 @@
             <interactivity:Interaction.Behaviors>
                 <behaviors:AdjustControlSizeBehavior HeightOffset="-137"
                                                      IsSyncHeight="True" />
+                <behaviors:ListBoxEmptyBehavior Target="{x:Bind NotFoundSearchQueryMes}" />
             </interactivity:Interaction.Behaviors>
+            <ListView.Header>
+                <TextBlock x:Name="NotFoundSearchQueryMes"
+                           Style="{ThemeResource NfMessageTextBlockStyle}"
+                           Text="検索結果はありません。" />
+            </ListView.Header>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="Margin" Value="0,5" />

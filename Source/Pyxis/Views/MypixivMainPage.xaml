@@ -16,7 +16,13 @@
             <interactivity:Interaction.Behaviors>
                 <behaviors:AdjustControlSizeBehavior HeightOffset="-48"
                                                      IsSyncHeight="True" />
+                <behaviors:ListBoxEmptyBehavior Target="{x:Bind NotFoundMypixivMes}" />
             </interactivity:Interaction.Behaviors>
+            <ListView.Header>
+                <TextBlock x:Name="NotFoundMypixivMes"
+                           Style="{ThemeResource NfMessageTextBlockStyle}"
+                           Text="マイピク登録したユーザーはいません。" />
+            </ListView.Header>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="Margin" Value="0,5" />

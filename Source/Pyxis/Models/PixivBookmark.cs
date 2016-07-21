@@ -25,7 +25,7 @@ namespace Pyxis.Models
             _offset = "";
             Novels = new ObservableCollection<INovel>();
 #if OFFLINE
-            this.HasMoreItems = false;
+            HasMoreItems = false;
 #else
             HasMoreItems = true;
 #endif

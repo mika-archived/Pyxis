@@ -118,6 +118,9 @@
         </VisualStateManager.VisualStateGroups>
         <GridView x:Name="RootPanel"
                   ItemsSource="{x:Bind ViewModel.RelatedItems}">
+            <i:Interaction.Behaviors>
+                <behaviors:ListBoxEmptyBehavior Target="{x:Bind NotFoundRelatedItems}" />
+            </i:Interaction.Behaviors>
             <GridView.Header>
                 <StackPanel Margin="10"
                             Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -276,10 +279,8 @@
                             <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}"
                                        Text="コメント" />
                             <TextBlock x:Name="CommentNotPostedMes"
-                                       HorizontalAlignment="Center"
-                                       Foreground="{ThemeResource ComboBoxItemDisabledForegroundThemeBrush}"
-                                       Style="{ThemeResource BodyTextBlockStyle}"
-                                       Text="コメントはありません" />
+                                       Style="{ThemeResource NfMessageTextBlockStyle}"
+                                       Text="コメントはありません。" />
                             <ItemsControl HorizontalContentAlignment="Stretch"
                                           ItemsSource="{x:Bind ViewModel.Comments}">
                                 <i:Interaction.Behaviors>
@@ -302,6 +303,9 @@
                     <TextBlock Margin="5,0"
                                Style="{ThemeResource SubtitleTextBlockStyle}"
                                Text="関連作品" />
+                    <TextBlock x:Name="NotFoundRelatedItems"
+                               Style="{ThemeResource NfMessageTextBlockStyle}"
+                               Text="関連作品はありません。" />
                 </StackPanel>
             </GridView.Header>
             <GridView.ItemTemplate>

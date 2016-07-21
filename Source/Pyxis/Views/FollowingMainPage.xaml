@@ -39,7 +39,13 @@
             <interactivity:Interaction.Behaviors>
                 <behaviors:AdjustControlSizeBehavior HeightOffset="-96"
                                                      IsSyncHeight="True" />
+                <behaviors:ListBoxEmptyBehavior Target="{x:Bind NotFoundFollowingMes}" />
             </interactivity:Interaction.Behaviors>
+            <ListView.Header>
+                <TextBlock x:Name="NotFoundFollowingMes"
+                           Style="{ThemeResource NfMessageTextBlockStyle}"
+                           Text="フォローしているユーザーはいません。" />
+            </ListView.Header>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="Margin" Value="0,5" />

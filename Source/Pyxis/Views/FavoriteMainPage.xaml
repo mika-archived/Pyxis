@@ -151,7 +151,13 @@
             <i:Interaction.Behaviors>
                 <behaviors:AdjustControlSizeBehavior HeightOffset="-96"
                                                      IsSyncHeight="True" />
+                <behaviors:ListBoxEmptyBehavior Target="{x:Bind NotFoundFavoriteItemsMes}" />
             </i:Interaction.Behaviors>
+            <GridView.Header>
+                <TextBlock x:Name="NotFoundFavoriteItemsMes"
+                           Style="{ThemeResource NfMessageTextBlockStyle}"
+                           Text="お気に入り登録した作品はありません。" />
+            </GridView.Header>
             <GridView.ItemTemplate>
                 <DataTemplate>
                     <items:ThumbnailView DataContext="{Binding}" />

@@ -249,11 +249,17 @@
             <i:Interaction.Behaviors>
                 <behaviors:AdjustControlSizeBehavior HeightOffset="-137"
                                                      IsSyncHeight="True" />
+                <behaviors:ListBoxEmptyBehavior Target="{x:Bind NotFoundSearchResultMes}" />
             </i:Interaction.Behaviors>
             <GridView.Header>
-                <items:ThumbnailView x:Name="TopTrend"
-                                     DataContext="{x:Bind ViewModel.ThumbnailableViewModel, Mode=OneWay}"
-                                     Visibility="{x:Bind ViewModel.HasTrendingTag, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <Grid>
+                    <TextBlock x:Name="NotFoundSearchResultMes"
+                               Style="{ThemeResource NfMessageTextBlockStyle}"
+                               Text="検索結果はありません。" />
+                    <items:ThumbnailView x:Name="TopTrend"
+                                         DataContext="{x:Bind ViewModel.ThumbnailableViewModel, Mode=OneWay}"
+                                         Visibility="{x:Bind ViewModel.HasTrendingTag, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                </Grid>
             </GridView.Header>
             <GridView.ItemTemplate>
                 <DataTemplate>

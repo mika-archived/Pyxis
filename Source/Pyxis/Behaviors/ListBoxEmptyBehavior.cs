@@ -59,7 +59,7 @@ namespace Pyxis.Behaviors
             }
             else
             {
-                AssociatedObject.Visibility = Visibility.Collapsed;
+                // AssociatedObject.Visibility = Visibility.Collapsed;
                 if (Target != null)
                     Target.Visibility = Visibility.Visible;
             }

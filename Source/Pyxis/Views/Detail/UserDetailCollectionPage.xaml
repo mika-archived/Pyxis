@@ -122,11 +122,15 @@
         </VisualStateManager.VisualStateGroups>
         <GridView x:Name="Works"
                   ItemsSource="{x:Bind ViewModel.Collection}">
+            <i:Interaction.Behaviors>
+                <behaviors:ListBoxEmptyBehavior Target="{x:Bind NotFoundItemsMes}" />
+            </i:Interaction.Behaviors>
             <GridView.Header>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="48" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Border x:Name="UserHeader"
@@ -276,6 +280,10 @@
                             </PivotItem.Header>
                         </PivotItem>
                     </Pivot>
+                    <TextBlock x:Name="NotFoundItemsMes"
+                               Grid.Row="3"
+                               Style="{ThemeResource NfMessageTextBlockStyle}"
+                               Text="アイテムはありません。" />
                 </Grid>
             </GridView.Header>
             <GridView.ItemTemplate>

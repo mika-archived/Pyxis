@@ -3,5 +3,6 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Controls.RadioButton.xaml" />
         <ResourceDictionary Source="Controls.Pivot.xaml" />
+        <ResourceDictionary Source="Controls.TextBlock.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

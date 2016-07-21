@@ -152,38 +152,50 @@
                 <i:Interaction.Behaviors>
                     <behaviors:AdjustControlSizeBehavior HeightOffset="-96"
                                                          IsSyncHeight="True" />
+                    <behaviors:ListBoxEmptyBehavior Target="{x:Bind NotFoundItemsMes}" />
                 </i:Interaction.Behaviors>
                 <GridView.Header>
-                    <Pivot SelectedIndex="{x:Bind ViewModel.SubSelectdIndex}"
-                           Style="{StaticResource MiniTabsStylePivotStyle}">
-                        <i:Interaction.Behaviors>
-                            <behaviors:AttachNavigationToPivotBehavior NavigationService="{x:Bind ViewModel.NavigationService}" />
-                        </i:Interaction.Behaviors>
-                        <PivotItem attach:NavigateTo.PageToken="New.AllNew"
-                                   attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:0}">
-                            <PivotItem.Header>
-                                <TextBlock Width="64"
-                                           Style="{StaticResource TabsStyleTextBlockStyle}"
-                                           Text="イラスト" />
-                            </PivotItem.Header>
-                        </PivotItem>
-                        <PivotItem attach:NavigateTo.PageToken="New.AllNew"
-                                   attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:1}">
-                            <PivotItem.Header>
-                                <TextBlock Width="64"
-                                           Style="{StaticResource TabsStyleTextBlockStyle}"
-                                           Text="マンガ" />
-                            </PivotItem.Header>
-                        </PivotItem>
-                        <PivotItem attach:NavigateTo.PageToken="New.AllNew"
-                                   attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:2}">
-                            <PivotItem.Header>
-                                <TextBlock Width="64"
-                                           Style="{StaticResource TabsStyleTextBlockStyle}"
-                                           Text="小説" />
-                            </PivotItem.Header>
-                        </PivotItem>
-                    </Pivot>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Pivot Grid.Row="0"
+                               SelectedIndex="{x:Bind ViewModel.SubSelectdIndex}"
+                               Style="{StaticResource MiniTabsStylePivotStyle}">
+                            <i:Interaction.Behaviors>
+                                <behaviors:AttachNavigationToPivotBehavior NavigationService="{x:Bind ViewModel.NavigationService}" />
+                            </i:Interaction.Behaviors>
+                            <PivotItem attach:NavigateTo.PageToken="New.AllNew"
+                                       attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:0}">
+                                <PivotItem.Header>
+                                    <TextBlock Width="64"
+                                               Style="{StaticResource TabsStyleTextBlockStyle}"
+                                               Text="イラスト" />
+                                </PivotItem.Header>
+                            </PivotItem>
+                            <PivotItem attach:NavigateTo.PageToken="New.AllNew"
+                                       attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:1}">
+                                <PivotItem.Header>
+                                    <TextBlock Width="64"
+                                               Style="{StaticResource TabsStyleTextBlockStyle}"
+                                               Text="マンガ" />
+                                </PivotItem.Header>
+                            </PivotItem>
+                            <PivotItem attach:NavigateTo.PageToken="New.AllNew"
+                                       attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:2}">
+                                <PivotItem.Header>
+                                    <TextBlock Width="64"
+                                               Style="{StaticResource TabsStyleTextBlockStyle}"
+                                               Text="小説" />
+                                </PivotItem.Header>
+                            </PivotItem>
+                        </Pivot>
+                        <TextBlock x:Name="NotFoundItemsMes"
+                                   Grid.Row="1"
+                                   Style="{ThemeResource NfMessageTextBlockStyle}"
+                                   Text="新着投稿はありません。" />
+                    </Grid>
                 </GridView.Header>
                 <GridView.ItemTemplate>
                     <DataTemplate>

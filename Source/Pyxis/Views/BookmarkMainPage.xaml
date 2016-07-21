@@ -120,7 +120,13 @@
             <i:Interaction.Behaviors>
                 <behaviors:AdjustControlSizeBehavior HeightOffset="-48"
                                                      IsSyncHeight="True" />
+                <behaviors:ListBoxEmptyBehavior Target="{x:Bind NotFoundBookmarkItemsMes}" />
             </i:Interaction.Behaviors>
+            <GridView.Header>
+                <TextBlock x:Name="NotFoundBookmarkItemsMes"
+                           Style="{ThemeResource NfMessageTextBlockStyle}"
+                           Text="ブックマークした小説はありません。" />
+            </GridView.Header>
             <GridView.ItemTemplate>
                 <DataTemplate>
                     <items:ThumbnailView DataContext="{Binding}" />
