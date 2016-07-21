@@ -1,4 +1,6 @@
-﻿<Page x:Class="Pyxis.Views.BookmarkMainPage"
+﻿<!-- ReSharper disable UnusedMember.Local -->
+<!-- ReSharper disable NotAccessedField.Local -->
+<Page x:Class="Pyxis.Views.BookmarkMainPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:attach="using:Pyxis.Attach"

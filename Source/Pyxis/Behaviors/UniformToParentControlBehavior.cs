@@ -22,21 +22,43 @@ namespace Pyxis.Behaviors
 
         private static void PropertyChangedCallback(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            var senderThis = sender as UniformToParentControlBehavior;
-            var element = sender.GetValue(TargetProperty) as FrameworkElement;
-            if (element == null || senderThis == null)
-                return;
-            element.SizeChanged += (sender1, e1) =>
-            {
-                // Width ベース変換
-                if (senderThis.AssociatedObject == null || double.IsNaN(senderThis.AssociatedObject.MaxHeight))
-                    return;
-                var target = senderThis.AssociatedObject;
-                var aspectRatio = senderThis.AssociatedObject.MaxHeight / senderThis.AssociatedObject.MaxWidth;
-                var gridSize = e1.NewSize;
-                target.Width = gridSize.Width;
-                target.Height = gridSize.Width * aspectRatio;
-            };
+            ((FrameworkElement) e.NewValue).SizeChanged +=
+                ((UniformToParentControlBehavior) sender).ElementOnSizeChanged;
         }
+
+        private void AssociatedObjectOnDataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
+        {
+            if (Target != null)
+                Target.SizeChanged += ElementOnSizeChanged;
+        }
+
+        private void ElementOnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            // Width ベース変換 (Desktop only)
+            if (AssociatedObject == null || double.IsNaN(AssociatedObject.MaxHeight))
+                return;
+            var target = AssociatedObject;
+            var aspectRatio = AssociatedObject.MaxHeight / AssociatedObject.MaxWidth;
+            var gridSize = e.NewSize;
+            target.Width = gridSize.Width;
+            target.Height = gridSize.Width * aspectRatio;
+        }
+
+        #region Overrides of Behavior<FrameworkElement>
+
+        protected override void OnAttached()
+        {
+            base.OnAttached();
+            AssociatedObject.DataContextChanged += AssociatedObjectOnDataContextChanged;
+        }
+
+        protected override void OnDetaching()
+        {
+            base.OnDetaching();
+            AssociatedObject.DataContextChanged -= AssociatedObjectOnDataContextChanged;
+            Target.SizeChanged -= ElementOnSizeChanged;
+        }
+
+        #endregion
     }
 }

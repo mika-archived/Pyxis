@@ -166,7 +166,7 @@
                        Text="コメントはありません" />
             <ItemsControl ItemsSource="{x:Bind ViewModel.Comments}">
                 <i:Interaction.Behaviors>
-                    <behaviors:ListBoxEmptyBehavior Target="{Binding ElementName=CommentNotPostedMes}" />
+                    <behaviors:ListBoxEmptyBehavior Target="{x:Bind CommentNotPostedMes}" />
                 </i:Interaction.Behaviors>
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>

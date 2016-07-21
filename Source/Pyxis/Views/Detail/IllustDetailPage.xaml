@@ -137,7 +137,7 @@
                                    Source="{x:Bind ViewModel.ThumbnailPath, Mode=OneWay}"
                                    Stretch="Uniform">
                                 <i:Interaction.Behaviors>
-                                    <behaviors:UniformToParentControlBehavior Target="{Binding ElementName=ParentGrid}" />
+                                    <behaviors:UniformToParentControlBehavior Target="{x:Bind ParentGrid}" />
                                 </i:Interaction.Behaviors>
                             </Image>
                             <Grid HorizontalAlignment="Right"
@@ -283,7 +283,7 @@
                             <ItemsControl HorizontalContentAlignment="Stretch"
                                           ItemsSource="{x:Bind ViewModel.Comments}">
                                 <i:Interaction.Behaviors>
-                                    <behaviors:ListBoxEmptyBehavior Target="{Binding ElementName=CommentNotPostedMes}" />
+                                    <behaviors:ListBoxEmptyBehavior Target="{x:Bind CommentNotPostedMes}" />
                                 </i:Interaction.Behaviors>
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
