@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Windows.Input;
 
+using Prism.Commands;
 using Prism.Windows.Navigation;
 
 using Pyxis.Alpha.Models.v1;
@@ -141,8 +143,14 @@ namespace Pyxis.ViewModels.Detail
 
         #region Events
 
+        #region FollowCommand
+
+        private ICommand _followCommand;
+
+        public ICommand FollowCommand => _followCommand ?? (_followCommand = new DelegateCommand(Follow, CanFollow));
+
         [SuppressMessage("ReSharper", "InconsistentNaming")]
-        public async void OnFollowButtonTapped()
+        private async void Follow()
         {
             if (IsFollowing.Value)
                 await _pixivClient.User.Follow.DeleteAsunc(user_id => _id, restrict => "public");
@@ -158,6 +166,10 @@ namespace Pyxis.ViewModels.Detail
             };
             Parameter = ParamGen.Generate(param1, v => v.ProfileType).Skip(1).ToList();
         }
+
+        private bool CanFollow() => _accountService.IsLoggedIn;
+
+        #endregion
 
         #endregion
 

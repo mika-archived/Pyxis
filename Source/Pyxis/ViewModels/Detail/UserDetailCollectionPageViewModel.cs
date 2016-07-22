@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Windows.Input;
 
+using Prism.Commands;
 using Prism.Windows.Navigation;
 
 using Pyxis.Alpha.Models.v1;
@@ -23,6 +25,7 @@ namespace Pyxis.ViewModels.Detail
 {
     public class UserDetailCollectionPageViewModel : ThumbnailableViewModel
     {
+        private readonly IAccountService _accountService;
         private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
@@ -32,9 +35,11 @@ namespace Pyxis.ViewModels.Detail
         public INavigationService NavigationService { get; }
         public IncrementalObservableCollection<ThumbnailableViewModel> Collection { get; }
 
-        public UserDetailCollectionPageViewModel(ICategoryService categoryService, IImageStoreService imageStoreService,
+        public UserDetailCollectionPageViewModel(IAccountService accountService, ICategoryService categoryService,
+                                                 IImageStoreService imageStoreService,
                                                  INavigationService navigationService, IPixivClient pixivClient)
         {
+            _accountService = accountService;
             _categoryService = categoryService;
             _imageStoreService = imageStoreService;
             NavigationService = navigationService;
@@ -56,8 +61,14 @@ namespace Pyxis.ViewModels.Detail
 
         #region Events
 
+        #region FollowCommand
+
+        private ICommand _followCommand;
+
+        public ICommand FollowCommand => _followCommand ?? (_followCommand = new DelegateCommand(Follow, CanFollow));
+
         [SuppressMessage("ReSharper", "InconsistentNaming")]
-        public async void OnFollowButtonTapped()
+        private async void Follow()
         {
             if (IsFollowing)
                 await _pixivClient.User.Follow.DeleteAsunc(user_id => _id, restrict => "public");
@@ -68,6 +79,10 @@ namespace Pyxis.ViewModels.Detail
             ((User) param.Detail.User).IsFollowed = IsFollowing;
             Initialize(param, false);
         }
+
+        private bool CanFollow() => _accountService.IsLoggedIn;
+
+        #endregion
 
         #endregion
 

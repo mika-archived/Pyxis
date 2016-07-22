@@ -98,8 +98,8 @@
                                 VerticalAlignment="Center"
                                 Background="Transparent"
                                 BorderBrush="{ThemeResource SystemControlForegroundAccentBrush}"
-                                Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
-                                Tapped="{x:Bind ViewModel.OnFollowButtonTapped}">
+                                Command="{x:Bind ViewModel.FollowCommand}"
+                                Foreground="{ThemeResource SystemControlForegroundAccentBrush}">
                             <Grid>
                                 <TextBlock HorizontalAlignment="Center"
                                            Text="フォロー"
