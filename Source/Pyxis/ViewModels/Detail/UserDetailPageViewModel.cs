@@ -100,7 +100,7 @@ namespace Pyxis.ViewModels.Detail
                     ProfileType = ProfileType.Work,
                     ContentType = ContentType.Illust
                 };
-                Parameter = ParamGen.Generate(param1, v => v.ProfileType).Skip(1).ToList();
+                Parameter = ParamGen.GenerateRaw(param1, v => v.ProfileType).Cast<object>().Skip(1).ToList();
             });
             Username = observer.Select(w => w.User.Name).ToReadOnlyReactiveProperty().AddTo(this);
             ScreenName = observer.Select(w => $"@{w.User.AccountName}").ToReadOnlyReactiveProperty().AddTo(this);
@@ -164,7 +164,7 @@ namespace Pyxis.ViewModels.Detail
                 ProfileType = ProfileType.Work,
                 ContentType = ContentType.Illust
             };
-            Parameter = ParamGen.Generate(param1, v => v.ProfileType).Skip(1).ToList();
+            Parameter = ParamGen.GenerateRaw(param1, v => v.ProfileType).Cast<object>().Skip(1).ToList();
         }
 
         private bool CanFollow() => _accountService.IsLoggedIn;
@@ -175,9 +175,9 @@ namespace Pyxis.ViewModels.Detail
 
         #region Parameter
 
-        private List<string> _parameter;
+        private List<object> _parameter;
 
-        public List<string> Parameter
+        public List<object> Parameter
         {
             get { return _parameter; }
             set { SetProperty(ref _parameter, value); }

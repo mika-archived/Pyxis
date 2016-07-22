@@ -88,7 +88,7 @@ namespace Pyxis.ViewModels
 
         private void Sync()
         {
-            ParameterQueries = ParamGen.Generate(_favoriteOption, w => w.Type).ToList();
+            ParameterQueries = ParamGen.GenerateRaw(_favoriteOption, w => w.Type).Cast<object>().ToList();
             _pixivFavorite.Query(_favoriteOption);
         }
 
@@ -127,9 +127,9 @@ namespace Pyxis.ViewModels
 
         #region ParameterQueries
 
-        private List<string> _parameterQueries;
+        private List<object> _parameterQueries;
 
-        public List<string> ParameterQueries
+        public List<object> ParameterQueries
         {
             get { return _parameterQueries; }
             set { SetProperty(ref _parameterQueries, value); }

@@ -6,6 +6,7 @@ using Microsoft.Xaml.Interactivity;
 using Prism.Windows.Navigation;
 
 using Pyxis.Attach;
+using Pyxis.Models.Parameters;
 
 namespace Pyxis.Behaviors
 {
@@ -33,10 +34,11 @@ namespace Pyxis.Behaviors
 
             var item = pivot?.SelectedItem as PivotItem;
             var pageToken = NavigateTo.GetPageToken(item);
-            var paramString = NavigateTo.GetParameters(item);
-
+            var param = NavigateTo.GetParameters(item);
+            if (param is ParameterBase)
+                param = ((ParameterBase) param).ToJson();
             if (pageToken != null)
-                NavigationService?.Navigate(pageToken, paramString);
+                NavigationService?.Navigate(pageToken, param);
         }
 
         #region Overrides of Behavior

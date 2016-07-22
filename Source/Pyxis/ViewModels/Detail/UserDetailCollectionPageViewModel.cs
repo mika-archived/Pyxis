@@ -113,11 +113,11 @@ namespace Pyxis.ViewModels.Detail
             };
             var param2 = (UserDetailParameter) param1.Clone();
             param2.ProfileType = ProfileType.Favorite;
-            Parameter = new List<string>
+            Parameter = new List<object>
             {
-                (string) new DetailByIdParameter {Id = parameter.Detail.User.Id}.ToJson(),
-                (string) param1.ToJson(),
-                (string) param2.ToJson()
+                new DetailByIdParameter {Id = parameter.Detail.User.Id},
+                param1,
+                param2
             };
 
             if (parameter.ProfileType == ProfileType.Work)
@@ -157,7 +157,7 @@ namespace Pyxis.ViewModels.Detail
             IsEnabledSubMenu = mode;
             SubParameters = ParamGen.GenerateRaw(param, w => w.ContentType)
                                     .Do(w => w.ProfileType = (ProfileType) SelectedIndex)
-                                    .Select(w => (string) w.ToJson())
+                                    .Cast<object>()
                                     .ToList();
         }
 
@@ -271,9 +271,9 @@ namespace Pyxis.ViewModels.Detail
 
         #region Parameter
 
-        private List<string> _parameter;
+        private List<object> _parameter;
 
-        public List<string> Parameter
+        public List<object> Parameter
         {
             get { return _parameter; }
             set { SetProperty(ref _parameter, value); }
@@ -295,9 +295,9 @@ namespace Pyxis.ViewModels.Detail
 
         #region SubParameters
 
-        private List<string> _subParameters;
+        private List<object> _subParameters;
 
-        public List<string> SubParameters
+        public List<object> SubParameters
         {
             get { return _subParameters; }
             set { SetProperty(ref _subParameters, value); }

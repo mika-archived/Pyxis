@@ -11,6 +11,7 @@ using Microsoft.Xaml.Interactivity;
 
 using Pyxis.Attach;
 using Pyxis.Helpers;
+using Pyxis.Models.Parameters;
 using Pyxis.Services.Interfaces;
 
 using Reactive.Bindings.Extensions;
@@ -139,6 +140,8 @@ namespace Pyxis.Behaviors
             var item = AssociatedObject.SelectedItem as ListBoxItem;
             var pageToken = NavigateTo.GetPageToken(item);
             var param = NavigateTo.GetParameters(item);
+            if (param is ParameterBase)
+                param = ((ParameterBase) param).ToJson();
             if (!string.IsNullOrWhiteSpace(pageToken))
                 RootFrame?.Navigate(GetPageType(pageToken), param);
 
