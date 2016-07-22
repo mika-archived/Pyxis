@@ -63,15 +63,29 @@ namespace Pyxis
             return shell;
         }
 
+        #region Overrides of PrismApplication
+
+        protected override Task OnSuspendingApplicationAsync()
+        {
+            var browsingHistory = Container.Resolve<IBrowsingHistoryService>();
+            ((BrowsingHistoryService) browsingHistory).Dispose();
+            return base.OnSuspendingApplicationAsync();
+        }
+
+        #endregion
+
         protected override async Task OnInitializeAsync(IActivatedEventArgs args)
         {
             UIDispatcherScheduler.Initialize();
 
             var pixivClient = new PixivApiClient();
             var accountService = new AccountService(pixivClient);
+            var browseService = new BrowsingHistoryService(pixivClient);
+            browseService.Start();
 
             Container.RegisterInstance<IPixivClient>(pixivClient, new ContainerControlledLifetimeManager());
             Container.RegisterInstance<IAccountService>(accountService, new ContainerControlledLifetimeManager());
+            Container.RegisterInstance<IBrowsingHistoryService>(browseService, new ContainerControlledLifetimeManager());
             Container.RegisterType<IImageStoreService, ImageStoreService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IDialogService, DialogService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<ICategoryService, CategoryService>(new ContainerControlledLifetimeManager());

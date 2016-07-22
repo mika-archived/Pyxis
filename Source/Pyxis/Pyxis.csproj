@@ -179,12 +179,14 @@
     <Compile Include="Mvvm\ViewModelHelper.cs" />
     <Compile Include="PyxisConstants.cs" />
     <Compile Include="Services\AccountService.cs" />
+    <Compile Include="Services\BrowsingHistoryService.cs" />
     <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\DialogService.cs" />
     <Compile Include="Services\ImageStoreService.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Interfaces\IAccountService.cs" />
+    <Compile Include="Services\Interfaces\IBrowsingHistoryService.cs" />
     <Compile Include="Services\Interfaces\ICategoryService.cs" />
     <Compile Include="Services\Interfaces\IDialogService.cs" />
     <Compile Include="Services\Interfaces\IImageStoreService.cs" />

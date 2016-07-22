@@ -28,6 +28,7 @@ namespace Pyxis.ViewModels.Detail
     public class NovelDetailPageViewModel : ThumbnailableViewModel
     {
         private readonly IAccountService _accountService;
+        private readonly IBrowsingHistoryService _browsingHistoryService;
         private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
         private readonly INavigationService _navigationService;
@@ -46,11 +47,12 @@ namespace Pyxis.ViewModels.Detail
         public ObservableCollection<PixivTagViewModel> Tags { get; }
         public ObservableCollection<PixivCommentViewModel> Comments { get; }
 
-        public NovelDetailPageViewModel(IAccountService accountService, ICategoryService categoryService,
-                                        IImageStoreService imageStoreService, INavigationService navigationService,
-                                        IPixivClient pixivClient)
+        public NovelDetailPageViewModel(IAccountService accountService, IBrowsingHistoryService browsingHistoryService,
+                                        ICategoryService categoryService, IImageStoreService imageStoreService,
+                                        INavigationService navigationService, IPixivClient pixivClient)
         {
             _accountService = accountService;
+            _browsingHistoryService = browsingHistoryService;
             _categoryService = categoryService;
             _imageStoreService = imageStoreService;
             _navigationService = navigationService;
@@ -90,6 +92,7 @@ namespace Pyxis.ViewModels.Detail
         private void Initialize()
         {
             _categoryService.UpdateCategory();
+            _browsingHistoryService.Add(_novel);
             Title = _novel.Title;
             ConvertValues = new List<object> {_novel.Caption, _navigationService};
             CreatedAt = _novel.CreateDate.ToString("g");

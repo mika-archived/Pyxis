@@ -29,6 +29,7 @@ namespace Pyxis.ViewModels.Detail
     public class IllustDetailPageViewModel : TappableThumbnailViewModel
     {
         private readonly IAccountService _accountService;
+        private readonly IBrowsingHistoryService _browsingHistoryService;
         private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
         private readonly INavigationService _navigationService;
@@ -44,11 +45,12 @@ namespace Pyxis.ViewModels.Detail
         public ObservableCollection<PixivCommentViewModel> Comments { get; }
         public IncrementalObservableCollection<PixivThumbnailViewModel> RelatedItems { get; }
 
-        public IllustDetailPageViewModel(IAccountService accountService, ICategoryService categoryService,
-                                         IImageStoreService imageStoreService, INavigationService navigationService,
-                                         IPixivClient pixivClient)
+        public IllustDetailPageViewModel(IAccountService accountService, IBrowsingHistoryService browsingHistoryService,
+                                         ICategoryService categoryService, IImageStoreService imageStoreService,
+                                         INavigationService navigationService, IPixivClient pixivClient)
         {
             _accountService = accountService;
+            _browsingHistoryService = browsingHistoryService;
             _categoryService = categoryService;
             _imageStoreService = imageStoreService;
             _navigationService = navigationService;
@@ -90,6 +92,7 @@ namespace Pyxis.ViewModels.Detail
         private void Initialize()
         {
             _categoryService.UpdateCategory();
+            _browsingHistoryService.Add(_illust);
             Title = _illust.Title;
             ConvertValues = new List<object> {_illust.Caption, _navigationService};
             CreatedAt = _illust.CreateDate.ToString("g");
