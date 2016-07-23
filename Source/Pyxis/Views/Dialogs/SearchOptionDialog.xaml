@@ -28,7 +28,11 @@
                 <Setter Property="Orientation" Value="Horizontal" />
             </Style>
             <Style BasedOn="{StaticResource FlatStyleRadioButton}"
-                   TargetType="RadioButton" />
+                   TargetType="RadioButton">
+                <Setter Property="Width" Value="90" />
+                <Setter Property="Margin" Value="-10,2.5" />
+            </Style>
+
             <Style TargetType="TextBlock">
                 <Setter Property="HorizontalAlignment" Value="Center" />
             </Style>
@@ -66,7 +70,7 @@
                                                  Converter={StaticResource EnumToBooleanConverter},
                                                  ConverterParameter=Pyxis.Models.Enums.SearchTarget.TagTotal}"
                              IsEnabled="{x:Bind ViewModel.IsEnableTagTotal, Mode=OneWay}" />
-                <RadioButton Content="タイトルキャプション"
+                <RadioButton Content="ﾀｲﾄﾙｷｬﾌﾟｼｮﾝ"
                              GroupName="Target"
                              IsChecked="{Binding Target.Value,
                                                  Mode=TwoWay,
