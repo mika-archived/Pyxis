@@ -30,10 +30,8 @@ namespace Pyxis.ViewModels.Dialogs
             ContentType.Subscribe(w =>
             {
                 var b = w != SearchType.Novels;
-                IsEnableTagTotal = b;
-                IsEnableTitleCaption = b;
-                IsEnableKeyword = !b;
-                IsEnableText = !b;
+                IsEnabledIllustMode = w == SearchType.IllustsAndManga;
+                IsEnabledNovelMode = !IsEnabledIllustMode;
                 if (b && (Target.Value == SearchTarget.Keyword || Target.Value == SearchTarget.Text))
                     Target.Value = SearchTarget.TagPartial;
                 if (!b && (Target.Value == SearchTarget.TagTotal || Target.Value == SearchTarget.TitleCaption))
@@ -45,50 +43,26 @@ namespace Pyxis.ViewModels.Dialogs
 
         #endregion
 
-        #region IsEnableTagTotal
+        #region IsEnabledIllustMode
 
-        private bool _isEnableTagTotal;
+        private bool _isEnabledIllustMode;
 
-        public bool IsEnableTagTotal
+        public bool IsEnabledIllustMode
         {
-            get { return _isEnableTagTotal; }
-            set { SetProperty(ref _isEnableTagTotal, value); }
+            get { return _isEnabledIllustMode; }
+            set { SetProperty(ref _isEnabledIllustMode, value); }
         }
 
         #endregion
 
-        #region IsEnableTitleCaption
+        #region IsEnabledNovelMode
 
-        private bool _isEnableTitleCaption;
+        private bool _isEnabledNovelMode;
 
-        public bool IsEnableTitleCaption
+        public bool IsEnabledNovelMode
         {
-            get { return _isEnableTitleCaption; }
-            set { SetProperty(ref _isEnableTitleCaption, value); }
-        }
-
-        #endregion
-
-        #region IsEnableText
-
-        private bool _isEnableText;
-
-        public bool IsEnableText
-        {
-            get { return _isEnableText; }
-            set { SetProperty(ref _isEnableText, value); }
-        }
-
-        #endregion
-
-        #region IsEnableKeyword
-
-        private bool _isEnableKeyword;
-
-        public bool IsEnableKeyword
-        {
-            get { return _isEnableKeyword; }
-            set { SetProperty(ref _isEnableKeyword, value); }
+            get { return _isEnabledNovelMode; }
+            set { SetProperty(ref _isEnabledNovelMode, value); }
         }
 
         #endregion

@@ -69,14 +69,14 @@
                                                  Mode=TwoWay,
                                                  Converter={StaticResource EnumToBooleanConverter},
                                                  ConverterParameter=Pyxis.Models.Enums.SearchTarget.TagTotal}"
-                             IsEnabled="{x:Bind ViewModel.IsEnableTagTotal, Mode=OneWay}" />
+                             IsEnabled="{x:Bind ViewModel.IsEnabledIllustMode, Mode=OneWay}" />
                 <RadioButton Content="ﾀｲﾄﾙｷｬﾌﾟｼｮﾝ"
                              GroupName="Target"
                              IsChecked="{Binding Target.Value,
                                                  Mode=TwoWay,
                                                  Converter={StaticResource EnumToBooleanConverter},
                                                  ConverterParameter=Pyxis.Models.Enums.SearchTarget.TitleCaption}"
-                             IsEnabled="{x:Bind ViewModel.IsEnableTitleCaption, Mode=OneWay}" />
+                             IsEnabled="{x:Bind ViewModel.IsEnabledIllustMode, Mode=OneWay}" />
             </StackPanel>
             <StackPanel HorizontalAlignment="Center"
                         Style="{StaticResource SemiRadioStackPanelStyle}">
@@ -86,14 +86,14 @@
                                                  Mode=TwoWay,
                                                  Converter={StaticResource EnumToBooleanConverter},
                                                  ConverterParameter=Pyxis.Models.Enums.SearchTarget.Text}"
-                             IsEnabled="{x:Bind ViewModel.IsEnableText, Mode=OneWay}" />
+                             IsEnabled="{x:Bind ViewModel.IsEnabledNovelMode, Mode=OneWay}" />
                 <RadioButton Content="キーワード"
                              GroupName="Target"
                              IsChecked="{Binding Target.Value,
                                                  Mode=TwoWay,
                                                  Converter={StaticResource EnumToBooleanConverter},
                                                  ConverterParameter=Pyxis.Models.Enums.SearchTarget.Keyword}"
-                             IsEnabled="{x:Bind ViewModel.IsEnableKeyword, Mode=OneWay}" />
+                             IsEnabled="{x:Bind ViewModel.IsEnabledNovelMode, Mode=OneWay}" />
 
             </StackPanel>
         </StackPanel>
