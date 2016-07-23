@@ -102,5 +102,10 @@ namespace Pyxis.Beta.Interfaces.Models.v1
 
         //不明
         bool Visible { get; }
+
+        /// <summary>
+        ///     コメント数
+        /// </summary>
+        int TotalComments { get; }
     }
 }

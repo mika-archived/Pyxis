@@ -85,6 +85,9 @@ namespace Pyxis.Alpha.Models.v1
         [JsonProperty("visible")]
         public bool Visible { get; set; }
 
+        [JsonProperty("total_comments")]
+        public int TotalComments { get; set; }
+
         #endregion
 
         #region Implementation of IErrorResponse
