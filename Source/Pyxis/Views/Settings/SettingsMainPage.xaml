@@ -33,7 +33,7 @@
                                Style="{StaticResource TabsStyleTextBlockStyle}"
                                Text="Pyxis について" />
                 </PivotItem.Header>
-                <local:SettingsAboutView Margin="10" />
+                <local:SettingsAboutView />
             </PivotItem>
         </Pivot>
     </Grid>
