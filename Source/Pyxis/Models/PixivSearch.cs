@@ -10,6 +10,7 @@ using Microsoft.Practices.ObjectBuilder2;
 
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest;
+using Pyxis.Helpers;
 using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
 
@@ -34,15 +35,12 @@ namespace Pyxis.Models
             ResultNovels = new ObservableCollection<INovel>();
             ResultUsers = new ObservableCollection<IUserPreview>();
             _offset = "";
-#if OFFLINE
             HasMoreItems = false;
-#else
-            HasMoreItems = true;
-#endif
         }
 
         public void Search(string query, SearchOptionParameter optionParameter)
         {
+            var flag = ResultIllusts.Count == 0 && ResultNovels.Count == 0 && ResultUsers.Count == 0;
             ResultIllusts.Clear();
             ResultNovels.Clear();
             ResultUsers.Clear();
@@ -51,6 +49,8 @@ namespace Pyxis.Models
             _optionParam = optionParameter;
 #if !OFFLINE
             HasMoreItems = true;
+            if (flag)
+                RunHelper.RunAsync(SearchAsync);
 #endif
         }
 
