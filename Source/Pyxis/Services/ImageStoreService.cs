@@ -17,6 +17,7 @@ namespace Pyxis.Services
         private readonly IPixivClient _client;
         private readonly Regex _origRegex = new Regex(@"^\d+_p\d+$", RegexOptions.Compiled);
         private readonly StorageFolder _temporaryFolder;
+        private readonly Regex _ugoiraRegex = new Regex(@"^\d+_ugoira\d+$", RegexOptions.Compiled);
         private readonly Regex _userRegex = new Regex(@"^\d+$", RegexOptions.Compiled);
 
         public ImageStoreService(IPixivClient client)
@@ -79,6 +80,8 @@ namespace Pyxis.Services
                 return await _temporaryFolder.CreateFolderAsync("thumbnails", CreationCollisionOption.OpenIfExists);
             if (_origRegex.IsMatch(value))
                 return await _temporaryFolder.CreateFolderAsync("original", CreationCollisionOption.OpenIfExists);
+            if (_ugoiraRegex.IsMatch(value))
+                return await _temporaryFolder.CreateFolderAsync("ugoira", CreationCollisionOption.OpenIfExists);
             if (value.EndsWith("170") || value.EndsWith("_s") || _userRegex.IsMatch(value))
                 return await _temporaryFolder.CreateFolderAsync("users", CreationCollisionOption.OpenIfExists);
             return _temporaryFolder;
