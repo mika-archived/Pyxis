@@ -6,6 +6,7 @@ using Windows.Storage;
 
 using Microsoft.Practices.ObjectBuilder2;
 
+using Pyxis.Extensions;
 using Pyxis.Helpers;
 using Pyxis.ViewModels.Base;
 
@@ -33,12 +34,12 @@ namespace Pyxis.ViewModels.Settings
                 var temporaryFolder = ApplicationData.Current.TemporaryFolder;
                 var tasks = new[]
                 {
-                    await temporaryFolder.GetFolderAsync("original"),
-                    await temporaryFolder.GetFolderAsync("thumbnails"),
-                    await temporaryFolder.GetFolderAsync("users")
-                }.Select(async w => await w.DeleteAsync());
+                    await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("original"),
+                    await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("thumbnails"),
+                    await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("users")
+                }.Where(w => w != null).Select(async w => await w.DeleteAsync());
                 await Task.WhenAll(tasks);
-            });
+            }).ContinueWith(async w => await Load());
         }
 
         private async Task Load()
@@ -48,10 +49,10 @@ namespace Pyxis.ViewModels.Settings
             var count = 0U;
             var tasks = new[]
             {
-                await temporaryFolder.GetFolderAsync("original"),
-                await temporaryFolder.GetFolderAsync("thumbnails"),
-                await temporaryFolder.GetFolderAsync("users")
-            }.Select(async w =>
+                await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("original"),
+                await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("thumbnails"),
+                await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("users")
+            }.Where(w => w != null).Select(async w =>
             {
                 var s = 0UL;
                 var files = await w.GetFilesAsync();
