@@ -24,6 +24,7 @@ namespace Pyxis.ViewModels.Search
         private readonly ICategoryService _categoryService;
         private readonly IDialogService _dialogService;
         private readonly IImageStoreService _imageStoreService;
+        private readonly ILicenseService _licenseService;
         private readonly IPixivClient _pixivClient;
         private int _count;
         private PixivTrending _pixivTrending;
@@ -31,13 +32,16 @@ namespace Pyxis.ViewModels.Search
         public INavigationService NavigationService { get; }
         public ObservableCollection<TrendingTagViewModel> TrendingTags { get; }
 
+        public bool IsActivatedAdvancedSearch => _licenseService.IsActivated("AdvancedSearch");
+
         public WorkSearchPageViewModel(ICategoryService categoryService, IDialogService dialogService,
-                                       IImageStoreService imageStoreService, INavigationService navigationService,
-                                       IPixivClient pixivClient)
+                                       IImageStoreService imageStoreService, ILicenseService licenseService,
+                                       INavigationService navigationService, IPixivClient pixivClient)
         {
             _categoryService = categoryService;
             _dialogService = dialogService;
             _imageStoreService = imageStoreService;
+            _licenseService = licenseService;
             NavigationService = navigationService;
             _pixivClient = pixivClient;
             TrendingTags = new ObservableCollection<TrendingTagViewModel>();

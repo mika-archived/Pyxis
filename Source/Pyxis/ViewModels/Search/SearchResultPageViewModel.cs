@@ -27,6 +27,7 @@ namespace Pyxis.ViewModels.Search
         private readonly ICategoryService _categoryService;
         private readonly IDialogService _dialogService;
         private readonly IImageStoreService _imageStoreService;
+        private readonly ILicenseService _licenseService;
         private readonly IPixivClient _pixivClient;
         private PixivSearch _pixivSearch;
         private SearchOptionParameter _searchOption;
@@ -34,15 +35,18 @@ namespace Pyxis.ViewModels.Search
         public INavigationService NavigationService { get; }
 
         public IncrementalObservableCollection<ThumbnailableViewModel> Results { get; }
+        public bool IsActivatedAdvancedSearch => _licenseService.IsActivated("AdvancedSearch");
 
         public SearchResultPageViewModel(IAccountService accountService, ICategoryService categoryService,
                                          IDialogService dialogService, IImageStoreService imageStoreService,
-                                         INavigationService navigationService, IPixivClient pixivClient)
+                                         ILicenseService licenseService, INavigationService navigationService,
+                                         IPixivClient pixivClient)
         {
             _accountService = accountService;
             _categoryService = categoryService;
             _dialogService = dialogService;
             _imageStoreService = imageStoreService;
+            _licenseService = licenseService;
             NavigationService = navigationService;
             _pixivClient = pixivClient;
             Results = new IncrementalObservableCollection<ThumbnailableViewModel>();

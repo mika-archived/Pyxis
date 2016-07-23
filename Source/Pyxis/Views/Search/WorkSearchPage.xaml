@@ -123,6 +123,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="48" />
+                <ColumnDefinition Width="48" />
             </Grid.ColumnDefinitions>
             <SearchBox Margin="5"
                        QuerySubmitted="{x:Bind ViewModel.OnQuerySubmitted}"
@@ -133,6 +134,14 @@
                     Content="&#xE8FD;"
                     FontFamily="{ThemeResource SymbolThemeFontFamily}"
                     FontSize="24"
+                    Tapped="{x:Bind ViewModel.OnButtonTapped}" />
+            <Button Grid.Column="2"
+                    HorizontalAlignment="Center"
+                    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                    Content="&#xE90F;"
+                    FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                    FontSize="24"
+                    IsEnabled="{x:Bind ViewModel.IsActivatedAdvancedSearch}"
                     Tapped="{x:Bind ViewModel.OnButtonTapped}" />
         </Grid>
         <Pivot SelectedIndex="{x:Bind ViewModel.SelectedIndex}"
