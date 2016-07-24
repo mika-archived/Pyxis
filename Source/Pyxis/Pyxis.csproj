@@ -153,6 +153,7 @@
     <Compile Include="Models\Parameters\WorkParameter.cs" />
     <Compile Include="Models\PixivBookmark.cs" />
     <Compile Include="Models\PixivBookmarkTag.cs" />
+    <Compile Include="Models\PixivBrowsingHistory.cs" />
     <Compile Include="Models\PixivComment.cs" />
     <Compile Include="Models\Parameters\HomeParameter.cs" />
     <Compile Include="Models\Parameters\IllustDetailParameter.cs" />
@@ -202,7 +203,7 @@
     <Compile Include="ViewModels\Base\TappableThumbnailViewModel.cs" />
     <Compile Include="ViewModels\Base\ThumbnailableViewModel.cs" />
     <Compile Include="ViewModels\BookmarkMainPageViewModel.cs" />
-    <Compile Include="ViewModels\BrowsingHistoryPageViewModel.cs" />
+    <Compile Include="ViewModels\BrowsingHistoryMainPageViewModel.cs" />
     <Compile Include="ViewModels\Detail\IllustDetailPageViewModel.cs" />
     <Compile Include="ViewModels\Detail\IllustViewPageViewModel.cs" />
     <Compile Include="ViewModels\Detail\NovelDetailPageViewModel.cs" />

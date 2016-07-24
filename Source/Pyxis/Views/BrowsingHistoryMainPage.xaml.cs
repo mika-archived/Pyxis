@@ -11,7 +11,7 @@ namespace Pyxis.Views
     /// </summary>
     public sealed partial class BrowsingHistoryMainPage : Page
     {
-        public BrowsingHistoryPageViewModel ViewModel => DataContext as BrowsingHistoryPageViewModel;
+        public BrowsingHistoryMainPageViewModel ViewModel => DataContext as BrowsingHistoryMainPageViewModel;
 
         public BrowsingHistoryMainPage()
         {

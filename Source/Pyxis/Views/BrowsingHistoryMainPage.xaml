@@ -9,7 +9,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:prism="using:Prism.Windows.Mvvm"
       xmlns:vm="using:Pyxis.ViewModels"
-      d:DataContext="{d:DesignInstance vm:BrowsingHistoryPageViewModel}"
+      d:DataContext="{d:DesignInstance vm:BrowsingHistoryMainPageViewModel}"
       prism:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d">
     <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
