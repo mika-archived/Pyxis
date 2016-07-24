@@ -104,9 +104,18 @@ namespace Pyxis.ViewModels.Search
 
         #region Events
 
-        public async void OnButtonTapped()
+        public async void OnSearchOptionButtonTapped()
         {
             var result = await _dialogService.ShowDialogAsync("Dialogs.SearchOption", _searchOption);
+            if (result == null)
+                return;
+            _searchOption = result as SearchOptionParameter;
+            Search();
+        }
+
+        public async void OnAdvancedSearchOptionButtonTapped()
+        {
+            var result = await _dialogService.ShowDialogAsync("Dialogs.AdvancedSearchOption", _searchOption);
             if (result == null)
                 return;
             _searchOption = result as SearchOptionParameter;

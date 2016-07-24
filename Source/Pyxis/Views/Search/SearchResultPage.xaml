@@ -134,7 +134,7 @@
                     Content="&#xE8FD;"
                     FontFamily="{ThemeResource SymbolThemeFontFamily}"
                     FontSize="24"
-                    Tapped="{x:Bind ViewModel.OnButtonTapped}" />
+                    Tapped="{x:Bind ViewModel.OnSearchOptionButtonTapped}" />
             <Button Grid.Column="2"
                     HorizontalAlignment="Center"
                     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
@@ -142,7 +142,7 @@
                     FontFamily="{ThemeResource SymbolThemeFontFamily}"
                     FontSize="24"
                     IsEnabled="{x:Bind ViewModel.IsActivatedAdvancedSearch}"
-                    Tapped="{x:Bind ViewModel.OnButtonTapped}" />
+                    Tapped="{x:Bind ViewModel.OnAdvancedSearchOptionButtonTapped}" />
         </Grid>
         <Pivot SelectedIndex="{x:Bind ViewModel.SelectedIndex}"
                Style="{StaticResource MiniTabsStylePivotStyle}">

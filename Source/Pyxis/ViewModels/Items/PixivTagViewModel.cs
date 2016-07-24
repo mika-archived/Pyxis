@@ -30,7 +30,6 @@ namespace Pyxis.ViewModels.Items
                 Target = SearchTarget.TagTotal,
                 Duration = SearchDuration.Nothing,
                 Sort = SearchSort.New,
-                DurationQuery = "",
                 Query = Name
             };
             _navigationService.Navigate("Search.SearchResult", parameter.ToJson());

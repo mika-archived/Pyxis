@@ -14,8 +14,6 @@ namespace Pyxis.Models.Parameters
 
         public SearchDuration Duration { get; set; }
 
-        public string DurationQuery { get; set; }
-
         public static SearchResultParameter Build(SearchOptionParameter parameter)
         {
             return new SearchResultParameter
@@ -24,9 +22,45 @@ namespace Pyxis.Models.Parameters
                 Sort = parameter.Sort,
                 SearchType = parameter.SearchType,
                 Target = parameter.Target,
-                Duration = parameter.Duration
+                Duration = parameter.Duration,
+                EitherWord = parameter.EitherWord,
+                IgnoreWord = parameter.IgnoreWord,
+                BookmarkCount = parameter.BookmarkCount,
+                ViewCount = parameter.ViewCount,
+                CommentCount = parameter.CommentCount,
+                PageCount = parameter.PageCount,
+                Height = parameter.Height,
+                Width = parameter.Width,
+                Tool = parameter.Tool,
+                TextLength = parameter.TextLength
             };
         }
+
+        #region AdvancedSearch
+
+        public string EitherWord { get; set; }
+
+        public string IgnoreWord { get; set; }
+
+        public int BookmarkCount { get; set; }
+
+        public int ViewCount { get; set; }
+
+        public int CommentCount { get; set; }
+
+        public int PageCount { get; set; }
+
+        // for Illust/Manga
+        public int Height { get; set; }
+
+        public int Width { get; set; }
+
+        public string Tool { get; set; }
+
+        // for Novel
+        public int TextLength { get; set; }
+
+        #endregion
 
         #region Overrides of ParameterBase
 
@@ -38,11 +72,20 @@ namespace Pyxis.Models.Parameters
             return new SearchResultParameter
             {
                 Duration = Duration,
-                DurationQuery = DurationQuery,
                 Query = Query,
                 SearchType = SearchType,
                 Sort = Sort,
-                Target = Target
+                Target = Target,
+                EitherWord = EitherWord,
+                IgnoreWord = IgnoreWord,
+                BookmarkCount = BookmarkCount,
+                ViewCount = ViewCount,
+                CommentCount = CommentCount,
+                PageCount = PageCount,
+                Height = Height,
+                Width = Width,
+                Tool = Tool,
+                TextLength = TextLength
             };
         }
 

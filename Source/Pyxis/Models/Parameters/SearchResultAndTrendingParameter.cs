@@ -21,12 +21,21 @@ namespace Pyxis.Models.Parameters
             return new SearchResultAndTrendingParameter
             {
                 Duration = Duration,
-                DurationQuery = DurationQuery,
                 Query = Query,
                 SearchType = SearchType,
                 Sort = Sort,
                 Target = Target,
-                TrendingIllust = TrendingIllust
+                TrendingIllust = TrendingIllust,
+                EitherWord = EitherWord,
+                IgnoreWord = IgnoreWord,
+                BookmarkCount = BookmarkCount,
+                ViewCount = ViewCount,
+                CommentCount = CommentCount,
+                PageCount = PageCount,
+                Height = Height,
+                Width = Width,
+                Tool = Tool,
+                TextLength = TextLength
             };
         }
 

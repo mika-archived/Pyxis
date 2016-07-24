@@ -282,6 +282,9 @@
     <Compile Include="Views\Detail\UserDetailPage.xaml.cs">
       <DependentUpon>UserDetailPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Dialogs\AdvancedSearchOptionDialog.xaml.cs">
+      <DependentUpon>AdvancedSearchOptionDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Dialogs\FavoriteOptionDialog.xaml.cs">
       <DependentUpon>FavoriteOptionDialog.xaml</DependentUpon>
     </Compile>
@@ -502,6 +505,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Detail\UserDetailPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\AdvancedSearchOptionDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
