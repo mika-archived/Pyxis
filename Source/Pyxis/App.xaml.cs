@@ -19,6 +19,8 @@ using Pyxis.Services.Interfaces;
 
 using Reactive.Bindings;
 
+using LifetimeManager = Microsoft.Practices.Unity.ContainerControlledLifetimeManager;
+
 namespace Pyxis
 {
     /// <summary>
@@ -67,8 +69,6 @@ namespace Pyxis
 
         protected override Task OnSuspendingApplicationAsync()
         {
-            var browsingHistory = Container.Resolve<IBrowsingHistoryService>();
-            ((BrowsingHistoryService) browsingHistory).Dispose();
             return base.OnSuspendingApplicationAsync();
         }
 
@@ -80,16 +80,14 @@ namespace Pyxis
 
             var pixivClient = new PixivApiClient();
             var accountService = new AccountService(pixivClient);
-            var browseService = new BrowsingHistoryService(pixivClient);
-            browseService.Start();
 
-            Container.RegisterInstance<IPixivClient>(pixivClient, new ContainerControlledLifetimeManager());
-            Container.RegisterInstance<IAccountService>(accountService, new ContainerControlledLifetimeManager());
-            Container.RegisterInstance<IBrowsingHistoryService>(browseService, new ContainerControlledLifetimeManager());
-            Container.RegisterType<IImageStoreService, ImageStoreService>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<IDialogService, DialogService>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<ICategoryService, CategoryService>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<ILicenseService, LicenseService>(new ContainerControlledLifetimeManager());
+            Container.RegisterInstance<IPixivClient>(pixivClient, new LifetimeManager());
+            Container.RegisterInstance<IAccountService>(accountService, new LifetimeManager());
+            Container.RegisterType<IBrowsingHistoryService, BrowsingHistoryService>(new LifetimeManager());
+            Container.RegisterType<IImageStoreService, ImageStoreService>(new LifetimeManager());
+            Container.RegisterType<IDialogService, DialogService>(new LifetimeManager());
+            Container.RegisterType<ICategoryService, CategoryService>(new LifetimeManager());
+            Container.RegisterType<ILicenseService, LicenseService>(new LifetimeManager());
             // Container.RegisterInstance<IPixivClient>(new PixivWebClient(), new ContainerControlledLifetimeManager());
 #if !OFFLINE
             await accountService.Login();
