@@ -86,7 +86,11 @@
 
         public static string UserBookmarksNovel => $"{BaseUrl}/{Version1}/user/bookmarks/novel";
 
+        public static string UserBrowsingHistoryIllusts => $"{BaseUrl}/{Version1}/user/browsing-history/illusts";
+
         public static string UserBrowsingHistoryIllustAdd => $"{BaseUrl}/{Version1}/user/browsing-history/illust/add";
+
+        public static string UserBrowsingHistoryNovels => $"{BaseUrl}/{Version1}/user/browsing-history/novels";
 
         public static string UserBrowsingHistoryNovelAdd => $"{BaseUrl}/{Version1}/user/browsin-history/novel/add";
 
