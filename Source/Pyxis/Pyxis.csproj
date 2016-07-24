@@ -138,6 +138,7 @@
     <Compile Include="Models\Enums\SearchSort.cs" />
     <Compile Include="Models\Enums\SearchTarget.cs" />
     <Compile Include="Models\Enums\SearchType.cs" />
+    <Compile Include="Models\Parameters\BrowsingHistoryParameter.cs" />
     <Compile Include="Models\Parameters\DetailByIdParameter.cs" />
     <Compile Include="Models\Parameters\FavoriteOptionParameter.cs" />
     <Compile Include="Models\Parameters\FollowingParameter.cs" />
@@ -201,8 +202,7 @@
     <Compile Include="ViewModels\Base\TappableThumbnailViewModel.cs" />
     <Compile Include="ViewModels\Base\ThumbnailableViewModel.cs" />
     <Compile Include="ViewModels\BookmarkMainPageViewModel.cs" />
-    <Compile Include="ViewModels\BrowsingHistory\IllustMangaBrowsingHistoryPageViewModel.cs" />
-    <Compile Include="ViewModels\BrowsingHistory\NovelBrowsingHistoryPageViewModel.cs" />
+    <Compile Include="ViewModels\BrowsingHistoryPageViewModel.cs" />
     <Compile Include="ViewModels\Detail\IllustDetailPageViewModel.cs" />
     <Compile Include="ViewModels\Detail\IllustViewPageViewModel.cs" />
     <Compile Include="ViewModels\Detail\NovelDetailPageViewModel.cs" />
@@ -254,14 +254,8 @@
     <Compile Include="Views\BookmarkMainPage.xaml.cs">
       <DependentUpon>BookmarkMainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\BrowsingHistory\IllustMangaBrowsingHistoryPage.xaml.cs">
-      <DependentUpon>IllustMangaBrowsingHistoryPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\BrowsingHistory\NovelBrowsingHistoryPage.xaml.cs">
-      <DependentUpon>NovelBrowsingHistoryPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\BrowsingHistory\PivotTabBrowsingHistory.xaml.cs">
-      <DependentUpon>PivotTabBrowsingHistory.xaml</DependentUpon>
+    <Compile Include="Views\BrowsingHistoryMainPage.xaml.cs">
+      <DependentUpon>BrowsingHistoryMainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Detail\IllustDetailPage.xaml.cs">
       <DependentUpon>IllustDetailPage.xaml</DependentUpon>
@@ -470,15 +464,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\BrowsingHistory\IllustMangaBrowsingHistoryPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\BrowsingHistory\NovelBrowsingHistoryPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\BrowsingHistory\PivotTabBrowsingHistory.xaml">
+    <Page Include="Views\BrowsingHistoryMainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

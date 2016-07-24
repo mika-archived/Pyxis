@@ -228,9 +228,9 @@
                                            Text="お気に入り" />
                             </StackPanel>
                         </ListBoxItem>
-                        <!-- TODO: Not Implementation -->
                         <ListBoxItem x:Name="BrowsingHistory"
-                                     attach:NavigateTo.PageToken="BrowsingHistory.IllustMangaBrowsingHistory"
+                                     attach:NavigateTo.PageToken="BrowsingHistoryMain"
+                                     attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:0}"
                                      RelativePanel.Below="FavoriteMain">
                             <StackPanel Orientation="Horizontal">
                                 <FontIcon Width="48"
