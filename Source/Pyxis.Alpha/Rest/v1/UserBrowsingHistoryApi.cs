@@ -26,7 +26,7 @@ namespace Pyxis.Alpha.Rest.v1
             => await _client.GetAsync<Illusts>(Endpoints.UserBrowsingHistoryIllusts, true, parameters);
 
         public async Task<INovels> NovelAsync(params Expression<Func<string, object>>[] parameters)
-            => await _client.GetAsync<INovels>(Endpoints.UserBrowsingHistoryIllusts, true, parameters);
+            => await _client.GetAsync<INovels>(Endpoints.UserBrowsingHistoryNovels, true, parameters);
 
         #endregion
     }
