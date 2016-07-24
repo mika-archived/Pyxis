@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Windows.Foundation;
@@ -47,6 +48,10 @@ namespace Pyxis.Models
             _query = query;
             _offset = "";
             _optionParam = optionParameter;
+            if (!string.IsNullOrWhiteSpace(_optionParam.EitherWord))
+                _query += " " + string.Join(" ", _optionParam.EitherWord.Split(' ').Select(w => $"({w})"));
+            if (!string.IsNullOrWhiteSpace(_optionParam.IgnoreWord))
+                _query += " " + string.Join(" ", _optionParam.IgnoreWord.Split(' ').Select(w => $"--{w}"));
 #if !OFFLINE
             HasMoreItems = true;
             if (flag)
@@ -80,7 +85,13 @@ namespace Pyxis.Models
                                                                 word => _query,
                                                                 filter => "for_ios",
                                                                 offset => _offset);
-            illusts?.IllustList.ForEach(w => ResultIllusts.Add(w));
+            illusts?.IllustList.Where(w => w.TotalBookmarks >= _optionParam.BookmarkCount)
+                    .Where(w => w.TotalView >= _optionParam.ViewCount)
+                    .Where(w => w.TotalComments >= _optionParam.CommentCount)
+                    .Where(w => w.PageCount >= _optionParam.CommentCount)
+                    .Where(w => w.Height >= _optionParam.Height && w.Width >= _optionParam.Width)
+                    .Where(w => string.IsNullOrWhiteSpace(_optionParam.Tool) || w.Tools.Any(v => v == _optionParam.Tool))
+                    .ForEach(w => ResultIllusts.Add(w));
             if (string.IsNullOrWhiteSpace(illusts?.NextUrl))
                 HasMoreItems = false;
             else
@@ -96,7 +107,12 @@ namespace Pyxis.Models
                                                               word => _query,
                                                               offset => _offset);
 
-            novels?.NovelList.ForEach(w => ResultNovels.Add(w));
+            novels?.NovelList.Where(w => w.TotalBookmarks >= _optionParam.BookmarkCount)
+                   .Where(w => w.TotalView >= _optionParam.ViewCount)
+                   .Where(w => w.TotalComments >= _optionParam.CommentCount)
+                   .Where(w => w.PageCount >= _optionParam.CommentCount)
+                   .Where(w => w.TextLength >= _optionParam.TextLength)
+                   .ForEach(w => ResultNovels.Add(w));
             if (string.IsNullOrWhiteSpace(novels?.NextUrl))
                 HasMoreItems = false;
             else

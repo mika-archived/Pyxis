@@ -80,7 +80,17 @@ namespace Pyxis.ViewModels.Search
                 SearchType = parameter.SearchType,
                 Sort = parameter.Sort,
                 Target = parameter.Target,
-                Duration = parameter.Duration
+                Duration = parameter.Duration,
+                EitherWord = parameter.EitherWord,
+                IgnoreWord = parameter.IgnoreWord,
+                BookmarkCount = parameter.BookmarkCount,
+                ViewCount = parameter.ViewCount,
+                CommentCount = parameter.CommentCount,
+                PageCount = parameter.PageCount,
+                Height = parameter.Height,
+                Width = parameter.Width,
+                Tool = parameter.Tool,
+                TextLength = parameter.TextLength
             };
 
             _pixivSearch = new PixivSearch(_pixivClient);
