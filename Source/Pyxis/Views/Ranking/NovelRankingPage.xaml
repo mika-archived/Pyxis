@@ -6,7 +6,7 @@
       xmlns:attach="using:Pyxis.Attach"
       xmlns:behaviors="using:Pyxis.Behaviors"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:items="using:Pyxis.Views.Items"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:prism="using:Prism.Windows.Mvvm"
@@ -15,112 +15,12 @@
       prism:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d">
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <VisualState x:Name="Phone">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="Ranking.ItemsPanel">
-                            <Setter.Value>
-                                <ItemsPanelTemplate>
-                                    <ItemsWrapGrid attach:AssumSize.AssumSize="100"
-                                                   Orientation="Horizontal">
-                                        <interactivity:Interaction.Behaviors>
-                                            <behaviors:GridViewEuqalitySizeBehavior />
-                                        </interactivity:Interaction.Behaviors>
-                                    </ItemsWrapGrid>
-                                </ItemsPanelTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="PhoneLarge">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="361" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="Ranking.ItemsPanel">
-                            <Setter.Value>
-                                <ItemsPanelTemplate>
-                                    <ItemsWrapGrid attach:AssumSize.AssumSize="100"
-                                                   Orientation="Horizontal">
-                                        <interactivity:Interaction.Behaviors>
-                                            <behaviors:GridViewEuqalitySizeBehavior />
-                                        </interactivity:Interaction.Behaviors>
-                                    </ItemsWrapGrid>
-                                </ItemsPanelTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="Tablet">
-                    <VisualState.StateTriggers>
-                        <!-- 641 -->
-                        <AdaptiveTrigger MinWindowWidth="500" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="Ranking.ItemsPanel">
-                            <Setter.Value>
-                                <ItemsPanelTemplate>
-                                    <ItemsWrapGrid attach:AssumSize.AssumSize="150"
-                                                   Orientation="Horizontal">
-                                        <interactivity:Interaction.Behaviors>
-                                            <behaviors:GridViewEuqalitySizeBehavior />
-                                        </interactivity:Interaction.Behaviors>
-                                    </ItemsWrapGrid>
-                                </ItemsPanelTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="Desktop">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="1025" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="Ranking.ItemsPanel">
-                            <Setter.Value>
-                                <ItemsPanelTemplate>
-                                    <ItemsWrapGrid attach:AssumSize.AssumSize="200"
-                                                   Orientation="Horizontal">
-                                        <interactivity:Interaction.Behaviors>
-                                            <behaviors:GridViewEuqalitySizeBehavior />
-                                        </interactivity:Interaction.Behaviors>
-                                    </ItemsWrapGrid>
-                                </ItemsPanelTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="DesktopHD">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="1367" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="Ranking.ItemsPanel">
-                            <Setter.Value>
-                                <ItemsPanelTemplate>
-                                    <ItemsWrapGrid attach:AssumSize.AssumSize="200"
-                                                   Orientation="Horizontal">
-                                        <interactivity:Interaction.Behaviors>
-                                            <behaviors:GridViewEuqalitySizeBehavior />
-                                        </interactivity:Interaction.Behaviors>
-                                    </ItemsWrapGrid>
-                                </ItemsPanelTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
         <StackPanel Orientation="Vertical">
             <Pivot SelectedIndex="{x:Bind ViewModel.SelectedIndex, Mode=OneWay}"
                    Style="{StaticResource MaxiTabsStylePivotStyle}">
-                <interactivity:Interaction.Behaviors>
+                <i:Interaction.Behaviors>
                     <behaviors:AttachNavigationToPivotBehavior NavigationService="{x:Bind ViewModel.NavigationService}" />
-                </interactivity:Interaction.Behaviors>
+                </i:Interaction.Behaviors>
                 <PivotItem attach:NavigateTo.PageToken="Ranking.NovelRanking"
                            attach:NavigateTo.Parameters="{}{&quot;RankingType&quot;:2,&quot;RankingMode&quot;:0}">
                     <PivotItem.Header>
@@ -165,10 +65,20 @@
             <GridView x:Name="Ranking"
                       Height="500"
                       ItemsSource="{x:Bind ViewModel.RankingItems}">
-                <interactivity:Interaction.Behaviors>
+                <i:Interaction.Behaviors>
                     <behaviors:AdjustControlSizeBehavior HeightOffset="-96"
                                                          IsSyncHeight="True" />
-                </interactivity:Interaction.Behaviors>
+                </i:Interaction.Behaviors>
+                <GridView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsWrapGrid attach:AssumSize.AssumSize="(0,100),(500,150),(1025,200)"
+                                       Orientation="Horizontal">
+                            <i:Interaction.Behaviors>
+                                <behaviors:GridViewEuqalitySizeBehavior />
+                            </i:Interaction.Behaviors>
+                        </ItemsWrapGrid>
+                    </ItemsPanelTemplate>
+                </GridView.ItemsPanel>
                 <GridView.ItemTemplate>
                     <DataTemplate>
                         <items:ThumbnailView DataContext="{Binding}" />

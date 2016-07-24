@@ -25,18 +25,6 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="Ranking.Height" Value="160" />
-                        <Setter Target="Recommended.ItemsPanel">
-                            <Setter.Value>
-                                <ItemsPanelTemplate>
-                                    <ItemsWrapGrid attach:AssumSize.AssumSize="100"
-                                                   Orientation="Horizontal">
-                                        <i:Interaction.Behaviors>
-                                            <behaviors:GridViewEuqalitySizeBehavior />
-                                        </i:Interaction.Behaviors>
-                                    </ItemsWrapGrid>
-                                </ItemsPanelTemplate>
-                            </Setter.Value>
-                        </Setter>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="PhoneLarge">
@@ -45,18 +33,6 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="Ranking.Height" Value="180" />
-                        <Setter Target="Recommended.ItemsPanel">
-                            <Setter.Value>
-                                <ItemsPanelTemplate>
-                                    <ItemsWrapGrid attach:AssumSize.AssumSize="100"
-                                                   Orientation="Horizontal">
-                                        <i:Interaction.Behaviors>
-                                            <behaviors:GridViewEuqalitySizeBehavior />
-                                        </i:Interaction.Behaviors>
-                                    </ItemsWrapGrid>
-                                </ItemsPanelTemplate>
-                            </Setter.Value>
-                        </Setter>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Tablet">
@@ -66,18 +42,6 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="Ranking.Height" Value="230" />
-                        <Setter Target="Recommended.ItemsPanel">
-                            <Setter.Value>
-                                <ItemsPanelTemplate>
-                                    <ItemsWrapGrid attach:AssumSize.AssumSize="150"
-                                                   Orientation="Horizontal">
-                                        <i:Interaction.Behaviors>
-                                            <behaviors:GridViewEuqalitySizeBehavior />
-                                        </i:Interaction.Behaviors>
-                                    </ItemsWrapGrid>
-                                </ItemsPanelTemplate>
-                            </Setter.Value>
-                        </Setter>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Desktop">
@@ -86,18 +50,6 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="Ranking.Height" Value="280" />
-                        <Setter Target="Recommended.ItemsPanel">
-                            <Setter.Value>
-                                <ItemsPanelTemplate>
-                                    <ItemsWrapGrid attach:AssumSize.AssumSize="200"
-                                                   Orientation="Horizontal">
-                                        <i:Interaction.Behaviors>
-                                            <behaviors:GridViewEuqalitySizeBehavior />
-                                        </i:Interaction.Behaviors>
-                                    </ItemsWrapGrid>
-                                </ItemsPanelTemplate>
-                            </Setter.Value>
-                        </Setter>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="DesktopHD">
@@ -106,18 +58,6 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="Ranking.Height" Value="350" />
-                        <Setter Target="Recommended.ItemsPanel">
-                            <Setter.Value>
-                                <ItemsPanelTemplate>
-                                    <ItemsWrapGrid attach:AssumSize.AssumSize="200"
-                                                   Orientation="Horizontal">
-                                        <i:Interaction.Behaviors>
-                                            <behaviors:GridViewEuqalitySizeBehavior />
-                                        </i:Interaction.Behaviors>
-                                    </ItemsWrapGrid>
-                                </ItemsPanelTemplate>
-                            </Setter.Value>
-                        </Setter>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -163,6 +103,16 @@
                     <behaviors:AdjustControlSizeBehavior HeightOffset="-96"
                                                          IsSyncHeight="True" />
                 </i:Interaction.Behaviors>
+                <GridView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsWrapGrid attach:AssumSize.AssumSize="(0,100),(500,150),(1025,200)"
+                                       Orientation="Horizontal">
+                            <i:Interaction.Behaviors>
+                                <behaviors:GridViewEuqalitySizeBehavior />
+                            </i:Interaction.Behaviors>
+                        </ItemsWrapGrid>
+                    </ItemsPanelTemplate>
+                </GridView.ItemsPanel>
                 <GridView.Header>
                     <StackPanel>
                         <FlipView x:Name="Ranking"

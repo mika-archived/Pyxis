@@ -17,105 +17,6 @@
       prism:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d">
     <Grid>
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <VisualState x:Name="Phone">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="RootPanel.ItemsPanel">
-                            <Setter.Value>
-                                <ItemsPanelTemplate>
-                                    <ItemsWrapGrid attach:AssumSize.AssumSize="100"
-                                                   Orientation="Horizontal">
-                                        <i:Interaction.Behaviors>
-                                            <behaviors:GridViewEuqalitySizeBehavior />
-                                        </i:Interaction.Behaviors>
-                                    </ItemsWrapGrid>
-                                </ItemsPanelTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="PhoneLarge">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="361" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="RootPanel.ItemsPanel">
-                            <Setter.Value>
-                                <ItemsPanelTemplate>
-                                    <ItemsWrapGrid attach:AssumSize.AssumSize="100"
-                                                   Orientation="Horizontal">
-                                        <i:Interaction.Behaviors>
-                                            <behaviors:GridViewEuqalitySizeBehavior />
-                                        </i:Interaction.Behaviors>
-                                    </ItemsWrapGrid>
-                                </ItemsPanelTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="Tablet">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="500" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="RootPanel.ItemsPanel">
-                            <Setter.Value>
-                                <ItemsPanelTemplate>
-                                    <ItemsWrapGrid attach:AssumSize.AssumSize="150"
-                                                   Orientation="Horizontal">
-                                        <i:Interaction.Behaviors>
-                                            <behaviors:GridViewEuqalitySizeBehavior />
-                                        </i:Interaction.Behaviors>
-                                    </ItemsWrapGrid>
-                                </ItemsPanelTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="Desktop">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="1025" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="RootPanel.ItemsPanel">
-                            <Setter.Value>
-                                <ItemsPanelTemplate>
-                                    <ItemsWrapGrid attach:AssumSize.AssumSize="200"
-                                                   Orientation="Horizontal">
-                                        <i:Interaction.Behaviors>
-                                            <behaviors:GridViewEuqalitySizeBehavior />
-                                        </i:Interaction.Behaviors>
-                                    </ItemsWrapGrid>
-                                </ItemsPanelTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="DesktopHD">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="1367" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="RootPanel.ItemsPanel">
-                            <Setter.Value>
-                                <ItemsPanelTemplate>
-                                    <ItemsWrapGrid attach:AssumSize.AssumSize="200"
-                                                   Orientation="Horizontal">
-                                        <i:Interaction.Behaviors>
-                                            <behaviors:GridViewEuqalitySizeBehavior />
-                                        </i:Interaction.Behaviors>
-                                    </ItemsWrapGrid>
-                                </ItemsPanelTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
         <GridView x:Name="RootPanel"
                   ItemsSource="{x:Bind ViewModel.RelatedItems}">
             <i:Interaction.Behaviors>
@@ -308,6 +209,16 @@
                                Text="関連作品はありません。" />
                 </StackPanel>
             </GridView.Header>
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid attach:AssumSize.AssumSize="(0,100),(500,150),(1025,200)"
+                                   Orientation="Horizontal">
+                        <i:Interaction.Behaviors>
+                            <behaviors:GridViewEuqalitySizeBehavior />
+                        </i:Interaction.Behaviors>
+                    </ItemsWrapGrid>
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
             <GridView.ItemTemplate>
                 <DataTemplate>
                     <items:ThumbnailView DataContext="{Binding}" />

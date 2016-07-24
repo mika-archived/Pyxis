@@ -127,6 +127,7 @@
     <Compile Include="Helpers\ModelHelper.cs" />
     <Compile Include="Helpers\RunHelper.cs" />
     <Compile Include="Models\AccountInfo.cs" />
+    <Compile Include="Models\AdaptiveSize.cs" />
     <Compile Include="Models\Base\ThumbnailableBase.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Enums\FollowType.cs" />

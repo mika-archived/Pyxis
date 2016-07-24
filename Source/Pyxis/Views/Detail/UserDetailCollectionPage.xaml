@@ -23,18 +23,6 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="UserHeader.Height" Value="160" />
-                        <Setter Target="Works.ItemsPanel">
-                            <Setter.Value>
-                                <ItemsPanelTemplate>
-                                    <ItemsWrapGrid attach:AssumSize.AssumSize="100"
-                                                   Orientation="Horizontal">
-                                        <i:Interaction.Behaviors>
-                                            <behaviors:GridViewEuqalitySizeBehavior />
-                                        </i:Interaction.Behaviors>
-                                    </ItemsWrapGrid>
-                                </ItemsPanelTemplate>
-                            </Setter.Value>
-                        </Setter>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="PhoneLarge">
@@ -43,18 +31,6 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="UserHeader.Height" Value="180" />
-                        <Setter Target="Works.ItemsPanel">
-                            <Setter.Value>
-                                <ItemsPanelTemplate>
-                                    <ItemsWrapGrid attach:AssumSize.AssumSize="100"
-                                                   Orientation="Horizontal">
-                                        <i:Interaction.Behaviors>
-                                            <behaviors:GridViewEuqalitySizeBehavior />
-                                        </i:Interaction.Behaviors>
-                                    </ItemsWrapGrid>
-                                </ItemsPanelTemplate>
-                            </Setter.Value>
-                        </Setter>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Tablet">
@@ -64,18 +40,6 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="UserHeader.Height" Value="230" />
-                        <Setter Target="Works.ItemsPanel">
-                            <Setter.Value>
-                                <ItemsPanelTemplate>
-                                    <ItemsWrapGrid attach:AssumSize.AssumSize="150"
-                                                   Orientation="Horizontal">
-                                        <i:Interaction.Behaviors>
-                                            <behaviors:GridViewEuqalitySizeBehavior />
-                                        </i:Interaction.Behaviors>
-                                    </ItemsWrapGrid>
-                                </ItemsPanelTemplate>
-                            </Setter.Value>
-                        </Setter>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Desktop">
@@ -84,18 +48,6 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="UserHeader.Height" Value="280" />
-                        <Setter Target="Works.ItemsPanel">
-                            <Setter.Value>
-                                <ItemsPanelTemplate>
-                                    <ItemsWrapGrid attach:AssumSize.AssumSize="200"
-                                                   Orientation="Horizontal">
-                                        <i:Interaction.Behaviors>
-                                            <behaviors:GridViewEuqalitySizeBehavior />
-                                        </i:Interaction.Behaviors>
-                                    </ItemsWrapGrid>
-                                </ItemsPanelTemplate>
-                            </Setter.Value>
-                        </Setter>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="DesktopHD">
@@ -104,18 +56,6 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="UserHeader.Height" Value="350" />
-                        <Setter Target="Works.ItemsPanel">
-                            <Setter.Value>
-                                <ItemsPanelTemplate>
-                                    <ItemsWrapGrid attach:AssumSize.AssumSize="200"
-                                                   Orientation="Horizontal">
-                                        <i:Interaction.Behaviors>
-                                            <behaviors:GridViewEuqalitySizeBehavior />
-                                        </i:Interaction.Behaviors>
-                                    </ItemsWrapGrid>
-                                </ItemsPanelTemplate>
-                            </Setter.Value>
-                        </Setter>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -125,6 +65,16 @@
             <i:Interaction.Behaviors>
                 <behaviors:ListBoxEmptyBehavior Target="{x:Bind NotFoundItemsMes}" />
             </i:Interaction.Behaviors>
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid attach:AssumSize.AssumSize="(0,100),(500,150),(1025,200)"
+                                   Orientation="Horizontal">
+                        <i:Interaction.Behaviors>
+                            <behaviors:GridViewEuqalitySizeBehavior />
+                        </i:Interaction.Behaviors>
+                    </ItemsWrapGrid>
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
             <GridView.Header>
                 <Grid>
                     <Grid.RowDefinitions>

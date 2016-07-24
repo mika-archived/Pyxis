@@ -5,11 +5,11 @@ namespace Pyxis.Attach
     public static class AssumSize
     {
         public static readonly DependencyProperty PageTokenProperty =
-            DependencyProperty.RegisterAttached("AssumSize", typeof(int), typeof(AssumSize),
-                                                new PropertyMetadata(-1));
+            DependencyProperty.RegisterAttached("AssumSize", typeof(string), typeof(AssumSize),
+                                                new PropertyMetadata(""));
 
-        public static int GetAssumSize(DependencyObject obj) => (int) obj.GetValue(PageTokenProperty);
+        public static string GetAssumSize(DependencyObject obj) => (string) obj.GetValue(PageTokenProperty);
 
-        public static void SetAssumSize(DependencyObject obj, int value) => obj.SetValue(PageTokenProperty, value);
+        public static void SetAssumSize(DependencyObject obj, string value) => obj.SetValue(PageTokenProperty, value);
     }
 }
