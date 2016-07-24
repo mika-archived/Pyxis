@@ -22,7 +22,7 @@ namespace Pyxis.Models.Enums
                     return "date_desc";
 
                 case SearchSort.Popular:
-                    throw new NotSupportedException();
+                    return "popular_desc";
 
                 case SearchSort.Old:
                     return "date_asc";
