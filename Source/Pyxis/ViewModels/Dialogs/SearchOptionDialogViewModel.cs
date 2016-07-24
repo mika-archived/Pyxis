@@ -2,6 +2,7 @@
 
 using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
+using Pyxis.Mvvm;
 using Pyxis.ViewModels.Base;
 
 using Reactive.Bindings;
@@ -24,9 +25,9 @@ namespace Pyxis.ViewModels.Dialogs
         public override void OnInitialize(object parameter)
         {
             _parameter = parameter as SearchOptionParameter ?? new SearchOptionParameter();
-            ContentType = _parameter.ToReactivePropertyAsSynchronized(w => w.SearchType);
-            Target = _parameter.ToReactivePropertyAsSynchronized(w => w.Target);
-            Duration = _parameter.ToReactivePropertyAsSynchronized(w => w.Duration);
+            ContentType = _parameter.ToReactivePropertyAsSynchronized(w => w.SearchType).AddTo(this);
+            Target = _parameter.ToReactivePropertyAsSynchronized(w => w.Target).AddTo(this);
+            Duration = _parameter.ToReactivePropertyAsSynchronized(w => w.Duration).AddTo(this);
             ContentType.Subscribe(w =>
             {
                 var b = w != SearchType.Novels;
@@ -36,7 +37,7 @@ namespace Pyxis.ViewModels.Dialogs
                     Target.Value = SearchTarget.TagPartial;
                 if (!b && (Target.Value == SearchTarget.TagTotal || Target.Value == SearchTarget.TitleCaption))
                     Target.Value = SearchTarget.TagPartial;
-            });
+            }).AddTo(this);
         }
 
         public override void OnFinalize() => ResultValue = _parameter;

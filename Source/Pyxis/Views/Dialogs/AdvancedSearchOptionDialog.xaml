@@ -9,7 +9,6 @@
                d:DataContext="{d:DesignInstance vm:SearchOptionDialogViewModel}"
                prism:ViewModelLocator.AutoWireViewModel="True"
                PrimaryButtonText="OK"
-               SecondaryButtonText="キャンセル"
                mc:Ignorable="d">
     <StackPanel>
         <StackPanel.Resources>
@@ -18,24 +17,138 @@
                 <Setter Property="Margin" Value="0,20" />
                 <Setter Property="HorizontalAlignment" Value="Center" />
             </Style>
-            <Style x:Key="RadioStackPanelStyle"
-                   TargetType="StackPanel">
-                <Setter Property="Margin" Value="0,15,0,0" />
-                <Setter Property="Orientation" Value="Horizontal" />
-            </Style>
-            <Style x:Key="SemiRadioStackPanelStyle"
-                   TargetType="StackPanel">
-                <Setter Property="Orientation" Value="Horizontal" />
-            </Style>
-            <Style BasedOn="{StaticResource FlatStyleRadioButton}"
-                   TargetType="RadioButton">
-                <Setter Property="Width" Value="90" />
-                <Setter Property="Margin" Value="-10,2.5" />
-            </Style>
-
-            <Style TargetType="TextBlock">
+            <Style TargetType="Grid" />
+            <Style x:Key="SectionTitleTextBlockStyle"
+                   TargetType="TextBlock">
                 <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="Margin" Value="0,0,0,15" />
+            </Style>
+            <Style TargetType="TextBlock">
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="Width" Value="150" />
+                <Setter Property="Margin" Value="10,5,5,5" />
             </Style>
         </StackPanel.Resources>
+        <StackPanel Style="{StaticResource SectionStackPanelStyle}">
+            <TextBlock Style="{StaticResource SectionTitleTextBlockStyle}"
+                       Text="キーワード" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <!--#region EitherWord-->
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Text="いずれかのキーワードを含む" />
+                <TextBox Grid.Row="0"
+                         Grid.Column="1"
+                         Text="{x:Bind ViewModel.EitherWord.Value, Mode=TwoWay}" />
+                <!--#endregion-->
+                <!--#region IgnoreWord-->
+                <TextBlock Grid.Row="1"
+                           Grid.Column="0"
+                           Text="キーワードを除外する" />
+                <TextBox Grid.Row="1"
+                         Grid.Column="1"
+                         Text="{x:Bind ViewModel.IgnoreWord.Value, Mode=TwoWay}" />
+                <!--#endregion-->
+            </Grid>
+        </StackPanel>
+        <StackPanel Style="{StaticResource SectionStackPanelStyle}">
+            <TextBlock Style="{StaticResource SectionTitleTextBlockStyle}"
+                       Text="数値" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <!--#region BookmarkCount-->
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Text="ブックマーク数 (最低値)" />
+                <TextBox Grid.Row="0"
+                         Grid.Column="1"
+                         Text="{x:Bind ViewModel.BookmarkCount.Value, Mode=TwoWay}" />
+                <!--#endregion-->
+                <!--#region ViewCount-->
+                <TextBlock Grid.Row="1"
+                           Grid.Column="0"
+                           Text="閲覧数 (最低値)" />
+                <TextBox Grid.Row="1"
+                         Grid.Column="1"
+                         Text="{x:Bind ViewModel.ViewCount.Value, Mode=TwoWay}" />
+                <!--#endregion-->
+                <!--#region CommentCount-->
+                <TextBlock Grid.Row="2"
+                           Grid.Column="0"
+                           Text="コメント数 (最低値)" />
+                <TextBox Grid.Row="2"
+                         Grid.Column="1"
+                         Text="{x:Bind ViewModel.CommentCount.Value, Mode=TwoWay}" />
+                <!--#endregion-->
+                <!--#region PageCount-->
+                <TextBlock Grid.Row="3"
+                           Grid.Column="0"
+                           Text="ページ数 (最低値)" />
+                <TextBox Grid.Row="3"
+                         Grid.Column="1"
+                         Text="{x:Bind ViewModel.PageCount.Value, Mode=TwoWay}" />
+                <!--#endregion-->
+                <!--#region Height-->
+                <TextBlock Grid.Row="4"
+                           Grid.Column="0"
+                           Text="高さ (最低値)" />
+                <TextBox Grid.Row="4"
+                         Grid.Column="1"
+                         IsEnabled="{x:Bind ViewModel.IsEnabledIllustMode, Mode=OneWay}"
+                         Text="{x:Bind ViewModel.Height.Value, Mode=TwoWay}" />
+                <!--#endregion-->
+                <!--#region Width-->
+                <TextBlock Grid.Row="5"
+                           Grid.Column="0"
+                           Text="幅 (最低値)" />
+                <TextBox Grid.Row="5"
+                         Grid.Column="1"
+                         IsEnabled="{x:Bind ViewModel.IsEnabledIllustMode, Mode=OneWay}"
+                         Text="{x:Bind ViewModel.Width.Value, Mode=TwoWay}" />
+                <!--#endregion-->
+                <!--#region Tool-->
+                <TextBlock Grid.Row="6"
+                           Grid.Column="0"
+                           Text="使用ツール" />
+                <TextBox Grid.Row="6"
+                         Grid.Column="1"
+                         IsEnabled="{x:Bind ViewModel.IsEnabledIllustMode, Mode=OneWay}"
+                         Text="{x:Bind ViewModel.Tool.Value, Mode=TwoWay}" />
+                <!--#endregion-->
+                <!--#region TextLength-->
+                <TextBlock Grid.Row="7"
+                           Grid.Column="0"
+                           Text="文字数 (最低値)" />
+                <TextBox Grid.Row="7"
+                         Grid.Column="1"
+                         IsEnabled="{x:Bind ViewModel.IsEnabledNovelMode, Mode=OneWay}"
+                         Text="{x:Bind ViewModel.TextLength.Value, Mode=TwoWay}" />
+                <!--#endregion-->
+            </Grid>
+        </StackPanel>
     </StackPanel>
 </ContentDialog>

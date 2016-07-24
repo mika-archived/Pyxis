@@ -208,6 +208,7 @@
     <Compile Include="ViewModels\Detail\NovelViewPageViewModel.cs" />
     <Compile Include="ViewModels\Detail\UserDetailCollectionPageViewModel.cs" />
     <Compile Include="ViewModels\Detail\UserDetailPageViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\AdvancedSearchOptionDialogViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\FavoriteOptionDialogViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\SearchOptionDialogViewModel.cs" />
     <Compile Include="ViewModels\FavoriteMainPageViewModel.cs" />

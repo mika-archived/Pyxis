@@ -122,7 +122,17 @@ namespace Pyxis.ViewModels.Search
                 SearchType = _searchOption.SearchType,
                 Sort = _searchOption.Sort,
                 Duration = _searchOption.Duration,
-                Target = _searchOption.Target
+                Target = _searchOption.Target,
+                EitherWord = _searchOption.EitherWord,
+                IgnoreWord = _searchOption.IgnoreWord,
+                BookmarkCount = _searchOption.BookmarkCount,
+                ViewCount = _searchOption.ViewCount,
+                CommentCount = _searchOption.CommentCount,
+                PageCount = _searchOption.PageCount,
+                Height = _searchOption.Height,
+                Width = _searchOption.Width,
+                Tool = _searchOption.Tool,
+                TextLength = _searchOption.TextLength
             };
             NavigationService.Navigate("Search.SearchResult", parameter.ToJson());
         }

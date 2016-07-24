@@ -9,7 +9,6 @@
                d:DataContext="{d:DesignInstance vm:SearchOptionDialogViewModel}"
                prism:ViewModelLocator.AutoWireViewModel="True"
                PrimaryButtonText="OK"
-               SecondaryButtonText="キャンセル"
                mc:Ignorable="d">
     <StackPanel>
         <StackPanel.Resources>
