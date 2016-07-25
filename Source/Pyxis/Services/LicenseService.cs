@@ -35,11 +35,15 @@ namespace Pyxis.Services
 
         #endregion
 
+#if DEBUG
+
         private async Task Construct()
         {
             var storeProxy = await ApplicationData.Current.LocalFolder.GetFileAsync("WindowsStoreProxy.xml");
             await CurrentAppSimulator.ReloadSimulatorAsync(storeProxy);
             _licenseInformation = CurrentAppSimulator.LicenseInformation;
         }
+
+#endif
     }
 }
