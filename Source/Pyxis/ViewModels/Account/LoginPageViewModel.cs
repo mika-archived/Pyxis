@@ -67,7 +67,7 @@ namespace Pyxis.ViewModels.Account
                 return;
             }
 
-            _navigationService.Navigate(_parameter.RedirectTo, _parameter.Parameter.ToJson());
+            _navigationService.Navigate(_parameter.RedirectTo, _parameter.Parameter?.ToJson());
         }
 
         #region IsProcessing
