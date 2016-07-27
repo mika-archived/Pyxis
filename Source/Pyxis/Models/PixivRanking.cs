@@ -110,7 +110,8 @@ namespace Pyxis.Models
             foreach (var _ in modes)
             {
                 var illusts = await _pixivClient.IllustV1.RankingAsync(mode => _, filter => "for_ios");
-                Ranking.Add(new Tuple<RankingMode, IIllusts>(RankingModeExt.FromString(_), illusts));
+                if (illusts != null)
+                    Ranking.Add(new Tuple<RankingMode, IIllusts>(RankingModeExt.FromString(_), illusts));
             }
         }
 
@@ -121,7 +122,8 @@ namespace Pyxis.Models
             foreach (var _ in modes)
             {
                 var illusts = await _pixivClient.IllustV1.RankingAsync(mode => $"{_}_manga");
-                Ranking.Add(new Tuple<RankingMode, IIllusts>(RankingModeExt.FromString(_), illusts));
+                if (illusts != null)
+                    Ranking.Add(new Tuple<RankingMode, IIllusts>(RankingModeExt.FromString(_), illusts));
             }
         }
 
@@ -132,7 +134,8 @@ namespace Pyxis.Models
             foreach (var _ in modes)
             {
                 var novels = await _pixivClient.NovelV1.RankingAsync(mode => _);
-                RankingOfNovels.Add(new Tuple<RankingMode, INovels>(RankingModeExt.FromString(_), novels));
+                if (novels != null)
+                    RankingOfNovels.Add(new Tuple<RankingMode, INovels>(RankingModeExt.FromString(_), novels));
             }
         }
 

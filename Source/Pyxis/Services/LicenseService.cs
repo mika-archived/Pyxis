@@ -1,8 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 using Windows.ApplicationModel.Store;
-using Windows.Storage;
 
 using Pyxis.Helpers;
 using Pyxis.Services.Interfaces;
@@ -39,8 +37,8 @@ namespace Pyxis.Services
 
         private async Task Construct()
         {
-            var storeProxy = await ApplicationData.Current.LocalFolder.GetFileAsync("WindowsStoreProxy.xml");
-            await CurrentAppSimulator.ReloadSimulatorAsync(storeProxy);
+            // var storeProxy = await ApplicationData.Current.LocalFolder.GetFileAsync("WindowsStoreProxy.xml");
+            // await CurrentAppSimulator.ReloadSimulatorAsync(storeProxy);
             _licenseInformation = CurrentAppSimulator.LicenseInformation;
         }
 
