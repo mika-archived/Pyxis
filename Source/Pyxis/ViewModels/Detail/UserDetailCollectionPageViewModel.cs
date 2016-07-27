@@ -30,6 +30,7 @@ namespace Pyxis.ViewModels.Detail
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
         private string _id;
+        private bool _isOffline;
         private PixivFavorite _pixivFavorite;
         private PixivWork _pixivWork;
         public INavigationService NavigationService { get; }
@@ -80,7 +81,7 @@ namespace Pyxis.ViewModels.Detail
             Initialize(param, false);
         }
 
-        private bool CanFollow() => _accountService.IsLoggedIn;
+        private bool CanFollow() => _accountService.IsLoggedIn && !_isOffline;
 
         #endregion
 
@@ -91,6 +92,13 @@ namespace Pyxis.ViewModels.Detail
         private void Initialize(UserDetailParameter parameter, bool full = true)
         {
             _categoryService.UpdateCategory();
+            if (parameter == null)
+            {
+                // オフライン
+                IsFollowing = false;
+                _isOffline = true;
+                return;
+            }
             SelectedIndex = (int) parameter.ProfileType;
             if (parameter.ProfileType == ProfileType.Work)
                 SubSelectedIndex1 = (int) parameter.ContentType;

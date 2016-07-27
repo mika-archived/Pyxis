@@ -30,6 +30,7 @@ namespace Pyxis.ViewModels.Detail
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
         private string _id;
+        private bool _isOffline;
         private PixivDetail _pixivUser;
         private IUserDetail _userDetail;
         public INavigationService NavigationService { get; }
@@ -87,6 +88,13 @@ namespace Pyxis.ViewModels.Detail
         private void Initialie(DetailByIdParameter parameter)
         {
             _categoryService.UpdateCategory();
+            if (parameter == null)
+            {
+                // オフライン
+                IsFollowing = new ReactiveProperty<bool>(false);
+                _isOffline = true;
+                return;
+            }
             _id = string.IsNullOrWhiteSpace(parameter.Id) ? _accountService.LoggedInAccount.Id : parameter.Id;
             _pixivUser = new PixivDetail(_id, SearchType.Users, _pixivClient);
             var observer = _pixivUser.ObserveProperty(w => w.UserDetail).Where(w => w != null).Publish();
@@ -167,7 +175,7 @@ namespace Pyxis.ViewModels.Detail
             Parameter = ParamGen.GenerateRaw(param1, v => v.ProfileType).Cast<object>().Skip(1).ToList();
         }
 
-        private bool CanFollow() => _accountService.IsLoggedIn;
+        private bool CanFollow() => _accountService.IsLoggedIn && !_isOffline;
 
         #endregion
 
