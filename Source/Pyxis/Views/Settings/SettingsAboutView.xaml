@@ -27,6 +27,11 @@
             <TextBlock>
                 <Hyperlink NavigateUri="https://kokoiroworks.com/pyx/privacy">プライバシーポリシー</Hyperlink>
             </TextBlock>
+            <TextBlock>
+                バグ報告や要望などは Twitter
+                <Hyperlink NavigateUri="https://twitter.com/hashtag/PyxisApp">#PyxisApp</Hyperlink>
+                にて
+            </TextBlock>
 
             <TextBlock Margin="0,20,0,0"
                        FontWeight="Bold"
