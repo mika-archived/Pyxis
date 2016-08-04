@@ -5,7 +5,7 @@ using System.Linq;
 
 using Newtonsoft.Json;
 
-namespace Pyxis.Alpha.Converters
+namespace Pyxis.Beta.Converters
 {
     public class InterfaceToConcrete<T> : JsonConverter where T : class
     {

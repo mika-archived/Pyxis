@@ -107,7 +107,6 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converters\InterfaceToConcrete.cs" />
     <Compile Include="Endpoints.cs" />
     <Compile Include="Internal\PixivHttpClientHandler.cs" />
     <Compile Include="Internal\PximgHttpClientHandler.cs" />

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-using Pyxis.Alpha.Converters;
+using Pyxis.Beta.Converters;
 using Pyxis.Beta.Interfaces.Models.v1;
 
 // ReSharper disable UnusedAutoPropertyAccessor.Global

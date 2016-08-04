@@ -2,7 +2,7 @@
 
 using Newtonsoft.Json;
 
-using Pyxis.Alpha.Converters;
+using Pyxis.Beta.Converters;
 using Pyxis.Beta.Interfaces.Models.v2;
 
 // ReSharper disable UnusedAutoPropertyAccessor.Global

@@ -107,6 +107,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\InterfaceToConcrete.cs" />
     <Compile Include="Exceptions\AuthenticateRequiredException.cs" />
     <Compile Include="Interfaces\Models\Internal\IErrorResponse.cs" />
     <Compile Include="Interfaces\Models\Internal\IIdentity.cs" />
