@@ -58,6 +58,11 @@ namespace Pyxis.ViewModels.Search
         {
             base.OnNavigatedTo(e, viewModelState);
             var parameter = ParameterBase.ToObject<SearchResultAndTrendingParameter>((string) e?.Parameter);
+            if (viewModelState != null && viewModelState.ContainsKey("_searchOption"))
+            {
+                _searchOption = ParameterBase.ToObject<SearchOptionParameter>(viewModelState["_searchOption"]);
+                SearchQuery = viewModelState["SearchQuery"].ToString();
+            }
             Initialize(parameter);
         }
 
@@ -65,8 +70,9 @@ namespace Pyxis.ViewModels.Search
 
         public override void OnNavigatingFrom(NavigatingFromEventArgs e, Dictionary<string, object> viewModelState, bool suspending)
         {
+            viewModelState["_searchOption"] = _searchOption.ToJson();
+            viewModelState["SearchQuery"] = SearchQuery;
             base.OnNavigatingFrom(e, viewModelState, suspending);
-            viewModelState["searchOption"] = _searchOption.ToJson();
         }
 
         #endregion
@@ -79,30 +85,32 @@ namespace Pyxis.ViewModels.Search
         {
             _categoryService.UpdateCategory();
             SelectedIndex = (int) parameter.Sort;
-            SearchQuery = parameter.Query;
             HasTrendingTag = parameter.TrendingIllust != null;
             if (HasTrendingTag)
                 ThumbnailableViewModel = CreatePixivImage(parameter.TrendingIllust);
             IsLoggedInRequired = !_accountService.IsLoggedIn && parameter.Sort == SearchSort.Popular;
             IsPremiumRequired = !_accountService.IsPremium && parameter.Sort == SearchSort.Popular;
-            _searchOption = new SearchOptionParameter
+            if (_searchOption == null)
             {
-                SearchType = parameter.SearchType,
-                Sort = parameter.Sort,
-                Target = parameter.Target,
-                Duration = parameter.Duration,
-                EitherWord = parameter.EitherWord,
-                IgnoreWord = parameter.IgnoreWord,
-                BookmarkCount = parameter.BookmarkCount,
-                ViewCount = parameter.ViewCount,
-                CommentCount = parameter.CommentCount,
-                PageCount = parameter.PageCount,
-                Height = parameter.Height,
-                Width = parameter.Width,
-                Tool = parameter.Tool,
-                TextLength = parameter.TextLength
-            };
-
+                SearchQuery = parameter.Query;
+                _searchOption = new SearchOptionParameter
+                {
+                    SearchType = parameter.SearchType,
+                    Sort = parameter.Sort,
+                    Target = parameter.Target,
+                    Duration = parameter.Duration,
+                    EitherWord = parameter.EitherWord,
+                    IgnoreWord = parameter.IgnoreWord,
+                    BookmarkCount = parameter.BookmarkCount,
+                    ViewCount = parameter.ViewCount,
+                    CommentCount = parameter.CommentCount,
+                    PageCount = parameter.PageCount,
+                    Height = parameter.Height,
+                    Width = parameter.Width,
+                    Tool = parameter.Tool,
+                    TextLength = parameter.TextLength
+                };
+            }
             _pixivSearch = new PixivSearch(_pixivClient);
             if (parameter.SearchType == SearchType.IllustsAndManga)
                 ModelHelper.ConnectTo(Results, _pixivSearch, w => w.ResultIllusts, CreatePixivImage).AddTo(this);
