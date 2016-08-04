@@ -61,6 +61,16 @@ namespace Pyxis.ViewModels.Search
             Initialize(parameter);
         }
 
+        #region Overrides of ViewModel
+
+        public override void OnNavigatingFrom(NavigatingFromEventArgs e, Dictionary<string, object> viewModelState, bool suspending)
+        {
+            base.OnNavigatingFrom(e, viewModelState, suspending);
+            viewModelState["searchOption"] = _searchOption.ToJson();
+        }
+
+        #endregion
+
         #endregion
 
         #region Initializers
@@ -120,6 +130,7 @@ namespace Pyxis.ViewModels.Search
             if (result == null)
                 return;
             _searchOption = result as SearchOptionParameter;
+            HasTrendingTag = false;
             Search();
         }
 
@@ -129,10 +140,15 @@ namespace Pyxis.ViewModels.Search
             if (result == null)
                 return;
             _searchOption = result as SearchOptionParameter;
+            HasTrendingTag = false;
             Search();
         }
 
-        public void OnQuerySubmitted() => Search();
+        public void OnQuerySubmitted()
+        {
+            HasTrendingTag = false;
+            Search();
+        }
 
         private void Search()
         {
