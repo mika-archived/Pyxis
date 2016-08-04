@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.Reactive.Linq;
 
@@ -117,7 +116,6 @@ namespace Pyxis.Behaviors
 
         private void RootFrameOnNavigating(object sender, NavigatingCancelEventArgs args)
         {
-            Debug.WriteLine(args.NavigationMode);
             CheckStack();
             if (args.NavigationMode == NavigationMode.Back)
                 AssociatedObject.SelectedIndex = _pageStack.Pop();

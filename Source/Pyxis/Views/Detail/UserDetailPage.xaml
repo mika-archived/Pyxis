@@ -9,6 +9,7 @@
       xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:prism="using:Prism.Windows.Mvvm"
+      xmlns:controls="using:Pyxis.Controls"
       xmlns:vm="using:Pyxis.ViewModels.Detail"
       d:DataContext="{d:DesignInstance vm:UserDetailPageViewModel}"
       prism:ViewModelLocator.AutoWireViewModel="True"
@@ -69,9 +70,11 @@
                 BorderBrush="{ThemeResource SystemControlForegroundChromeMediumBrush}"
                 BorderThickness="0,0,0,1">
             <Grid>
-                <Image VerticalAlignment="Center"
+                <controls:BlurEffectControl>
+                    <Image VerticalAlignment="Center"
                        Source="{x:Bind ViewModel.ThumbnailPath, Mode=OneWay}"
                        Stretch="UniformToFill" />
+                </controls:BlurEffectControl>
                 <Border Background="White"
                         Opacity=".75" />
                 <StackPanel HorizontalAlignment="Stretch"

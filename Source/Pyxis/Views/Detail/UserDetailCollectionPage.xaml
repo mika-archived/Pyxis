@@ -5,6 +5,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:attach="using:Pyxis.Attach"
       xmlns:behaviors="using:Pyxis.Behaviors"
+      xmlns:controls="using:Pyxis.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:items="using:Pyxis.Views.Items"
@@ -88,9 +89,11 @@
                             BorderBrush="{ThemeResource SystemControlForegroundChromeMediumBrush}"
                             BorderThickness="0,0,0,1">
                         <Grid>
-                            <Image VerticalAlignment="Center"
-                                   Source="{x:Bind ViewModel.ThumbnailPath, Mode=OneWay}"
-                                   Stretch="UniformToFill" />
+                            <controls:BlurEffectControl>
+                                <Image VerticalAlignment="Center"
+                                       Source="{x:Bind ViewModel.ThumbnailPath, Mode=OneWay}"
+                                       Stretch="UniformToFill" />
+                            </controls:BlurEffectControl>
                             <Border Background="White"
                                     Opacity=".75" />
                             <StackPanel HorizontalAlignment="Stretch"
