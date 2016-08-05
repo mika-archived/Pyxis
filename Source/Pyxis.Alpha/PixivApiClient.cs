@@ -58,8 +58,7 @@ namespace Pyxis.Alpha
         public INovelV2 NovelV2 => new NovelApiV2(this);
         public IPximgApi Pximg => new PximgApi(this);
 
-        public async Task<T> GetAsync<T>(string url, bool requireAuth,
-                                         params Expression<Func<string, object>>[] parameters)
+        public async Task<T> GetAsync<T>(string url, bool requireAuth, params Expression<Func<string, object>>[] parameters)
         {
             if (requireAuth && string.IsNullOrWhiteSpace(AccessToken))
                 throw new AuthenticateRequiredException();
@@ -83,8 +82,7 @@ namespace Pyxis.Alpha
             return default(T);
         }
 
-        public async Task<T> PostAsync<T>(string url, bool requireAuth,
-                                          params Expression<Func<string, object>>[] parameters)
+        public async Task<T> PostAsync<T>(string url, bool requireAuth, params Expression<Func<string, object>>[] parameters)
         {
             if (requireAuth && string.IsNullOrWhiteSpace(AccessToken))
                 throw new AuthenticateRequiredException();
