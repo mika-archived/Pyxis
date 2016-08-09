@@ -38,6 +38,7 @@
                             <Image MaxWidth="{x:Bind ViewModel.Width, Mode=OneWay}"
                                    MaxHeight="{x:Bind ViewModel.Height, Mode=OneWay}"
                                    Margin="0,0,0,10"
+                                   VerticalAlignment="Top"
                                    Source="{x:Bind ViewModel.ThumbnailPath, Mode=OneWay}"
                                    Stretch="Uniform">
                                 <i:Interaction.Behaviors>
