@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="Pyxis.Views.Items.ThumbnailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:base="using:Pyxis.ViewModels.Base"
+             xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="using:Microsoft.Xaml.Interactivity"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DataContext="{d:DesignInstance base:TappableThumbnailViewModel}"
+             d:DesignHeight="300"
+             d:DesignWidth="400"
+             mc:Ignorable="d">
+    <Grid x:Name="RootGrid">
+        <i:Interaction.Behaviors>
+            <core:EventTriggerBehavior EventName="Tapped"
+                                       SourceObject="{Binding ElementName=RootGrid}">
+                <core:CallMethodAction MethodName="OnItemTapped"
+                                       TargetObject="{Binding}" />
+            </core:EventTriggerBehavior>
+        </i:Interaction.Behaviors>
+        <Image VerticalAlignment="Center"
+               Source="{Binding ThumbnailPath}"
+               Stretch="UniformToFill" />
+    </Grid>
+</UserControl>

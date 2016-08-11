@@ -243,3 +243,7 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+
+# UWP publish files
+*.appx
+_pkginfo.txt

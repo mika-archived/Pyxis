@@ -1,0 +1,90 @@
+﻿<!-- ReSharper disable UnusedMember.Local -->
+<!-- ReSharper disable NotAccessedField.Local -->
+<Page x:Class="Pyxis.Views.Ranking.NovelRankingPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:attach="using:Pyxis.Attach"
+      xmlns:behaviors="using:Pyxis.Behaviors"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:i="using:Microsoft.Xaml.Interactivity"
+      xmlns:items="using:Pyxis.Views.Items"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:prism="using:Prism.Windows.Mvvm"
+      xmlns:vm="using:Pyxis.ViewModels.Ranking"
+      d:DataContext="{d:DesignInstance vm:NovelRankingPageViewModel}"
+      prism:ViewModelLocator.AutoWireViewModel="True"
+      mc:Ignorable="d">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel Orientation="Vertical">
+            <Pivot SelectedIndex="{x:Bind ViewModel.SelectedIndex, Mode=OneWay}"
+                   Style="{StaticResource MaxiTabsStylePivotStyle}">
+                <i:Interaction.Behaviors>
+                    <behaviors:AttachNavigationToPivotBehavior NavigationService="{x:Bind ViewModel.NavigationService}" />
+                </i:Interaction.Behaviors>
+                <PivotItem attach:NavigateTo.PageToken="Ranking.NovelRanking"
+                           attach:NavigateTo.Parameters="{}{&quot;RankingType&quot;:2,&quot;RankingMode&quot;:0}">
+                    <PivotItem.Header>
+                        <TextBlock Width="64"
+                                   Style="{StaticResource TabsStyleTextBlockStyle}"
+                                   Text="デイリー" />
+                    </PivotItem.Header>
+                </PivotItem>
+                <PivotItem attach:NavigateTo.PageToken="Ranking.NovelRanking"
+                           attach:NavigateTo.Parameters="{}{&quot;RankingType&quot;:2,&quot;RankingMode&quot;:1}">
+                    <PivotItem.Header>
+                        <TextBlock Width="64"
+                                   Style="{StaticResource TabsStyleTextBlockStyle}"
+                                   Text="男子に人気" />
+                    </PivotItem.Header>
+                </PivotItem>
+                <PivotItem attach:NavigateTo.PageToken="Ranking.NovelRanking"
+                           attach:NavigateTo.Parameters="{}{&quot;RankingType&quot;:2,&quot;RankingMode&quot;:2}">
+                    <PivotItem.Header>
+                        <TextBlock Width="64"
+                                   Style="{StaticResource TabsStyleTextBlockStyle}"
+                                   Text="女子に人気" />
+                    </PivotItem.Header>
+                </PivotItem>
+                <PivotItem attach:NavigateTo.PageToken="Ranking.NovelRanking"
+                           attach:NavigateTo.Parameters="{}{&quot;RankingType&quot;:2,&quot;RankingMode&quot;:4}">
+                    <PivotItem.Header>
+                        <TextBlock Width="64"
+                                   Style="{StaticResource TabsStyleTextBlockStyle}"
+                                   Text="ルーキー" />
+                    </PivotItem.Header>
+                </PivotItem>
+                <PivotItem attach:NavigateTo.PageToken="Ranking.NovelRanking"
+                           attach:NavigateTo.Parameters="{}{&quot;RankingType&quot;:2,&quot;RankingMode&quot;:5}">
+                    <PivotItem.Header>
+                        <TextBlock Width="64"
+                                   Style="{StaticResource TabsStyleTextBlockStyle}"
+                                   Text="ウィークリー" />
+                    </PivotItem.Header>
+                </PivotItem>
+            </Pivot>
+            <GridView x:Name="Ranking"
+                      Height="500"
+                      ItemsSource="{x:Bind ViewModel.RankingItems}">
+                <i:Interaction.Behaviors>
+                    <behaviors:AdjustControlSizeBehavior HeightOffset="-96"
+                                                         IsSyncHeight="True" />
+                </i:Interaction.Behaviors>
+                <GridView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsWrapGrid attach:AssumSize.AssumSize="(0,100),(500,150),(1025,200)"
+                                       Orientation="Horizontal">
+                            <i:Interaction.Behaviors>
+                                <behaviors:GridViewEuqalitySizeBehavior />
+                            </i:Interaction.Behaviors>
+                        </ItemsWrapGrid>
+                    </ItemsPanelTemplate>
+                </GridView.ItemsPanel>
+                <GridView.ItemTemplate>
+                    <DataTemplate>
+                        <items:ThumbnailView DataContext="{Binding}" />
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+            </GridView>
+        </StackPanel>
+    </Grid>
+</Page>

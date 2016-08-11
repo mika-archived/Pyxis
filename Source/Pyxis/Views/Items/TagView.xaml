@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="Pyxis.Views.Items.TagView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="using:Microsoft.Xaml.Interactivity"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Pyxis.ViewModels.Items"
+             d:DataContext="{d:DesignInstance vm:PixivTagViewModel}"
+             d:DesignHeight="300"
+             d:DesignWidth="400"
+             mc:Ignorable="d">
+    <Border x:Name="RootBorder"
+            Margin="5,2.5"
+            BorderBrush="Silver"
+            BorderThickness="1"
+            CornerRadius="10"
+            Padding="15,0">
+        <i:Interaction.Behaviors>
+            <core:EventTriggerBehavior EventName="Tapped"
+                                       SourceObject="{Binding ElementName=RootBorder}">
+                <core:CallMethodAction MethodName="OnItemTapped"
+                                       TargetObject="{Binding}" />
+            </core:EventTriggerBehavior>
+        </i:Interaction.Behaviors>
+        <TextBlock Text="{Binding Name}"
+                   TextTrimming="CharacterEllipsis" />
+    </Border>
+</UserControl>

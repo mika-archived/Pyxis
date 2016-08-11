@@ -1,0 +1,77 @@
+﻿<!-- ReSharper disable UnusedMember.Local -->
+<!-- ReSharper disable NotAccessedField.Local -->
+<Page x:Class="Pyxis.Views.WorkMainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:attach="using:Pyxis.Attach"
+      xmlns:behaviors="using:Pyxis.Behaviors"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:i="using:Microsoft.Xaml.Interactivity"
+      xmlns:items="using:Pyxis.Views.Items"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:prism="using:Prism.Windows.Mvvm"
+      xmlns:vm="using:Pyxis.ViewModels"
+      d:DataContext="{d:DesignInstance vm:WorkMainPageViewModel}"
+      prism:ViewModelLocator.AutoWireViewModel="True"
+      mc:Ignorable="d">
+    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Pivot SelectedIndex="{x:Bind ViewModel.SelectedIndex, Mode=OneWay}"
+               Style="{StaticResource TabsStylePivotStyle}">
+            <i:Interaction.Behaviors>
+                <behaviors:AttachNavigationToPivotBehavior NavigationService="{x:Bind ViewModel.NavigationService}" />
+            </i:Interaction.Behaviors>
+            <PivotItem attach:NavigateTo.PageToken="WorkMain"
+                       attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:0}">
+                <PivotItem.Header>
+                    <TextBlock Width="64"
+                               Style="{StaticResource TabsStyleTextBlockStyle}"
+                               Text="イラスト" />
+                </PivotItem.Header>
+            </PivotItem>
+            <PivotItem attach:NavigateTo.PageToken="WorkMain"
+                       attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:1}">
+                <PivotItem.Header>
+                    <TextBlock Width="64"
+                               Style="{StaticResource TabsStyleTextBlockStyle}"
+                               Text="マンガ" />
+                </PivotItem.Header>
+            </PivotItem>
+            <PivotItem attach:NavigateTo.PageToken="WorkMain"
+                       attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:2}">
+                <PivotItem.Header>
+                    <TextBlock Width="64"
+                               Style="{StaticResource TabsStyleTextBlockStyle}"
+                               Text="小説" />
+                </PivotItem.Header>
+            </PivotItem>
+        </Pivot>
+        <GridView x:Name="WorkItems"
+                  ItemsSource="{x:Bind ViewModel.WorkItems}">
+            <i:Interaction.Behaviors>
+                <behaviors:AdjustControlSizeBehavior HeightOffset="-96"
+                                                     IsSyncHeight="True" />
+                <behaviors:ListBoxEmptyBehavior Target="{x:Bind NotFoundWorkItemsMes}" />
+            </i:Interaction.Behaviors>
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid attach:AssumSize.AssumSize="(0,100),(500,150),(1025,200)"
+                                   Orientation="Horizontal">
+                        <i:Interaction.Behaviors>
+                            <behaviors:GridViewEuqalitySizeBehavior />
+                        </i:Interaction.Behaviors>
+                    </ItemsWrapGrid>
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
+            <GridView.Header>
+                <TextBlock x:Name="NotFoundWorkItemsMes"
+                           Style="{ThemeResource NfMessageTextBlockStyle}"
+                           Text="投稿した作品はありません。" />
+            </GridView.Header>
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <items:ThumbnailView DataContext="{Binding}" />
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+    </StackPanel>
+</Page>

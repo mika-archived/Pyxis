@@ -1,0 +1,45 @@
+﻿<Page x:Class="Pyxis.Views.Error.LoginRequiredPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:prism="using:Prism.Windows.Mvvm"
+      xmlns:vm="using:Pyxis.ViewModels.Error"
+      d:DataContext="{d:DesignInstance vm:LoginRequiredPageViewModel}"
+      prism:ViewModelLocator.AutoWireViewModel="True"
+      mc:Ignorable="d">
+
+    <Grid Background="#0074AA">
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+            <TextBlock HorizontalAlignment="Center"
+                       FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                       Foreground="PaleGoldenrod"
+                       Style="{ThemeResource HeaderTextBlockStyle}"
+                       Text="&#xE946;" />
+            <TextBlock Margin="5"
+                       Foreground="White"
+                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                       Text="pixiv に登録もしくはログインしてください！" />
+
+            <Button Width="200"
+                    Margin="10"
+                    HorizontalAlignment="Center"
+                    Tapped="{x:Bind ViewModel.OnRegisterButtonTapped}">
+                <TextBlock Foreground="White"
+                           Style="{ThemeResource SubtitleTextBlockStyle}"
+                           Text="登録" />
+            </Button>
+
+            <Button Width="200"
+                    Margin="10"
+                    HorizontalAlignment="Center"
+                    Tapped="{x:Bind ViewModel.OnLoginButtonTapped}">
+                <TextBlock Foreground="White"
+                           Style="{ThemeResource SubtitleTextBlockStyle}"
+                           Text="ログイン" />
+            </Button>
+        </StackPanel>
+    </Grid>
+</Page>
