@@ -65,15 +65,6 @@ namespace Pyxis
             return shell;
         }
 
-        #region Overrides of PrismApplication
-
-        protected override Task OnSuspendingApplicationAsync()
-        {
-            return base.OnSuspendingApplicationAsync();
-        }
-
-        #endregion
-
         protected override async Task OnInitializeAsync(IActivatedEventArgs args)
         {
             UIDispatcherScheduler.Initialize();
@@ -87,7 +78,11 @@ namespace Pyxis
             Container.RegisterType<IImageStoreService, ImageStoreService>(new LifetimeManager());
             Container.RegisterType<IDialogService, DialogService>(new LifetimeManager());
             Container.RegisterType<ICategoryService, CategoryService>(new LifetimeManager());
+#if DEBUG
+            Container.RegisterType<ILicenseService, LocalLicenseService>(new LifetimeManager());
+#else
             Container.RegisterType<ILicenseService, LicenseService>(new LifetimeManager());
+#endif
             // Container.RegisterInstance<IPixivClient>(new PixivWebClient(), new ContainerControlledLifetimeManager());
 #if !OFFLINE
             await accountService.Login();
