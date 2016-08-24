@@ -11,7 +11,6 @@ using Microsoft.Practices.ObjectBuilder2;
 
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest;
-using Pyxis.Helpers;
 using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
 
@@ -54,8 +53,8 @@ namespace Pyxis.Models
                 _query += " " + string.Join(" ", _optionParam.IgnoreWord.Split(' ').Select(w => $"--{w}"));
 #if !OFFLINE
             HasMoreItems = true;
-            if (flag)
-                RunHelper.RunAsync(SearchAsync);
+            //if (flag)
+            //    RunHelper.RunAsync(SearchAsync);
 #endif
         }
 

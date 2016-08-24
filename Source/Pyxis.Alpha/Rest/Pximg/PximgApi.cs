@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.IO;
+﻿using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -21,7 +20,7 @@ namespace Pyxis.Alpha.Rest.Pximg
 
         public async Task<Stream> GetAsync(string url)
         {
-            Debug.WriteLine("GETI :" + url);
+            // Debug.WriteLine("GETI :" + url);
             var client = new HttpClient(new PximgHttpClientHandler(_client));
             var response = await client.GetAsync(url);
             return await response.Content.ReadAsStreamAsync();
