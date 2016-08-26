@@ -5,6 +5,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Reactive.Linq;
 using System.Windows.Input;
 
+using Windows.ApplicationModel.DataTransfer;
+
 using Microsoft.Practices.ObjectBuilder2;
 
 using Prism.Commands;
@@ -35,6 +37,7 @@ namespace Pyxis.ViewModels.Detail
         private readonly IPixivClient _pixivClient;
 
         private int _count;
+        private DataTransferManager _dataTransferManager;
         private INovel _novel;
 
         private PixivComment _pixivComment;
@@ -63,6 +66,13 @@ namespace Pyxis.ViewModels.Detail
             IconPath = PyxisConstants.DummyIcon;
         }
 
+        #region Converters
+
+        private PixivCommentViewModel CreatePixivComment(IComment w) =>
+            new PixivCommentViewModel(w, _imageStoreService);
+
+        #endregion
+
         #region Overrides of ViewModelBase
 
         public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
@@ -76,14 +86,19 @@ namespace Pyxis.ViewModels.Detail
                 var param = ParameterBase.ToObject<DetailByIdParameter>((string) e.Parameter);
                 Initialize(param);
             }
+            _dataTransferManager = DataTransferManager.GetForCurrentView();
+            _dataTransferManager.DataRequested += OnDataRequested;
+        }
+
+        #region Overrides of ViewModel
+
+        public override void OnNavigatingFrom(NavigatingFromEventArgs e, Dictionary<string, object> viewModelState, bool suspending)
+        {
+            _dataTransferManager.DataRequested -= OnDataRequested;
+            base.OnNavigatingFrom(e, viewModelState, suspending);
         }
 
         #endregion
-
-        #region Converters
-
-        private PixivCommentViewModel CreatePixivComment(IComment w) =>
-            new PixivCommentViewModel(w, _imageStoreService);
 
         #endregion
 
@@ -137,10 +152,10 @@ namespace Pyxis.ViewModels.Detail
                         .Where(w => w != null)
                         .ObserveOnUIDispatcher()
                         .Subscribe(w =>
-                        {
-                            _novel = w;
-                            Initialize();
-                        }).AddTo(this);
+                                   {
+                                       _novel = w;
+                                       Initialize();
+                                   }).AddTo(this);
             _pixivDetail.Fetch();
         }
 
@@ -158,6 +173,13 @@ namespace Pyxis.ViewModels.Detail
         {
             var parameter = new DetailByIdParameter {Id = _novel.User.Id};
             _navigationService.Navigate("Detail.UserDetail", parameter.ToJson());
+        }
+
+        private void OnDataRequested(DataTransferManager sender, DataRequestedEventArgs e)
+        {
+            var request = e.Request;
+            request.Data.Properties.Title = "小説を共有";
+            request.Data.SetText($"{Title} | {Username} #pixiv http://www.pixiv.net/novel/show.php?id={_novel.Id}");
         }
 
         #region BookmarkCommand
@@ -178,6 +200,15 @@ namespace Pyxis.ViewModels.Detail
         }
 
         private bool CanBookmark() => _accountService.IsLoggedIn;
+
+        #endregion
+
+        #region ShareCommand
+
+        private ICommand _shareCommand;
+        public ICommand ShareCommand => _shareCommand ?? (_shareCommand = new DelegateCommand(Share));
+
+        private void Share() => DataTransferManager.ShowShareUI();
 
         #endregion
 

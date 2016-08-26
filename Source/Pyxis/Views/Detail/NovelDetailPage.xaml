@@ -48,7 +48,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="48" />
                         <ColumnDefinition />
-                        <ColumnDefinition Width="48" />
+                        <ColumnDefinition Width="96" />
                     </Grid.ColumnDefinitions>
                     <Border Grid.Column="0"
                             Width="48"
@@ -69,43 +69,54 @@
                                    Style="{ThemeResource CaptionTextBlockStyle}"
                                    Text="{x:Bind ViewModel.Username, Mode=OneWay}" />
                     </StackPanel>
-                    <Button x:Name="BookmarkButton"
-                            Grid.Column="2"
-                            Width="48"
-                            Height="48"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Center"
-                            Background="Transparent"
-                            BorderBrush="Transparent"
-                            Command="{x:Bind ViewModel.BookmarkCommand}"
-                            Content="&#xE0A5;"
-                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                            FontSize="24">
-                        <i:Interaction.Behaviors>
-                            <core:DataTriggerBehavior Binding="{Binding IsBookmarked,
-                                                                        Mode=OneWay}"
-                                                      ComparisonCondition="Equal"
-                                                      Value="True">
-                                <core:ChangePropertyAction PropertyName="Foreground"
-                                                           TargetObject="{Binding ElementName=BookmarkButton}">
-                                    <core:ChangePropertyAction.Value>
-                                        <SolidColorBrush>Salmon</SolidColorBrush>
-                                    </core:ChangePropertyAction.Value>
-                                </core:ChangePropertyAction>
-                            </core:DataTriggerBehavior>
-                            <core:DataTriggerBehavior Binding="{Binding IsBookmarked,
-                                                                        Mode=OneWay}"
-                                                      ComparisonCondition="Equal"
-                                                      Value="False">
-                                <core:ChangePropertyAction PropertyName="Foreground"
-                                                           TargetObject="{Binding ElementName=BookmarkButton}">
-                                    <core:ChangePropertyAction.Value>
-                                        <SolidColorBrush>Black</SolidColorBrush>
-                                    </core:ChangePropertyAction.Value>
-                                </core:ChangePropertyAction>
-                            </core:DataTriggerBehavior>
-                        </i:Interaction.Behaviors>
-                    </Button>
+                    <StackPanel Grid.Column="2"
+                                Orientation="Horizontal">
+                        <Button x:Name="BookmarkButton"
+                                Width="48"
+                                Height="48"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Background="Transparent"
+                                BorderBrush="Transparent"
+                                Command="{x:Bind ViewModel.BookmarkCommand}"
+                                Content="&#xE0A5;"
+                                FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                FontSize="24">
+                            <i:Interaction.Behaviors>
+                                <core:DataTriggerBehavior Binding="{Binding IsBookmarked,
+                                                                            Mode=OneWay}"
+                                                          ComparisonCondition="Equal"
+                                                          Value="True">
+                                    <core:ChangePropertyAction PropertyName="Foreground"
+                                                               TargetObject="{Binding ElementName=BookmarkButton}">
+                                        <core:ChangePropertyAction.Value>
+                                            <SolidColorBrush>Salmon</SolidColorBrush>
+                                        </core:ChangePropertyAction.Value>
+                                    </core:ChangePropertyAction>
+                                </core:DataTriggerBehavior>
+                                <core:DataTriggerBehavior Binding="{Binding IsBookmarked,
+                                                                            Mode=OneWay}"
+                                                          ComparisonCondition="Equal"
+                                                          Value="False">
+                                    <core:ChangePropertyAction PropertyName="Foreground"
+                                                               TargetObject="{Binding ElementName=BookmarkButton}">
+                                        <core:ChangePropertyAction.Value>
+                                            <SolidColorBrush>Black</SolidColorBrush>
+                                        </core:ChangePropertyAction.Value>
+                                    </core:ChangePropertyAction>
+                                </core:DataTriggerBehavior>
+                            </i:Interaction.Behaviors>
+                        </Button>
+                        <Button Width="48"
+                                Height="48"
+                                VerticalAlignment="Bottom"
+                                Background="Transparent"
+                                BorderBrush="Transparent"
+                                Command="{x:Bind ViewModel.ShareCommand}"
+                                Content="&#xE72D;"
+                                FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                FontSize="24" />
+                    </StackPanel>
                 </Grid>
                 <StackPanel Margin="10,5,5,5"
                             Orientation="Horizontal">

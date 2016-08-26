@@ -5,6 +5,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Reactive.Linq;
 using System.Windows.Input;
 
+using Windows.ApplicationModel.DataTransfer;
+
 using Microsoft.Practices.ObjectBuilder2;
 
 using Prism.Commands;
@@ -35,6 +37,7 @@ namespace Pyxis.ViewModels.Detail
         private readonly INavigationService _navigationService;
         private readonly IPixivClient _pixivClient;
         private int _count;
+        private DataTransferManager _dataTransferManager;
         private IIllust _illust;
         private PixivComment _pixivComment;
         private PixivDetail _pixivDetail;
@@ -75,6 +78,8 @@ namespace Pyxis.ViewModels.Detail
                 var param = ParameterBase.ToObject<DetailByIdParameter>((string) e.Parameter);
                 Initialize(param);
             }
+            _dataTransferManager = DataTransferManager.GetForCurrentView();
+            _dataTransferManager.DataRequested += OnDataRequested;
         }
 
         public override void OnNavigatingFrom(NavigatingFromEventArgs e, Dictionary<string, object> viewModelState,
@@ -82,6 +87,7 @@ namespace Pyxis.ViewModels.Detail
         {
             if (suspending)
                 viewModelState["Illust"] = new IllustDetailParameter {Illust = _illust}.ToJson();
+            _dataTransferManager.DataRequested -= OnDataRequested;
             base.OnNavigatingFrom(e, viewModelState, suspending);
         }
 
@@ -141,10 +147,10 @@ namespace Pyxis.ViewModels.Detail
                         .Where(w => w != null)
                         .ObserveOnUIDispatcher()
                         .Subscribe(w =>
-                        {
-                            _illust = w;
-                            Initialize();
-                        }).AddTo(this);
+                                   {
+                                       _illust = w;
+                                       Initialize();
+                                   }).AddTo(this);
             _pixivDetail.Fetch();
         }
 
@@ -167,6 +173,13 @@ namespace Pyxis.ViewModels.Detail
             _navigationService.Navigate("Detail.UserDetail", parameter.ToJson());
         }
 
+        private void OnDataRequested(DataTransferManager sender, DataRequestedEventArgs e)
+        {
+            var request = e.Request;
+            request.Data.Properties.Title = "イラストを共有";
+            request.Data.SetText($"{Title} | {Username} #pixiv http://www.pixiv.net/member_illust.php?illust_id={_illust.Id}&mode=medium");
+        }
+
         #region BookmarkCommand
 
         private ICommand _bookmarkCommand;
@@ -185,6 +198,15 @@ namespace Pyxis.ViewModels.Detail
         }
 
         private bool CanBookmark() => _accountService.IsLoggedIn;
+
+        #endregion
+
+        #region ShareCommand
+
+        private ICommand _shareCommand;
+        public ICommand ShareCommand => _shareCommand ?? (_shareCommand = new DelegateCommand(Share));
+
+        private void Share() => DataTransferManager.ShowShareUI();
 
         #endregion
 
