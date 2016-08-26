@@ -131,10 +131,18 @@
                                             VerticalAlignment="Bottom"
                                             Background="Transparent"
                                             BorderBrush="Transparent"
-                                            Command="{x:Bind ViewModel.ShareCommand}"
                                             Content="&#xE72D;"
                                             FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                                            FontSize="24" />
+                                            FontSize="24">
+                                        <Button.Flyout>
+                                            <MenuFlyout>
+                                                <MenuFlyoutItem Command="{x:Bind ViewModel.ShareCommand}"
+                                                                Text="シェア" />
+                                                <MenuFlyoutItem Command="{x:Bind ViewModel.SaveCommand}"
+                                                                Text="保存" />
+                                            </MenuFlyout>
+                                        </Button.Flyout>
+                                    </Button>
                                 </StackPanel>
                             </Grid>
                             <StackPanel Margin="10,5,5,5"

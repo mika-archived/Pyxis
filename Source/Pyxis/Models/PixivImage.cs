@@ -31,13 +31,18 @@ namespace Pyxis.Models
 
         public override void ShowThumbnail() => RunHelper.RunAsync(DownloadImage);
 
+        public async Task SaveImageAsync()
+        {
+            var orig = _illust.MetaPages.FirstOrDefault()?.ImageUrls.Original ??
+                       _illust.MetaSinglePage.Original ?? _illust.ImageUrls.Large;
+            await _imageStoreService.SaveToLocalFolderAsync(orig);
+        }
+
         private async Task DownloadImage()
         {
             if (_isRaw && _isShadow)
-            {
                 if (await _imageStoreService.ExistImageAsync(_illust.ImageUrls.SquareMedium))
                     ThumbnailPath = await _imageStoreService.LoadImageAsync(_illust.ImageUrls.SquareMedium);
-            }
             if (!_isRaw)
             {
                 if (await _imageStoreService.ExistImageAsync(_illust.ImageUrls.SquareMedium))

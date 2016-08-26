@@ -210,6 +210,15 @@ namespace Pyxis.ViewModels.Detail
 
         #endregion
 
+        #region SaveCommand
+
+        private ICommand _saveCommand;
+        public ICommand SaveCommand => _saveCommand ?? (_saveCommand = new DelegateCommand(Save));
+
+        private async void Save() => await ((PixivImage) Thumbnailable).SaveImageAsync();
+
+        #endregion
+
         #endregion
 
         #region Converters
