@@ -33,33 +33,39 @@
                         </Style>
                     </StackPanel.Resources>
                     <Border>
-                        <Grid x:Name="ParentGrid"
-                              Tapped="{x:Bind ViewModel.OnItemTapped}">
-                            <Image MaxWidth="{x:Bind ViewModel.Width, Mode=OneWay}"
-                                   MaxHeight="{x:Bind ViewModel.Height, Mode=OneWay}"
-                                   Margin="0,0,0,10"
-                                   VerticalAlignment="Top"
-                                   Source="{x:Bind ViewModel.ThumbnailPath, Mode=OneWay}"
-                                   Stretch="Uniform">
-                                <i:Interaction.Behaviors>
-                                    <behaviors:UniformToParentControlBehavior Target="{x:Bind ParentGrid}" />
-                                </i:Interaction.Behaviors>
-                            </Image>
-                            <Grid HorizontalAlignment="Right"
-                                  VerticalAlignment="Top"
-                                  Opacity=".8"
-                                  Visibility="{x:Bind ViewModel.IsManga, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <Polygon Fill="Silver"
-                                         Points="0,0, 100,100, 100,0"
-                                         Stroke="Silver" />
-                                <TextBlock Margin="0,10,10,0"
-                                           HorizontalAlignment="Right"
-                                           VerticalAlignment="Top"
-                                           FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                                           Style="{ThemeResource SubheaderTextBlockStyle}"
-                                           Text="&#xE8C8;" />
+                        <StackPanel x:Name="ParentGrid"
+                                    Tapped="{x:Bind ViewModel.OnItemTapped}">
+                            <ProgressBar Height="10"
+                                         VerticalAlignment="Top"
+                                         IsIndeterminate="True"
+                                         Visibility="{x:Bind ViewModel.IsProgress, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            <Grid>
+                                <Image MaxWidth="{x:Bind ViewModel.Width, Mode=OneWay}"
+                                       MaxHeight="{x:Bind ViewModel.Height, Mode=OneWay}"
+                                       Margin="0,0,0,10"
+                                       VerticalAlignment="Top"
+                                       Source="{x:Bind ViewModel.ThumbnailPath, Mode=OneWay}"
+                                       Stretch="Uniform">
+                                    <i:Interaction.Behaviors>
+                                        <behaviors:UniformToParentControlBehavior Target="{x:Bind ParentGrid}" />
+                                    </i:Interaction.Behaviors>
+                                </Image>
+                                <Grid HorizontalAlignment="Right"
+                                      VerticalAlignment="Top"
+                                      Opacity=".8"
+                                      Visibility="{x:Bind ViewModel.IsManga, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    <Polygon Fill="Silver"
+                                             Points="0,0, 100,100, 100,0"
+                                             Stroke="Silver" />
+                                    <TextBlock Margin="0,10,10,0"
+                                               HorizontalAlignment="Right"
+                                               VerticalAlignment="Top"
+                                               FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                               Style="{ThemeResource SubheaderTextBlockStyle}"
+                                               Text="&#xE8C8;" />
+                                </Grid>
                             </Grid>
-                        </Grid>
+                        </StackPanel>
                     </Border>
                     <Border>
                         <StackPanel>

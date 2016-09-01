@@ -133,7 +133,7 @@ namespace Pyxis.ViewModels.Detail
                          .AddTo(this);
 #if !OFFLINE
             if (IconPath == PyxisConstants.DummyIcon)
-                RunHelper.RunLater(_pixivUser.ShowThumbnail, TimeSpan.FromMilliseconds(100));
+                RunHelper.RunLaterUI(_pixivUser.ShowThumbnail, TimeSpan.FromMilliseconds(100));
 #endif
         }
 

@@ -20,7 +20,7 @@ namespace Pyxis.ViewModels.Settings
         {
             CacheSize = "計算中...";
             FileCount = "計算中...";
-            RunHelper.RunLaterAsync(Load, TimeSpan.FromMilliseconds(100));
+            RunHelper.RunLaterUIAsync(Load, TimeSpan.FromMilliseconds(100));
         }
 
         // よくない

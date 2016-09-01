@@ -59,6 +59,7 @@ namespace Pyxis.Models
                 else
                     ThumbnailPath = await _imageStoreService.SaveImageAsync(orig);
             }
+            IsProgress = false;
         }
     }
 }

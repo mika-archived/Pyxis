@@ -48,9 +48,9 @@ namespace Pyxis.ViewModels
             base.OnNavigatedTo(e, viewModelState);
             var parameter = ParameterBase.ToObject<BrowsingHistoryParameter>((string) e?.Parameter);
             if (!_accountService.IsLoggedIn)
-                RunHelper.RunLater(RedirectToLoginPage, parameter, TimeSpan.FromMilliseconds(10));
+                RunHelper.RunLaterUI(RedirectToLoginPage, parameter, TimeSpan.FromMilliseconds(10));
             else if (!_accountService.IsPremium)
-                RunHelper.RunLater(RedirectToPremiumErrorPage, parameter, TimeSpan.FromMilliseconds(10));
+                RunHelper.RunLaterUI(RedirectToPremiumErrorPage, parameter, TimeSpan.FromMilliseconds(10));
             else
                 Initialize(parameter);
         }
