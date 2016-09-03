@@ -33,13 +33,12 @@
                         </Style>
                     </StackPanel.Resources>
                     <Border>
-                        <StackPanel x:Name="ParentGrid"
-                                    Tapped="{x:Bind ViewModel.OnItemTapped}">
+                        <StackPanel Tapped="{x:Bind ViewModel.OnItemTapped}">
                             <ProgressBar Height="10"
                                          VerticalAlignment="Top"
                                          IsIndeterminate="True"
                                          Visibility="{x:Bind ViewModel.IsProgress, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                            <Grid>
+                            <Grid x:Name="ParentGrid">
                                 <Image MaxWidth="{x:Bind ViewModel.Width, Mode=OneWay}"
                                        MaxHeight="{x:Bind ViewModel.Height, Mode=OneWay}"
                                        Margin="0,0,0,10"

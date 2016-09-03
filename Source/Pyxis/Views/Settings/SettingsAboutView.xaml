@@ -27,7 +27,7 @@
             <TextBlock Style="{ThemeResource TitleTextBlockStyle}"
                        Text="Pyxis" />
             <TextBlock Style="{ThemeResource CaptionTextBlockStyle}"
-                       Text="Version 1.0.0" />
+                       Text="Version 1.1.0" />
             <TextBlock>
                 <Hyperlink NavigateUri="https://kokoiroworks.com/pyx/privacy">プライバシーポリシー</Hyperlink>
             </TextBlock>
