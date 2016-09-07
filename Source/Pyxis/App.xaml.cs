@@ -47,6 +47,13 @@ namespace Pyxis
 
         #region Overrides of PrismApplication
 
+        protected override async Task OnSuspendingApplicationAsync()
+        {
+            var browsingHistory = Container.Resolve<IBrowsingHistoryService>();
+            browsingHistory.ForcePush();
+            await base.OnSuspendingApplicationAsync();
+        }
+
         protected override Task OnActivateApplicationAsync(IActivatedEventArgs e)
         {
             var args = e as ProtocolActivatedEventArgs;
@@ -98,6 +105,6 @@ namespace Pyxis
             return Task.CompletedTask;
         }
 
-        #endregion
+        #endregion Overrides of PrismApplication
     }
 }
