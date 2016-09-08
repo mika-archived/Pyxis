@@ -26,12 +26,19 @@ namespace Pyxis.Services
             return _licenseInformation.ProductLicenses[productId].IsActive;
         }
 
-        #endregion
+        #endregion Implementation of ILicenseService
 
         private async Task LocalLicenseServiceCtor()
         {
-            var storeProxy = await ApplicationData.Current.LocalFolder.GetFileAsync("WindowsStoreProxy.xml");
-            await CurrentAppSimulator.ReloadSimulatorAsync(storeProxy);
+            try
+            {
+                var storeProxy = await ApplicationData.Current.LocalFolder.GetFileAsync("WindowsStoreProxy.xml");
+                await CurrentAppSimulator.ReloadSimulatorAsync(storeProxy);
+            }
+            catch
+            {
+                // ignored
+            }
             _licenseInformation = CurrentAppSimulator.LicenseInformation;
         }
     }
