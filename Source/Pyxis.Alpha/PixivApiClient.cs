@@ -4,11 +4,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
-using Pyxis.Alpha.Internal;
 using Pyxis.Alpha.Rest.Pximg;
 using Pyxis.Alpha.Rest.v1;
 using Pyxis.Beta.Exceptions;
@@ -56,14 +56,24 @@ namespace Pyxis.Alpha
         public IUserApi User => new UserApi(this);
         public IllustV2 IllustV2 => new IllustApiV2(this);
         public INovelV2 NovelV2 => new NovelApiV2(this);
-        public IPximgApi Pximg => new PximgApi(this);
+        public IPximgApi Pximg => new PximgApi();
+
+        private readonly HttpClient _httpClient;
+
+        public PixivApiClient()
+        {
+            _httpClient = new HttpClient {Timeout = TimeSpan.FromSeconds(10)};
+            _httpClient.DefaultRequestHeaders.Add("App-Version", "6.0.1");
+            _httpClient.DefaultRequestHeaders.Add("App-OS", "ios");
+            _httpClient.DefaultRequestHeaders.Add("App-OS-Version", "9.3.2");
+            _httpClient.DefaultRequestHeaders.Add("User-Agent", "PixivIOSApp/6.0.1 (iOS 9.3.2; iPhone7,2)");
+        }
 
         public async Task<T> GetAsync<T>(string url, bool requireAuth, params Expression<Func<string, object>>[] parameters)
         {
             if (requireAuth && string.IsNullOrWhiteSpace(AccessToken))
                 throw new AuthenticateRequiredException();
 
-            var client = new HttpClient(new PixivHttpClientHandler(this));
             var param = string.Join("&", GetPrameter(parameters)
                                              .Where(w => !string.IsNullOrWhiteSpace(w.Value))
                                              .Select(w => $"{w.Key}={Uri.EscapeDataString(w.Value)}"));
@@ -71,7 +81,9 @@ namespace Pyxis.Alpha
             try
             {
                 Debug.WriteLine($"GET  :{url}");
-                var response = await client.GetAsync(url);
+                // Modified DefaultRequestheaders.
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
+                var response = await _httpClient.GetAsync(url);
                 response.EnsureSuccessStatusCode();
                 return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
             }
@@ -87,14 +99,15 @@ namespace Pyxis.Alpha
             if (requireAuth && string.IsNullOrWhiteSpace(AccessToken))
                 throw new AuthenticateRequiredException();
 
-            var client = new HttpClient(new PixivHttpClientHandler(this));
             var param = GetPrameter(parameters).Where(w => !string.IsNullOrWhiteSpace(w.Value)).ToList();
             var content = new FormUrlEncodedContent(param);
 
             try
             {
                 Debug.WriteLine($"POST :{url}");
-                var response = await client.PostAsync(url, content);
+                // Modified DefaultRequestheaders.
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
+                var response = await _httpClient.PostAsync(url, content);
                 response.EnsureSuccessStatusCode();
                 return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
             }
@@ -105,6 +118,6 @@ namespace Pyxis.Alpha
             return default(T);
         }
 
-        #endregion
+        #endregion Implementation of IPixivClient
     }
 }
