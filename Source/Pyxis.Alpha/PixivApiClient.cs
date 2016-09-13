@@ -62,7 +62,7 @@ namespace Pyxis.Alpha
 
         public PixivApiClient()
         {
-            _httpClient = new HttpClient {Timeout = TimeSpan.FromSeconds(10)};
+            _httpClient = new HttpClient();
             _httpClient.DefaultRequestHeaders.Add("App-Version", "6.0.1");
             _httpClient.DefaultRequestHeaders.Add("App-OS", "ios");
             _httpClient.DefaultRequestHeaders.Add("App-OS-Version", "9.3.2");
