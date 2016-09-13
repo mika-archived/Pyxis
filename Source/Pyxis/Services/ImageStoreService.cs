@@ -86,6 +86,8 @@ namespace Pyxis.Services
                 throw new NotSupportedException();
             await picturesFolder.EnsureFolderExistsAsync(PyxisConstants.DownloadFoilderName);
             var downloadFolder = await picturesFolder.GetFolderAsync(PyxisConstants.DownloadFoilderName);
+            if (await IsExistsFile(downloadFolder, GetFileId(url)))
+                return;
             var storageFile = await downloadFolder.CreateFileAsync(GetFileId(url));
             var imagePath = await LoadImageAsync(url);
             var stream = new FileStream(imagePath, FileMode.Open);
@@ -99,6 +101,19 @@ namespace Pyxis.Services
                     transaction.Stream.Size = await writer.StoreAsync();
                     await transaction.CommitAsync();
                 }
+            }
+        }
+
+        private async Task<bool> IsExistsFile(IStorageFolder folder, string filename)
+        {
+            try
+            {
+                await folder.GetFileAsync(filename);
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
 
