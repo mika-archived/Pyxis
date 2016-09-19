@@ -63,10 +63,10 @@ namespace Pyxis.Alpha
         public PixivApiClient()
         {
             _httpClient = new HttpClient();
-            _httpClient.DefaultRequestHeaders.Add("App-Version", "6.0.1");
+            _httpClient.DefaultRequestHeaders.Add("App-Version", "6.1.2");
             _httpClient.DefaultRequestHeaders.Add("App-OS", "ios");
-            _httpClient.DefaultRequestHeaders.Add("App-OS-Version", "9.3.2");
-            _httpClient.DefaultRequestHeaders.Add("User-Agent", "PixivIOSApp/6.0.1 (iOS 9.3.2; iPhone7,2)");
+            _httpClient.DefaultRequestHeaders.Add("App-OS-Version", "10.0.1");
+            _httpClient.DefaultRequestHeaders.Add("User-Agent", "PixivIOSApp/6.1.2 (iOS 10.0.1; iPhone7,2)");
         }
 
         public async Task<T> GetAsync<T>(string url, bool requireAuth, params Expression<Func<string, object>>[] parameters)
@@ -81,8 +81,8 @@ namespace Pyxis.Alpha
             try
             {
                 Debug.WriteLine($"GET  :{url}");
-                // Modified DefaultRequestheaders.
-                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
+                if (!string.IsNullOrWhiteSpace(AccessToken))
+                    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
                 var response = await _httpClient.GetAsync(url);
                 response.EnsureSuccessStatusCode();
                 return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
@@ -106,7 +106,8 @@ namespace Pyxis.Alpha
             {
                 Debug.WriteLine($"POST :{url}");
                 // Modified DefaultRequestheaders.
-                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
+                if (!string.IsNullOrWhiteSpace(AccessToken))
+                    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
                 var response = await _httpClient.PostAsync(url, content);
                 response.EnsureSuccessStatusCode();
                 return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
