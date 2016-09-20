@@ -43,7 +43,7 @@ namespace Pyxis.ViewModels
         {
             base.OnNavigatedTo(e, viewModelState);
             if (!_accountService.IsLoggedIn)
-                RunHelper.RunLater(RedirectToLoginPage, TimeSpan.FromMilliseconds(10));
+                RunHelper.RunLaterUI(RedirectToLoginPage, TimeSpan.FromMilliseconds(10));
             else
                 Initialize();
         }

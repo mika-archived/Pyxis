@@ -10,6 +10,8 @@ using Windows.Storage.Streams;
 using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Services.Interfaces;
 
+using WinRTXamlToolkit.IO.Extensions;
+
 namespace Pyxis.Services
 {
     internal class ImageStoreService : IImageStoreService
@@ -71,6 +73,48 @@ namespace Pyxis.Services
         {
             var storageFile = await (await GetDirectory(url)).GetFileAsync(GetFileId(url));
             return storageFile.Path;
+        }
+
+        public async Task SaveToLocalFolderAsync(string url)
+        {
+            var pictures = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Pictures);
+            StorageFolder picturesFolder = null;
+            foreach (var folder in pictures.Folders)
+                if (!folder.Path.Contains("OneDrive"))
+                    picturesFolder = folder;
+            if (picturesFolder == null)
+                throw new NotSupportedException();
+            await picturesFolder.EnsureFolderExistsAsync(PyxisConstants.DownloadFoilderName);
+            var downloadFolder = await picturesFolder.GetFolderAsync(PyxisConstants.DownloadFoilderName);
+            if (await IsExistsFile(downloadFolder, GetFileId(url)))
+                return;
+            var storageFile = await downloadFolder.CreateFileAsync(GetFileId(url));
+            var imagePath = await LoadImageAsync(url);
+            var stream = new FileStream(imagePath, FileMode.Open);
+            using (var transaction = await storageFile.OpenTransactedWriteAsync())
+            {
+                using (var writer = new DataWriter(transaction.Stream))
+                {
+                    int b;
+                    while ((b = stream.ReadByte()) != -1)
+                        writer.WriteByte((byte) b);
+                    transaction.Stream.Size = await writer.StoreAsync();
+                    await transaction.CommitAsync();
+                }
+            }
+        }
+
+        private async Task<bool> IsExistsFile(IStorageFolder folder, string filename)
+        {
+            try
+            {
+                await folder.GetFileAsync(filename);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         private async Task<StorageFolder> GetDirectory(string url)

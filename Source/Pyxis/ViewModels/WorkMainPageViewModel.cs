@@ -49,7 +49,7 @@ namespace Pyxis.ViewModels
             if (_accountService.IsLoggedIn)
                 Initialize(parameter);
             else
-                RunHelper.RunLater(RedirectToLoginPage, parameter, TimeSpan.FromMilliseconds(10));
+                RunHelper.RunLaterUI(RedirectToLoginPage, parameter, TimeSpan.FromMilliseconds(10));
         }
 
         #endregion

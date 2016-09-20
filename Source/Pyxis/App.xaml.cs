@@ -47,6 +47,13 @@ namespace Pyxis
 
         #region Overrides of PrismApplication
 
+        protected override async Task OnSuspendingApplicationAsync()
+        {
+            var browsingHistory = Container.Resolve<IBrowsingHistoryService>();
+            browsingHistory.ForcePush();
+            await base.OnSuspendingApplicationAsync();
+        }
+
         protected override Task OnActivateApplicationAsync(IActivatedEventArgs e)
         {
             var args = e as ProtocolActivatedEventArgs;
@@ -65,15 +72,6 @@ namespace Pyxis
             return shell;
         }
 
-        #region Overrides of PrismApplication
-
-        protected override Task OnSuspendingApplicationAsync()
-        {
-            return base.OnSuspendingApplicationAsync();
-        }
-
-        #endregion
-
         protected override async Task OnInitializeAsync(IActivatedEventArgs args)
         {
             UIDispatcherScheduler.Initialize();
@@ -87,7 +85,11 @@ namespace Pyxis
             Container.RegisterType<IImageStoreService, ImageStoreService>(new LifetimeManager());
             Container.RegisterType<IDialogService, DialogService>(new LifetimeManager());
             Container.RegisterType<ICategoryService, CategoryService>(new LifetimeManager());
+#if DEBUG
+            Container.RegisterType<ILicenseService, LocalLicenseService>(new LifetimeManager());
+#else
             Container.RegisterType<ILicenseService, LicenseService>(new LifetimeManager());
+#endif
             // Container.RegisterInstance<IPixivClient>(new PixivWebClient(), new ContainerControlledLifetimeManager());
 #if !OFFLINE
             await accountService.Login();
@@ -103,6 +105,6 @@ namespace Pyxis
             return Task.CompletedTask;
         }
 
-        #endregion
+        #endregion Overrides of PrismApplication
     }
 }

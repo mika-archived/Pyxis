@@ -7,5 +7,7 @@ namespace Pyxis.Services.Interfaces
         void Add(IIllust illust);
 
         void Add(INovel novel);
+
+        void ForcePush();
     }
 }

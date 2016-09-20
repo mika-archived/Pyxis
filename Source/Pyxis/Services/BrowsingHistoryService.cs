@@ -57,6 +57,14 @@ namespace Pyxis.Services
                 RunHelper.RunAsync(SendAsync, false);
         }
 
-        #endregion
+        public void ForcePush()
+        {
+            if (_illustIds.Count >= 1)
+                RunHelper.RunAsync(SendAsync, true);
+            if (_novelIds.Count >= 1)
+                RunHelper.RunAsync(SendAsync, false);
+        }
+
+        #endregion Implementation of IBrowsingHistoryService
     }
 }

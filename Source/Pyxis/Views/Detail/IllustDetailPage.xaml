@@ -33,33 +33,38 @@
                         </Style>
                     </StackPanel.Resources>
                     <Border>
-                        <Grid x:Name="ParentGrid"
-                              Tapped="{x:Bind ViewModel.OnItemTapped}">
-                            <Image MaxWidth="{x:Bind ViewModel.Width, Mode=OneWay}"
-                                   MaxHeight="{x:Bind ViewModel.Height, Mode=OneWay}"
-                                   Margin="0,0,0,10"
-                                   VerticalAlignment="Top"
-                                   Source="{x:Bind ViewModel.ThumbnailPath, Mode=OneWay}"
-                                   Stretch="Uniform">
-                                <i:Interaction.Behaviors>
-                                    <behaviors:UniformToParentControlBehavior Target="{x:Bind ParentGrid}" />
-                                </i:Interaction.Behaviors>
-                            </Image>
-                            <Grid HorizontalAlignment="Right"
-                                  VerticalAlignment="Top"
-                                  Opacity=".8"
-                                  Visibility="{x:Bind ViewModel.IsManga, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <Polygon Fill="Silver"
-                                         Points="0,0, 100,100, 100,0"
-                                         Stroke="Silver" />
-                                <TextBlock Margin="0,10,10,0"
-                                           HorizontalAlignment="Right"
-                                           VerticalAlignment="Top"
-                                           FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                                           Style="{ThemeResource SubheaderTextBlockStyle}"
-                                           Text="&#xE8C8;" />
+                        <StackPanel Tapped="{x:Bind ViewModel.OnItemTapped}">
+                            <ProgressBar Height="10"
+                                         VerticalAlignment="Top"
+                                         IsIndeterminate="True"
+                                         Visibility="{x:Bind ViewModel.IsProgress, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            <Grid x:Name="ParentGrid">
+                                <Image MaxWidth="{x:Bind ViewModel.Width, Mode=OneWay}"
+                                       MaxHeight="{x:Bind ViewModel.Height, Mode=OneWay}"
+                                       Margin="0,0,0,10"
+                                       VerticalAlignment="Top"
+                                       Source="{x:Bind ViewModel.ThumbnailPath, Mode=OneWay}"
+                                       Stretch="Uniform">
+                                    <i:Interaction.Behaviors>
+                                        <behaviors:UniformToParentControlBehavior Target="{x:Bind ParentGrid}" />
+                                    </i:Interaction.Behaviors>
+                                </Image>
+                                <Grid HorizontalAlignment="Right"
+                                      VerticalAlignment="Top"
+                                      Opacity=".8"
+                                      Visibility="{x:Bind ViewModel.IsManga, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    <Polygon Fill="Silver"
+                                             Points="0,0, 100,100, 100,0"
+                                             Stroke="Silver" />
+                                    <TextBlock Margin="0,10,10,0"
+                                               HorizontalAlignment="Right"
+                                               VerticalAlignment="Top"
+                                               FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                               Style="{ThemeResource SubheaderTextBlockStyle}"
+                                               Text="&#xE8C8;" />
+                                </Grid>
                             </Grid>
-                        </Grid>
+                        </StackPanel>
                     </Border>
                     <Border>
                         <StackPanel>
@@ -67,7 +72,7 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="48" />
                                     <ColumnDefinition />
-                                    <ColumnDefinition Width="48" />
+                                    <ColumnDefinition Width="96" />
                                 </Grid.ColumnDefinitions>
                                 <Border Grid.Column="0"
                                         Width="48"
@@ -89,43 +94,61 @@
                                                Style="{ThemeResource CaptionTextBlockStyle}"
                                                Text="{x:Bind ViewModel.Username, Mode=OneWay}" />
                                 </StackPanel>
-                                <Button x:Name="BookmarkButton"
-                                        Grid.Column="2"
-                                        Width="48"
-                                        Height="48"
-                                        HorizontalAlignment="Right"
-                                        VerticalAlignment="Center"
-                                        Background="Transparent"
-                                        BorderBrush="Transparent"
-                                        Command="{x:Bind ViewModel.BookmarkCommand}"
-                                        Content="&#xE0A5;"
-                                        FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                                        FontSize="24">
-                                    <i:Interaction.Behaviors>
-                                        <core:DataTriggerBehavior Binding="{Binding IsBookmarked,
-                                                                                    Mode=OneWay}"
-                                                                  ComparisonCondition="Equal"
-                                                                  Value="True">
-                                            <core:ChangePropertyAction PropertyName="Foreground"
-                                                                       TargetObject="{Binding ElementName=BookmarkButton}">
-                                                <core:ChangePropertyAction.Value>
-                                                    <SolidColorBrush>Salmon</SolidColorBrush>
-                                                </core:ChangePropertyAction.Value>
-                                            </core:ChangePropertyAction>
-                                        </core:DataTriggerBehavior>
-                                        <core:DataTriggerBehavior Binding="{Binding IsBookmarked,
-                                                                                    Mode=OneWay}"
-                                                                  ComparisonCondition="Equal"
-                                                                  Value="False">
-                                            <core:ChangePropertyAction PropertyName="Foreground"
-                                                                       TargetObject="{Binding ElementName=BookmarkButton}">
-                                                <core:ChangePropertyAction.Value>
-                                                    <SolidColorBrush>Black</SolidColorBrush>
-                                                </core:ChangePropertyAction.Value>
-                                            </core:ChangePropertyAction>
-                                        </core:DataTriggerBehavior>
-                                    </i:Interaction.Behaviors>
-                                </Button>
+                                <StackPanel Grid.Column="2"
+                                            Orientation="Horizontal">
+                                    <Button x:Name="BookmarkButton"
+                                            Width="48"
+                                            Height="48"
+                                            VerticalAlignment="Center"
+                                            Background="Transparent"
+                                            BorderBrush="Transparent"
+                                            Command="{x:Bind ViewModel.BookmarkCommand}"
+                                            Content="&#xE0A5;"
+                                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                            FontSize="24">
+                                        <i:Interaction.Behaviors>
+                                            <core:DataTriggerBehavior Binding="{Binding IsBookmarked,
+                                                                                        Mode=OneWay}"
+                                                                      ComparisonCondition="Equal"
+                                                                      Value="True">
+                                                <core:ChangePropertyAction PropertyName="Foreground"
+                                                                           TargetObject="{Binding ElementName=BookmarkButton}">
+                                                    <core:ChangePropertyAction.Value>
+                                                        <SolidColorBrush>Salmon</SolidColorBrush>
+                                                    </core:ChangePropertyAction.Value>
+                                                </core:ChangePropertyAction>
+                                            </core:DataTriggerBehavior>
+                                            <core:DataTriggerBehavior Binding="{Binding IsBookmarked,
+                                                                                        Mode=OneWay}"
+                                                                      ComparisonCondition="Equal"
+                                                                      Value="False">
+                                                <core:ChangePropertyAction PropertyName="Foreground"
+                                                                           TargetObject="{Binding ElementName=BookmarkButton}">
+                                                    <core:ChangePropertyAction.Value>
+                                                        <SolidColorBrush>Black</SolidColorBrush>
+                                                    </core:ChangePropertyAction.Value>
+                                                </core:ChangePropertyAction>
+                                            </core:DataTriggerBehavior>
+                                        </i:Interaction.Behaviors>
+                                    </Button>
+                                    <Button Width="48"
+                                            Height="48"
+                                            VerticalAlignment="Bottom"
+                                            Background="Transparent"
+                                            BorderBrush="Transparent"
+                                            Content="&#xE72D;"
+                                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                            FontSize="24">
+                                        <Button.Flyout>
+                                            <MenuFlyout>
+                                                <MenuFlyoutItem Command="{x:Bind ViewModel.ShareCommand}"
+                                                                Text="シェア" />
+                                                <MenuFlyoutItem Command="{x:Bind ViewModel.SaveCommand}"
+                                                                Text="保存" />
+                                            </MenuFlyout>
+                                        </Button.Flyout>
+                                    </Button>
+                                </StackPanel>
                             </Grid>
                             <StackPanel Margin="10,5,5,5"
                                         Orientation="Horizontal">

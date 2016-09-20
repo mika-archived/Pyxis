@@ -9,5 +9,7 @@ namespace Pyxis.Services.Interfaces
         Task<string> LoadImageAsync(string url);
 
         Task<bool> ExistImageAsync(string url);
+
+        Task SaveToLocalFolderAsync(string url);
     }
 }

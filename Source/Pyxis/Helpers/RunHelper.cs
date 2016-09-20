@@ -4,10 +4,14 @@ using System.Threading.Tasks;
 
 using Reactive.Bindings.Extensions;
 
+// ReSharper disable InconsistentNaming
+
 namespace Pyxis.Helpers
 {
     internal static class RunHelper
     {
+        #region Run
+
         /// <summary>
         ///     バックグラウンドスレッド上で、 action を実行します。
         /// </summary>
@@ -48,12 +52,26 @@ namespace Pyxis.Helpers
             Observable.Timer(TimeSpan.Zero).Subscribe(async w => await action.Invoke(param1));
         }
 
+        #endregion
+
+        #region RunLater
+
+        /// <summary>
+        ///     action を　behind 後に実行します。
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="behind"></param>
+        public static void RunLater(Action action, TimeSpan behind)
+        {
+            Observable.Return(0).Delay(behind).Subscribe(w => action.Invoke());
+        }
+
         /// <summary>
         ///     UI スレッド上で、 action を behind 後に実行します。
         /// </summary>
         /// <param name="action"></param>
         /// <param name="behind"></param>
-        public static void RunLater(Action action, TimeSpan behind)
+        public static void RunLaterUI(Action action, TimeSpan behind)
         {
             Observable.Return(0).Delay(behind).ObserveOnUIDispatcher().Subscribe(w => action.Invoke());
         }
@@ -65,7 +83,7 @@ namespace Pyxis.Helpers
         /// <param name="action"></param>
         /// <param name="param1"></param>
         /// <param name="behind"></param>
-        public static void RunLater<T>(Action<T> action, T param1, TimeSpan behind)
+        public static void RunLaterUI<T>(Action<T> action, T param1, TimeSpan behind)
         {
             Observable.Return(0).Delay(behind).ObserveOnUIDispatcher().Subscribe(w => action.Invoke(param1));
         }
@@ -75,7 +93,7 @@ namespace Pyxis.Helpers
         /// </summary>
         /// <param name="action"></param>
         /// <param name="behind"></param>
-        public static void RunLaterAsync(Func<Task> action, TimeSpan behind)
+        public static void RunLaterUIAsync(Func<Task> action, TimeSpan behind)
         {
             Observable.Return(0).Delay(behind).ObserveOnUIDispatcher().Subscribe(async w => await action.Invoke());
         }
@@ -87,9 +105,11 @@ namespace Pyxis.Helpers
         /// <param name="action"></param>
         /// <param name="param1"></param>
         /// <param name="behind"></param>
-        public static void RunLaterAsync<T>(Func<T, Task> action, T param1, TimeSpan behind)
+        public static void RunLaterUIAsync<T>(Func<T, Task> action, T param1, TimeSpan behind)
         {
             Observable.Return(0).Delay(behind).ObserveOnUIDispatcher().Subscribe(async w => await action.Invoke(param1));
         }
+
+        #endregion
     }
 }

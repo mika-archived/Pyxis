@@ -47,10 +47,14 @@ namespace Pyxis.ViewModels.Base
                                   .ObserveOnUIDispatcher()
                                   .Subscribe(w => ThumbnailPath = w)
                                   .AddTo(this);
+                    _thumbnailable.ObserveProperty(w => w.IsProgress)
+                                  .ObserveOnUIDispatcher()
+                                  .Subscribe(w => IsProgress = w)
+                                  .AddTo(this);
                     _isAttached = true;
                 }
                 if (_isRequested)
-                    RunHelper.RunLater(_thumbnailable.ShowThumbnail, TimeSpan.FromMilliseconds(100));
+                    RunHelper.RunLaterUI(_thumbnailable.ShowThumbnail, TimeSpan.FromMilliseconds(100));
 #endif
             }
         }
@@ -66,7 +70,7 @@ namespace Pyxis.ViewModels.Base
             get
             {
 #if !OFFLINE
-                if (_thumbnailPath == PyxisConstants.DummyImage || _thumbnailPath == PyxisConstants.DummyIcon)
+                if ((_thumbnailPath == PyxisConstants.DummyImage) || (_thumbnailPath == PyxisConstants.DummyIcon))
                 {
                     Thumbnailable?.ShowThumbnail();
                     _isRequested = true;
@@ -75,6 +79,18 @@ namespace Pyxis.ViewModels.Base
                 return _thumbnailPath;
             }
             set { SetProperty(ref _thumbnailPath, value); }
+        }
+
+        #endregion
+
+        #region IsProgress
+
+        private bool _isProgress;
+
+        public bool IsProgress
+        {
+            get { return _isProgress; }
+            set { SetProperty(ref _isProgress, value); }
         }
 
         #endregion

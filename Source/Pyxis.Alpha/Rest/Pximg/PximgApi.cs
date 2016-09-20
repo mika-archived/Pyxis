@@ -1,32 +1,32 @@
-﻿using System.Diagnostics;
+﻿using System;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-using Pyxis.Alpha.Internal;
 using Pyxis.Beta.Interfaces.Rest.Pximg;
 
 namespace Pyxis.Alpha.Rest.Pximg
 {
     public class PximgApi : IPximgApi
     {
-        private readonly PixivApiClient _client;
+        private readonly HttpClient _httpClient;
 
-        public PximgApi(PixivApiClient client)
+        public PximgApi()
         {
-            _client = client;
+            _httpClient = new HttpClient();
         }
 
         #region Implementation of IPximgApi
 
         public async Task<Stream> GetAsync(string url)
         {
-            Debug.WriteLine("GETI :" + url);
-            var client = new HttpClient(new PximgHttpClientHandler(_client));
-            var response = await client.GetAsync(url);
+            // Debug.WriteLine("GETI :" + url);
+            // Modified DefaultRequestheaders.
+            _httpClient.DefaultRequestHeaders.Referrer = new Uri("https://app-api.pixiv.net/");
+            var response = await _httpClient.GetAsync(url);
             return await response.Content.ReadAsStreamAsync();
         }
 
-        #endregion
+        #endregion Implementation of IPximgApi
     }
 }

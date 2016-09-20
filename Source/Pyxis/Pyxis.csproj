@@ -200,6 +200,7 @@
     <Compile Include="Services\Interfaces\IImageStoreService.cs" />
     <Compile Include="Services\Interfaces\ILicenseService.cs" />
     <Compile Include="Services\LicenseService.cs" />
+    <Compile Include="Services\LocalLicenseService.cs" />
     <Compile Include="ViewModels\AccountInfoControlViewModel.cs" />
     <Compile Include="ViewModels\Account\LoginPageViewModel.cs" />
     <Compile Include="ViewModels\Base\DialogViewModel.cs" />
@@ -242,6 +243,7 @@
     <Compile Include="ViewModels\Search\SearchResultPageViewModel.cs" />
     <Compile Include="ViewModels\Search\UserSearchPageViewModel.cs" />
     <Compile Include="ViewModels\Search\WorkSearchPageViewModel.cs" />
+    <Compile Include="ViewModels\Settings\SettingsAboutViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsAccountViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsGeneralViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsMainPageViewModel.cs" />
@@ -632,6 +634,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <SDKReference Include="Microsoft.Services.Store.Engagement, Version=10.0">
+      <Name>Microsoft Engagement Framework</Name>
+    </SDKReference>
+    <SDKReference Include="Microsoft.VCLibs, Version=14.0">
+      <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
+    </SDKReference>
     <SDKReference Include="WindowsMobile, Version=10.0.14393.0">
       <Name>Windows Mobile Extensions for the UWP %28WindowsMobile, Version=10.0.14393.0%29</Name>
     </SDKReference>

@@ -111,7 +111,7 @@ namespace Pyxis.Behaviors
                                         });
                 return;
             }
-            RunHelper.RunLater(AddEventHandler, TimeSpan.FromMilliseconds(100));
+            RunHelper.RunLaterUI(AddEventHandler, TimeSpan.FromMilliseconds(100));
         }
 
         private void RootFrameOnNavigating(object sender, NavigatingCancelEventArgs args)
@@ -161,7 +161,7 @@ namespace Pyxis.Behaviors
         {
             base.OnAttached();
             AssociatedObject.SelectionChanged += OnSelectionChanged;
-            RunHelper.RunLater(AddEventHandler, TimeSpan.FromMilliseconds(500));
+            RunHelper.RunLaterUI(AddEventHandler, TimeSpan.FromMilliseconds(500));
         }
 
         protected override void OnDetaching()

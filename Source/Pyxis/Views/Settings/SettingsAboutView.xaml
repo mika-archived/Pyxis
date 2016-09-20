@@ -3,6 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:prism="using:Prism.Windows.Mvvm"
+             xmlns:vm="using:Pyxis.ViewModels.Settings"
+             d:DataContext="{d:DesignInstance vm:SettingsAboutViewModel}"
+             prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d">
     <ScrollViewer Margin="10,10,0,10"
                   VerticalScrollBarVisibility="Auto">
@@ -23,16 +27,20 @@
             <TextBlock Style="{ThemeResource TitleTextBlockStyle}"
                        Text="Pyxis" />
             <TextBlock Style="{ThemeResource CaptionTextBlockStyle}"
-                       Text="Version 1.0.0" />
+                       Text="Version 1.1.0" />
             <TextBlock>
                 <Hyperlink NavigateUri="https://kokoiroworks.com/pyx/privacy">プライバシーポリシー</Hyperlink>
             </TextBlock>
-            <TextBlock>
+            <TextBlock Visibility="{x:Bind ViewModel.IsSupportFeedback, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                バグ報告や要望などは
+                <Hyperlink Click="{x:Bind ViewModel.OnClickedFeedbackLink}">フィードバック Hub</Hyperlink>
+                にて
+            </TextBlock>
+            <TextBlock Visibility="{x:Bind ViewModel.IsSupportFeedback, Mode=OneWay, Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
                 バグ報告や要望などは Twitter
                 <Hyperlink NavigateUri="https://twitter.com/hashtag/PyxisApp">#PyxisApp</Hyperlink>
                 にて
             </TextBlock>
-
             <TextBlock Margin="0,20,0,0"
                        FontWeight="Bold"
                        Text="ライセンス" />
