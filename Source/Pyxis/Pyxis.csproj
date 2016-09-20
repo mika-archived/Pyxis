@@ -93,6 +93,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <None Include="App.config" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
@@ -129,9 +130,16 @@
     <Compile Include="Extensions\StringExt.cs" />
     <Compile Include="Helpers\ModelHelper.cs" />
     <Compile Include="Helpers\RunHelper.cs" />
+    <Compile Include="Migrations\20160920094053_Migration_20160920.cs" />
+    <Compile Include="Migrations\20160920094053_Migration_20160920.designer.cs">
+      <DependentUpon>20160920094053_Migration_20160920.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\CacheContextModelSnapshot.cs" />
     <Compile Include="Models\AccountInfo.cs" />
     <Compile Include="Models\AdaptiveSize.cs" />
     <Compile Include="Models\Base\ThumbnailableBase.cs" />
+    <Compile Include="Models\Cache\CacheContext.cs" />
+    <Compile Include="Models\Cache\CacheFile.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Enums\FollowType.cs" />
     <Compile Include="Models\Enums\ContentType2.cs" />
@@ -188,6 +196,7 @@
     <Compile Include="PyxisConstants.cs" />
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Services\BrowsingHistoryService.cs" />
+    <Compile Include="Services\CacheService.cs" />
     <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\DialogService.cs" />
     <Compile Include="Services\ImageStoreService.cs" />
@@ -195,6 +204,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Interfaces\IAccountService.cs" />
     <Compile Include="Services\Interfaces\IBrowsingHistoryService.cs" />
+    <Compile Include="Services\Interfaces\ICacheService.cs" />
     <Compile Include="Services\Interfaces\ICategoryService.cs" />
     <Compile Include="Services\Interfaces\IDialogService.cs" />
     <Compile Include="Services\Interfaces\IImageStoreService.cs" />
@@ -644,6 +654,7 @@
       <Name>Windows Mobile Extensions for the UWP %28WindowsMobile, Version=10.0.14393.0%29</Name>
     </SDKReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

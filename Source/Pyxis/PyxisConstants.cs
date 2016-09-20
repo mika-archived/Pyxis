@@ -9,5 +9,7 @@
         public static string ApplicationKey => "8B2D7393-617C-4836-AA0E-68B502D9B1C9";
 
         public static string DownloadFoilderName => "Pyxis";
+
+        public static string CacheInfoFileName => "cache.db";
     }
 }
