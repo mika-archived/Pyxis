@@ -12,13 +12,15 @@ namespace Pyxis.ViewModels.Home
 {
     public class RankingImageViewModel : RankingViewModel
     {
+        private readonly ContentType _contentType;
         private readonly IIllust _illust;
 
-        public RankingImageViewModel(IIllust illust, RankingMode mode, IImageStoreService imageStoreService,
+        public RankingImageViewModel(IIllust illust, RankingMode mode, ContentType contentType, IImageStoreService imageStoreService,
                                      INavigationService navigationService)
             : base(mode, imageStoreService, navigationService)
         {
             _illust = illust;
+            _contentType = contentType;
             Title = _illust.Title;
 
             ThumbnailPath = PyxisConstants.DummyImage;
@@ -32,9 +34,9 @@ namespace Pyxis.ViewModels.Home
             var parameter = new RankingParameter
             {
                 RankingMode = RankingMode,
-                RankingType = _illust.Type == "manga" ? ContentType.Manga : ContentType.Illust
+                RankingType = _contentType
             };
-            NavigationService.Navigate($"Ranking.{_illust.Type.FirstCharToUpper()}Ranking",
+            NavigationService.Navigate($"Ranking.{_contentType.ToString().FirstCharToUpper()}Ranking",
                                        parameter.ToJson());
         }
 

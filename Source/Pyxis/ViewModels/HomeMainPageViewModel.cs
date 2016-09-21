@@ -28,6 +28,7 @@ namespace Pyxis.ViewModels
         private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
+        private ContentType _contentType;
         private PixivRanking _pixivRanking;
         private PixivRecommended _pixivRecommended;
         public INavigationService NavigationService { get; }
@@ -64,6 +65,7 @@ namespace Pyxis.ViewModels
         {
             _categoryService.UpdateCategory();
             SelectedIndex = (int) parameter.ContentType;
+            _contentType = parameter.ContentType;
             _pixivRanking = new PixivRanking(_pixivClient, parameter.ContentType);
             _pixivRecommended = new PixivRecommended(_accountService, _pixivClient, parameter.ContentType);
 
@@ -89,7 +91,7 @@ namespace Pyxis.ViewModels
         #region Converters
 
         private RankingViewModel CreateRankingImage(Tuple<RankingMode, IIllusts> w) =>
-            new RankingImageViewModel(w.Item2.IllustList.First(), w.Item1, _imageStoreService, NavigationService);
+            new RankingImageViewModel(w.Item2.IllustList.First(), w.Item1, _contentType, _imageStoreService, NavigationService);
 
         private PixivThumbnailViewModel CreatePixivImage(IIllust w) =>
             new PixivThumbnailViewModel(w, _imageStoreService, NavigationService);
