@@ -1,5 +1,5 @@
-﻿<!-- ReSharper disable UnusedMember.Local -->
-<!-- ReSharper disable NotAccessedField.Local -->
+﻿<!--  ReSharper disable UnusedMember.Local  -->
+<!--  ReSharper disable NotAccessedField.Local  -->
 <Page x:Class="Pyxis.Views.Search.WorkSearchPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -84,46 +84,39 @@
                     IsEnabled="{x:Bind ViewModel.IsActivatedAdvancedSearch}"
                     Tapped="{x:Bind ViewModel.OnAdvancedSearchOptionButtonTapped}" />
         </Grid>
-        <Pivot SelectedIndex="{x:Bind ViewModel.SelectedIndex}"
-               Style="{StaticResource MiniTabsStylePivotStyle}">
+        <Pivot SelectedIndex="{x:Bind ViewModel.SelectedIndex}" Style="{StaticResource MiniTabsStylePivotStyle}">
             <i:Interaction.Behaviors>
                 <behaviors:AttachNavigationToPivotBehavior NavigationService="{x:Bind ViewModel.NavigationService}" />
             </i:Interaction.Behaviors>
-            <PivotItem attach:NavigateTo.PageToken="Search.WorkSearch"
-                       attach:NavigateTo.Parameters="{}{&quot;SearchType&quot;:0}">
+            <PivotItem attach:NavigateTo.PageToken="Search.WorkSearch" attach:NavigateTo.Parameters="{}{&quot;SearchType&quot;:0}">
                 <PivotItem.Header>
-                    <TextBlock Width="70"
-                               Style="{StaticResource TabsStyleTextBlockStyle}"
-                               Text="イラスト・マンガ" />
+                    <TextBlock x:Uid="IllustAndManga"
+                               Width="70"
+                               Style="{StaticResource TabsStyleTextBlockStyle}" />
                 </PivotItem.Header>
             </PivotItem>
-            <PivotItem attach:NavigateTo.PageToken="Search.WorkSearch"
-                       attach:NavigateTo.Parameters="{}{&quot;SearchType&quot;:1}">
+            <PivotItem attach:NavigateTo.PageToken="Search.WorkSearch" attach:NavigateTo.Parameters="{}{&quot;SearchType&quot;:1}">
                 <PivotItem.Header>
-                    <TextBlock Width="70"
-                               Style="{StaticResource TabsStyleTextBlockStyle}"
-                               Text="小説" />
+                    <TextBlock x:Uid="Novel"
+                               Width="70"
+                               Style="{StaticResource TabsStyleTextBlockStyle}" />
                 </PivotItem.Header>
             </PivotItem>
-            <PivotItem attach:NavigateTo.PageToken="Search.UserSearch"
-                       attach:NavigateTo.Parameters="{}{&quot;SearchType&quot;:2}">
+            <PivotItem attach:NavigateTo.PageToken="Search.UserSearch" attach:NavigateTo.Parameters="{}{&quot;SearchType&quot;:2}">
                 <PivotItem.Header>
-                    <TextBlock Width="70"
-                               Style="{StaticResource TabsStyleTextBlockStyle}"
-                               Text="ユーザー" />
+                    <TextBlock x:Uid="User"
+                               Width="70"
+                               Style="{StaticResource TabsStyleTextBlockStyle}" />
                 </PivotItem.Header>
             </PivotItem>
         </Pivot>
-        <GridView x:Name="TrendingRoot"
-                  ItemsSource="{x:Bind ViewModel.TrendingTags}">
+        <GridView x:Name="TrendingRoot" ItemsSource="{x:Bind ViewModel.TrendingTags}">
             <i:Interaction.Behaviors>
-                <behaviors:AdjustControlSizeBehavior HeightOffset="-137"
-                                                     IsSyncHeight="True" />
+                <behaviors:AdjustControlSizeBehavior HeightOffset="-137" IsSyncHeight="True" />
             </i:Interaction.Behaviors>
             <GridView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <ItemsWrapGrid attach:AssumSize.AssumSize="(0,100),(500,150),(1025,200)"
-                                   Orientation="Horizontal">
+                    <ItemsWrapGrid attach:AssumSize.AssumSize="(0,100),(500,150),(1025,200)" Orientation="Horizontal">
                         <i:Interaction.Behaviors>
                             <behaviors:GridViewEuqalitySizeBehavior />
                         </i:Interaction.Behaviors>
@@ -131,8 +124,7 @@
                 </ItemsPanelTemplate>
             </GridView.ItemsPanel>
             <GridView.Header>
-                <local:TrendingTagView x:Name="TopTrend"
-                                       DataContext="{x:Bind ViewModel.TopTrendingTag, Mode=OneWay}" />
+                <local:TrendingTagView x:Name="TopTrend" DataContext="{x:Bind ViewModel.TopTrendingTag, Mode=OneWay}" />
             </GridView.Header>
             <GridView.ItemContainerStyle>
                 <Style TargetType="GridViewItem">

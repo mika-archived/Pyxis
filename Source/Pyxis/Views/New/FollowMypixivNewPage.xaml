@@ -1,5 +1,5 @@
-﻿<!-- ReSharper disable UnusedMember.Local -->
-<!-- ReSharper disable NotAccessedField.Local -->
+﻿<!--  ReSharper disable UnusedMember.Local  -->
+<!--  ReSharper disable NotAccessedField.Local  -->
 <Page x:Class="Pyxis.Views.New.FollowMypixivNewPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -16,46 +16,39 @@
       mc:Ignorable="d">
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel Orientation="Vertical">
-            <Pivot SelectedIndex="{x:Bind ViewModel.SelectedIndex, Mode=OneTime}"
-                   Style="{StaticResource TabsStylePivotStyle}">
+            <Pivot SelectedIndex="{x:Bind ViewModel.SelectedIndex, Mode=OneTime}" Style="{StaticResource TabsStylePivotStyle}">
                 <i:Interaction.Behaviors>
                     <behaviors:AttachNavigationToPivotBehavior NavigationService="{x:Bind ViewModel.NavigationService}" />
                 </i:Interaction.Behaviors>
-                <PivotItem attach:NavigateTo.PageToken="New.FollowMypixivNew"
-                           attach:NavigateTo.Parameters="{}{&quot;FollowType&quot;:0,&quot;ContentType&quot;:0}">
+                <PivotItem attach:NavigateTo.PageToken="New.FollowMypixivNew" attach:NavigateTo.Parameters="{}{&quot;FollowType&quot;:0,&quot;ContentType&quot;:0}">
                     <PivotItem.Header>
-                        <TextBlock Width="64"
-                                   Style="{StaticResource TabsStyleTextBlockStyle}"
-                                   Text="フォロー" />
+                        <TextBlock x:Uid="Follow"
+                                   Width="64"
+                                   Style="{StaticResource TabsStyleTextBlockStyle}" />
                     </PivotItem.Header>
                 </PivotItem>
-                <PivotItem attach:NavigateTo.PageToken="New.AllNew"
-                           attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:0}">
+                <PivotItem attach:NavigateTo.PageToken="New.AllNew" attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:0}">
                     <PivotItem.Header>
-                        <TextBlock Width="64"
-                                   Style="{StaticResource TabsStyleTextBlockStyle}"
-                                   Text="みんな" />
+                        <TextBlock x:Uid="All"
+                                   Width="64"
+                                   Style="{StaticResource TabsStyleTextBlockStyle}" />
                     </PivotItem.Header>
                 </PivotItem>
-                <PivotItem attach:NavigateTo.PageToken="New.FollowMypixivNew"
-                           attach:NavigateTo.Parameters="{}{&quot;FollowType&quot;:2,&quot;ContentType&quot;:0}">
+                <PivotItem attach:NavigateTo.PageToken="New.FollowMypixivNew" attach:NavigateTo.Parameters="{}{&quot;FollowType&quot;:2,&quot;ContentType&quot;:0}">
                     <PivotItem.Header>
-                        <TextBlock Width="64"
-                                   Style="{StaticResource TabsStyleTextBlockStyle}"
-                                   Text="マイピク" />
+                        <TextBlock x:Uid="Mypixiv"
+                                   Width="64"
+                                   Style="{StaticResource TabsStyleTextBlockStyle}" />
                     </PivotItem.Header>
                 </PivotItem>
             </Pivot>
             <StackPanel>
-                <!-- 未ログイン -->
-                <Grid Background="#0074AA"
-                      Visibility="{x:Bind ViewModel.IsLoggedInRequired, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <!--  未ログイン  -->
+                <Grid Background="#0074AA" Visibility="{x:Bind ViewModel.IsLoggedInRequired, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <i:Interaction.Behaviors>
-                        <behaviors:AdjustControlSizeBehavior HeightOffset="-90"
-                                                             IsSyncHeight="True" />
+                        <behaviors:AdjustControlSizeBehavior HeightOffset="-90" IsSyncHeight="True" />
                     </i:Interaction.Behaviors>
-                    <StackPanel HorizontalAlignment="Stretch"
-                                VerticalAlignment="Center">
+                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center">
                         <TextBlock HorizontalAlignment="Center"
                                    FontFamily="{ThemeResource SymbolThemeFontFamily}"
                                    Foreground="PaleGoldenrod"
@@ -80,27 +73,25 @@
                                 Margin="10"
                                 HorizontalAlignment="Center"
                                 Tapped="{x:Bind ViewModel.OnLoginButtonTapped}">
-                            <TextBlock Foreground="White"
-                                       Style="{ThemeResource SubtitleTextBlockStyle}"
-                                       Text="ログイン" />
+                            <TextBlock x:Uid="Login"
+                                       Foreground="White"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}" />
                         </Button>
                     </StackPanel>
                 </Grid>
-                <!-- ログイン -->
+                <!--  ログイン  -->
                 <GridView x:Name="New"
                           Height="455"
                           VerticalAlignment="Stretch"
                           ItemsSource="{x:Bind ViewModel.NewItems}"
                           Visibility="{x:Bind ViewModel.IsLoggedInRequired, Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
                     <i:Interaction.Behaviors>
-                        <behaviors:AdjustControlSizeBehavior HeightOffset="-96"
-                                                             IsSyncHeight="True" />
+                        <behaviors:AdjustControlSizeBehavior HeightOffset="-96" IsSyncHeight="True" />
                         <behaviors:ListBoxEmptyBehavior Target="{x:Bind NotFoundItemsMes}" />
                     </i:Interaction.Behaviors>
                     <GridView.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <ItemsWrapGrid attach:AssumSize.AssumSize="(0,100),(500,150),(1025,200)"
-                                           Orientation="Horizontal">
+                            <ItemsWrapGrid attach:AssumSize.AssumSize="(0,100),(500,150),(1025,200)" Orientation="Horizontal">
                                 <i:Interaction.Behaviors>
                                     <behaviors:GridViewEuqalitySizeBehavior />
                                 </i:Interaction.Behaviors>
@@ -121,32 +112,30 @@
                                 </i:Interaction.Behaviors>
                                 <PivotItem attach:NavigateTo.PageToken="New.FollowMypixivNew">
                                     <attach:NavigateTo.Parameters>
-                                        <Binding Converter="{StaticResource StringFormatConverter}"
-                                                 Path="SelectedIndex">
+                                        <Binding Converter="{StaticResource StringFormatConverter}" Path="SelectedIndex">
                                             <Binding.ConverterParameter>
                                                 {{&quot;FollowType&quot;:{0},&quot;ContentType&quot;:0}}
                                             </Binding.ConverterParameter>
                                         </Binding>
                                     </attach:NavigateTo.Parameters>
                                     <PivotItem.Header>
-                                        <TextBlock Width="80"
-                                                   Style="{StaticResource TabsStyleTextBlockStyle}"
-                                                   Text="マンガ・イラスト" />
+                                        <TextBlock x:Uid="IllustAndManga"
+                                                   Width="80"
+                                                   Style="{StaticResource TabsStyleTextBlockStyle}" />
                                     </PivotItem.Header>
                                 </PivotItem>
                                 <PivotItem attach:NavigateTo.PageToken="New.FollowMypixivNew">
                                     <attach:NavigateTo.Parameters>
-                                        <Binding Converter="{StaticResource StringFormatConverter}"
-                                                 Path="SelectedIndex">
+                                        <Binding Converter="{StaticResource StringFormatConverter}" Path="SelectedIndex">
                                             <Binding.ConverterParameter>
                                                 {{&quot;FollowType&quot;:{0},&quot;ContentType&quot;:1}}
                                             </Binding.ConverterParameter>
                                         </Binding>
                                     </attach:NavigateTo.Parameters>
                                     <PivotItem.Header>
-                                        <TextBlock Width="80"
-                                                   Style="{StaticResource TabsStyleTextBlockStyle}"
-                                                   Text="小説" />
+                                        <TextBlock x:Uid="Novel"
+                                                   Width="80"
+                                                   Style="{StaticResource TabsStyleTextBlockStyle}" />
                                     </PivotItem.Header>
                                 </PivotItem>
                             </Pivot>

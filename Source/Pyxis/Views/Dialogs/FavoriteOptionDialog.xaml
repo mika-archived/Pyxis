@@ -13,18 +13,15 @@
                mc:Ignorable="d">
     <StackPanel>
         <StackPanel.Resources>
-            <Style x:Key="SectionStackPanelStyle"
-                   TargetType="StackPanel">
+            <Style x:Key="SectionStackPanelStyle" TargetType="StackPanel">
                 <Setter Property="Margin" Value="0,20" />
                 <Setter Property="HorizontalAlignment" Value="Center" />
             </Style>
-            <Style BasedOn="{StaticResource FlatStyleRadioButton}"
-                   TargetType="RadioButton" />
+            <Style BasedOn="{StaticResource FlatStyleRadioButton}" TargetType="RadioButton" />
             <Style TargetType="TextBlock">
                 <Setter Property="HorizontalAlignment" Value="Center" />
             </Style>
-            <Style x:Key="RadioStackPanelStyle"
-                   TargetType="StackPanel">
+            <Style x:Key="RadioStackPanelStyle" TargetType="StackPanel">
                 <Setter Property="Margin" Value="0,15,0,0" />
                 <Setter Property="Orientation" Value="Horizontal" />
             </Style>
@@ -32,13 +29,13 @@
         <StackPanel Style="{StaticResource SectionStackPanelStyle}">
             <TextBlock Text="お気に入りタイプ" />
             <StackPanel Style="{StaticResource RadioStackPanelStyle}">
-                <RadioButton Content="公開"
+                <RadioButton x:Uid="Public"
                              GroupName="ContentType"
                              IsChecked="{Binding RestrictType.Value,
                                                  Mode=TwoWay,
                                                  Converter={StaticResource EnumToBooleanConverter},
                                                  ConverterParameter=Pyxis.Models.Enums.RestrictType.Public}" />
-                <RadioButton Content="非公開"
+                <RadioButton x:Uid="Private"
                              GroupName="ContentType"
                              IsChecked="{Binding RestrictType.Value,
                                                  Mode=TwoWay,
@@ -50,10 +47,10 @@
             <TextBlock Text="タグ" />
             <ListView Width="250"
                       Height="150"
-                      SelectedItem="{x:Bind ViewModel.SelectedTag.Value, Mode=TwoWay}"
                       Margin="0,15,0,0"
                       HorizontalAlignment="Center"
-                      ItemsSource="{x:Bind ViewModel.Tags}">
+                      ItemsSource="{x:Bind ViewModel.Tags}"
+                      SelectedItem="{x:Bind ViewModel.SelectedTag.Value, Mode=TwoWay}">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <ItemsStackPanel />

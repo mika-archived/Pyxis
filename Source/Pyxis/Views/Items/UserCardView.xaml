@@ -13,8 +13,7 @@
     <Border HorizontalAlignment="Stretch"
             BorderBrush="{ThemeResource AppBarBorderThemeBrush}"
             BorderThickness="1">
-        <Grid Height="64"
-              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid Height="64" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="150" />
@@ -28,10 +27,8 @@
                     <ColumnDefinition Width="130" />
                 </Grid.ColumnDefinitions>
                 <i:Interaction.Behaviors>
-                    <core:EventTriggerBehavior EventName="Tapped"
-                                               SourceObject="{Binding ElementName=TappableGrid}">
-                        <core:CallMethodAction MethodName="OnItemTapped"
-                                               TargetObject="{Binding}" />
+                    <core:EventTriggerBehavior EventName="Tapped" SourceObject="{Binding ElementName=TappableGrid}">
+                        <core:CallMethodAction MethodName="OnItemTapped" TargetObject="{Binding}" />
                     </core:EventTriggerBehavior>
                 </i:Interaction.Behaviors>
                 <Border Grid.Column="0"
@@ -66,13 +63,13 @@
                                FontSize="17"
                                Text="&#xE8FA;" />
                     <Grid Margin="10,0,0,0">
-                        <TextBlock HorizontalAlignment="Center"
-                                   Text="フォロー"
+                        <TextBlock x:Uid="Follow"
+                                   HorizontalAlignment="Center"
                                    Visibility="{Binding IsFollowing,
                                                         Mode=OneWay,
                                                         Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
-                        <TextBlock HorizontalAlignment="Center"
-                                   Text="フォロー解除"
+                        <TextBlock x:Uid="Unfollow"
+                                   HorizontalAlignment="Center"
                                    Visibility="{Binding IsFollowing,
                                                         Mode=OneWay,
                                                         Converter={StaticResource BooleanToVisibilityConverter}}" />

@@ -1,5 +1,5 @@
-﻿<!-- ReSharper disable UnusedMember.Local -->
-<!-- ReSharper disable NotAccessedField.Local -->
+﻿<!--  ReSharper disable UnusedMember.Local  -->
+<!--  ReSharper disable NotAccessedField.Local  -->
 <Page x:Class="Pyxis.Views.HomeMainPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -37,7 +37,7 @@
                 </VisualState>
                 <VisualState x:Name="Tablet">
                     <VisualState.StateTriggers>
-                        <!-- 641 -->
+                        <!--  641  -->
                         <AdaptiveTrigger MinWindowWidth="500" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
@@ -63,50 +63,44 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <StackPanel Orientation="Vertical">
-            <Pivot SelectedIndex="{x:Bind ViewModel.SelectedIndex, Mode=OneWay}"
-                   Style="{StaticResource TabsStylePivotStyle}">
+            <Pivot SelectedIndex="{x:Bind ViewModel.SelectedIndex, Mode=OneWay}" Style="{StaticResource TabsStylePivotStyle}">
                 <i:Interaction.Behaviors>
                     <behaviors:AttachNavigationToPivotBehavior NavigationService="{x:Bind ViewModel.NavigationService}" />
                 </i:Interaction.Behaviors>
-                <PivotItem attach:NavigateTo.PageToken="HomeMain"
-                           attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:0}">
+                <PivotItem attach:NavigateTo.PageToken="HomeMain" attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:0}">
                     <PivotItem.Header>
-                        <TextBlock Width="64"
-                                   Style="{StaticResource TabsStyleTextBlockStyle}"
-                                   Text="イラスト" />
+                        <TextBlock x:Uid="Illust"
+                                   Width="64"
+                                   Style="{StaticResource TabsStyleTextBlockStyle}" />
                     </PivotItem.Header>
                 </PivotItem>
-                <PivotItem attach:NavigateTo.PageToken="HomeMain"
-                           attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:1}">
+                <PivotItem attach:NavigateTo.PageToken="HomeMain" attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:1}">
                     <PivotItem.Header>
-                        <TextBlock Width="64"
-                                   Style="{StaticResource TabsStyleTextBlockStyle}"
-                                   Text="マンガ" />
+                        <TextBlock x:Uid="Manga"
+                                   Width="64"
+                                   Style="{StaticResource TabsStyleTextBlockStyle}" />
                     </PivotItem.Header>
                 </PivotItem>
-                <PivotItem attach:NavigateTo.PageToken="HomeMain"
-                           attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:2}">
+                <PivotItem attach:NavigateTo.PageToken="HomeMain" attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:2}">
                     <PivotItem.Header>
-                        <TextBlock Width="64"
-                                   Style="{StaticResource TabsStyleTextBlockStyle}"
-                                   Text="小説" />
+                        <TextBlock x:Uid="Novel"
+                                   Width="64"
+                                   Style="{StaticResource TabsStyleTextBlockStyle}" />
                     </PivotItem.Header>
                 </PivotItem>
             </Pivot>
-            <!-- Height != NaN かつ、 IncrementalLoading の対象にならない値 -->
-            <!-- AdjustControlSizeBehavior が調節してくれるので、仮の値で良い -->
+            <!--  Height != NaN かつ、 IncrementalLoading の対象にならない値  -->
+            <!--  AdjustControlSizeBehavior が調節してくれるので、仮の値で良い  -->
             <GridView x:Name="Recommended"
                       Height="500"
                       VerticalAlignment="Stretch"
                       ItemsSource="{x:Bind ViewModel.RecommendedItems}">
                 <i:Interaction.Behaviors>
-                    <behaviors:AdjustControlSizeBehavior HeightOffset="-96"
-                                                         IsSyncHeight="True" />
+                    <behaviors:AdjustControlSizeBehavior HeightOffset="-96" IsSyncHeight="True" />
                 </i:Interaction.Behaviors>
                 <GridView.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <ItemsWrapGrid attach:AssumSize.AssumSize="(0,100),(500,150),(1025,200)"
-                                       Orientation="Horizontal">
+                        <ItemsWrapGrid attach:AssumSize.AssumSize="(0,100),(500,150),(1025,200)" Orientation="Horizontal">
                             <i:Interaction.Behaviors>
                                 <behaviors:GridViewEuqalitySizeBehavior />
                             </i:Interaction.Behaviors>
@@ -126,18 +120,15 @@
                                 <DataTemplate x:DataType="homeBase:RankingViewModel">
                                     <Grid x:Name="TappableGrid">
                                         <i:Interaction.Behaviors>
-                                            <core:EventTriggerBehavior EventName="Tapped"
-                                                                       SourceObject="{Binding ElementName=TappableGrid}">
-                                                <core:CallMethodAction MethodName="OnItemTapped"
-                                                                       TargetObject="{Binding}" />
+                                            <core:EventTriggerBehavior EventName="Tapped" SourceObject="{Binding ElementName=TappableGrid}">
+                                                <core:CallMethodAction MethodName="OnItemTapped" TargetObject="{Binding}" />
                                             </core:EventTriggerBehavior>
                                         </i:Interaction.Behaviors>
                                         <Image VerticalAlignment="Center"
                                                Source="{Binding ThumbnailPath,
                                                                 Mode=OneWay}"
                                                Stretch="UniformToFill" />
-                                        <Border HorizontalAlignment="Stretch"
-                                                VerticalAlignment="Stretch">
+                                        <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                             <Border.Background>
                                                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                                     <GradientStop Offset="-0.1" Color="{ThemeResource SystemBaseHighColor}" />
@@ -174,15 +165,13 @@
                                 </DataTemplate>
                             </FlipView.ItemTemplate>
                         </FlipView>
-                        <StackPanel Margin="5"
-                                    Orientation="Horizontal">
+                        <StackPanel Margin="5" Orientation="Horizontal">
                             <TextBlock Margin="2"
                                        FontFamily="{ThemeResource SymbolThemeFontFamily}"
                                        Foreground="HotPink"
                                        Style="{ThemeResource FlyoutPickerTitleTextBlockStyle}"
                                        Text="&#xE0A5;" />
-                            <TextBlock Margin="5,0"
-                                       Text="あなたへのおすすめ" />
+                            <TextBlock x:Uid="Recommended" Margin="5,0" />
                         </StackPanel>
                     </StackPanel>
                 </GridView.Header>

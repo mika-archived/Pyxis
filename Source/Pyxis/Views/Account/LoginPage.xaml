@@ -20,19 +20,19 @@
                        Style="{ThemeResource HeaderTextBlockStyle}"
                        Text="&#xE946;" />
 
-            <TextBox Width="250"
+            <TextBox x:Uid="MailAddress"
+                     Width="250"
                      Height="35"
                      Margin="10"
                      HorizontalAlignment="Center"
-                     PlaceholderText="メールアドレス"
                      Text="{x:Bind ViewModel.Username.Value, Mode=TwoWay}" />
 
-            <PasswordBox Width="250"
+            <PasswordBox x:Uid="Password"
+                         Width="250"
                          Height="25"
                          Margin="10"
                          HorizontalAlignment="Center"
-                         Password="{x:Bind ViewModel.Password.Value, Mode=TwoWay}"
-                         PlaceholderText="パスワード" />
+                         Password="{x:Bind ViewModel.Password.Value, Mode=TwoWay}" />
 
             <TextBlock Margin="5"
                        Foreground="Red"
@@ -47,9 +47,9 @@
                     Margin="10"
                     HorizontalAlignment="Center"
                     Command="{x:Bind ViewModel.LoginCommand}">
-                <TextBlock Foreground="White"
-                           Style="{ThemeResource SubtitleTextBlockStyle}"
-                           Text="ログイン" />
+                <TextBlock x:Uid="Login"
+                           Foreground="White"
+                           Style="{ThemeResource SubtitleTextBlockStyle}" />
             </Button>
         </StackPanel>
         <Border Background="Black"

@@ -1,5 +1,5 @@
-﻿<!-- ReSharper disable UnusedMember.Local -->
-<!-- ReSharper disable NotAccessedField.Local -->
+﻿<!--  ReSharper disable UnusedMember.Local  -->
+<!--  ReSharper disable NotAccessedField.Local  -->
 <Page x:Class="Pyxis.Views.Search.SearchResultPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -84,45 +84,38 @@
                     IsEnabled="{x:Bind ViewModel.IsActivatedAdvancedSearch}"
                     Tapped="{x:Bind ViewModel.OnAdvancedSearchOptionButtonTapped}" />
         </Grid>
-        <Pivot SelectedIndex="{x:Bind ViewModel.SelectedIndex}"
-               Style="{StaticResource MiniTabsStylePivotStyle}">
+        <Pivot SelectedIndex="{x:Bind ViewModel.SelectedIndex}" Style="{StaticResource MiniTabsStylePivotStyle}">
             <i:Interaction.Behaviors>
                 <behaviors:AttachNavigationToPivotBehavior NavigationService="{x:Bind ViewModel.NavigationService}" />
             </i:Interaction.Behaviors>
-            <PivotItem attach:NavigateTo.PageToken="Search.SearchResult"
-                       attach:NavigateTo.Parameters="{x:Bind ViewModel.ParameterQueries[0], Mode=OneWay}">
+            <PivotItem attach:NavigateTo.PageToken="Search.SearchResult" attach:NavigateTo.Parameters="{x:Bind ViewModel.ParameterQueries[0], Mode=OneWay}">
                 <PivotItem.Header>
-                    <TextBlock Width="70"
-                               Style="{StaticResource TabsStyleTextBlockStyle}"
-                               Text="新着順" />
+                    <TextBlock x:Uid="Newest"
+                               Width="70"
+                               Style="{StaticResource TabsStyleTextBlockStyle}" />
                 </PivotItem.Header>
             </PivotItem>
-            <PivotItem attach:NavigateTo.PageToken="Search.SearchResult"
-                       attach:NavigateTo.Parameters="{x:Bind ViewModel.ParameterQueries[1], Mode=OneWay}">
+            <PivotItem attach:NavigateTo.PageToken="Search.SearchResult" attach:NavigateTo.Parameters="{x:Bind ViewModel.ParameterQueries[1], Mode=OneWay}">
                 <PivotItem.Header>
-                    <TextBlock Width="70"
-                               Style="{StaticResource TabsStyleTextBlockStyle}"
-                               Text="人気順" />
+                    <TextBlock x:Uid="Popularity"
+                               Width="70"
+                               Style="{StaticResource TabsStyleTextBlockStyle}" />
                 </PivotItem.Header>
             </PivotItem>
-            <PivotItem attach:NavigateTo.PageToken="Search.SearchResult"
-                       attach:NavigateTo.Parameters="{x:Bind ViewModel.ParameterQueries[2], Mode=OneWay}">
+            <PivotItem attach:NavigateTo.PageToken="Search.SearchResult" attach:NavigateTo.Parameters="{x:Bind ViewModel.ParameterQueries[2], Mode=OneWay}">
                 <PivotItem.Header>
-                    <TextBlock Width="70"
-                               Style="{StaticResource TabsStyleTextBlockStyle}"
-                               Text="古い順" />
+                    <TextBlock x:Uid="Oldest"
+                               Width="70"
+                               Style="{StaticResource TabsStyleTextBlockStyle}" />
                 </PivotItem.Header>
             </PivotItem>
         </Pivot>
-        <!-- not ログイン -->
-        <Grid Background="#0074AA"
-              Visibility="{x:Bind ViewModel.IsLoggedInRequired, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <!--  not ログイン  -->
+        <Grid Background="#0074AA" Visibility="{x:Bind ViewModel.IsLoggedInRequired, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
             <i:Interaction.Behaviors>
-                <behaviors:AdjustControlSizeBehavior HeightOffset="-137"
-                                                     IsSyncHeight="True" />
+                <behaviors:AdjustControlSizeBehavior HeightOffset="-137" IsSyncHeight="True" />
             </i:Interaction.Behaviors>
-            <StackPanel HorizontalAlignment="Stretch"
-                        VerticalAlignment="Center">
+            <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center">
                 <TextBlock HorizontalAlignment="Center"
                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
                            Foreground="PaleGoldenrod"
@@ -147,18 +140,16 @@
                         Margin="10"
                         HorizontalAlignment="Center"
                         Tapped="{x:Bind ViewModel.OnLoginButtonTapped}">
-                    <TextBlock Foreground="White"
-                               Style="{ThemeResource SubtitleTextBlockStyle}"
-                               Text="ログイン" />
+                    <TextBlock x:Uid="Login"
+                               Foreground="White"
+                               Style="{ThemeResource SubtitleTextBlockStyle}" />
                 </Button>
             </StackPanel>
         </Grid>
-        <!-- not プレミア -->
-        <Grid Background="#0074AA"
-              Visibility="{x:Bind ViewModel.IsPremiumRequired, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <!--  not プレミア  -->
+        <Grid Background="#0074AA" Visibility="{x:Bind ViewModel.IsPremiumRequired, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
             <i:Interaction.Behaviors>
-                <behaviors:AdjustControlSizeBehavior HeightOffset="-137"
-                                                     IsSyncHeight="True" />
+                <behaviors:AdjustControlSizeBehavior HeightOffset="-137" IsSyncHeight="True" />
             </i:Interaction.Behaviors>
             <StackPanel HorizontalAlignment="Center"
                         VerticalAlignment="Center"
@@ -191,19 +182,17 @@
                 </Button>
             </StackPanel>
         </Grid>
-        <!-- プレミア -->
+        <!--  プレミア  -->
         <GridView x:Name="SearchResult"
                   ItemsSource="{x:Bind ViewModel.Results}"
                   Visibility="{x:Bind ViewModel.IsPremiumRequired, Mode=OneWay, Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
             <i:Interaction.Behaviors>
-                <behaviors:AdjustControlSizeBehavior HeightOffset="-137"
-                                                     IsSyncHeight="True" />
+                <behaviors:AdjustControlSizeBehavior HeightOffset="-137" IsSyncHeight="True" />
                 <behaviors:ListBoxEmptyBehavior Target="{x:Bind NotFoundSearchResultMes}" />
             </i:Interaction.Behaviors>
             <GridView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <ItemsWrapGrid attach:AssumSize.AssumSize="(0,100),(500,150),(1025,200)"
-                                   Orientation="Horizontal">
+                    <ItemsWrapGrid attach:AssumSize.AssumSize="(0,100),(500,150),(1025,200)" Orientation="Horizontal">
                         <i:Interaction.Behaviors>
                             <behaviors:GridViewEuqalitySizeBehavior />
                         </i:Interaction.Behaviors>

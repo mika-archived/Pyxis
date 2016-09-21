@@ -29,40 +29,35 @@
                     FontSize="24"
                     IsEnabled="False" />
         </Grid>
-        <Pivot SelectedIndex="2"
-               Style="{StaticResource MiniTabsStylePivotStyle}">
+        <Pivot SelectedIndex="2" Style="{StaticResource MiniTabsStylePivotStyle}">
             <interactivity:Interaction.Behaviors>
                 <behaviors:AttachNavigationToPivotBehavior NavigationService="{x:Bind ViewModel.NavigationService}" />
             </interactivity:Interaction.Behaviors>
-            <PivotItem attach:NavigateTo.PageToken="Search.WorkSearch"
-                       attach:NavigateTo.Parameters="{}{&quot;SearchType&quot;:0}">
+            <PivotItem attach:NavigateTo.PageToken="Search.WorkSearch" attach:NavigateTo.Parameters="{}{&quot;SearchType&quot;:0}">
                 <PivotItem.Header>
-                    <TextBlock Width="70"
-                               Style="{StaticResource TabsStyleTextBlockStyle}"
-                               Text="イラスト・マンガ" />
+                    <TextBlock x:Uid="IllustAndManga"
+                               Width="70"
+                               Style="{StaticResource TabsStyleTextBlockStyle}" />
                 </PivotItem.Header>
             </PivotItem>
-            <PivotItem attach:NavigateTo.PageToken="Search.WorkSearch"
-                       attach:NavigateTo.Parameters="{}{&quot;SearchType&quot;:1}">
+            <PivotItem attach:NavigateTo.PageToken="Search.WorkSearch" attach:NavigateTo.Parameters="{}{&quot;SearchType&quot;:1}">
                 <PivotItem.Header>
-                    <TextBlock Width="70"
-                               Style="{StaticResource TabsStyleTextBlockStyle}"
-                               Text="小説" />
+                    <TextBlock x:Uid="Novel"
+                               Width="70"
+                               Style="{StaticResource TabsStyleTextBlockStyle}" />
                 </PivotItem.Header>
             </PivotItem>
-            <PivotItem attach:NavigateTo.PageToken="Search.UserSearch"
-                       attach:NavigateTo.Parameters="{}{&quot;SearchType&quot;:2}">
+            <PivotItem attach:NavigateTo.PageToken="Search.UserSearch" attach:NavigateTo.Parameters="{}{&quot;SearchType&quot;:2}">
                 <PivotItem.Header>
-                    <TextBlock Width="70"
-                               Style="{StaticResource TabsStyleTextBlockStyle}"
-                               Text="ユーザー" />
+                    <TextBlock x:Uid="User"
+                               Width="70"
+                               Style="{StaticResource TabsStyleTextBlockStyle}" />
                 </PivotItem.Header>
             </PivotItem>
         </Pivot>
         <ListView ItemsSource="{x:Bind ViewModel.Users}">
             <interactivity:Interaction.Behaviors>
-                <behaviors:AdjustControlSizeBehavior HeightOffset="-137"
-                                                     IsSyncHeight="True" />
+                <behaviors:AdjustControlSizeBehavior HeightOffset="-137" IsSyncHeight="True" />
                 <behaviors:ListBoxEmptyBehavior Target="{x:Bind NotFoundSearchQueryMes}" />
             </interactivity:Interaction.Behaviors>
             <ListView.Header>

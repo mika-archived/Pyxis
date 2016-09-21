@@ -1,15 +1,15 @@
-﻿<!-- ReSharper disable UnusedMember.Local -->
-<!-- ReSharper disable NotAccessedField.Local -->
+﻿<!--  ReSharper disable UnusedMember.Local  -->
+<!--  ReSharper disable NotAccessedField.Local  -->
 <Page x:Class="Pyxis.Views.Detail.UserDetailPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:attach="using:Pyxis.Attach"
       xmlns:behaviors="using:Pyxis.Behaviors"
+      xmlns:controls="using:Pyxis.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:prism="using:Prism.Windows.Mvvm"
-      xmlns:controls="using:Pyxis.Controls"
       xmlns:vm="using:Pyxis.ViewModels.Detail"
       d:DataContext="{d:DesignInstance vm:UserDetailPageViewModel}"
       prism:ViewModelLocator.AutoWireViewModel="True"
@@ -35,7 +35,7 @@
                 </VisualState>
                 <VisualState x:Name="Tablet">
                     <VisualState.StateTriggers>
-                        <!-- 641 -->
+                        <!--  641  -->
                         <AdaptiveTrigger MinWindowWidth="500" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
@@ -72,15 +72,12 @@
             <Grid>
                 <controls:BlurEffectControl>
                     <Image VerticalAlignment="Center"
-                       Source="{x:Bind ViewModel.ThumbnailPath, Mode=OneWay}"
-                       Stretch="UniformToFill" />
+                           Source="{x:Bind ViewModel.ThumbnailPath, Mode=OneWay}"
+                           Stretch="UniformToFill" />
                 </controls:BlurEffectControl>
-                <Border Background="White"
-                        Opacity=".75" />
-                <StackPanel HorizontalAlignment="Stretch"
-                            VerticalAlignment="Center">
-                    <Grid Height="96"
-                          HorizontalAlignment="Stretch">
+                <Border Background="White" Opacity=".75" />
+                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                    <Grid Height="96" HorizontalAlignment="Stretch">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*" />
                             <ColumnDefinition Width="96" />
@@ -91,8 +88,7 @@
                                 BorderThickness="1"
                                 CornerRadius="48">
                             <Border.Background>
-                                <ImageBrush ImageSource="{x:Bind ViewModel.ThumbnailPath, Mode=OneWay}"
-                                            Stretch="Uniform" />
+                                <ImageBrush ImageSource="{x:Bind ViewModel.ThumbnailPath, Mode=OneWay}" Stretch="Uniform" />
                             </Border.Background>
                         </Border>
                         <Button Grid.Column="2"
@@ -104,11 +100,11 @@
                                 Command="{x:Bind ViewModel.FollowCommand}"
                                 Foreground="{ThemeResource SystemControlForegroundAccentBrush}">
                             <Grid>
-                                <TextBlock HorizontalAlignment="Center"
-                                           Text="フォロー"
+                                <TextBlock x:Uid="Follow"
+                                           HorizontalAlignment="Center"
                                            Visibility="{x:Bind ViewModel.IsFollowing.Value, Mode=OneWay, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
-                                <TextBlock HorizontalAlignment="Center"
-                                           Text="フォロー解除"
+                                <TextBlock x:Uid="Unfollow"
+                                           HorizontalAlignment="Center"
                                            Visibility="{x:Bind ViewModel.IsFollowing.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}" />
                             </Grid>
                         </Button>
@@ -135,30 +131,27 @@
             </i:Interaction.Behaviors>
             <PivotItem attach:NavigateTo.PageToken="Detail.UserDetail">
                 <PivotItem.Header>
-                    <TextBlock Width="80"
-                               Style="{StaticResource TabsStyleTextBlockStyle}"
-                               Text="プロフィール" />
+                    <TextBlock x:Uid="Profile"
+                               Width="80"
+                               Style="{StaticResource TabsStyleTextBlockStyle}" />
                 </PivotItem.Header>
             </PivotItem>
-            <PivotItem attach:NavigateTo.PageToken="Detail.UserDetailCollection"
-                       attach:NavigateTo.Parameters="{x:Bind ViewModel.Parameter[0], Mode=OneWay}">
+            <PivotItem attach:NavigateTo.PageToken="Detail.UserDetailCollection" attach:NavigateTo.Parameters="{x:Bind ViewModel.Parameter[0], Mode=OneWay}">
                 <PivotItem.Header>
-                    <TextBlock Width="80"
-                               Style="{StaticResource TabsStyleTextBlockStyle}"
-                               Text="作品" />
+                    <TextBlock x:Uid="Work"
+                               Width="80"
+                               Style="{StaticResource TabsStyleTextBlockStyle}" />
                 </PivotItem.Header>
             </PivotItem>
-            <PivotItem attach:NavigateTo.PageToken="Detail.UserDetailCollection"
-                       attach:NavigateTo.Parameters="{x:Bind ViewModel.Parameter[1], Mode=OneWay}">
+            <PivotItem attach:NavigateTo.PageToken="Detail.UserDetailCollection" attach:NavigateTo.Parameters="{x:Bind ViewModel.Parameter[1], Mode=OneWay}">
                 <PivotItem.Header>
-                    <TextBlock Width="80"
-                               Style="{StaticResource TabsStyleTextBlockStyle}"
-                               Text="お気に入り" />
+                    <TextBlock x:Uid="Favorite"
+                               Width="80"
+                               Style="{StaticResource TabsStyleTextBlockStyle}" />
                 </PivotItem.Header>
             </PivotItem>
         </Pivot>
-        <ScrollViewer Grid.Row="2"
-                      HorizontalScrollBarVisibility="Disabled">
+        <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Disabled">
             <Grid Margin="10">
                 <Grid.Resources>
                     <Style TargetType="TextBlock">
@@ -192,33 +185,33 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0"
+                <TextBlock x:Uid="Gender"
+                           Grid.Row="0"
                            Grid.Column="0"
-                           Text="性別"
                            Visibility="{x:Bind ViewModel.Gender.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="0"
                            Grid.Column="2"
                            Text="{x:Bind ViewModel.Gender.Value, Mode=OneWay}"
                            Visibility="{x:Bind ViewModel.Gender.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
-                <TextBlock Grid.Row="1"
+                <TextBlock x:Uid="Location"
+                           Grid.Row="1"
                            Grid.Column="0"
-                           Text="住所"
                            Visibility="{x:Bind ViewModel.Region.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="1"
                            Grid.Column="2"
                            Text="{x:Bind ViewModel.Region.Value, Mode=OneWay}"
                            Visibility="{x:Bind ViewModel.Region.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
-                <TextBlock Grid.Row="2"
+                <TextBlock x:Uid="Birthday"
+                           Grid.Row="2"
                            Grid.Column="0"
-                           Text="誕生日"
                            Visibility="{x:Bind ViewModel.Birthday.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="2"
                            Grid.Column="2"
                            Text="{x:Bind ViewModel.Birthday.Value, Mode=OneWay}"
                            Visibility="{x:Bind ViewModel.Birthday.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
-                <TextBlock Grid.Row="3"
+                <TextBlock x:Uid="Job"
+                           Grid.Row="3"
                            Grid.Column="0"
-                           Text="職業"
                            Visibility="{x:Bind ViewModel.Job.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="3"
                            Grid.Column="2"
@@ -238,7 +231,7 @@
                 <TextBlock Grid.Row="5"
                            Grid.Column="0"
                            VerticalAlignment="Top"
-                           Text="コメント"
+                           x:Uid="Description"
                            Visibility="{x:Bind ViewModel.Description.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="5"
                            Grid.Column="2"
@@ -249,7 +242,7 @@
                            Grid.ColumnSpan="3"
                            Margin="10,0"
                            Style="{ThemeResource SubtitleTextBlockStyle}"
-                           Text="作業環境" />
+                           x:Uid="Workspace"/>
                 <TextBlock Grid.Row="8"
                            Grid.Column="0"
                            Text="PC"
@@ -260,7 +253,7 @@
                            Visibility="{x:Bind ViewModel.Computer.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="9"
                            Grid.Column="0"
-                           Text="モニター"
+                           x:Uid="Monitor"
                            Visibility="{x:Bind ViewModel.Monitor.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="9"
                            Grid.Column="2"
@@ -268,7 +261,7 @@
                            Visibility="{x:Bind ViewModel.Monitor.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="10"
                            Grid.Column="0"
-                           Text="ツール"
+                           x:Uid="Tool"
                            Visibility="{x:Bind ViewModel.Software.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="10"
                            Grid.Column="2"
@@ -276,7 +269,7 @@
                            Visibility="{x:Bind ViewModel.Software.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="11"
                            Grid.Column="0"
-                           Text="スキャナー"
+                           x:Uid="Scanner"
                            Visibility="{x:Bind ViewModel.Scanner.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="11"
                            Grid.Column="2"
@@ -284,7 +277,7 @@
                            Visibility="{x:Bind ViewModel.Scanner.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="12"
                            Grid.Column="0"
-                           Text="タブレット"
+                           x:Uid="Tablet"
                            Visibility="{x:Bind ViewModel.Tablet.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="12"
                            Grid.Column="2"
@@ -292,15 +285,15 @@
                            Visibility="{x:Bind ViewModel.Tablet.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="13"
                            Grid.Column="0"
-                           Text="マウス"
-                           Visibility="{x:Bind ViewModel.Monitor.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                          x:Uid="Mouse"
+                           Visibility="{x:Bind ViewModel.Mouse.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="13"
                            Grid.Column="2"
                            Text="{x:Bind ViewModel.Mouse.Value, Mode=OneWay}"
-                           Visibility="{x:Bind ViewModel.Monitor.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
+                           Visibility="{x:Bind ViewModel.Mouse.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="14"
                            Grid.Column="0"
-                           Text="プリンター"
+                           x:Uid="Printer"
                            Visibility="{x:Bind ViewModel.Printer.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="14"
                            Grid.Column="2"
@@ -308,7 +301,7 @@
                            Visibility="{x:Bind ViewModel.Printer.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="15"
                            Grid.Column="0"
-                           Text="机の上にあるもの"
+                           x:Uid="Desktop"
                            Visibility="{x:Bind ViewModel.Desktop.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="15"
                            Grid.Column="2"
@@ -316,7 +309,7 @@
                            Visibility="{x:Bind ViewModel.Desktop.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="16"
                            Grid.Column="0"
-                           Text="作業用BGM"
+                           x:Uid="Bgm"
                            Visibility="{x:Bind ViewModel.Bgm.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="16"
                            Grid.Column="2"
@@ -324,7 +317,7 @@
                            Visibility="{x:Bind ViewModel.Bgm.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="17"
                            Grid.Column="0"
-                           Text="机"
+                           x:Uid="Table"
                            Visibility="{x:Bind ViewModel.Table.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="17"
                            Grid.Column="2"
@@ -332,7 +325,7 @@
                            Visibility="{x:Bind ViewModel.Table.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="18"
                            Grid.Column="0"
-                           Text="椅子"
+                           x:Uid="Chair"
                            Visibility="{x:Bind ViewModel.Chair.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="18"
                            Grid.Column="2"
@@ -340,7 +333,7 @@
                            Visibility="{x:Bind ViewModel.Chair.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="19"
                            Grid.Column="0"
-                           Text="その他"
+                           x:Uid="Other"
                            Visibility="{x:Bind ViewModel.Other.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="19"
                            Grid.Column="2"
