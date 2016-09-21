@@ -118,7 +118,11 @@ namespace Pyxis.ViewModels.Detail
                                   .Select(w => new Uri(w))
                                   .ToReadOnlyReactiveProperty()
                                   .AddTo(this);
-            Gender = observer.Select(w => w.Profile.Gender == "Male" ? "男" : "女").ToReadOnlyReactiveProperty().AddTo(this);
+            Gender = observer.Select(w => w.Profile.Gender)
+                             .Where(w => !string.IsNullOrWhiteSpace(w))
+                             .Select(w => w.ToLower() == "male" ? "男" : "女")
+                             .ToReadOnlyReactiveProperty()
+                             .AddTo(this);
             Region = observer.Select(w => w.Profile.Region).ToReadOnlyReactiveProperty().AddTo(this);
             Birthday = observer.Select(w => w.Profile.Birth).ToReadOnlyReactiveProperty().AddTo(this);
             Job = observer.Select(w => w.Profile.Job).ToReadOnlyReactiveProperty().AddTo(this);
