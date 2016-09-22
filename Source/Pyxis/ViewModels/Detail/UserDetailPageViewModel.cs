@@ -5,6 +5,8 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Windows.Input;
 
+using Windows.ApplicationModel.Resources;
+
 using Prism.Commands;
 using Prism.Windows.Navigation;
 
@@ -29,6 +31,7 @@ namespace Pyxis.ViewModels.Detail
         private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
+        private readonly ResourceLoader Resources = ResourceLoader.GetForCurrentView();
         private string _id;
         private bool _isOffline;
         private PixivDetail _pixivUser;
@@ -120,7 +123,7 @@ namespace Pyxis.ViewModels.Detail
                                   .AddTo(this);
             Gender = observer.Select(w => w.Profile.Gender)
                              .Where(w => !string.IsNullOrWhiteSpace(w))
-                             .Select(w => w.ToLower() == "male" ? "男" : "女")
+                             .Select(w => w.ToLower() == "male" ? Resources.GetString("Male") : Resources.GetString("Famale"))
                              .ToReadOnlyReactiveProperty()
                              .AddTo(this);
             Region = observer.Select(w => w.Profile.Region).ToReadOnlyReactiveProperty().AddTo(this);

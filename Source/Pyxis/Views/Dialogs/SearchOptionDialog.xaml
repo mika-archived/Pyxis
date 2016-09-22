@@ -5,29 +5,24 @@
                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                xmlns:prism="using:Prism.Windows.Mvvm"
                xmlns:vm="using:Pyxis.ViewModels.Dialogs"
-               Title="検索オプション"
+               x:Uid="SearchOption"
                d:DataContext="{d:DesignInstance vm:SearchOptionDialogViewModel}"
                prism:ViewModelLocator.AutoWireViewModel="True"
-               PrimaryButtonText="OK"
                mc:Ignorable="d">
     <StackPanel>
         <StackPanel.Resources>
-            <Style x:Key="SectionStackPanelStyle"
-                   TargetType="StackPanel">
+            <Style x:Key="SectionStackPanelStyle" TargetType="StackPanel">
                 <Setter Property="Margin" Value="0,20" />
                 <Setter Property="HorizontalAlignment" Value="Center" />
             </Style>
-            <Style x:Key="RadioStackPanelStyle"
-                   TargetType="StackPanel">
+            <Style x:Key="RadioStackPanelStyle" TargetType="StackPanel">
                 <Setter Property="Margin" Value="0,15,0,0" />
                 <Setter Property="Orientation" Value="Horizontal" />
             </Style>
-            <Style x:Key="SemiRadioStackPanelStyle"
-                   TargetType="StackPanel">
+            <Style x:Key="SemiRadioStackPanelStyle" TargetType="StackPanel">
                 <Setter Property="Orientation" Value="Horizontal" />
             </Style>
-            <Style BasedOn="{StaticResource FlatStyleRadioButton}"
-                   TargetType="RadioButton">
+            <Style BasedOn="{StaticResource FlatStyleRadioButton}" TargetType="RadioButton">
                 <Setter Property="Width" Value="90" />
                 <Setter Property="Margin" Value="-10,2.5" />
             </Style>
@@ -37,15 +32,15 @@
             </Style>
         </StackPanel.Resources>
         <StackPanel Style="{StaticResource SectionStackPanelStyle}">
-            <TextBlock Text="コンテンツ" />
+            <TextBlock x:Uid="Contents" />
             <StackPanel Style="{StaticResource RadioStackPanelStyle}">
-                <RadioButton Content="イラスト・マンガ"
+                <RadioButton x:Uid="IllustAndManga"
                              GroupName="ContentType"
                              IsChecked="{Binding ContentType.Value,
                                                  Mode=TwoWay,
                                                  Converter={StaticResource EnumToBooleanConverter},
                                                  ConverterParameter=Pyxis.Models.Enums.SearchType.IllustsAndManga}" />
-                <RadioButton Content="小説"
+                <RadioButton x:Uid="Novel"
                              GroupName="ContentType"
                              IsChecked="{Binding ContentType.Value,
                                                  Mode=TwoWay,
@@ -77,8 +72,7 @@
                                                  ConverterParameter=Pyxis.Models.Enums.SearchTarget.TitleCaption}"
                              IsEnabled="{x:Bind ViewModel.IsEnabledIllustMode, Mode=OneWay}" />
             </StackPanel>
-            <StackPanel HorizontalAlignment="Center"
-                        Style="{StaticResource SemiRadioStackPanelStyle}">
+            <StackPanel HorizontalAlignment="Center" Style="{StaticResource SemiRadioStackPanelStyle}">
                 <RadioButton Content="本文"
                              GroupName="Target"
                              IsChecked="{Binding Target.Value,

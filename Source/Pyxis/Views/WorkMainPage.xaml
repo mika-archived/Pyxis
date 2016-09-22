@@ -56,9 +56,9 @@
                 </ItemsPanelTemplate>
             </GridView.ItemsPanel>
             <GridView.Header>
-                <TextBlock x:Name="NotFoundWorkItemsMes"
-                           Style="{ThemeResource NfMessageTextBlockStyle}"
-                           Text="投稿した作品はありません。" />
+                <TextBlock x:Uid="NoPost"
+                           x:Name="NotFoundWorkItemsMes"
+                           Style="{ThemeResource NfMessageTextBlockStyle}" />
             </GridView.Header>
             <GridView.ItemTemplate>
                 <DataTemplate>

@@ -5,11 +5,9 @@
                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                xmlns:prism="using:Prism.Windows.Mvvm"
                xmlns:vm="using:Pyxis.ViewModels.Dialogs"
-               Title="検索オプション"
+               x:Uid="SearchOption"
                d:DataContext="{d:DesignInstance vm:FavoriteOptionDialogViewModel}"
                prism:ViewModelLocator.AutoWireViewModel="True"
-               PrimaryButtonText="OK"
-               SecondaryButtonText="キャンセル"
                mc:Ignorable="d">
     <StackPanel>
         <StackPanel.Resources>
@@ -27,15 +25,15 @@
             </Style>
         </StackPanel.Resources>
         <StackPanel Style="{StaticResource SectionStackPanelStyle}">
-            <TextBlock Text="お気に入りタイプ" />
+            <TextBlock x:Uid="FavoriteType" />
             <StackPanel Style="{StaticResource RadioStackPanelStyle}">
-                <RadioButton x:Uid="Public"
+                <RadioButton x:Uid="PublicA"
                              GroupName="ContentType"
                              IsChecked="{Binding RestrictType.Value,
                                                  Mode=TwoWay,
                                                  Converter={StaticResource EnumToBooleanConverter},
                                                  ConverterParameter=Pyxis.Models.Enums.RestrictType.Public}" />
-                <RadioButton x:Uid="Private"
+                <RadioButton x:Uid="PrivateA"
                              GroupName="ContentType"
                              IsChecked="{Binding RestrictType.Value,
                                                  Mode=TwoWay,
@@ -44,7 +42,7 @@
             </StackPanel>
         </StackPanel>
         <StackPanel Style="{StaticResource SectionStackPanelStyle}">
-            <TextBlock Text="タグ" />
+            <TextBlock x:Uid="Tag" />
             <ListView Width="250"
                       Height="150"
                       Margin="0,15,0,0"

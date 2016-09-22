@@ -11,10 +11,8 @@
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d">
     <StackPanel Orientation="Horizontal">
-        <Grid Width="48"
-              Height="48">
-            <Border Margin="5"
-                    CornerRadius="19">
+        <Grid Width="48" Height="48">
+            <Border Margin="5" CornerRadius="19">
                 <Border.Background>
                     <ImageBrush ImageSource="{x:Bind ViewModel.ThumbnailPath, Mode=OneWay}" />
                 </Border.Background>

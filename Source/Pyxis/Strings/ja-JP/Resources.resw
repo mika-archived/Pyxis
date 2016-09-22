@@ -243,7 +243,7 @@
   <data name="Printer.Text" xml:space="preserve">
     <value>プリンター</value>
   </data>
-  <data name="Private.Content" xml:space="preserve">
+  <data name="PrivateA.Content" xml:space="preserve">
     <value>非公開</value>
   </data>
   <data name="Private.Text" xml:space="preserve">
@@ -252,7 +252,7 @@
   <data name="Profile.Text" xml:space="preserve">
     <value>プロフィール</value>
   </data>
-  <data name="Public.Content" xml:space="preserve">
+  <data name="PublicA.Content" xml:space="preserve">
     <value>公開</value>
   </data>
   <data name="Public.Text" xml:space="preserve">
@@ -302,5 +302,131 @@
   </data>
   <data name="Workspace.Text" xml:space="preserve">
     <value>作業環境</value>
+  </data>
+  <data name="Contents.Text" xml:space="preserve">
+    <value>コンテンツ</value>
+  </data>
+  <data name="IllustAndMangaA.Content" xml:space="preserve">
+    <value>イラスト・マンガ</value>
+  </data>
+  <data name="NovelA.Content" xml:space="preserve">
+    <value>小説</value>
+  </data>
+  <data name="Related.Text" xml:space="preserve">
+    <value>関連作品</value>
+  </data>
+  <data name="About.Text" xml:space="preserve">
+    <value>Pyxis について</value>
+  </data>
+  <data name="Account.Text" xml:space="preserve">
+    <value>アカウント</value>
+  </data>
+  <data name="Cache.Text" xml:space="preserve">
+    <value>キャッシュファイル</value>
+  </data>
+  <data name="CacheCleared1.Text" xml:space="preserve">
+    <value>キャッシュを削除すると、画像の表示まで時間がかかる場合があります。</value>
+  </data>
+  <data name="Calculating.Text" xml:space="preserve">
+    <value>計算中</value>
+  </data>
+  <data name="ClearCache.Content" xml:space="preserve">
+    <value>キャッシュをクリア</value>
+  </data>
+  <data name="FavoriteType.Text" xml:space="preserve">
+    <value>お気に入りタイプ</value>
+  </data>
+  <data name="Feedback1.Text" xml:space="preserve">
+    <value>バグや要望などがあれば</value>
+  </data>
+  <data name="Feedback2.Text" xml:space="preserve">
+    <value>にて</value>
+  </data>
+  <data name="Feedback3.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FeedbackHub.Text" xml:space="preserve">
+    <value>フィードバック Hub</value>
+  </data>
+  <data name="Female" xml:space="preserve">
+    <value>女</value>
+  </data>
+  <data name="General.Text" xml:space="preserve">
+    <value>一般</value>
+  </data>
+  <data name="HistoryAt1.Text" xml:space="preserve">
+    <value>作品を閲覧したのに表示されない場合は、</value>
+  </data>
+  <data name="HistoryAt2.Text" xml:space="preserve">
+    <value>何枚か作品を閲覧した後に、再度ページを開いてください。</value>
+  </data>
+  <data name="Items.Text" xml:space="preserve">
+    <value>{0} 個</value>
+  </data>
+  <data name="Lang" xml:space="preserve">
+    <value>ja-JP</value>
+  </data>
+  <data name="License.Text" xml:space="preserve">
+    <value>ライセンス</value>
+  </data>
+  <data name="LoggedIn.Text" xml:space="preserve">
+    <value>ログイン中のアカウント：</value>
+  </data>
+  <data name="Logout.Content" xml:space="preserve">
+    <value>ログアウト</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>男</value>
+  </data>
+  <data name="NoComment.Text" xml:space="preserve">
+    <value>コメントはありません。</value>
+  </data>
+  <data name="NoFavorite.Text" xml:space="preserve">
+    <value>お気に入り投稿した作品はありません。</value>
+  </data>
+  <data name="NoFollow.Text" xml:space="preserve">
+    <value>フォローしているユーザーはいません。</value>
+  </data>
+  <data name="NoFollower.Text" xml:space="preserve">
+    <value>フォロワーはいません。</value>
+  </data>
+  <data name="NoItem.Text" xml:space="preserve">
+    <value>アイテムはありません。</value>
+  </data>
+  <data name="NoMypixiv.Text" xml:space="preserve">
+    <value>マイピクはいません。</value>
+  </data>
+  <data name="NoNovel.Text" xml:space="preserve">
+    <value>ブックマークした小説はありません。</value>
+  </data>
+  <data name="NoPost.Text" xml:space="preserve">
+    <value>投稿した作品はありません。</value>
+  </data>
+  <data name="NoRelated.Text" xml:space="preserve">
+    <value>関連作品はありません。</value>
+  </data>
+  <data name="NotLoggedIn1.Text" xml:space="preserve">
+    <value>非ログイン状態のため、実行可能な操作はありません。</value>
+  </data>
+  <data name="NotLoggedIn2.Text" xml:space="preserve">
+    <value>操作を行うには、ログインしてください。</value>
+  </data>
+  <data name="Privacy.Text" xml:space="preserve">
+    <value>プライバシーポリシー</value>
+  </data>
+  <data name="SearchOption.PrimaryButtonText" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="SearchOption.SecondaryButtonText" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="SearchOption.Title" xml:space="preserve">
+    <value>検索オプション</value>
+  </data>
+  <data name="Tag.Text" xml:space="preserve">
+    <value>タグ</value>
+  </data>
+  <data name="ZeroItems.Text" xml:space="preserve">
+    <value>0個の項目</value>
   </data>
 </root>

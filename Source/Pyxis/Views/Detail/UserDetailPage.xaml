@@ -228,21 +228,21 @@
                                  NavigateUri="{x:Bind ViewModel.TwitterUrl.Value, Mode=OneWay}"
                                  Padding="0"
                                  Visibility="{x:Bind ViewModel.Twitter.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
-                <TextBlock Grid.Row="5"
+                <TextBlock x:Uid="Description"
+                           Grid.Row="5"
                            Grid.Column="0"
                            VerticalAlignment="Top"
-                           x:Uid="Description"
                            Visibility="{x:Bind ViewModel.Description.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="5"
                            Grid.Column="2"
                            Text="{x:Bind ViewModel.Description.Value, Mode=OneWay}"
                            Visibility="{x:Bind ViewModel.Description.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
-                <TextBlock Grid.Row="7"
+                <TextBlock x:Uid="Workspace"
+                           Grid.Row="7"
                            Grid.Column="0"
                            Grid.ColumnSpan="3"
                            Margin="10,0"
-                           Style="{ThemeResource SubtitleTextBlockStyle}"
-                           x:Uid="Workspace"/>
+                           Style="{ThemeResource SubtitleTextBlockStyle}" />
                 <TextBlock Grid.Row="8"
                            Grid.Column="0"
                            Text="PC"
@@ -251,89 +251,89 @@
                            Grid.Column="2"
                            Text="{x:Bind ViewModel.Computer.Value, Mode=OneWay}"
                            Visibility="{x:Bind ViewModel.Computer.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
-                <TextBlock Grid.Row="9"
+                <TextBlock x:Uid="Monitor"
+                           Grid.Row="9"
                            Grid.Column="0"
-                           x:Uid="Monitor"
                            Visibility="{x:Bind ViewModel.Monitor.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="9"
                            Grid.Column="2"
                            Text="{x:Bind ViewModel.Monitor.Value, Mode=OneWay}"
                            Visibility="{x:Bind ViewModel.Monitor.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
-                <TextBlock Grid.Row="10"
+                <TextBlock x:Uid="Tool"
+                           Grid.Row="10"
                            Grid.Column="0"
-                           x:Uid="Tool"
                            Visibility="{x:Bind ViewModel.Software.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="10"
                            Grid.Column="2"
                            Text="{x:Bind ViewModel.Software.Value, Mode=OneWay}"
                            Visibility="{x:Bind ViewModel.Software.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
-                <TextBlock Grid.Row="11"
+                <TextBlock x:Uid="Scanner"
+                           Grid.Row="11"
                            Grid.Column="0"
-                           x:Uid="Scanner"
                            Visibility="{x:Bind ViewModel.Scanner.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="11"
                            Grid.Column="2"
                            Text="{x:Bind ViewModel.Scanner.Value, Mode=OneWay}"
                            Visibility="{x:Bind ViewModel.Scanner.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
-                <TextBlock Grid.Row="12"
+                <TextBlock x:Uid="Tablet"
+                           Grid.Row="12"
                            Grid.Column="0"
-                           x:Uid="Tablet"
                            Visibility="{x:Bind ViewModel.Tablet.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="12"
                            Grid.Column="2"
                            Text="{x:Bind ViewModel.Tablet.Value, Mode=OneWay}"
                            Visibility="{x:Bind ViewModel.Tablet.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
-                <TextBlock Grid.Row="13"
+                <TextBlock x:Uid="Mouse"
+                           Grid.Row="13"
                            Grid.Column="0"
-                          x:Uid="Mouse"
                            Visibility="{x:Bind ViewModel.Mouse.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="13"
                            Grid.Column="2"
                            Text="{x:Bind ViewModel.Mouse.Value, Mode=OneWay}"
                            Visibility="{x:Bind ViewModel.Mouse.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
-                <TextBlock Grid.Row="14"
+                <TextBlock x:Uid="Printer"
+                           Grid.Row="14"
                            Grid.Column="0"
-                           x:Uid="Printer"
                            Visibility="{x:Bind ViewModel.Printer.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="14"
                            Grid.Column="2"
                            Text="{x:Bind ViewModel.Printer.Value, Mode=OneWay}"
                            Visibility="{x:Bind ViewModel.Printer.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
-                <TextBlock Grid.Row="15"
+                <TextBlock x:Uid="Desktop"
+                           Grid.Row="15"
                            Grid.Column="0"
-                           x:Uid="Desktop"
                            Visibility="{x:Bind ViewModel.Desktop.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="15"
                            Grid.Column="2"
                            Text="{x:Bind ViewModel.Desktop.Value, Mode=OneWay}"
                            Visibility="{x:Bind ViewModel.Desktop.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
-                <TextBlock Grid.Row="16"
+                <TextBlock x:Uid="Bgm"
+                           Grid.Row="16"
                            Grid.Column="0"
-                           x:Uid="Bgm"
                            Visibility="{x:Bind ViewModel.Bgm.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="16"
                            Grid.Column="2"
                            Text="{x:Bind ViewModel.Bgm.Value, Mode=OneWay}"
                            Visibility="{x:Bind ViewModel.Bgm.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
-                <TextBlock Grid.Row="17"
+                <TextBlock x:Uid="Table"
+                           Grid.Row="17"
                            Grid.Column="0"
-                           x:Uid="Table"
                            Visibility="{x:Bind ViewModel.Table.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="17"
                            Grid.Column="2"
                            Text="{x:Bind ViewModel.Table.Value, Mode=OneWay}"
                            Visibility="{x:Bind ViewModel.Table.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
-                <TextBlock Grid.Row="18"
+                <TextBlock x:Uid="Chair"
+                           Grid.Row="18"
                            Grid.Column="0"
-                           x:Uid="Chair"
                            Visibility="{x:Bind ViewModel.Chair.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="18"
                            Grid.Column="2"
                            Text="{x:Bind ViewModel.Chair.Value, Mode=OneWay}"
                            Visibility="{x:Bind ViewModel.Chair.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
-                <TextBlock Grid.Row="19"
+                <TextBlock x:Uid="Other"
+                           Grid.Row="19"
                            Grid.Column="0"
-                           x:Uid="Other"
                            Visibility="{x:Bind ViewModel.Other.Value, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
                 <TextBlock Grid.Row="19"
                            Grid.Column="2"

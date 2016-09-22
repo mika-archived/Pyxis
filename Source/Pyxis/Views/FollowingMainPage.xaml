@@ -13,38 +13,34 @@
       prism:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d">
     <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Pivot SelectedIndex="{x:Bind ViewModel.SelectedIndex, Mode=OneWay}"
-               Style="{StaticResource TabsStylePivotStyle}">
+        <Pivot SelectedIndex="{x:Bind ViewModel.SelectedIndex, Mode=OneWay}" Style="{StaticResource TabsStylePivotStyle}">
             <interactivity:Interaction.Behaviors>
                 <behaviors:AttachNavigationToPivotBehavior NavigationService="{x:Bind ViewModel.NavigationService}" />
             </interactivity:Interaction.Behaviors>
-            <PivotItem attach:NavigateTo.PageToken="FollowingMain"
-                       attach:NavigateTo.Parameters="{}{&quot;Restrict&quot;:1}">
+            <PivotItem attach:NavigateTo.PageToken="FollowingMain" attach:NavigateTo.Parameters="{}{&quot;Restrict&quot;:1}">
                 <PivotItem.Header>
-                    <TextBlock Width="80"
-                               Style="{StaticResource TabsStyleTextBlockStyle}"
-                               Text="公開" />
+                    <TextBlock x:Uid="Public"
+                               Width="80"
+                               Style="{StaticResource TabsStyleTextBlockStyle}" />
                 </PivotItem.Header>
             </PivotItem>
-            <PivotItem attach:NavigateTo.PageToken="FollowingMain"
-                       attach:NavigateTo.Parameters="{}{&quot;Restrict&quot;:2}">
+            <PivotItem attach:NavigateTo.PageToken="FollowingMain" attach:NavigateTo.Parameters="{}{&quot;Restrict&quot;:2}">
                 <PivotItem.Header>
-                    <TextBlock Width="80"
-                               Style="{StaticResource TabsStyleTextBlockStyle}"
-                               Text="非公開" />
+                    <TextBlock x:Uid="Private"
+                               Width="80"
+                               Style="{StaticResource TabsStyleTextBlockStyle}" />
                 </PivotItem.Header>
             </PivotItem>
         </Pivot>
         <ListView ItemsSource="{x:Bind ViewModel.FollowingUsers}">
             <interactivity:Interaction.Behaviors>
-                <behaviors:AdjustControlSizeBehavior HeightOffset="-96"
-                                                     IsSyncHeight="True" />
+                <behaviors:AdjustControlSizeBehavior HeightOffset="-96" IsSyncHeight="True" />
                 <behaviors:ListBoxEmptyBehavior Target="{x:Bind NotFoundFollowingMes}" />
             </interactivity:Interaction.Behaviors>
             <ListView.Header>
-                <TextBlock x:Name="NotFoundFollowingMes"
-                           Style="{ThemeResource NfMessageTextBlockStyle}"
-                           Text="フォローしているユーザーはいません。" />
+                <TextBlock x:Uid="NoFollow"
+                           x:Name="NotFoundFollowingMes"
+                           Style="{ThemeResource NfMessageTextBlockStyle}" />
             </ListView.Header>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">

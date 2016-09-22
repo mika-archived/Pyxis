@@ -21,7 +21,7 @@
             <ListView.Header>
                 <TextBlock x:Name="NotFoundMypixivMes"
                            Style="{ThemeResource NfMessageTextBlockStyle}"
-                           Text="マイピク登録したユーザーはいません。" />
+                          x:Uid="NoMypixiv" />
             </ListView.Header>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">

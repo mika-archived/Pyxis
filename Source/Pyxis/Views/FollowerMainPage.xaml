@@ -14,14 +14,13 @@
     <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <ListView ItemsSource="{x:Bind ViewModel.FollowerUsers}">
             <interactivity:Interaction.Behaviors>
-                <behaviors:AdjustControlSizeBehavior HeightOffset="-48"
-                                                     IsSyncHeight="True" />
+                <behaviors:AdjustControlSizeBehavior HeightOffset="-48" IsSyncHeight="True" />
                 <behaviors:ListBoxEmptyBehavior Target="{x:Bind NotFoundFollowersMes}" />
             </interactivity:Interaction.Behaviors>
             <ListView.Header>
-                <TextBlock x:Name="NotFoundFollowersMes"
-                           Style="{ThemeResource NfMessageTextBlockStyle}"
-                           Text="フォロワーはいません。" />
+                <TextBlock x:Uid="NoFollower"
+                           x:Name="NotFoundFollowersMes"
+                           Style="{ThemeResource NfMessageTextBlockStyle}" />
             </ListView.Header>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">

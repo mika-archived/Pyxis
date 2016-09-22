@@ -159,9 +159,9 @@
         </Border>
         <StackPanel>
             <TextBlock x:Uid="Comment" Style="{ThemeResource SubtitleTextBlockStyle}" />
-            <TextBlock x:Name="CommentNotPostedMes"
-                       Style="{ThemeResource NfMessageTextBlockStyle}"
-                       Text="コメントはありません 。" />
+            <TextBlock x:Uid="NoComment"
+                       x:Name="CommentNotPostedMes"
+                       Style="{ThemeResource NfMessageTextBlockStyle}" />
             <ItemsControl ItemsSource="{x:Bind ViewModel.Comments}">
                 <i:Interaction.Behaviors>
                     <behaviors:ListBoxEmptyBehavior Target="{x:Bind CommentNotPostedMes}" />

@@ -9,25 +9,22 @@
       prism:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d">
     <Page.Resources>
-        <Style BasedOn="{StaticResource BodyTextBlockStyle}"
-               TargetType="TextBlock" />
+        <Style BasedOn="{StaticResource BodyTextBlockStyle}" TargetType="TextBlock" />
     </Page.Resources>
     <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
         <StackPanel Visibility="{x:Bind ViewModel.IsLoggedIn, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
             <TextBlock>
-                <Run Text="現在ログイン中のアカウント：" />
+                <Run x:Uid="LoggedIn" />
                 <Run Text="{x:Bind ViewModel.Username, Mode=OneWay}" />
             </TextBlock>
-            <Button Margin="0,10"
-                    Command="{x:Bind ViewModel.LogoutCommand}"
-                    Content="ログアウト" />
+            <Button x:Uid="Logout"
+                    Margin="0,10"
+                    Command="{x:Bind ViewModel.LogoutCommand}" />
         </StackPanel>
         <StackPanel Visibility="{x:Bind ViewModel.IsLoggedIn, Mode=OneWay, Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
-            <TextBlock HorizontalAlignment="Center"
-                       Text="非ログイン状態のため、実行可能な操作はありません。" />
-            <TextBlock HorizontalAlignment="Center"
-                       Text="操作を行うには、ログインしてください。" />
+            <TextBlock x:Uid="NotLoggedIn1" HorizontalAlignment="Center" />
+            <TextBlock x:Uid="NotLoggedIn2" HorizontalAlignment="Center" />
         </StackPanel>
     </StackPanel>
 </Page>

@@ -18,15 +18,15 @@ namespace Pyxis.ViewModels.Settings
     {
         public SettingsGeneralViewModel()
         {
-            CacheSize = "計算中...";
-            FileCount = "計算中...";
+            CacheSize = Resources.GetString("Calculating/Text");
+            FileCount = Resources.GetString("Calculating/Text");
             RunHelper.RunLaterUIAsync(Load, TimeSpan.FromMilliseconds(100));
         }
 
         // よくない
         public void ClearCache()
         {
-            FileCount = "0個の項目";
+            FileCount = Resources.GetString("ZeroItems/Text");
             CacheSize = ((ulong) 0).GetSizeString();
             IsEnabled = false;
             Task.Run(async () =>
@@ -66,7 +66,7 @@ namespace Pyxis.ViewModels.Settings
                 size += w.Item2;
             });
             CacheSize = size.GetSizeString();
-            FileCount = $"{count}個";
+            FileCount = string.Format(Resources.GetString("Items/Text"), count);
             if (count > 0)
                 IsEnabled = true;
         }

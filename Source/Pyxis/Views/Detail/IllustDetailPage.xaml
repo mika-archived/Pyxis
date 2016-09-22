@@ -189,9 +189,9 @@
                     <Border>
                         <StackPanel>
                             <TextBlock x:Uid="Comment" Style="{ThemeResource SubtitleTextBlockStyle}" />
-                            <TextBlock x:Name="CommentNotPostedMes"
-                                       Style="{ThemeResource NfMessageTextBlockStyle}"
-                                       Text="コメントはありません。" />
+                            <TextBlock x:Uid="NoComment"
+                                       x:Name="CommentNotPostedMes"
+                                       Style="{ThemeResource NfMessageTextBlockStyle}" />
                             <ItemsControl HorizontalContentAlignment="Stretch" ItemsSource="{x:Bind ViewModel.Comments}">
                                 <i:Interaction.Behaviors>
                                     <behaviors:ListBoxEmptyBehavior Target="{x:Bind CommentNotPostedMes}" />
@@ -210,12 +210,12 @@
                             <!--  もっとみる。  -->
                         </StackPanel>
                     </Border>
-                    <TextBlock Margin="5,0"
-                               Style="{ThemeResource SubtitleTextBlockStyle}"
-                               Text="関連作品" />
-                    <TextBlock x:Name="NotFoundRelatedItems"
-                               Style="{ThemeResource NfMessageTextBlockStyle}"
-                               Text="関連作品はありません。" />
+                    <TextBlock x:Uid="Related"
+                               Margin="5,0"
+                               Style="{ThemeResource SubtitleTextBlockStyle}" />
+                    <TextBlock x:Uid="NoRelated"
+                               x:Name="NotFoundRelatedItems"
+                               Style="{ThemeResource NfMessageTextBlockStyle}" />
                 </StackPanel>
             </GridView.Header>
             <GridView.ItemsPanel>

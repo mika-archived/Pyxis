@@ -48,13 +48,15 @@
             </GridView.ItemsPanel>
             <GridView.Header>
                 <StackPanel x:Name="NotFoundFavoriteItemsMes" Orientation="Vertical">
-                    <TextBlock Style="{ThemeResource NfMessageTextBlockStyle}" Text="閲覧した作品がありません。" />
-                    <TextBlock Margin="10,0"
+                    <TextBlock x:Uid="NoItem" Style="{ThemeResource NfMessageTextBlockStyle}" />
+                    <TextBlock x:Uid="HistoryAt1"
+                               Margin="10,0"
                                Style="{ThemeResource NfMessageTextBlockStyle}"
-                               Text="作品を閲覧したのに表示されない場合は、" />
-                    <TextBlock Margin="10,0,10,10"
+                               Text="" />
+                    <TextBlock x:Uid="HistoryAt2"
+                               Margin="10,0,10,10"
                                Style="{ThemeResource NfMessageTextBlockStyle}"
-                               Text="何枚か作品を閲覧した後に、再度ページを開いてください。" />
+                               Text="" />
                 </StackPanel>
             </GridView.Header>
             <GridView.ItemTemplate>

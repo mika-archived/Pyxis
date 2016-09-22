@@ -219,10 +219,10 @@
                             </PivotItem.Header>
                         </PivotItem>
                     </Pivot>
-                    <TextBlock x:Name="NotFoundItemsMes"
+                    <TextBlock x:Uid="NoItem"
+                               x:Name="NotFoundItemsMes"
                                Grid.Row="3"
-                               Style="{ThemeResource NfMessageTextBlockStyle}"
-                               Text="アイテムはありません。" />
+                               Style="{ThemeResource NfMessageTextBlockStyle}" />
                 </Grid>
             </GridView.Header>
             <GridView.ItemTemplate>

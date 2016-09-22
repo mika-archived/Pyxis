@@ -58,9 +58,9 @@
                 </ItemsPanelTemplate>
             </GridView.ItemsPanel>
             <GridView.Header>
-                <TextBlock x:Name="NotFoundFavoriteItemsMes"
-                           Style="{ThemeResource NfMessageTextBlockStyle}"
-                           Text="お気に入り登録した作品はありません。" />
+                <TextBlock x:Uid="NoFavorite"
+                           x:Name="NotFoundFavoriteItemsMes"
+                           Style="{ThemeResource NfMessageTextBlockStyle}" />
             </GridView.Header>
             <GridView.ItemTemplate>
                 <DataTemplate>

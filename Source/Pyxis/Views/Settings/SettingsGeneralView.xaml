@@ -9,21 +9,16 @@
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d">
     <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock Text="画像キャッシュ" />
-        <TextBlock Style="{ThemeResource CaptionTextBlockStyle}"
-                   Text="キャッシュを削除すると、画像の表示まで時間がかかる場合があります。" />
-        <TextBlock Style="{ThemeResource CaptionTextBlockStyle}"
-                   Text="キャッシュの項目数が多い場合、クリア完了までに時間がかかることがあります。" />
-        <StackPanel Margin="0,5"
-                    Orientation="Horizontal">
+        <TextBlock x:Uid="Cache" />
+        <TextBlock x:Uid="CacheCleared1" Style="{ThemeResource CaptionTextBlockStyle}" />
+        <StackPanel Margin="0,5" Orientation="Horizontal">
             <TextBlock Text="{x:Bind ViewModel.FileCount, Mode=OneWay}" />
-            <TextBlock Margin="5,0"
-                       Text="/" />
+            <TextBlock Margin="5,0" Text="/" />
             <TextBlock Text="{x:Bind ViewModel.CacheSize, Mode=OneWay}" />
         </StackPanel>
 
-        <Button Margin="0,10,0,0"
-                Content="キャッシュをクリア"
+        <Button x:Uid="ClearCache"
+                Margin="0,10,0,0"
                 IsEnabled="{x:Bind ViewModel.IsEnabled, Mode=OneWay}"
                 Tapped="{x:Bind ViewModel.ClearCache}" />
     </StackPanel>

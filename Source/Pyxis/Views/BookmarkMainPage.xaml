@@ -1,5 +1,5 @@
-﻿<!-- ReSharper disable UnusedMember.Local -->
-<!-- ReSharper disable NotAccessedField.Local -->
+﻿<!--  ReSharper disable UnusedMember.Local  -->
+<!--  ReSharper disable NotAccessedField.Local  -->
 <Page x:Class="Pyxis.Views.BookmarkMainPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -15,17 +15,14 @@
       prism:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d">
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <GridView x:Name="BookmarkItems"
-                  ItemsSource="{x:Bind ViewModel.BookmarkItems}">
+        <GridView x:Name="BookmarkItems" ItemsSource="{x:Bind ViewModel.BookmarkItems}">
             <i:Interaction.Behaviors>
-                <behaviors:AdjustControlSizeBehavior HeightOffset="-48"
-                                                     IsSyncHeight="True" />
+                <behaviors:AdjustControlSizeBehavior HeightOffset="-48" IsSyncHeight="True" />
                 <behaviors:ListBoxEmptyBehavior Target="{x:Bind NotFoundBookmarkItemsMes}" />
             </i:Interaction.Behaviors>
             <GridView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <ItemsWrapGrid attach:AssumSize.AssumSize="(0,100),(500,150),(1025,200)"
-                                   Orientation="Horizontal">
+                    <ItemsWrapGrid attach:AssumSize.AssumSize="(0,100),(500,150),(1025,200)" Orientation="Horizontal">
                         <i:Interaction.Behaviors>
                             <behaviors:GridViewEuqalitySizeBehavior />
                         </i:Interaction.Behaviors>
@@ -33,9 +30,9 @@
                 </ItemsPanelTemplate>
             </GridView.ItemsPanel>
             <GridView.Header>
-                <TextBlock x:Name="NotFoundBookmarkItemsMes"
-                           Style="{ThemeResource NfMessageTextBlockStyle}"
-                           Text="ブックマークした小説はありません。" />
+                <TextBlock x:Uid="NoNovel"
+                           x:Name="NotFoundBookmarkItemsMes"
+                           Style="{ThemeResource NfMessageTextBlockStyle}" />
             </GridView.Header>
             <GridView.ItemTemplate>
                 <DataTemplate>
