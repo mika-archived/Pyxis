@@ -409,10 +409,10 @@
     <value>There are no posted works.</value>
   </data>
   <data name="NotLoggedIn1.Text" xml:space="preserve">
-    <value>You don't log in to pixiv, so you cannot be performed.</value>
+    <value>You don't login to pixiv, so you cannot be performed.</value>
   </data>
   <data name="NotLoggedIn2.Text" xml:space="preserve">
-    <value>Please log in to pixiv.</value>
+    <value>Please login to pixiv.</value>
   </data>
   <data name="Privacy.Text" xml:space="preserve">
     <value>Privacy policy</value>
@@ -428,5 +428,68 @@
   </data>
   <data name="ZeroItems.Text" xml:space="preserve">
     <value>0 items.</value>
+  </data>
+  <data name="Error1.Text" xml:space="preserve">
+    <value>Please register for/login to pixiv.</value>
+  </data>
+  <data name="NoNew.Text" xml:space="preserve">
+    <value>There are no new posts.</value>
+  </data>
+  <data name="NoSearchResult.Text" xml:space="preserve">
+    <value>No search results found.</value>
+  </data>
+  <data name="Register.Text" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="AllTime.Content" xml:space="preserve">
+    <value>All time</value>
+  </data>
+  <data name="Body.Content" xml:space="preserve">
+    <value>Body</value>
+  </data>
+  <data name="Duration.Text" xml:space="preserve">
+    <value>Duration</value>
+  </data>
+  <data name="Error2.Text" xml:space="preserve">
+    <value>You need to register for pixiv premium on browser to enable this feature,</value>
+  </data>
+  <data name="Error3.Text" xml:space="preserve">
+    <value>then restart app.</value>
+  </data>
+  <data name="Error4.Text" xml:space="preserve">
+    <value>Please check your ID and password.</value>
+  </data>
+  <data name="ExactMatch.Content" xml:space="preserve">
+    <value>Exact match</value>
+  </data>
+  <data name="Keyword.Content" xml:space="preserve">
+    <value>Keyword</value>
+  </data>
+  <data name="LastDay.Content" xml:space="preserve">
+    <value>w/in last day</value>
+  </data>
+  <data name="LastMonth.Content" xml:space="preserve">
+    <value>w/in last month</value>
+  </data>
+  <data name="LastWeek.Content" xml:space="preserve">
+    <value>w/in last week</value>
+  </data>
+  <data name="LoginFail.Text" xml:space="preserve">
+    <value>Login failed.</value>
+  </data>
+  <data name="NeedPremium.Text" xml:space="preserve">
+    <value>You need to register for pixiv premium!</value>
+  </data>
+  <data name="PartialMatch.Content" xml:space="preserve">
+    <value>Partial match</value>
+  </data>
+  <data name="Read.Content" xml:space="preserve">
+    <value>Read novel.</value>
+  </data>
+  <data name="SearchTarget.Text" xml:space="preserve">
+    <value>Search target</value>
+  </data>
+  <data name="TitleCaption.Content" xml:space="preserve">
+    <value>Title / Caption</value>
   </data>
 </root>

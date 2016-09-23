@@ -429,4 +429,67 @@
   <data name="ZeroItems.Text" xml:space="preserve">
     <value>0個の項目</value>
   </data>
+  <data name="Error1.Text" xml:space="preserve">
+    <value>pixiv に登録もしくはログインしてください！</value>
+  </data>
+  <data name="NoNew.Text" xml:space="preserve">
+    <value>新しい投稿はありません。</value>
+  </data>
+  <data name="NoSearchResult.Text" xml:space="preserve">
+    <value>検索結果はありません。</value>
+  </data>
+  <data name="Register.Text" xml:space="preserve">
+    <value>登録</value>
+  </data>
+  <data name="AllTime.Content" xml:space="preserve">
+    <value>指定しない</value>
+  </data>
+  <data name="Body.Content" xml:space="preserve">
+    <value>本文</value>
+  </data>
+  <data name="Duration.Text" xml:space="preserve">
+    <value>期間</value>
+  </data>
+  <data name="Error2.Text" xml:space="preserve">
+    <value>この機能を有効にするには、ブラウザから pixiv プレミアムに登録し、</value>
+  </data>
+  <data name="Error3.Text" xml:space="preserve">
+    <value>アプリを再起動する必要があります。</value>
+  </data>
+  <data name="Error4.Text" xml:space="preserve">
+    <value>ID とパスワードを確認してください。</value>
+  </data>
+  <data name="ExactMatch.Content" xml:space="preserve">
+    <value>完全一致</value>
+  </data>
+  <data name="Keyword.Content" xml:space="preserve">
+    <value>キーワード</value>
+  </data>
+  <data name="LastDay.Content" xml:space="preserve">
+    <value>最近１日</value>
+  </data>
+  <data name="LastMonth.Content" xml:space="preserve">
+    <value>最近１ヶ月</value>
+  </data>
+  <data name="LastWeek.Content" xml:space="preserve">
+    <value>最近１週間</value>
+  </data>
+  <data name="LoginFail.Text" xml:space="preserve">
+    <value>ログインに失敗しました。</value>
+  </data>
+  <data name="NeedPremium.Text" xml:space="preserve">
+    <value>pixiv プレミアムに登録する必要があります！</value>
+  </data>
+  <data name="PartialMatch.Content" xml:space="preserve">
+    <value>部分一致</value>
+  </data>
+  <data name="Read.Content" xml:space="preserve">
+    <value>小説を読む</value>
+  </data>
+  <data name="SearchTarget.Text" xml:space="preserve">
+    <value>検索対象</value>
+  </data>
+  <data name="TitleCaption.Content" xml:space="preserve">
+    <value>ﾀｲﾄﾙ・ｷｬﾌﾟｼｮﾝ</value>
+  </data>
 </root>

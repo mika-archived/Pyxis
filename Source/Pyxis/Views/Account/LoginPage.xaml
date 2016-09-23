@@ -38,9 +38,9 @@
                        Foreground="Red"
                        Style="{ThemeResource SubtitleTextBlockStyle}"
                        Visibility="{x:Bind ViewModel.IsLoginFailure, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
-                <Run>ログインに失敗しました。</Run>
+                <Run x:Uid="LoginFail" />
                 <LineBreak />
-                <Run>メールアドレスとパスワードを確認してください。</Run>
+                <Run x:Uid="Error4" />
             </TextBlock>
 
             <Button Width="250"

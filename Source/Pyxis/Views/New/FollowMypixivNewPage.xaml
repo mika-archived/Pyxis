@@ -54,19 +54,19 @@
                                    Foreground="PaleGoldenrod"
                                    Style="{ThemeResource HeaderTextBlockStyle}"
                                    Text="&#xE946;" />
-                        <TextBlock Margin="5"
+                        <TextBlock x:Uid="Error1"
+                                   Margin="5"
                                    HorizontalAlignment="Center"
                                    Foreground="White"
-                                   Style="{ThemeResource SubtitleTextBlockStyle}"
-                                   Text="pixiv に登録もしくはログインしてください！" />
+                                   Style="{ThemeResource SubtitleTextBlockStyle}" />
 
                         <Button Width="200"
                                 Margin="10"
                                 HorizontalAlignment="Center"
                                 Tapped="{x:Bind ViewModel.OnRegisterButtonTapped}">
-                            <TextBlock Foreground="White"
-                                       Style="{ThemeResource SubtitleTextBlockStyle}"
-                                       Text="登録" />
+                            <TextBlock x:Uid="Register"
+                                       Foreground="White"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}" />
                         </Button>
 
                         <Button Width="200"
@@ -139,10 +139,10 @@
                                     </PivotItem.Header>
                                 </PivotItem>
                             </Pivot>
-                            <TextBlock x:Name="NotFoundItemsMes"
+                            <TextBlock x:Uid="NoNew"
+                                       x:Name="NotFoundItemsMes"
                                        Grid.Row="1"
-                                       Style="{ThemeResource NfMessageTextBlockStyle}"
-                                       Text="新着投稿はありません。" />
+                                       Style="{ThemeResource NfMessageTextBlockStyle}" />
                         </Grid>
                     </GridView.Header>
                     <GridView.ItemTemplate>

@@ -35,9 +35,9 @@
                            HorizontalAlignment="Center"
                            Foreground="Silver"
                            Text="{x:Bind ViewModel.TextLength, Mode=OneWay}" />
-                <Button Margin="0,5,0,10"
+                <Button x:Uid="Read"
+                        Margin="0,5,0,10"
                         HorizontalAlignment="Center"
-                        Content="小説を読む"
                         Tapped="{x:Bind ViewModel.OnTappedButton}" />
             </StackPanel>
         </Border>

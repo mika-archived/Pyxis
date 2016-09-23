@@ -21,15 +21,15 @@
             <TextBlock Margin="5"
                        Foreground="White"
                        Style="{ThemeResource SubtitleTextBlockStyle}"
-                       Text="pixiv に登録もしくはログインしてください！" />
+                       x:Uid="Error1" />
 
             <Button Width="200"
                     Margin="10"
                     HorizontalAlignment="Center"
                     Tapped="{x:Bind ViewModel.OnRegisterButtonTapped}">
-                <TextBlock Foreground="White"
-                           Style="{ThemeResource SubtitleTextBlockStyle}"
-                           Text="登録" />
+                <TextBlock x:Uid="Register"
+                           Foreground="White"
+                           Style="{ThemeResource SubtitleTextBlockStyle}" />
             </Button>
 
             <Button Width="200"

@@ -61,9 +61,9 @@
                 <behaviors:ListBoxEmptyBehavior Target="{x:Bind NotFoundSearchQueryMes}" />
             </interactivity:Interaction.Behaviors>
             <ListView.Header>
-                <TextBlock x:Name="NotFoundSearchQueryMes"
-                           Style="{ThemeResource NfMessageTextBlockStyle}"
-                           Text="検索結果はありません。" />
+                <TextBlock x:Uid="NoSearchResult"
+                           x:Name="NotFoundSearchQueryMes"
+                           Style="{ThemeResource NfMessageTextBlockStyle}" />
             </ListView.Header>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">

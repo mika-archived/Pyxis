@@ -93,10 +93,10 @@
                                 </PivotItem.Header>
                             </PivotItem>
                         </Pivot>
-                        <TextBlock x:Name="NotFoundItemsMes"
+                        <TextBlock x:Uid="NoNew"
+                                   x:Name="NotFoundItemsMes"
                                    Grid.Row="1"
-                                   Style="{ThemeResource NfMessageTextBlockStyle}"
-                                   Text="新着投稿はありません。" />
+                                   Style="{ThemeResource NfMessageTextBlockStyle}" />
                     </Grid>
                 </GridView.Header>
                 <GridView.ItemTemplate>
