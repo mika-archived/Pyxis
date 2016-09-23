@@ -11,6 +11,7 @@ using Microsoft.Practices.ObjectBuilder2;
 
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest;
+using Pyxis.Helpers;
 using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
 
@@ -38,9 +39,8 @@ namespace Pyxis.Models
             HasMoreItems = false;
         }
 
-        public void Search(string query, SearchOptionParameter optionParameter)
+        public void Search(string query, SearchOptionParameter optionParameter, bool force = false)
         {
-            var flag = ResultIllusts.Count == 0 && ResultNovels.Count == 0 && ResultUsers.Count == 0;
             ResultIllusts.Clear();
             ResultNovels.Clear();
             ResultUsers.Clear();
@@ -53,14 +53,14 @@ namespace Pyxis.Models
                 _query += " " + string.Join(" ", _optionParam.IgnoreWord.Split(' ').Select(w => $"--{w}"));
 #if !OFFLINE
             HasMoreItems = true;
-            //if (flag)
-            //    RunHelper.RunAsync(SearchAsync);
+            if (force)
+                RunHelper.RunAsync(SearchAsync);
 #endif
         }
 
         private async Task SearchAsync()
         {
-            if (_optionParam == null || string.IsNullOrWhiteSpace(_query))
+            if ((_optionParam == null) || string.IsNullOrWhiteSpace(_query))
             {
                 HasMoreItems = false;
                 return;
@@ -88,13 +88,13 @@ namespace Pyxis.Models
                     .Where(w => w.TotalView >= _optionParam.ViewCount)
                     .Where(w => w.TotalComments >= _optionParam.CommentCount)
                     .Where(w => w.PageCount >= _optionParam.CommentCount)
-                    .Where(w => w.Height >= _optionParam.Height && w.Width >= _optionParam.Width)
+                    .Where(w => (w.Height >= _optionParam.Height) && (w.Width >= _optionParam.Width))
                     .Where(w => string.IsNullOrWhiteSpace(_optionParam.Tool) || w.Tools.Any(v => v == _optionParam.Tool))
                     .ForEach(w => ResultIllusts.Add(w));
             if (string.IsNullOrWhiteSpace(illusts?.NextUrl))
                 HasMoreItems = false;
             else
-                _offset = UrlParameter.ParseQuery(illusts.NextUrl)["offset"];
+                _offset = UrlParameter.ParseQuery(illusts.NextUrl)["offset"] ?? null;
         }
 
         [SuppressMessage("ReSharper", "InconsistentNaming")]
