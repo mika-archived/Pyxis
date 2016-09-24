@@ -14,7 +14,7 @@ using WinRTXamlToolkit.IO.Extensions;
 
 namespace Pyxis.ViewModels.Settings
 {
-    public class SettingsGeneralViewModel : ViewModel
+    public class SettingsGeneralViewModel : ResourceViewModel
     {
         public SettingsGeneralViewModel()
         {

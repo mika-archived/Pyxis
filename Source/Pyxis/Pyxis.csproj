@@ -216,6 +216,7 @@
     <Compile Include="ViewModels\AccountInfoControlViewModel.cs" />
     <Compile Include="ViewModels\Account\LoginPageViewModel.cs" />
     <Compile Include="ViewModels\Base\DialogViewModel.cs" />
+    <Compile Include="ViewModels\Base\ResourceViewModel.cs" />
     <Compile Include="ViewModels\Base\TappableThumbnailViewModel.cs" />
     <Compile Include="ViewModels\Base\ThumbnailableViewModel.cs" />
     <Compile Include="ViewModels\BookmarkMainPageViewModel.cs" />
