@@ -20,6 +20,7 @@ namespace Pyxis.Models
     internal class PixivSearch : ISupportIncrementalLoading
     {
         private readonly IPixivClient _pixivClient;
+        private int _count;
         private string _offset;
         private SearchOptionParameter _optionParam;
 
@@ -36,6 +37,7 @@ namespace Pyxis.Models
             ResultNovels = new ObservableCollection<INovel>();
             ResultUsers = new ObservableCollection<IUserPreview>();
             _offset = "";
+            _count = 0;
             HasMoreItems = false;
         }
 
@@ -46,6 +48,7 @@ namespace Pyxis.Models
             ResultUsers.Clear();
             _query = query;
             _offset = "";
+            _count = 0;
             _optionParam = optionParameter;
             if (!string.IsNullOrWhiteSpace(_optionParam.EitherWord))
                 _query += " " + string.Join(" ", _optionParam.EitherWord.Split(' ').Select(w => $"({w})"));
@@ -65,6 +68,9 @@ namespace Pyxis.Models
                 HasMoreItems = false;
                 return;
             }
+            if ((_count > 0) && string.IsNullOrWhiteSpace(_offset))
+                _offset = "30"; // クソ
+            _count++;
             if (_optionParam.SearchType == SearchType.IllustsAndManga)
                 await SearchIllust();
             else if (_optionParam.SearchType == SearchType.Novels)
