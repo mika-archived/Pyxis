@@ -100,7 +100,7 @@ namespace Pyxis.Models
             if (string.IsNullOrWhiteSpace(illusts?.NextUrl))
                 HasMoreItems = false;
             else
-                _offset = UrlParameter.ParseQuery(illusts.NextUrl)["offset"] ?? null;
+                _offset = UrlParameter.ParseQuery(illusts.NextUrl)["offset"];
         }
 
         [SuppressMessage("ReSharper", "InconsistentNaming")]
