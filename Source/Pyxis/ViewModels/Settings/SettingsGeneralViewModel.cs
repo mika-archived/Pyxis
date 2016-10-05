@@ -36,7 +36,8 @@ namespace Pyxis.ViewModels.Settings
                 {
                     await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("original"),
                     await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("thumbnails"),
-                    await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("users")
+                    await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("users"),
+                    await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("background")
                 }.Where(w => w != null).Select(async w => await w.DeleteAsync());
                 await Task.WhenAll(tasks);
             }).ContinueWith(async w => await Load());
@@ -51,7 +52,8 @@ namespace Pyxis.ViewModels.Settings
             {
                 await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("original"),
                 await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("thumbnails"),
-                await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("users")
+                await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("users"),
+                await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("background")
             }.Where(w => w != null).Select(async w =>
             {
                 var s = 0UL;

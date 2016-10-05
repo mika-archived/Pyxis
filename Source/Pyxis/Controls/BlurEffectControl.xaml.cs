@@ -41,7 +41,7 @@ namespace Pyxis.Controls
                 {
                     Name = "Blur",
                     Source = new CompositionEffectSourceParameter("Backdrop"),
-                    BlurAmount = 10,
+                    BlurAmount = 2,
                     BorderMode = EffectBorderMode.Hard
                 }
             };

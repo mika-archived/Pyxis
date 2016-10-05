@@ -25,7 +25,7 @@ using Reactive.Bindings.Extensions;
 
 namespace Pyxis.ViewModels.Detail
 {
-    public class UserDetailPageViewModel : ThumbnailableViewModel
+    public class UserDetailPageViewModel : MultipleThumbnailableViewModel
     {
         private readonly IAccountService _accountService;
         private readonly ICategoryService _categoryService;
@@ -105,6 +105,10 @@ namespace Pyxis.ViewModels.Detail
             {
                 _userDetail = w;
                 Thumbnailable = new PixivUserImage(w.User, _imageStoreService);
+                if (string.IsNullOrWhiteSpace(w.Profile.BackgroundImageUrl))
+                    Thumbnailable2 = new PixivUserImage(w.User, _imageStoreService);
+                else
+                    Thumbnailable2 = new PixivUrlImage(w.Profile.BackgroundImageUrl, _imageStoreService);
                 var param1 = new UserDetailParameter
                 {
                     Detail = w,

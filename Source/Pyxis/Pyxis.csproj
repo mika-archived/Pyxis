@@ -190,6 +190,7 @@
     <Compile Include="Models\PixivSearch.cs" />
     <Compile Include="Models\PixivTrending.cs" />
     <Compile Include="Models\PixivDetail.cs" />
+    <Compile Include="Models\PixivUrlImage.cs" />
     <Compile Include="Models\PixivUserImage.cs" />
     <Compile Include="Models\PixivWork.cs" />
     <Compile Include="Models\PyxisSchemeActivator.cs" />
@@ -216,6 +217,7 @@
     <Compile Include="ViewModels\AccountInfoControlViewModel.cs" />
     <Compile Include="ViewModels\Account\LoginPageViewModel.cs" />
     <Compile Include="ViewModels\Base\DialogViewModel.cs" />
+    <Compile Include="ViewModels\Base\MultipleThumbnailableViewModel.cs" />
     <Compile Include="ViewModels\Base\ResourceViewModel.cs" />
     <Compile Include="ViewModels\Base\TappableThumbnailViewModel.cs" />
     <Compile Include="ViewModels\Base\ThumbnailableViewModel.cs" />

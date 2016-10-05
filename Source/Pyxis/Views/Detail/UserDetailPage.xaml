@@ -72,7 +72,7 @@
             <Grid>
                 <controls:BlurEffectControl>
                     <Image VerticalAlignment="Center"
-                           Source="{x:Bind ViewModel.ThumbnailPath, Mode=OneWay}"
+                           Source="{x:Bind ViewModel.ThumbnailPath2, Mode=OneWay}"
                            Stretch="UniformToFill" />
                 </controls:BlurEffectControl>
                 <Border Background="White" Opacity=".75" />
