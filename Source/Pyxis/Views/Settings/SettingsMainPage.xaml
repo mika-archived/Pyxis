@@ -29,6 +29,14 @@
             </PivotItem>
             <PivotItem>
                 <PivotItem.Header>
+                    <TextBlock x:Uid="Maintenance"
+                               Width="80"
+                               Style="{StaticResource TabsStyleTextBlockStyle}" />
+                </PivotItem.Header>
+                <local:SettingsMaintenanceView Margin="10" />
+            </PivotItem>
+            <PivotItem>
+                <PivotItem.Header>
                     <TextBlock x:Uid="About"
                                Width="80"
                                Style="{StaticResource TabsStyleTextBlockStyle}" />

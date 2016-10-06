@@ -492,4 +492,7 @@
   <data name="TitleCaption.Content" xml:space="preserve">
     <value>ﾀｲﾄﾙ・ｷｬﾌﾟｼｮﾝ</value>
   </data>
+  <data name="Maintenance.Text" xml:space="preserve">
+    <value>メンテナンス</value>
+  </data>
 </root>

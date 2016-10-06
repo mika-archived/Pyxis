@@ -492,4 +492,7 @@
   <data name="TitleCaption.Content" xml:space="preserve">
     <value>Title / Caption</value>
   </data>
+  <data name="Maintenance.Text" xml:space="preserve">
+    <value>Maintenance</value>
+  </data>
 </root>
