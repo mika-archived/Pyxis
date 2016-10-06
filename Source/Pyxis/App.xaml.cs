@@ -45,9 +45,6 @@ namespace Pyxis
                 e.Handled = true;
                 Application.Current.Exit();
             };
-
-            using (var db = new CacheContext())
-                db.Database.Migrate();
         }
 
         #region Overrides of PrismApplication
@@ -100,6 +97,12 @@ namespace Pyxis
 #if !OFFLINE
             await accountService.Login();
 #endif
+            using (var db = new CacheContext())
+            {
+                if (!db.IsCreated)
+                    await Container.Resolve<IImageStoreService>().ClearImagesAsync();
+                db.Database.Migrate();
+            }
             await base.OnInitializeAsync(args);
         }
 

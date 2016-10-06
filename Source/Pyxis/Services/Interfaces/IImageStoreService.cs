@@ -10,6 +10,8 @@ namespace Pyxis.Services.Interfaces
 
         Task<bool> ExistImageAsync(string url);
 
+        Task ClearImagesAsync();
+
         Task SaveToLocalFolderAsync(string url);
     }
 }

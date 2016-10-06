@@ -2,13 +2,11 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-using Windows.Storage;
-
 using Microsoft.Practices.ObjectBuilder2;
 
-using Pyxis.Extensions;
 using Pyxis.Helpers;
 using Pyxis.Models.Cache;
+using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
 
 using WinRTXamlToolkit.IO.Extensions;
@@ -17,8 +15,11 @@ namespace Pyxis.ViewModels.Settings
 {
     public class SettingsMaintenanceViewModel : ResourceViewModel
     {
-        public SettingsMaintenanceViewModel()
+        private readonly IImageStoreService _imageStoreService;
+
+        public SettingsMaintenanceViewModel(IImageStoreService imageStoreService)
         {
+            _imageStoreService = imageStoreService;
             CacheSize = Resources.GetString("Calculating/Text");
             FileCount = Resources.GetString("Calculating/Text");
             RunHelper.RunLaterUI(CalcCacheSize, TimeSpan.FromMilliseconds(100));
@@ -42,15 +43,7 @@ namespace Pyxis.ViewModels.Settings
             IsEnabled = false;
             Task.Run(async () =>
             {
-                var temporaryFolder = ApplicationData.Current.TemporaryFolder;
-                var tasks = new[]
-                {
-                    await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("original"),
-                    await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("thumbnails"),
-                    await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("users"),
-                    await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("background")
-                }.Where(w => w != null).Select(async w => await w.DeleteAsync());
-                await Task.WhenAll(tasks);
+                await _imageStoreService.ClearImagesAsync();
                 using (var db = new CacheContext())
                 {
                     // ReSharper disable once AccessToDisposedClosure

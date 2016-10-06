@@ -18,5 +18,17 @@ namespace Pyxis.Extensions
                 return null;
             }
         }
+
+        public static async Task<StorageFile> GetFileWhenNotFoundReturnNullAsync(this StorageFolder obj, string name)
+        {
+            try
+            {
+                return await obj.GetFileAsync(name);
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }

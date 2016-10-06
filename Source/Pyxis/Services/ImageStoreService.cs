@@ -8,6 +8,7 @@ using Windows.Storage;
 using Windows.Storage.Streams;
 
 using Pyxis.Beta.Interfaces.Rest;
+using Pyxis.Extensions;
 using Pyxis.Services.Interfaces;
 
 using WinRTXamlToolkit.IO.Extensions;
@@ -68,6 +69,20 @@ namespace Pyxis.Services
             {
                 return false;
             }
+        }
+
+        public async Task ClearImagesAsync()
+        {
+            var temporaryFolder = ApplicationData.Current.TemporaryFolder;
+            var tasks = new[]
+            {
+                await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("thumbnails"),
+                await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("original"),
+                await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("ugoira"),
+                await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("users"),
+                await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("background")
+            }.Where(w => w != null).Select(async w => await w.DeleteAsync());
+            await Task.WhenAll(tasks);
         }
 
         public async Task<string> LoadImageAsync(string url)
