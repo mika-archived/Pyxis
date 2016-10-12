@@ -1,38 +1,96 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
+using Pyxis.Models.Cache;
 using Pyxis.Services.Interfaces;
 
 namespace Pyxis.Services
 {
     internal class CacheService : ICacheService
     {
-        public void Create(string path)
+        public void Create(string path, long size)
         {
-            throw new NotImplementedException();
+            using (var context = new CacheContext())
+            {
+                try
+                {
+                    context.CacheFiles.Add(new CacheFile {Path = path, Size = size});
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                }
+            }
         }
 
-        public void Reference(string path)
+        public CacheFile Reference(string path)
         {
-            throw new NotImplementedException();
+            using (var context = new CacheContext())
+            {
+                try
+                {
+                    return context.CacheFiles.Single(w => w.Path == path);
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                }
+            }
+            return null;
         }
 
-        public void Update(string path)
+        public void Update(string path, long size)
         {
-            throw new NotImplementedException();
+            using (var context = new CacheContext())
+            {
+                try
+                {
+                    var file = context.CacheFiles.Single(w => w.Path == path);
+                    file.Size = size;
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                }
+            }
         }
 
         public void Delete(string path)
         {
-            throw new NotImplementedException();
+            using (var context = new CacheContext())
+            {
+                try
+                {
+                    var file = context.CacheFiles.Single(w => w.Path == path);
+                    context.CacheFiles.Remove(file);
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                }
+            }
         }
 
         public void Clear()
         {
-            throw new NotImplementedException();
+            using (var context = new CacheContext())
+            {
+                try
+                {
+                    var files = context.CacheFiles.ToList();
+                    foreach (var file in files)
+                        context.CacheFiles.Remove(file);
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                }
+            }
         }
     }
 }

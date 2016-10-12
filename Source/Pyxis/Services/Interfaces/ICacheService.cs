@@ -1,12 +1,14 @@
-﻿namespace Pyxis.Services.Interfaces
+﻿using Pyxis.Models.Cache;
+
+namespace Pyxis.Services.Interfaces
 {
     public interface ICacheService
     {
-        void Create(string path);
+        void Create(string path, long size);
 
-        void Reference(string path);
+        CacheFile Reference(string path);
 
-        void Update(string path);
+        void Update(string path, long size);
 
         void Delete(string path);
 

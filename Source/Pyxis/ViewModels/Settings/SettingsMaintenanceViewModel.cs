@@ -38,8 +38,6 @@ namespace Pyxis.ViewModels.Settings
 
         public void ClearCache()
         {
-            FileCount = Resources.GetString("ZeroItems/Text");
-            CacheSize = ((ulong) 0).GetSizeString();
             IsEnabled = false;
             Task.Run(async () =>
             {
@@ -50,7 +48,7 @@ namespace Pyxis.ViewModels.Settings
                     db.CacheFiles.ForEach(w => db.CacheFiles.Remove(w));
                     db.SaveChanges();
                 }
-            }).ContinueWith(w => CalcCacheSize());
+            }).ContinueWith(w => RunHelper.RunLaterUI(CalcCacheSize, TimeSpan.Zero));
         }
 
         #region FileCount

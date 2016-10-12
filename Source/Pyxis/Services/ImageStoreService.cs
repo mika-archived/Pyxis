@@ -18,15 +18,17 @@ namespace Pyxis.Services
     internal class ImageStoreService : IImageStoreService
     {
         private readonly Regex _backgroundRegex = new Regex(@"^\d+_[a-z0-9]{32}$", RegexOptions.Compiled);
+        private readonly ICacheService _cacheService;
         private readonly IPixivClient _client;
         private readonly Regex _origRegex = new Regex(@"^\d+_p\d+$", RegexOptions.Compiled);
         private readonly StorageFolder _temporaryFolder;
         private readonly Regex _ugoiraRegex = new Regex(@"^\d+_ugoira\d+$", RegexOptions.Compiled);
         private readonly Regex _userRegex = new Regex(@"^\d+$", RegexOptions.Compiled);
 
-        public ImageStoreService(IPixivClient client)
+        public ImageStoreService(IPixivClient client, ICacheService cacheService)
         {
             _client = client;
+            _cacheService = cacheService;
             _temporaryFolder = ApplicationData.Current.TemporaryFolder;
             Regex.CacheSize = short.MaxValue;
         }
@@ -49,6 +51,7 @@ namespace Pyxis.Services
                         await transaction.CommitAsync();
                     }
                 }
+                _cacheService.Create(GetFileId(url), stream.Length);
                 return await LoadImageAsync(url);
             }
             catch
@@ -83,6 +86,7 @@ namespace Pyxis.Services
                 await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("background")
             }.Where(w => w != null).Select(async w => await w.DeleteAsync());
             await Task.WhenAll(tasks);
+            _cacheService.Clear();
         }
 
         public async Task<string> LoadImageAsync(string url)

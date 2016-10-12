@@ -10,7 +10,7 @@
         /// <summary>
         ///     ファイルサイズ
         /// </summary>
-        public int Size { get; set; }
+        public long Size { get; set; }
 
         /// <summary>
         ///     ファイルパス
