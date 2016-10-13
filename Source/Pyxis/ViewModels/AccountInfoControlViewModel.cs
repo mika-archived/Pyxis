@@ -34,6 +34,8 @@ namespace Pyxis.ViewModels
 
         private void LoggedIn()
         {
+            if (Username == _accountService.LoggedInAccount.Name)
+                return;
             Username = _accountService.LoggedInAccount.Name;
             Thumbnailable = new PixivUserImage(_accountService.LoggedInAccount, _imageStoreService);
             Thumbnailable.ObserveProperty(w => w.ThumbnailPath)
