@@ -1,4 +1,6 @@
-﻿namespace Pyxis.Models.Cache
+﻿using System;
+
+namespace Pyxis.Models.Cache
 {
     public class CacheFile
     {
@@ -16,5 +18,10 @@
         ///     ファイルパス
         /// </summary>
         public string Path { get; set; }
+
+        /// <summary>
+        ///     最終参照日時
+        /// </summary>
+        public DateTime ReferencedAt { get; set; }
     }
 }

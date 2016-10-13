@@ -92,6 +92,7 @@ namespace Pyxis.Services
         public async Task<string> LoadImageAsync(string url)
         {
             var storageFile = await (await GetDirectory(url)).GetFileAsync(GetFileId(url));
+            _cacheService.Reference(GetFileId(url));
             return storageFile.Path;
         }
 

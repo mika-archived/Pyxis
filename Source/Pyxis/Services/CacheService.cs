@@ -31,7 +31,10 @@ namespace Pyxis.Services
             {
                 try
                 {
-                    return context.CacheFiles.Single(w => w.Path == path);
+                    var cache = context.CacheFiles.Single(w => w.Path == path);
+                    cache.ReferencedAt = DateTime.Now;
+                    context.SaveChanges();
+                    return cache;
                 }
                 catch (Exception e)
                 {
@@ -41,14 +44,15 @@ namespace Pyxis.Services
             return null;
         }
 
-        public void Update(string path, long size)
+        public void Update(CacheFile cache)
         {
             using (var context = new CacheContext())
             {
                 try
                 {
-                    var file = context.CacheFiles.Single(w => w.Path == path);
-                    file.Size = size;
+                    var file = context.CacheFiles.Single(w => w.Path == cache.Path);
+                    file.Size = cache.Size;
+                    file.ReferencedAt = cache.ReferencedAt;
                     context.SaveChanges();
                 }
                 catch (Exception e)
@@ -58,13 +62,13 @@ namespace Pyxis.Services
             }
         }
 
-        public void Delete(string path)
+        public void Delete(CacheFile cache)
         {
             using (var context = new CacheContext())
             {
                 try
                 {
-                    var file = context.CacheFiles.Single(w => w.Path == path);
+                    var file = context.CacheFiles.Single(w => w.Path == cache.Path);
                     context.CacheFiles.Remove(file);
                     context.SaveChanges();
                 }

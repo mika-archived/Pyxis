@@ -8,9 +8,9 @@ namespace Pyxis.Services.Interfaces
 
         CacheFile Reference(string path);
 
-        void Update(string path, long size);
+        void Update(CacheFile cache);
 
-        void Delete(string path);
+        void Delete(CacheFile cache);
 
         void Clear();
     }
