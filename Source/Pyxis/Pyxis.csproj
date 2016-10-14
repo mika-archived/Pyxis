@@ -140,6 +140,10 @@
     <Compile Include="Migrations\20161012172023_AddReferencedAtToCacheFile.designer.cs">
       <DependentUpon>20161012172023_AddReferencedAtToCacheFile.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20161014170324_AddCreatedAtToCacheFile.cs" />
+    <Compile Include="Migrations\20161014170324_AddCreatedAtToCacheFile.designer.cs">
+      <DependentUpon>20161014170324_AddCreatedAtToCacheFile.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\CacheContextModelSnapshot.cs" />
     <Compile Include="Models\AccountInfo.cs" />
     <Compile Include="Models\AdaptiveSize.cs" />

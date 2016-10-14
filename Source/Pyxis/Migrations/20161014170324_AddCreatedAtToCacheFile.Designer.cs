@@ -8,9 +8,10 @@ using Pyxis.Models.Cache;
 namespace Pyxis.Migrations
 {
     [DbContext(typeof(CacheContext))]
-    partial class CacheContextModelSnapshot : ModelSnapshot
+    [Migration("20161014170324_AddCreatedAtToCacheFile")]
+    partial class AddCreatedAtToCacheFile
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1");

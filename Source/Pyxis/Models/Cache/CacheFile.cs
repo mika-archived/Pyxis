@@ -20,6 +20,11 @@ namespace Pyxis.Models.Cache
         public string Path { get; set; }
 
         /// <summary>
+        ///     作成日時
+        /// </summary>
+        public DateTime CreatedAt { get; set; }
+
+        /// <summary>
         ///     最終参照日時
         /// </summary>
         public DateTime ReferencedAt { get; set; }
