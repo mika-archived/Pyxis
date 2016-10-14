@@ -5,6 +5,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:attach="using:Pyxis.Attach"
       xmlns:behaviors="using:Pyxis.Behaviors"
+      xmlns:controls="using:Pyxis.Controls"
       xmlns:core="using:Microsoft.Xaml.Interactions.Core"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:homeBase="using:Pyxis.ViewModels.Home.Base"
@@ -124,10 +125,12 @@
                                                 <core:CallMethodAction MethodName="OnItemTapped" TargetObject="{Binding}" />
                                             </core:EventTriggerBehavior>
                                         </i:Interaction.Behaviors>
-                                        <Image VerticalAlignment="Center"
-                                               Source="{Binding ThumbnailPath,
-                                                                Mode=OneWay}"
-                                               Stretch="UniformToFill" />
+                                        <controls:BlurEffectControl>
+                                            <Image VerticalAlignment="Center"
+                                                   Source="{Binding ThumbnailPath,
+                                                                    Mode=OneWay}"
+                                                   Stretch="UniformToFill" />
+                                        </controls:BlurEffectControl>
                                         <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                             <Border.Background>
                                                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
