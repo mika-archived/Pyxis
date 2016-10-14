@@ -495,4 +495,7 @@
   <data name="Maintenance.Text" xml:space="preserve">
     <value>メンテナンス</value>
   </data>
+  <data name="NotLoggedIn.Text" xml:space="preserve">
+    <value>ログインしていません</value>
+  </data>
 </root>

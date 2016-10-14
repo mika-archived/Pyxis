@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Reactive.Linq;
 
+using Windows.ApplicationModel.Resources;
+
 using Pyxis.Models;
 using Pyxis.Mvvm;
 using Pyxis.Services.Interfaces;
@@ -15,12 +17,14 @@ namespace Pyxis.ViewModels
         private readonly IAccountService _accountService;
         private readonly IDisposable _disposable;
         private readonly IImageStoreService _imageStoreService;
+        private readonly ResourceLoader _resource;
 
         public AccountInfoControlViewModel(IAccountService accountService, IImageStoreService imageStoreService)
         {
             _accountService = accountService;
             _imageStoreService = imageStoreService;
-            Username = "ログインしていません";
+            _resource = ResourceLoader.GetForCurrentView();
+            Username = _resource.GetString("NotLoggedIn/Text");
             _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1))
                                     .ObserveOnUIDispatcher()
                                     .Subscribe(w =>
@@ -47,7 +51,7 @@ namespace Pyxis.ViewModels
 
         private void LoggedOut()
         {
-            Username = "ログインしていません";
+            Username = _resource.GetString("NotLoggedIn/Text");
             ThumbnailPath = PyxisConstants.DummyIcon;
         }
 
