@@ -51,7 +51,7 @@ namespace Pyxis.Services
                         await transaction.CommitAsync();
                     }
                 }
-                _cacheService.Create(GetFileId(url), stream.Length);
+                await _cacheService.CreateAsync(GetFileId(url), stream.Length);
                 return await LoadImageAsync(url);
             }
             catch
@@ -86,13 +86,15 @@ namespace Pyxis.Services
                 await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("background")
             }.Where(w => w != null).Select(async w => await w.DeleteAsync());
             await Task.WhenAll(tasks);
-            _cacheService.Clear();
+            await _cacheService.ClearAsync();
         }
 
         public async Task<string> LoadImageAsync(string url)
         {
             var storageFile = await (await GetDirectory(url)).GetFileAsync(GetFileId(url));
-            _cacheService.Reference(GetFileId(url));
+#pragma warning disable CS4014 // この呼び出しを待たないため、現在のメソッドの実行は、呼び出しが完了する前に続行します
+            Task.Run(async () => await _cacheService.ReferenceAsync(GetFileId(url)));
+#pragma warning restore CS4014 // この呼び出しを待たないため、現在のメソッドの実行は、呼び出しが完了する前に続行します
             return storageFile.Path;
         }
 

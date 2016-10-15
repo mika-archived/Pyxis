@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 
 using Pyxis.Models.Cache;
 using Pyxis.Services.Interfaces;
@@ -9,14 +10,14 @@ namespace Pyxis.Services
 {
     internal class CacheService : ICacheService
     {
-        public void Create(string path, long size)
+        public async Task CreateAsync(string path, long size)
         {
             using (var context = new CacheContext())
             {
                 try
                 {
                     context.CacheFiles.Add(new CacheFile {Path = path, Size = size});
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
                 catch (Exception e)
                 {
@@ -25,7 +26,7 @@ namespace Pyxis.Services
             }
         }
 
-        public CacheFile Reference(string path)
+        public async Task<CacheFile> ReferenceAsync(string path)
         {
             using (var context = new CacheContext())
             {
@@ -33,7 +34,7 @@ namespace Pyxis.Services
                 {
                     var cache = context.CacheFiles.Single(w => w.Path == path);
                     cache.ReferencedAt = DateTime.Now;
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                     return cache;
                 }
                 catch (Exception e)
@@ -44,7 +45,7 @@ namespace Pyxis.Services
             return null;
         }
 
-        public void Update(CacheFile cache)
+        public async Task UpdateAsync(CacheFile cache)
         {
             using (var context = new CacheContext())
             {
@@ -53,7 +54,7 @@ namespace Pyxis.Services
                     var file = context.CacheFiles.Single(w => w.Path == cache.Path);
                     file.Size = cache.Size;
                     file.ReferencedAt = cache.ReferencedAt;
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
                 catch (Exception e)
                 {
@@ -62,7 +63,7 @@ namespace Pyxis.Services
             }
         }
 
-        public void Delete(CacheFile cache)
+        public async Task DeleteAsync(CacheFile cache)
         {
             using (var context = new CacheContext())
             {
@@ -70,7 +71,7 @@ namespace Pyxis.Services
                 {
                     var file = context.CacheFiles.Single(w => w.Path == cache.Path);
                     context.CacheFiles.Remove(file);
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
                 catch (Exception e)
                 {
@@ -79,7 +80,7 @@ namespace Pyxis.Services
             }
         }
 
-        public void Clear()
+        public async Task ClearAsync()
         {
             using (var context = new CacheContext())
             {
@@ -88,7 +89,7 @@ namespace Pyxis.Services
                     var files = context.CacheFiles.ToList();
                     foreach (var file in files)
                         context.CacheFiles.Remove(file);
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
                 catch (Exception e)
                 {
