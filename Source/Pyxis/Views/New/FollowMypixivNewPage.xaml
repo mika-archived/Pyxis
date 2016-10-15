@@ -91,7 +91,9 @@
                     </i:Interaction.Behaviors>
                     <GridView.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <ItemsWrapGrid attach:AssumSize.AssumSize="(0,100),(500,150),(1025,200)" Orientation="Horizontal">
+                            <ItemsWrapGrid attach:AssumSize.AssumSize="(0,100),(500,150),(1025,200)"
+                                           CacheLength="1"
+                                           Orientation="Horizontal">
                                 <i:Interaction.Behaviors>
                                     <behaviors:GridViewEuqalitySizeBehavior />
                                 </i:Interaction.Behaviors>
