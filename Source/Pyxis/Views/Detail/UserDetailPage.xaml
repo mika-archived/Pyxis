@@ -70,7 +70,7 @@
                 BorderBrush="{ThemeResource SystemControlForegroundChromeMediumBrush}"
                 BorderThickness="0,0,0,1">
             <Grid>
-                <controls:BlurEffectControl>
+                <controls:BlurEffectControl BlurAmount="5">
                     <Image VerticalAlignment="Center"
                            Source="{x:Bind ViewModel.ThumbnailPath2, Mode=OneWay}"
                            Stretch="UniformToFill" />

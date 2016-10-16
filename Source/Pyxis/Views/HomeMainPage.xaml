@@ -127,7 +127,7 @@
                                                 <core:CallMethodAction MethodName="OnItemTapped" TargetObject="{Binding}" />
                                             </core:EventTriggerBehavior>
                                         </i:Interaction.Behaviors>
-                                        <controls:BlurEffectControl>
+                                        <controls:BlurEffectControl BlurAmount="2">
                                             <Image VerticalAlignment="Center"
                                                    Source="{Binding ThumbnailPath,
                                                                     Mode=OneWay}"
