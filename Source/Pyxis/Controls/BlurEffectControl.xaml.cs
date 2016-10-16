@@ -26,9 +26,8 @@ namespace Pyxis.Controls
             Loaded += OnLoaded;
         }
 
-        private void OnLoaded(object sender, RoutedEventArgs e)
+        private void ApplyBlur()
         {
-            BlurContentPresenter.SizeChanged += OnSizeChanged;
             var graphicsEffect = new BlendEffect
             {
                 Mode = BlendEffectMode.Multiply,
@@ -41,12 +40,12 @@ namespace Pyxis.Controls
                 {
                     Name = "Blur",
                     Source = new CompositionEffectSourceParameter("Backdrop"),
-                    BlurAmount = 2,
+                    BlurAmount = BlurAmount,
                     BorderMode = EffectBorderMode.Hard
                 }
             };
 
-            var blurEffectFactory = _compositor.CreateEffectFactory(graphicsEffect, new List<string> {"Blur.BlurAmount", "Tint.Color"});
+            var blurEffectFactory = _compositor.CreateEffectFactory(graphicsEffect, new List<string> {"Blur.BlurAmount", "Tfloat.Color"});
             var brush = blurEffectFactory.CreateBrush();
             var destinationBrush = _compositor.CreateBackdropBrush();
             brush.SetSourceParameter("Backdrop", destinationBrush);
@@ -58,11 +57,30 @@ namespace Pyxis.Controls
             ElementCompositionPreview.SetElementChildVisual(BlurContentPresenter, blurSprite);
         }
 
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            BlurContentPresenter.SizeChanged += OnSizeChanged;
+            ApplyBlur();
+        }
+
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             var blurVisual = (SpriteVisual) ElementCompositionPreview.GetElementChildVisual(BlurContentPresenter);
             if (blurVisual != null)
                 blurVisual.Size = e.NewSize.ToVector2();
         }
+
+        #region BlurAmount
+
+        public static readonly DependencyProperty BlurAmountProperty =
+            DependencyProperty.Register(nameof(BlurAmount), typeof(int), typeof(BlurEffectControl), new PropertyMetadata(2));
+
+        public int BlurAmount
+        {
+            get { return (int) GetValue(BlurAmountProperty); }
+            set { SetValue(BlurAmountProperty, value); }
+        }
+
+        #endregion
     }
 }
