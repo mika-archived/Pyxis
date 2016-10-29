@@ -45,7 +45,7 @@ namespace Pyxis.Controls
                 }
             };
 
-            var blurEffectFactory = _compositor.CreateEffectFactory(graphicsEffect, new List<string> {"Blur.BlurAmount", "Tfloat.Color"});
+            var blurEffectFactory = _compositor.CreateEffectFactory(graphicsEffect, new List<string> {"Blur.BlurAmount", "Tint.Color"});
             var brush = blurEffectFactory.CreateBrush();
             var destinationBrush = _compositor.CreateBackdropBrush();
             brush.SetSourceParameter("Backdrop", destinationBrush);
