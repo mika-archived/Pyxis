@@ -8,5 +8,7 @@
              d:DataContext="{d:DesignInstance vm:SettingsGeneralViewModel}"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d">
-    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <TextBlock HorizontalAlignment="Center" Text="currently under development" />
+    </StackPanel>
 </UserControl>
