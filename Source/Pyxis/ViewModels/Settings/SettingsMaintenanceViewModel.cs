@@ -2,11 +2,13 @@
 using System.Linq;
 using System.Threading.Tasks;
 
+using Windows.Storage;
+
 using Microsoft.Practices.ObjectBuilder2;
 
+using Pyxis.Extensions;
 using Pyxis.Helpers;
 using Pyxis.Models.Cache;
-using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
 
 using WinRTXamlToolkit.IO.Extensions;
@@ -15,11 +17,8 @@ namespace Pyxis.ViewModels.Settings
 {
     public class SettingsMaintenanceViewModel : ResourceViewModel
     {
-        private readonly IImageStoreService _imageStoreService;
-
-        public SettingsMaintenanceViewModel(IImageStoreService imageStoreService)
+        public SettingsMaintenanceViewModel()
         {
-            _imageStoreService = imageStoreService;
             CacheSize = Resources.GetString("Calculating/Text");
             FileCount = Resources.GetString("Calculating/Text");
             RunHelper.RunLaterUI(CalcCacheSize, TimeSpan.FromMilliseconds(100));
@@ -38,17 +37,27 @@ namespace Pyxis.ViewModels.Settings
 
         public void ClearCache()
         {
+            FileCount = Resources.GetString("ZeroItems/Text");
+            CacheSize = ((ulong) 0).GetSizeString();
             IsEnabled = false;
             Task.Run(async () =>
             {
-                await _imageStoreService.ClearImagesAsync();
+                var temporaryFolder = ApplicationData.Current.TemporaryFolder;
+                var tasks = new[]
+                {
+                    await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("original"),
+                    await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("thumbnails"),
+                    await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("users"),
+                    await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("background")
+                }.Where(w => w != null).Select(async w => await w.DeleteAsync());
+                await Task.WhenAll(tasks);
                 using (var db = new CacheContext())
                 {
                     // ReSharper disable once AccessToDisposedClosure
                     db.CacheFiles.ForEach(w => db.CacheFiles.Remove(w));
                     db.SaveChanges();
                 }
-            }).ContinueWith(w => RunHelper.RunLaterUI(CalcCacheSize, TimeSpan.Zero));
+            }).ContinueWith(w => CalcCacheSize());
         }
 
         #region FileCount

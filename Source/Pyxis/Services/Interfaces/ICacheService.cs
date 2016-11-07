@@ -1,19 +1,15 @@
-﻿using System.Threading.Tasks;
-
-using Pyxis.Models.Cache;
-
-namespace Pyxis.Services.Interfaces
+﻿namespace Pyxis.Services.Interfaces
 {
     public interface ICacheService
     {
-        Task CreateAsync(string path, long size);
+        void Create(string path);
 
-        Task<CacheFile> ReferenceAsync(string path);
+        void Reference(string path);
 
-        Task UpdateAsync(CacheFile cache);
+        void Update(string path);
 
-        Task DeleteAsync(CacheFile cache);
+        void Delete(string path);
 
-        Task ClearAsync();
+        void Clear();
     }
 }

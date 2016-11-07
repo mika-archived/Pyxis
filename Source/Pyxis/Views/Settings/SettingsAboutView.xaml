@@ -46,14 +46,6 @@
             <TextBlock x:Uid="License"
                        Margin="0,20,0,0"
                        FontWeight="Bold" />
-            <!--#region EntityFramework.Core-->
-            <TextBlock Style="{StaticResource LicenseNameTextBlockStyle}" Text="EntityFramework Core" />
-            <TextBlock Text="Copyright (c) .NET Foundation. All rights reserved." />
-            <TextBlock>
-                <Run x:Uid="License" />
-                <Hyperlink NavigateUri="https://github.com/aspnet/EntityFramework/blob/dev/LICENSE.txt">MIT</Hyperlink>
-            </TextBlock>
-            <!--#endregion-->
             <!--#region HtmlAgilityPack-->
             <TextBlock Style="{StaticResource LicenseNameTextBlockStyle}" Text="HtmlAgilityPack" />
             <TextBlock Text="Copyright (c) Simon Mourrier, Jeff Klawiter, Stephan Grell" />

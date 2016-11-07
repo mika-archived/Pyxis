@@ -13,20 +13,16 @@ namespace Pyxis.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.0.1");
+                .HasAnnotation("ProductVersion", "1.0.0-rtm-21431");
 
             modelBuilder.Entity("Pyxis.Models.Cache.CacheFile", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("CreatedAt");
-
                     b.Property<string>("Path");
 
-                    b.Property<DateTime>("ReferencedAt");
-
-                    b.Property<long>("Size");
+                    b.Property<int>("Size");
 
                     b.HasKey("Id");
 

@@ -45,8 +45,15 @@ namespace Pyxis
                 Debug.WriteLine(e.Message);
                 e.Handled = true;
                 Application.Current.Exit();
+<<<<<<< HEAD
             }
                 ;
+=======
+            };
+
+            using (var db = new CacheContext())
+                db.Database.Migrate();
+>>>>>>> parent of 528b55d... DB initialized and migration
         }
 
         #region Overrides of PrismApplication
@@ -96,6 +103,7 @@ namespace Pyxis
 #if !OFFLINE
             await accountService.Login();
 #endif
+<<<<<<< HEAD
             Debug.WriteLine("Process A");
             if (!((LaunchActivatedEventArgs) args).PrelaunchActivated)
             {
@@ -109,6 +117,8 @@ namespace Pyxis
             }
 
             Debug.WriteLine("Process C");
+=======
+>>>>>>> parent of 528b55d... DB initialized and migration
             await base.OnInitializeAsync(args);
         }
 
