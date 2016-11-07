@@ -27,7 +27,7 @@ namespace Pyxis
     /// <summary>
     ///     既定の Application クラスを補完するアプリケーション固有の動作を提供します。
     /// </summary>
-    internal sealed partial class App : PrismUnityApplication
+    public sealed partial class App : PrismUnityApplication
     {
         /// <summary>
         ///     単一アプリケーション オブジェクトを初期化します。これは、実行される作成したコードの

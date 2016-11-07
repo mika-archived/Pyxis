@@ -8,7 +8,6 @@ using Microsoft.Practices.ObjectBuilder2;
 
 using Pyxis.Extensions;
 using Pyxis.Helpers;
-using Pyxis.Models.Cache;
 using Pyxis.ViewModels.Base;
 
 using WinRTXamlToolkit.IO.Extensions;
@@ -21,18 +20,7 @@ namespace Pyxis.ViewModels.Settings
         {
             CacheSize = Resources.GetString("Calculating/Text");
             FileCount = Resources.GetString("Calculating/Text");
-            RunHelper.RunLaterUI(CalcCacheSize, TimeSpan.FromMilliseconds(100));
-        }
-
-        private void CalcCacheSize()
-        {
-            using (var db = new CacheContext())
-            {
-                var count = db.CacheFiles.Count();
-                FileCount = string.Format(Resources.GetString("Items/Text"), count);
-                CacheSize = ((ulong) db.CacheFiles.Select(w => w.Size).Sum()).GetSizeString();
-                IsEnabled = count > 0;
-            }
+            RunHelper.RunLaterUIAsync(Load, TimeSpan.FromMilliseconds(100));
         }
 
         public void ClearCache()
@@ -47,17 +35,39 @@ namespace Pyxis.ViewModels.Settings
                 {
                     await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("original"),
                     await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("thumbnails"),
-                    await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("users"),
-                    await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("background")
+                    await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("users")
                 }.Where(w => w != null).Select(async w => await w.DeleteAsync());
                 await Task.WhenAll(tasks);
-                using (var db = new CacheContext())
-                {
-                    // ReSharper disable once AccessToDisposedClosure
-                    db.CacheFiles.ForEach(w => db.CacheFiles.Remove(w));
-                    db.SaveChanges();
-                }
-            }).ContinueWith(w => CalcCacheSize());
+            }).ContinueWith(async w => await Load());
+        }
+
+        private async Task Load()
+        {
+            var temporaryFolder = ApplicationData.Current.TemporaryFolder;
+            var size = 0UL;
+            var count = 0U;
+            var tasks = new[]
+            {
+                await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("original"),
+                await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("thumbnails"),
+                await temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("users")
+            }.Where(w => w != null).Select(async w =>
+            {
+                var s = 0UL;
+                var files = await w.GetFilesAsync();
+                foreach (var file in files)
+                    s += await file.GetSizeAsync();
+                return new Tuple<uint, ulong>((uint) files.Count, s);
+            });
+            (await Task.WhenAll(tasks)).Select(w => w).ForEach(w =>
+            {
+                count += w.Item1;
+                size += w.Item2;
+            });
+            CacheSize = size.GetSizeString();
+            FileCount = string.Format(Resources.GetString("Items/Text"), count);
+            if (count > 0)
+                IsEnabled = true;
         }
 
         #region FileCount
