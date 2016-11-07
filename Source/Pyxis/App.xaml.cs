@@ -6,6 +6,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.HockeyApp;
 using Microsoft.Practices.Unity;
 
 using Prism.Unity.Windows;
@@ -36,15 +37,16 @@ namespace Pyxis
         /// </summary>
         public App()
         {
+            HockeyClient.Current.Configure("096f082c19e54f24aab0d31ff4d9bfb7");
             InitializeComponent();
             UnhandledException += (sender, e) =>
             {
                 Debug.WriteLine("");
                 Debug.WriteLine(e.Message);
-
                 e.Handled = true;
                 Application.Current.Exit();
-            };
+            }
+                ;
         }
 
         #region Overrides of PrismApplication
@@ -61,7 +63,6 @@ namespace Pyxis
             var args = e as ProtocolActivatedEventArgs;
             if (args == null)
                 return Task.CompletedTask;
-
             PyxisSchemeActivator.Activate(args.Uri, NavigationService);
             return Task.CompletedTask;
         }
@@ -77,10 +78,8 @@ namespace Pyxis
         protected override async Task OnInitializeAsync(IActivatedEventArgs args)
         {
             UIDispatcherScheduler.Initialize();
-
             var pixivClient = new PixivApiClient();
             var accountService = new AccountService(pixivClient);
-
             Container.RegisterInstance<IPixivClient>(pixivClient, new LifetimeManager());
             Container.RegisterInstance<IAccountService>(accountService, new LifetimeManager());
             Container.RegisterType<IBrowsingHistoryService, BrowsingHistoryService>(new LifetimeManager());
@@ -97,12 +96,19 @@ namespace Pyxis
 #if !OFFLINE
             await accountService.Login();
 #endif
-            using (var db = new CacheContext())
+            Debug.WriteLine("Process A");
+            if (!((LaunchActivatedEventArgs) args).PrelaunchActivated)
             {
-                if (!db.IsCreated)
-                    await Container.Resolve<IImageStoreService>().ClearImagesAsync();
-                db.Database.Migrate();
+                Debug.WriteLine("Process B");
+                using (var db = new CacheContext())
+                {
+                    if (!db.IsCreated)
+                        await Container.Resolve<IImageStoreService>().ClearImagesAsync();
+                    db.Database.Migrate();
+                }
             }
+
+            Debug.WriteLine("Process C");
             await base.OnInitializeAsync(args);
         }
 
