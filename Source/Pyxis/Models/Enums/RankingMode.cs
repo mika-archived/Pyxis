@@ -1,5 +1,7 @@
 ﻿using System;
 
+using Windows.ApplicationModel.Resources;
+
 namespace Pyxis.Models.Enums
 {
     public enum RankingMode
@@ -21,6 +23,8 @@ namespace Pyxis.Models.Enums
 
     public static class RankingModeExt
     {
+        private static readonly ResourceLoader Resources = ResourceLoader.GetForCurrentView();
+
         public static RankingMode FromString(string str)
         {
             switch (str)
@@ -63,25 +67,25 @@ namespace Pyxis.Models.Enums
             switch (mode)
             {
                 case RankingMode.Daily:
-                    return "デイリーランキング";
+                    return Resources.GetString("Daily/Text");
 
                 case RankingMode.DailyMale:
-                    return "男子に人気";
+                    return Resources.GetString("PopularMale/Text");
 
                 case RankingMode.DailyFemale:
-                    return "女子に人気";
+                    return Resources.GetString("PopularFemale/Text");
 
                 case RankingMode.WeeklyOriginal:
-                    return "オリジナル";
+                    return Resources.GetString("Original/Text");
 
                 case RankingMode.WeeklyRookie:
-                    return "ルーキー";
+                    return Resources.GetString("Rookie/Text");
 
                 case RankingMode.Weekly:
-                    return "ウィークリー";
+                    return Resources.GetString("Weekly/Text");
 
                 case RankingMode.Monthly:
-                    return "マンスリー";
+                    return Resources.GetString("Monthly/Text");
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(mode), mode, null);
@@ -93,7 +97,7 @@ namespace Pyxis.Models.Enums
             switch (mode)
             {
                 case RankingMode.Daily:
-                    if (type == ContentType.Illust || type == ContentType.Novel)
+                    if ((type == ContentType.Illust) || (type == ContentType.Novel))
                         return "day";
                     return "day_manga";
 
@@ -113,12 +117,12 @@ namespace Pyxis.Models.Enums
                     return "week_original";
 
                 case RankingMode.WeeklyRookie:
-                    if (type == ContentType.Illust || type == ContentType.Novel)
+                    if ((type == ContentType.Illust) || (type == ContentType.Novel))
                         return "week_rookie";
                     return "week_rookie_manga";
 
                 case RankingMode.Weekly:
-                    if (type == ContentType.Illust || type == ContentType.Novel)
+                    if ((type == ContentType.Illust) || (type == ContentType.Novel))
                         return "week";
                     return "week_manga";
 

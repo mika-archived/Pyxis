@@ -12,18 +12,15 @@
              mc:Ignorable="d">
     <Grid x:Name="RootGrid">
         <i:Interaction.Behaviors>
-            <core:EventTriggerBehavior EventName="Tapped"
-                                       SourceObject="{Binding ElementName=RootGrid}">
-                <core:CallMethodAction MethodName="OnItemTapped"
-                                       TargetObject="{Binding}" />
+            <core:EventTriggerBehavior EventName="Tapped" SourceObject="{Binding ElementName=RootGrid}">
+                <core:CallMethodAction MethodName="OnItemTapped" TargetObject="{Binding}" />
             </core:EventTriggerBehavior>
         </i:Interaction.Behaviors>
         <Image VerticalAlignment="Center"
                Source="{Binding ThumbnailPath,
                                 Mode=OneWay}"
                Stretch="UniformToFill" />
-        <Border Background="{ThemeResource SystemControlBackgroundBaseHighBrush}"
-                Opacity="0.5" />
+        <Border Background="{ThemeResource SystemControlBackgroundBaseHighBrush}" Opacity="0.5" />
         <TextBlock Margin="20,10"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Bottom"

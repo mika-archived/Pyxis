@@ -1,5 +1,5 @@
-﻿<!-- ReSharper disable UnusedMember.Local -->
-<!-- ReSharper disable NotAccessedField.Local -->
+﻿<!--  ReSharper disable UnusedMember.Local  -->
+<!--  ReSharper disable NotAccessedField.Local  -->
 <Page x:Class="Pyxis.Views.FavoriteMainPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -15,8 +15,7 @@
       prism:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d">
     <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Pivot SelectedIndex="{x:Bind ViewModel.SelectedIndex, Mode=OneWay}"
-               Style="{StaticResource TabsStylePivotStyle}">
+        <Pivot SelectedIndex="{x:Bind ViewModel.SelectedIndex, Mode=OneWay}" Style="{StaticResource TabsStylePivotStyle}">
             <Pivot.RightHeader>
                 <Button Grid.Column="1"
                         HorizontalAlignment="Right"
@@ -29,33 +28,30 @@
             <i:Interaction.Behaviors>
                 <behaviors:AttachNavigationToPivotBehavior NavigationService="{x:Bind ViewModel.NavigationService}" />
             </i:Interaction.Behaviors>
-            <PivotItem attach:NavigateTo.PageToken="FavoriteMain"
-                       attach:NavigateTo.Parameters="{x:Bind ViewModel.ParameterQueries[0], Mode=OneWay}">
+            <PivotItem attach:NavigateTo.PageToken="FavoriteMain" attach:NavigateTo.Parameters="{x:Bind ViewModel.ParameterQueries[0], Mode=OneWay}">
                 <PivotItem.Header>
-                    <TextBlock Width="80"
-                               Style="{StaticResource TabsStyleTextBlockStyle}"
-                               Text="イラスト・マンガ" />
+                    <TextBlock x:Uid="IllustAndManga"
+                               Width="80"
+                               Style="{StaticResource TabsStyleTextBlockStyle}" />
                 </PivotItem.Header>
             </PivotItem>
-            <PivotItem attach:NavigateTo.PageToken="FavoriteMain"
-                       attach:NavigateTo.Parameters="{x:Bind ViewModel.ParameterQueries[1], Mode=OneWay}">
+            <PivotItem attach:NavigateTo.PageToken="FavoriteMain" attach:NavigateTo.Parameters="{x:Bind ViewModel.ParameterQueries[1], Mode=OneWay}">
                 <PivotItem.Header>
-                    <TextBlock Width="80"
-                               Style="{StaticResource TabsStyleTextBlockStyle}"
-                               Text="小説" />
+                    <TextBlock x:Uid="Novel"
+                               Width="80"
+                               Style="{StaticResource TabsStyleTextBlockStyle}" />
                 </PivotItem.Header>
             </PivotItem>
         </Pivot>
-        <GridView x:Name="FavoriteQueryResult"
-                  ItemsSource="{x:Bind ViewModel.FavoriteItems}">
+        <GridView x:Name="FavoriteQueryResult" ItemsSource="{x:Bind ViewModel.FavoriteItems}">
             <i:Interaction.Behaviors>
-                <behaviors:AdjustControlSizeBehavior HeightOffset="-96"
-                                                     IsSyncHeight="True" />
+                <behaviors:AdjustControlSizeBehavior HeightOffset="-96" IsSyncHeight="True" />
                 <behaviors:ListBoxEmptyBehavior Target="{x:Bind NotFoundFavoriteItemsMes}" />
             </i:Interaction.Behaviors>
             <GridView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <ItemsWrapGrid attach:AssumSize.AssumSize="(0,100),(500,150),(1025,200)"
+                                   CacheLength="1"
                                    Orientation="Horizontal">
                         <i:Interaction.Behaviors>
                             <behaviors:GridViewEuqalitySizeBehavior />
@@ -64,9 +60,9 @@
                 </ItemsPanelTemplate>
             </GridView.ItemsPanel>
             <GridView.Header>
-                <TextBlock x:Name="NotFoundFavoriteItemsMes"
-                           Style="{ThemeResource NfMessageTextBlockStyle}"
-                           Text="お気に入り登録した作品はありません。" />
+                <TextBlock x:Uid="NoFavorite"
+                           x:Name="NotFoundFavoriteItemsMes"
+                           Style="{ThemeResource NfMessageTextBlockStyle}" />
             </GridView.Header>
             <GridView.ItemTemplate>
                 <DataTemplate>

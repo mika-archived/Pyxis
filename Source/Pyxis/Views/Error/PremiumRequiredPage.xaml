@@ -17,26 +17,26 @@
                        Foreground="PaleGoldenrod"
                        Style="{ThemeResource HeaderTextBlockStyle}"
                        Text="&#xE946;" />
-            <TextBlock Margin="5"
+            <TextBlock x:Uid="NeedPremium"
+                       Margin="5"
                        Foreground="White"
-                       Style="{ThemeResource SubtitleTextBlockStyle}"
-                       Text="pixiv プレミアムに登録する必要があります！" />
-            <TextBlock HorizontalAlignment="Center"
+                       Style="{ThemeResource SubtitleTextBlockStyle}" />
+            <TextBlock x:Uid="Error2"
+                       HorizontalAlignment="Center"
                        Foreground="White"
-                       Style="{ThemeResource CaptionTextBlockStyle}"
-                       Text="この機能を有効にするには、ブラウザから pixiv プレミアムに登録し、" />
-            <TextBlock HorizontalAlignment="Center"
+                       Style="{ThemeResource CaptionTextBlockStyle}" />
+            <TextBlock x:Uid="Error3"
+                       HorizontalAlignment="Center"
                        Foreground="White"
-                       Style="{ThemeResource CaptionTextBlockStyle}"
-                       Text="アプリを再起動する必要があります。" />
+                       Style="{ThemeResource CaptionTextBlockStyle}" />
 
             <Button Width="200"
                     Margin="10"
                     HorizontalAlignment="Center"
                     Tapped="{x:Bind ViewModel.OnRegisterButtonTapped}">
-                <TextBlock Foreground="White"
-                           Style="{ThemeResource SubtitleTextBlockStyle}"
-                           Text="登録する" />
+                <TextBlock x:Uid="Register"
+                           Foreground="White"
+                           Style="{ThemeResource SubtitleTextBlockStyle}" />
             </Button>
         </StackPanel>
     </Grid>

@@ -87,7 +87,10 @@ namespace Pyxis.Services
                                                        client_id => "bYGKuGVw91e0NMfPGp44euvGt59s",
                                                        username => credential.UserName);
                 if (account == null)
+                {
+                    Clear();
                     return;
+                }
                 IsLoggedIn = true;
                 IsPremium = account.User.IsPremium;
                 LoggedInAccount = account.User;

@@ -58,7 +58,7 @@ namespace Pyxis.ViewModels.Search
         {
             base.OnNavigatedTo(e, viewModelState);
             var parameter = ParameterBase.ToObject<SearchResultAndTrendingParameter>((string) e?.Parameter);
-            if (viewModelState != null && viewModelState.ContainsKey("_searchOption"))
+            if ((viewModelState != null) && viewModelState.ContainsKey("_searchOption"))
             {
                 _searchOption = ParameterBase.ToObject<SearchOptionParameter>(viewModelState["_searchOption"]);
                 SearchQuery = viewModelState["SearchQuery"].ToString();
@@ -88,8 +88,8 @@ namespace Pyxis.ViewModels.Search
             HasTrendingTag = parameter.TrendingIllust != null;
             if (HasTrendingTag)
                 ThumbnailableViewModel = CreatePixivImage(parameter.TrendingIllust);
-            IsLoggedInRequired = !_accountService.IsLoggedIn && parameter.Sort == SearchSort.Popular;
-            IsPremiumRequired = !_accountService.IsPremium && parameter.Sort == SearchSort.Popular;
+            IsLoggedInRequired = !_accountService.IsLoggedIn && (parameter.Sort == SearchSort.Popular);
+            IsPremiumRequired = !_accountService.IsPremium && (parameter.Sort == SearchSort.Popular);
             if (_searchOption == null)
             {
                 SearchQuery = parameter.Query;
@@ -163,7 +163,7 @@ namespace Pyxis.ViewModels.Search
             GenerateQueries();
             if (IsLoggedInRequired || IsPremiumRequired)
                 return;
-            _pixivSearch.Search(SearchQuery, _searchOption);
+            _pixivSearch.Search(SearchQuery, _searchOption, Results.Count == 0);
         }
 
         public async void OnRegisterButtonTapped()

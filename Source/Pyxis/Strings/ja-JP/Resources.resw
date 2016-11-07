@@ -1,0 +1,501 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="All.Text" xml:space="preserve">
+    <value>みんな</value>
+  </data>
+  <data name="Bgm.Text" xml:space="preserve">
+    <value>BGM</value>
+  </data>
+  <data name="Birthday.Text" xml:space="preserve">
+    <value>誕生日</value>
+  </data>
+  <data name="Bookmark.Text" xml:space="preserve">
+    <value>ブックマーク</value>
+  </data>
+  <data name="BrowsingHistory.Text" xml:space="preserve">
+    <value>閲覧履歴</value>
+  </data>
+  <data name="Chair.Text" xml:space="preserve">
+    <value>椅子</value>
+  </data>
+  <data name="Comment.Text" xml:space="preserve">
+    <value>コメント</value>
+  </data>
+  <data name="Daily.Text" xml:space="preserve">
+    <value>デイリー</value>
+  </data>
+  <data name="Description.Text" xml:space="preserve">
+    <value>コメント</value>
+  </data>
+  <data name="Desktop.Text" xml:space="preserve">
+    <value>机の上にあるもの</value>
+  </data>
+  <data name="Detail.Text" xml:space="preserve">
+    <value>詳細</value>
+  </data>
+  <data name="Favorite.Text" xml:space="preserve">
+    <value>お気に入り</value>
+  </data>
+  <data name="Follow.Text" xml:space="preserve">
+    <value>フォロー</value>
+  </data>
+  <data name="Follower.Text" xml:space="preserve">
+    <value>フォロワー</value>
+  </data>
+  <data name="Following.Text" xml:space="preserve">
+    <value>フォロー</value>
+  </data>
+  <data name="Gender.Text" xml:space="preserve">
+    <value>性別</value>
+  </data>
+  <data name="Home.Text" xml:space="preserve">
+    <value>ホーム</value>
+  </data>
+  <data name="Illust.Text" xml:space="preserve">
+    <value>イラスト</value>
+  </data>
+  <data name="IllustAndManga.Text" xml:space="preserve">
+    <value>イラスト・マンガ</value>
+  </data>
+  <data name="IllustRanking.Text" xml:space="preserve">
+    <value>イラストランキング</value>
+  </data>
+  <data name="Job.Text" xml:space="preserve">
+    <value>職業</value>
+  </data>
+  <data name="Location.Text" xml:space="preserve">
+    <value>住所</value>
+  </data>
+  <data name="Login.Text" xml:space="preserve">
+    <value>ログイン</value>
+  </data>
+  <data name="MailAddress.PlaceholderText" xml:space="preserve">
+    <value>メールアドレス</value>
+  </data>
+  <data name="Manga.Text" xml:space="preserve">
+    <value>マンガ</value>
+  </data>
+  <data name="MangaRanking.Text" xml:space="preserve">
+    <value>マンガランキング</value>
+  </data>
+  <data name="Monitor.Text" xml:space="preserve">
+    <value>モニター</value>
+  </data>
+  <data name="Monthly.Text" xml:space="preserve">
+    <value>マンスリー</value>
+  </data>
+  <data name="Mouse.Text" xml:space="preserve">
+    <value>マウス</value>
+  </data>
+  <data name="Mypixiv.Text" xml:space="preserve">
+    <value>マイピク</value>
+  </data>
+  <data name="New.Text" xml:space="preserve">
+    <value>新着</value>
+  </data>
+  <data name="Newest.Text" xml:space="preserve">
+    <value>新着順</value>
+  </data>
+  <data name="Novel.Text" xml:space="preserve">
+    <value>小説</value>
+  </data>
+  <data name="NovelRanking.Text" xml:space="preserve">
+    <value>小説ランキング</value>
+  </data>
+  <data name="Oldest.Text" xml:space="preserve">
+    <value>古い順</value>
+  </data>
+  <data name="Original.Text" xml:space="preserve">
+    <value>オリジナル</value>
+  </data>
+  <data name="Other.Text" xml:space="preserve">
+    <value>その他</value>
+  </data>
+  <data name="Password.PlaceholderText" xml:space="preserve">
+    <value>パスワード</value>
+  </data>
+  <data name="PopularFemale.Text" xml:space="preserve">
+    <value>女子に人気</value>
+  </data>
+  <data name="Popularity.Text" xml:space="preserve">
+    <value>人気順</value>
+  </data>
+  <data name="PopularMale.Text" xml:space="preserve">
+    <value>男子に人気</value>
+  </data>
+  <data name="Printer.Text" xml:space="preserve">
+    <value>プリンター</value>
+  </data>
+  <data name="PrivateA.Content" xml:space="preserve">
+    <value>非公開</value>
+  </data>
+  <data name="Private.Text" xml:space="preserve">
+    <value>非公開</value>
+  </data>
+  <data name="Profile.Text" xml:space="preserve">
+    <value>プロフィール</value>
+  </data>
+  <data name="PublicA.Content" xml:space="preserve">
+    <value>公開</value>
+  </data>
+  <data name="Public.Text" xml:space="preserve">
+    <value>公開</value>
+  </data>
+  <data name="Recommended.Text" xml:space="preserve">
+    <value>あなたへのおすすめ</value>
+  </data>
+  <data name="Rookie.Text" xml:space="preserve">
+    <value>ルーキー</value>
+  </data>
+  <data name="Save.Text" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="Scanner.Text" xml:space="preserve">
+    <value>スキャナー</value>
+  </data>
+  <data name="Search.Text" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="Settings.Text" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="Share.Text" xml:space="preserve">
+    <value>共有</value>
+  </data>
+  <data name="Table.Text" xml:space="preserve">
+    <value>机</value>
+  </data>
+  <data name="Tablet.Text" xml:space="preserve">
+    <value>タブレット</value>
+  </data>
+  <data name="Tool.Text" xml:space="preserve">
+    <value>ツール</value>
+  </data>
+  <data name="Unfollow.Text" xml:space="preserve">
+    <value>フォロー解除</value>
+  </data>
+  <data name="User.Text" xml:space="preserve">
+    <value>ユーザー</value>
+  </data>
+  <data name="Weekly.Text" xml:space="preserve">
+    <value>ウィークリー</value>
+  </data>
+  <data name="Work.Text" xml:space="preserve">
+    <value>作品</value>
+  </data>
+  <data name="Workspace.Text" xml:space="preserve">
+    <value>作業環境</value>
+  </data>
+  <data name="Contents.Text" xml:space="preserve">
+    <value>コンテンツ</value>
+  </data>
+  <data name="IllustAndMangaA.Content" xml:space="preserve">
+    <value>イラスト・マンガ</value>
+  </data>
+  <data name="NovelA.Content" xml:space="preserve">
+    <value>小説</value>
+  </data>
+  <data name="Related.Text" xml:space="preserve">
+    <value>関連作品</value>
+  </data>
+  <data name="About.Text" xml:space="preserve">
+    <value>Pyxis について</value>
+  </data>
+  <data name="Account.Text" xml:space="preserve">
+    <value>アカウント</value>
+  </data>
+  <data name="Cache.Text" xml:space="preserve">
+    <value>キャッシュファイル</value>
+  </data>
+  <data name="CacheCleared1.Text" xml:space="preserve">
+    <value>キャッシュを削除すると、画像の表示まで時間がかかる場合があります。</value>
+  </data>
+  <data name="Calculating.Text" xml:space="preserve">
+    <value>計算中</value>
+  </data>
+  <data name="ClearCache.Content" xml:space="preserve">
+    <value>キャッシュをクリア</value>
+  </data>
+  <data name="FavoriteType.Text" xml:space="preserve">
+    <value>お気に入りタイプ</value>
+  </data>
+  <data name="Feedback1.Text" xml:space="preserve">
+    <value>バグや要望などがあれば</value>
+  </data>
+  <data name="Feedback2.Text" xml:space="preserve">
+    <value>にて</value>
+  </data>
+  <data name="Feedback3.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FeedbackHub.Text" xml:space="preserve">
+    <value>フィードバック Hub</value>
+  </data>
+  <data name="Female" xml:space="preserve">
+    <value>女</value>
+  </data>
+  <data name="General.Text" xml:space="preserve">
+    <value>一般</value>
+  </data>
+  <data name="HistoryAt1.Text" xml:space="preserve">
+    <value>作品を閲覧したのに表示されない場合は、</value>
+  </data>
+  <data name="HistoryAt2.Text" xml:space="preserve">
+    <value>何枚か作品を閲覧した後に、再度ページを開いてください。</value>
+  </data>
+  <data name="Items.Text" xml:space="preserve">
+    <value>{0} 個</value>
+  </data>
+  <data name="Lang" xml:space="preserve">
+    <value>ja-JP</value>
+  </data>
+  <data name="License.Text" xml:space="preserve">
+    <value>ライセンス</value>
+  </data>
+  <data name="LoggedIn.Text" xml:space="preserve">
+    <value>ログイン中のアカウント：</value>
+  </data>
+  <data name="Logout.Content" xml:space="preserve">
+    <value>ログアウト</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>男</value>
+  </data>
+  <data name="NoComment.Text" xml:space="preserve">
+    <value>コメントはありません。</value>
+  </data>
+  <data name="NoFavorite.Text" xml:space="preserve">
+    <value>お気に入り投稿した作品はありません。</value>
+  </data>
+  <data name="NoFollow.Text" xml:space="preserve">
+    <value>フォローしているユーザーはいません。</value>
+  </data>
+  <data name="NoFollower.Text" xml:space="preserve">
+    <value>フォロワーはいません。</value>
+  </data>
+  <data name="NoItem.Text" xml:space="preserve">
+    <value>アイテムはありません。</value>
+  </data>
+  <data name="NoMypixiv.Text" xml:space="preserve">
+    <value>マイピクはいません。</value>
+  </data>
+  <data name="NoNovel.Text" xml:space="preserve">
+    <value>ブックマークした小説はありません。</value>
+  </data>
+  <data name="NoPost.Text" xml:space="preserve">
+    <value>投稿した作品はありません。</value>
+  </data>
+  <data name="NoRelated.Text" xml:space="preserve">
+    <value>関連作品はありません。</value>
+  </data>
+  <data name="NotLoggedIn1.Text" xml:space="preserve">
+    <value>非ログイン状態のため、実行可能な操作はありません。</value>
+  </data>
+  <data name="NotLoggedIn2.Text" xml:space="preserve">
+    <value>操作を行うには、ログインしてください。</value>
+  </data>
+  <data name="Privacy.Text" xml:space="preserve">
+    <value>プライバシーポリシー</value>
+  </data>
+  <data name="SearchOption.PrimaryButtonText" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="SearchOption.SecondaryButtonText" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="SearchOption.Title" xml:space="preserve">
+    <value>検索オプション</value>
+  </data>
+  <data name="Tag.Text" xml:space="preserve">
+    <value>タグ</value>
+  </data>
+  <data name="ZeroItems.Text" xml:space="preserve">
+    <value>0個の項目</value>
+  </data>
+  <data name="Error1.Text" xml:space="preserve">
+    <value>pixiv に登録もしくはログインしてください！</value>
+  </data>
+  <data name="NoNew.Text" xml:space="preserve">
+    <value>新しい投稿はありません。</value>
+  </data>
+  <data name="NoSearchResult.Text" xml:space="preserve">
+    <value>検索結果はありません。</value>
+  </data>
+  <data name="Register.Text" xml:space="preserve">
+    <value>登録</value>
+  </data>
+  <data name="AllTime.Content" xml:space="preserve">
+    <value>指定しない</value>
+  </data>
+  <data name="Body.Content" xml:space="preserve">
+    <value>本文</value>
+  </data>
+  <data name="Duration.Text" xml:space="preserve">
+    <value>期間</value>
+  </data>
+  <data name="Error2.Text" xml:space="preserve">
+    <value>この機能を有効にするには、ブラウザから pixiv プレミアムに登録し、</value>
+  </data>
+  <data name="Error3.Text" xml:space="preserve">
+    <value>アプリを再起動する必要があります。</value>
+  </data>
+  <data name="Error4.Text" xml:space="preserve">
+    <value>ID とパスワードを確認してください。</value>
+  </data>
+  <data name="ExactMatch.Content" xml:space="preserve">
+    <value>完全一致</value>
+  </data>
+  <data name="Keyword.Content" xml:space="preserve">
+    <value>キーワード</value>
+  </data>
+  <data name="LastDay.Content" xml:space="preserve">
+    <value>最近１日</value>
+  </data>
+  <data name="LastMonth.Content" xml:space="preserve">
+    <value>最近１ヶ月</value>
+  </data>
+  <data name="LastWeek.Content" xml:space="preserve">
+    <value>最近１週間</value>
+  </data>
+  <data name="LoginFail.Text" xml:space="preserve">
+    <value>ログインに失敗しました。</value>
+  </data>
+  <data name="NeedPremium.Text" xml:space="preserve">
+    <value>pixiv プレミアムに登録する必要があります！</value>
+  </data>
+  <data name="PartialMatch.Content" xml:space="preserve">
+    <value>部分一致</value>
+  </data>
+  <data name="Read.Content" xml:space="preserve">
+    <value>小説を読む</value>
+  </data>
+  <data name="SearchTarget.Text" xml:space="preserve">
+    <value>検索対象</value>
+  </data>
+  <data name="TitleCaption.Content" xml:space="preserve">
+    <value>ﾀｲﾄﾙ・ｷｬﾌﾟｼｮﾝ</value>
+  </data>
+  <data name="Maintenance.Text" xml:space="preserve">
+    <value>メンテナンス</value>
+  </data>
+  <data name="NotLoggedIn.Text" xml:space="preserve">
+    <value>ログインしていません</value>
+  </data>
+</root>

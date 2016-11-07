@@ -1,5 +1,5 @@
-﻿<!-- ReSharper disable UnusedMember.Local -->
-<!-- ReSharper disable NotAccessedField.Local -->
+﻿<!--  ReSharper disable UnusedMember.Local  -->
+<!--  ReSharper disable NotAccessedField.Local  -->
 <Page x:Class="Pyxis.Views.WorkMainPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -15,46 +15,41 @@
       prism:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d">
     <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Pivot SelectedIndex="{x:Bind ViewModel.SelectedIndex, Mode=OneWay}"
-               Style="{StaticResource TabsStylePivotStyle}">
+        <Pivot SelectedIndex="{x:Bind ViewModel.SelectedIndex, Mode=OneWay}" Style="{StaticResource TabsStylePivotStyle}">
             <i:Interaction.Behaviors>
                 <behaviors:AttachNavigationToPivotBehavior NavigationService="{x:Bind ViewModel.NavigationService}" />
             </i:Interaction.Behaviors>
-            <PivotItem attach:NavigateTo.PageToken="WorkMain"
-                       attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:0}">
+            <PivotItem attach:NavigateTo.PageToken="WorkMain" attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:0}">
                 <PivotItem.Header>
-                    <TextBlock Width="64"
-                               Style="{StaticResource TabsStyleTextBlockStyle}"
-                               Text="イラスト" />
+                    <TextBlock x:Uid="Illust"
+                               Width="64"
+                               Style="{StaticResource TabsStyleTextBlockStyle}" />
                 </PivotItem.Header>
             </PivotItem>
-            <PivotItem attach:NavigateTo.PageToken="WorkMain"
-                       attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:1}">
+            <PivotItem attach:NavigateTo.PageToken="WorkMain" attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:1}">
                 <PivotItem.Header>
-                    <TextBlock Width="64"
-                               Style="{StaticResource TabsStyleTextBlockStyle}"
-                               Text="マンガ" />
+                    <TextBlock x:Uid="Manga"
+                               Width="64"
+                               Style="{StaticResource TabsStyleTextBlockStyle}" />
                 </PivotItem.Header>
             </PivotItem>
-            <PivotItem attach:NavigateTo.PageToken="WorkMain"
-                       attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:2}">
+            <PivotItem attach:NavigateTo.PageToken="WorkMain" attach:NavigateTo.Parameters="{}{&quot;ContentType&quot;:2}">
                 <PivotItem.Header>
-                    <TextBlock Width="64"
-                               Style="{StaticResource TabsStyleTextBlockStyle}"
-                               Text="小説" />
+                    <TextBlock x:Uid="Novel"
+                               Width="64"
+                               Style="{StaticResource TabsStyleTextBlockStyle}" />
                 </PivotItem.Header>
             </PivotItem>
         </Pivot>
-        <GridView x:Name="WorkItems"
-                  ItemsSource="{x:Bind ViewModel.WorkItems}">
+        <GridView x:Name="WorkItems" ItemsSource="{x:Bind ViewModel.WorkItems}">
             <i:Interaction.Behaviors>
-                <behaviors:AdjustControlSizeBehavior HeightOffset="-96"
-                                                     IsSyncHeight="True" />
+                <behaviors:AdjustControlSizeBehavior HeightOffset="-96" IsSyncHeight="True" />
                 <behaviors:ListBoxEmptyBehavior Target="{x:Bind NotFoundWorkItemsMes}" />
             </i:Interaction.Behaviors>
             <GridView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <ItemsWrapGrid attach:AssumSize.AssumSize="(0,100),(500,150),(1025,200)"
+                                   CacheLength="1"
                                    Orientation="Horizontal">
                         <i:Interaction.Behaviors>
                             <behaviors:GridViewEuqalitySizeBehavior />
@@ -63,9 +58,9 @@
                 </ItemsPanelTemplate>
             </GridView.ItemsPanel>
             <GridView.Header>
-                <TextBlock x:Name="NotFoundWorkItemsMes"
-                           Style="{ThemeResource NfMessageTextBlockStyle}"
-                           Text="投稿した作品はありません。" />
+                <TextBlock x:Uid="NoPost"
+                           x:Name="NotFoundWorkItemsMes"
+                           Style="{ThemeResource NfMessageTextBlockStyle}" />
             </GridView.Header>
             <GridView.ItemTemplate>
                 <DataTemplate>

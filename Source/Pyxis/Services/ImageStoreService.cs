@@ -16,6 +16,7 @@ namespace Pyxis.Services
 {
     internal class ImageStoreService : IImageStoreService
     {
+        private readonly Regex _backgroundRegex = new Regex(@"^\d+_[a-z0-9]{32}$", RegexOptions.Compiled);
         private readonly IPixivClient _client;
         private readonly Regex _origRegex = new Regex(@"^\d+_p\d+$", RegexOptions.Compiled);
         private readonly StorageFolder _temporaryFolder;
@@ -128,6 +129,8 @@ namespace Pyxis.Services
                 return await _temporaryFolder.CreateFolderAsync("ugoira", CreationCollisionOption.OpenIfExists);
             if (value.EndsWith("170") || value.EndsWith("_s") || _userRegex.IsMatch(value))
                 return await _temporaryFolder.CreateFolderAsync("users", CreationCollisionOption.OpenIfExists);
+            if (_backgroundRegex.IsMatch(value))
+                return await _temporaryFolder.CreateFolderAsync("background", CreationCollisionOption.OpenIfExists);
             return _temporaryFolder;
         }
 

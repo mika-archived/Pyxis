@@ -23,7 +23,7 @@ using Pyxis.ViewModels.Items;
 
 namespace Pyxis.ViewModels.Detail
 {
-    public class UserDetailCollectionPageViewModel : ThumbnailableViewModel
+    public class UserDetailCollectionPageViewModel : MultipleThumbnailableViewModel
     {
         private readonly IAccountService _accountService;
         private readonly ICategoryService _categoryService;
@@ -112,7 +112,13 @@ namespace Pyxis.ViewModels.Detail
             if (!string.IsNullOrWhiteSpace(parameter.Detail.Profile.Webpage))
                 NavigateUrl = new Uri(parameter.Detail.Profile.Webpage);
             if (full)
+            {
                 Thumbnailable = new PixivUserImage(parameter.Detail.User, _imageStoreService);
+                if (string.IsNullOrWhiteSpace(parameter.Detail.Profile.BackgroundImageUrl))
+                    Thumbnailable2 = new PixivUserImage(parameter.Detail.User, _imageStoreService);
+                else
+                    Thumbnailable2 = new PixivUrlImage(parameter.Detail.Profile.BackgroundImageUrl, _imageStoreService);
+            }
             var param1 = new UserDetailParameter
             {
                 Detail = parameter.Detail,

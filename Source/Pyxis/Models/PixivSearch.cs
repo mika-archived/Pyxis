@@ -11,6 +11,7 @@ using Microsoft.Practices.ObjectBuilder2;
 
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest;
+using Pyxis.Helpers;
 using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
 
@@ -19,6 +20,7 @@ namespace Pyxis.Models
     internal class PixivSearch : ISupportIncrementalLoading
     {
         private readonly IPixivClient _pixivClient;
+        private int _count;
         private string _offset;
         private SearchOptionParameter _optionParam;
 
@@ -35,17 +37,18 @@ namespace Pyxis.Models
             ResultNovels = new ObservableCollection<INovel>();
             ResultUsers = new ObservableCollection<IUserPreview>();
             _offset = "";
+            _count = 0;
             HasMoreItems = false;
         }
 
-        public void Search(string query, SearchOptionParameter optionParameter)
+        public void Search(string query, SearchOptionParameter optionParameter, bool force = false)
         {
-            var flag = ResultIllusts.Count == 0 && ResultNovels.Count == 0 && ResultUsers.Count == 0;
             ResultIllusts.Clear();
             ResultNovels.Clear();
             ResultUsers.Clear();
             _query = query;
             _offset = "";
+            _count = 0;
             _optionParam = optionParameter;
             if (!string.IsNullOrWhiteSpace(_optionParam.EitherWord))
                 _query += " " + string.Join(" ", _optionParam.EitherWord.Split(' ').Select(w => $"({w})"));
@@ -53,18 +56,21 @@ namespace Pyxis.Models
                 _query += " " + string.Join(" ", _optionParam.IgnoreWord.Split(' ').Select(w => $"--{w}"));
 #if !OFFLINE
             HasMoreItems = true;
-            //if (flag)
-            //    RunHelper.RunAsync(SearchAsync);
+            if (force)
+                RunHelper.RunAsync(SearchAsync);
 #endif
         }
 
         private async Task SearchAsync()
         {
-            if (_optionParam == null || string.IsNullOrWhiteSpace(_query))
+            if ((_optionParam == null) || string.IsNullOrWhiteSpace(_query))
             {
                 HasMoreItems = false;
                 return;
             }
+            if ((_count > 0) && string.IsNullOrWhiteSpace(_offset))
+                _offset = "30"; // クソ
+            _count++;
             if (_optionParam.SearchType == SearchType.IllustsAndManga)
                 await SearchIllust();
             else if (_optionParam.SearchType == SearchType.Novels)
@@ -88,7 +94,7 @@ namespace Pyxis.Models
                     .Where(w => w.TotalView >= _optionParam.ViewCount)
                     .Where(w => w.TotalComments >= _optionParam.CommentCount)
                     .Where(w => w.PageCount >= _optionParam.CommentCount)
-                    .Where(w => w.Height >= _optionParam.Height && w.Width >= _optionParam.Width)
+                    .Where(w => (w.Height >= _optionParam.Height) && (w.Width >= _optionParam.Width))
                     .Where(w => string.IsNullOrWhiteSpace(_optionParam.Tool) || w.Tools.Any(v => v == _optionParam.Tool))
                     .ForEach(w => ResultIllusts.Add(w));
             if (string.IsNullOrWhiteSpace(illusts?.NextUrl))

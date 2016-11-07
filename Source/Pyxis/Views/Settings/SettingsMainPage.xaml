@@ -13,25 +13,33 @@
         <Pivot Style="{StaticResource TabsStylePivotStyle}">
             <PivotItem>
                 <PivotItem.Header>
-                    <TextBlock Width="80"
-                               Style="{StaticResource TabsStyleTextBlockStyle}"
-                               Text="全般" />
+                    <TextBlock x:Uid="General"
+                               Width="80"
+                               Style="{StaticResource TabsStyleTextBlockStyle}" />
                 </PivotItem.Header>
                 <local:SettingsGeneralView Margin="10" />
             </PivotItem>
             <PivotItem>
                 <PivotItem.Header>
-                    <TextBlock Width="80"
-                               Style="{StaticResource TabsStyleTextBlockStyle}"
-                               Text="アカウント" />
+                    <TextBlock x:Uid="Account"
+                               Width="80"
+                               Style="{StaticResource TabsStyleTextBlockStyle}" />
                 </PivotItem.Header>
                 <local:SettingsAccountView Margin="10" />
             </PivotItem>
             <PivotItem>
                 <PivotItem.Header>
-                    <TextBlock Width="80"
-                               Style="{StaticResource TabsStyleTextBlockStyle}"
-                               Text="Pyxis について" />
+                    <TextBlock x:Uid="Maintenance"
+                               Width="80"
+                               Style="{StaticResource TabsStyleTextBlockStyle}" />
+                </PivotItem.Header>
+                <local:SettingsMaintenanceView Margin="10" />
+            </PivotItem>
+            <PivotItem>
+                <PivotItem.Header>
+                    <TextBlock x:Uid="About"
+                               Width="80"
+                               Style="{StaticResource TabsStyleTextBlockStyle}" />
                 </PivotItem.Header>
                 <local:SettingsAboutView />
             </PivotItem>

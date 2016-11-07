@@ -43,7 +43,7 @@ namespace Pyxis.Models
             if (string.IsNullOrWhiteSpace(illusts?.NextUrl))
                 HasMoreItems = false;
             else
-                _seedIds = UrlParameter.ParseQuery(illusts.NextUrl)["seed_illust_ids"].Replace("%2C", ",");
+                _seedIds = UrlParameter.ParseQuery(illusts.NextUrl)["v1_seed_illust_ids"].Replace("%2C", ",");
         }
 
         #region Implementation of ISupportIncrementalLoading

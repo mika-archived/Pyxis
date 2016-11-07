@@ -19,8 +19,7 @@
                     VerticalAlignment="Center"
                     Orientation="Horizontal">
             <TextBlock Text="{x:Bind ViewModel.CurrentPage, Mode=OneWay}" />
-            <TextBlock Margin="5,0"
-                       Text="|" />
+            <TextBlock Margin="5,0" Text="|" />
             <TextBlock Text="{x:Bind ViewModel.MaxPage, Mode=OneWay}" />
         </StackPanel>
         <FlipView Grid.Row="1"

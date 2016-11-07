@@ -1,5 +1,5 @@
-﻿<!-- ReSharper disable UnusedMember.Local -->
-<!-- ReSharper disable NotAccessedField.Local -->
+﻿<!--  ReSharper disable UnusedMember.Local  -->
+<!--  ReSharper disable NotAccessedField.Local  -->
 <Page x:Class="Pyxis.Views.Detail.UserDetailCollectionPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -36,7 +36,7 @@
                 </VisualState>
                 <VisualState x:Name="Tablet">
                     <VisualState.StateTriggers>
-                        <!-- 641 -->
+                        <!--  641  -->
                         <AdaptiveTrigger MinWindowWidth="500" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
@@ -61,14 +61,14 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <GridView x:Name="Works"
-                  ItemsSource="{x:Bind ViewModel.Collection}">
+        <GridView x:Name="Works" ItemsSource="{x:Bind ViewModel.Collection}">
             <i:Interaction.Behaviors>
                 <behaviors:ListBoxEmptyBehavior Target="{x:Bind NotFoundItemsMes}" />
             </i:Interaction.Behaviors>
             <GridView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <ItemsWrapGrid attach:AssumSize.AssumSize="(0,100),(500,150),(1025,200)"
+                                   CacheLength="1"
                                    Orientation="Horizontal">
                         <i:Interaction.Behaviors>
                             <behaviors:GridViewEuqalitySizeBehavior />
@@ -89,17 +89,14 @@
                             BorderBrush="{ThemeResource SystemControlForegroundChromeMediumBrush}"
                             BorderThickness="0,0,0,1">
                         <Grid>
-                            <controls:BlurEffectControl>
+                            <controls:BlurEffectControl BlurAmount="5">
                                 <Image VerticalAlignment="Center"
-                                       Source="{x:Bind ViewModel.ThumbnailPath, Mode=OneWay}"
+                                       Source="{x:Bind ViewModel.ThumbnailPath2, Mode=OneWay}"
                                        Stretch="UniformToFill" />
                             </controls:BlurEffectControl>
-                            <Border Background="White"
-                                    Opacity=".75" />
-                            <StackPanel HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Center">
-                                <Grid Height="96"
-                                      HorizontalAlignment="Stretch">
+                            <Border Background="White" Opacity=".75" />
+                            <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                                <Grid Height="96" HorizontalAlignment="Stretch">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="1*" />
                                         <ColumnDefinition Width="96" />
@@ -110,8 +107,7 @@
                                             BorderThickness="1"
                                             CornerRadius="48">
                                         <Border.Background>
-                                            <ImageBrush ImageSource="{x:Bind ViewModel.ThumbnailPath, Mode=OneWay}"
-                                                        Stretch="Uniform" />
+                                            <ImageBrush ImageSource="{x:Bind ViewModel.ThumbnailPath, Mode=OneWay}" Stretch="Uniform" />
                                         </Border.Background>
                                     </Border>
                                     <Button Grid.Column="2"
@@ -123,11 +119,11 @@
                                             Command="{x:Bind ViewModel.FollowCommand}"
                                             Foreground="{ThemeResource SystemControlForegroundAccentBrush}">
                                         <Grid>
-                                            <TextBlock HorizontalAlignment="Center"
-                                                       Text="フォロー"
+                                            <TextBlock x:Uid="Follow"
+                                                       HorizontalAlignment="Center"
                                                        Visibility="{x:Bind ViewModel.IsFollowing, Mode=OneWay, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
-                                            <TextBlock HorizontalAlignment="Center"
-                                                       Text="フォロー解除"
+                                            <TextBlock x:Uid="Unfollow"
+                                                       HorizontalAlignment="Center"
                                                        Visibility="{x:Bind ViewModel.IsFollowing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                         </Grid>
                                     </Button>
@@ -152,28 +148,25 @@
                         <i:Interaction.Behaviors>
                             <behaviors:AttachNavigationToPivotBehavior NavigationService="{x:Bind ViewModel.NavigationService}" />
                         </i:Interaction.Behaviors>
-                        <PivotItem attach:NavigateTo.PageToken="Detail.UserDetail"
-                                   attach:NavigateTo.Parameters="{x:Bind ViewModel.Parameter[0], Mode=OneWay}">
+                        <PivotItem attach:NavigateTo.PageToken="Detail.UserDetail" attach:NavigateTo.Parameters="{x:Bind ViewModel.Parameter[0], Mode=OneWay}">
                             <PivotItem.Header>
-                                <TextBlock Width="80"
-                                           Style="{StaticResource TabsStyleTextBlockStyle}"
-                                           Text="プロフィール" />
+                                <TextBlock x:Uid="Profile"
+                                           Width="80"
+                                           Style="{StaticResource TabsStyleTextBlockStyle}" />
                             </PivotItem.Header>
                         </PivotItem>
-                        <PivotItem attach:NavigateTo.PageToken="Detail.UserDetailCollection"
-                                   attach:NavigateTo.Parameters="{x:Bind ViewModel.Parameter[1], Mode=OneWay}">
+                        <PivotItem attach:NavigateTo.PageToken="Detail.UserDetailCollection" attach:NavigateTo.Parameters="{x:Bind ViewModel.Parameter[1], Mode=OneWay}">
                             <PivotItem.Header>
-                                <TextBlock Width="80"
-                                           Style="{StaticResource TabsStyleTextBlockStyle}"
-                                           Text="作品" />
+                                <TextBlock x:Uid="Work"
+                                           Width="80"
+                                           Style="{StaticResource TabsStyleTextBlockStyle}" />
                             </PivotItem.Header>
                         </PivotItem>
-                        <PivotItem attach:NavigateTo.PageToken="Detail.UserDetailCollection"
-                                   attach:NavigateTo.Parameters="{x:Bind ViewModel.Parameter[2], Mode=OneWay}">
+                        <PivotItem attach:NavigateTo.PageToken="Detail.UserDetailCollection" attach:NavigateTo.Parameters="{x:Bind ViewModel.Parameter[2], Mode=OneWay}">
                             <PivotItem.Header>
-                                <TextBlock Width="80"
-                                           Style="{StaticResource TabsStyleTextBlockStyle}"
-                                           Text="お気に入り" />
+                                <TextBlock x:Uid="Favorite"
+                                           Width="80"
+                                           Style="{StaticResource TabsStyleTextBlockStyle}" />
                             </PivotItem.Header>
                         </PivotItem>
                     </Pivot>
@@ -184,28 +177,25 @@
                         <i:Interaction.Behaviors>
                             <behaviors:AttachNavigationToPivotBehavior NavigationService="{x:Bind ViewModel.NavigationService}" />
                         </i:Interaction.Behaviors>
-                        <PivotItem attach:NavigateTo.PageToken="Detail.UserDetailCollection"
-                                   attach:NavigateTo.Parameters="{x:Bind ViewModel.SubParameters[0], Mode=OneWay}">
+                        <PivotItem attach:NavigateTo.PageToken="Detail.UserDetailCollection" attach:NavigateTo.Parameters="{x:Bind ViewModel.SubParameters[0], Mode=OneWay}">
                             <PivotItem.Header>
-                                <TextBlock Width="64"
-                                           Style="{StaticResource TabsStyleTextBlockStyle}"
-                                           Text="イラスト" />
+                                <TextBlock x:Uid="Illust"
+                                           Width="64"
+                                           Style="{StaticResource TabsStyleTextBlockStyle}" />
                             </PivotItem.Header>
                         </PivotItem>
-                        <PivotItem attach:NavigateTo.PageToken="Detail.UserDetailCollection"
-                                   attach:NavigateTo.Parameters="{x:Bind ViewModel.SubParameters[1], Mode=OneWay}">
+                        <PivotItem attach:NavigateTo.PageToken="Detail.UserDetailCollection" attach:NavigateTo.Parameters="{x:Bind ViewModel.SubParameters[1], Mode=OneWay}">
                             <PivotItem.Header>
-                                <TextBlock Width="64"
-                                           Style="{StaticResource TabsStyleTextBlockStyle}"
-                                           Text="マンガ" />
+                                <TextBlock x:Uid="Manga"
+                                           Width="64"
+                                           Style="{StaticResource TabsStyleTextBlockStyle}" />
                             </PivotItem.Header>
                         </PivotItem>
-                        <PivotItem attach:NavigateTo.PageToken="Detail.UserDetailCollection"
-                                   attach:NavigateTo.Parameters="{x:Bind ViewModel.SubParameters[2], Mode=OneWay}">
+                        <PivotItem attach:NavigateTo.PageToken="Detail.UserDetailCollection" attach:NavigateTo.Parameters="{x:Bind ViewModel.SubParameters[2], Mode=OneWay}">
                             <PivotItem.Header>
-                                <TextBlock Width="64"
-                                           Style="{StaticResource TabsStyleTextBlockStyle}"
-                                           Text="小説" />
+                                <TextBlock x:Uid="Novel"
+                                           Width="64"
+                                           Style="{StaticResource TabsStyleTextBlockStyle}" />
                             </PivotItem.Header>
                         </PivotItem>
                     </Pivot>
@@ -216,27 +206,25 @@
                         <i:Interaction.Behaviors>
                             <behaviors:AttachNavigationToPivotBehavior NavigationService="{x:Bind ViewModel.NavigationService}" />
                         </i:Interaction.Behaviors>
-                        <PivotItem attach:NavigateTo.PageToken="Detail.UserDetailCollection"
-                                   attach:NavigateTo.Parameters="{x:Bind ViewModel.SubParameters[0], Mode=OneWay}">
+                        <PivotItem attach:NavigateTo.PageToken="Detail.UserDetailCollection" attach:NavigateTo.Parameters="{x:Bind ViewModel.SubParameters[0], Mode=OneWay}">
                             <PivotItem.Header>
-                                <TextBlock Width="80"
-                                           Style="{StaticResource TabsStyleTextBlockStyle}"
-                                           Text="イラスト・マンガ" />
+                                <TextBlock x:Uid="IllustAndManga"
+                                           Width="80"
+                                           Style="{StaticResource TabsStyleTextBlockStyle}" />
                             </PivotItem.Header>
                         </PivotItem>
-                        <PivotItem attach:NavigateTo.PageToken="Detail.UserDetailCollection"
-                                   attach:NavigateTo.Parameters="{x:Bind ViewModel.SubParameters[2], Mode=OneWay}">
+                        <PivotItem attach:NavigateTo.PageToken="Detail.UserDetailCollection" attach:NavigateTo.Parameters="{x:Bind ViewModel.SubParameters[2], Mode=OneWay}">
                             <PivotItem.Header>
-                                <TextBlock Width="80"
-                                           Style="{StaticResource TabsStyleTextBlockStyle}"
-                                           Text="小説" />
+                                <TextBlock x:Uid="Novel"
+                                           Width="80"
+                                           Style="{StaticResource TabsStyleTextBlockStyle}" />
                             </PivotItem.Header>
                         </PivotItem>
                     </Pivot>
-                    <TextBlock x:Name="NotFoundItemsMes"
+                    <TextBlock x:Uid="NoItem"
+                               x:Name="NotFoundItemsMes"
                                Grid.Row="3"
-                               Style="{ThemeResource NfMessageTextBlockStyle}"
-                               Text="アイテムはありません。" />
+                               Style="{ThemeResource NfMessageTextBlockStyle}" />
                 </Grid>
             </GridView.Header>
             <GridView.ItemTemplate>

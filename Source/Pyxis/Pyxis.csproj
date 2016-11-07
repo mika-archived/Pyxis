@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Pyxis</RootNamespace>
     <AssemblyName>Pyxis</AssemblyName>
-    <DefaultLanguage>ja-JP</DefaultLanguage>
+    <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.14393.0</TargetPlatformMinVersion>
@@ -21,6 +21,8 @@
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <AppxBundle>Always</AppxBundle>
+    <AppxSymbolPackageEnabled>True</AppxSymbolPackageEnabled>
+    <HockeyAppResourceId>096f082c19e54f24aab0d31ff4d9bfb7</HockeyAppResourceId>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -94,6 +96,9 @@
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <None Include="project.json" />
+    <None Include="Service References\HockeyApp\ConnectedService.json" />
+    <PRIResource Include="Strings\en-US\Resources.resw" />
+    <PRIResource Include="Strings\ja-JP\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -180,6 +185,7 @@
     <Compile Include="Models\PixivSearch.cs" />
     <Compile Include="Models\PixivTrending.cs" />
     <Compile Include="Models\PixivDetail.cs" />
+    <Compile Include="Models\PixivUrlImage.cs" />
     <Compile Include="Models\PixivUserImage.cs" />
     <Compile Include="Models\PixivWork.cs" />
     <Compile Include="Models\PyxisSchemeActivator.cs" />
@@ -204,6 +210,8 @@
     <Compile Include="ViewModels\AccountInfoControlViewModel.cs" />
     <Compile Include="ViewModels\Account\LoginPageViewModel.cs" />
     <Compile Include="ViewModels\Base\DialogViewModel.cs" />
+    <Compile Include="ViewModels\Base\MultipleThumbnailableViewModel.cs" />
+    <Compile Include="ViewModels\Base\ResourceViewModel.cs" />
     <Compile Include="ViewModels\Base\TappableThumbnailViewModel.cs" />
     <Compile Include="ViewModels\Base\ThumbnailableViewModel.cs" />
     <Compile Include="ViewModels\BookmarkMainPageViewModel.cs" />
@@ -247,12 +255,10 @@
     <Compile Include="ViewModels\Settings\SettingsAccountViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsGeneralViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsMainPageViewModel.cs" />
+    <Compile Include="ViewModels\Settings\SettingsMaintenanceViewModel.cs" />
     <Compile Include="ViewModels\WorkMainPageViewModel.cs" />
     <Compile Include="Views\AccountInfoControl.xaml.cs">
       <DependentUpon>AccountInfoControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Account\HomeAccountPage.xaml.cs">
-      <DependentUpon>HomeAccountPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Account\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
@@ -365,6 +371,9 @@
     <Compile Include="Views\Settings\SettingsMainPage.xaml.cs">
       <DependentUpon>SettingsMainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Settings\SettingsMaintenanceView.xaml.cs">
+      <DependentUpon>SettingsMaintenanceView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WorkMainPage.xaml.cs">
       <DependentUpon>WorkMainPage.xaml</DependentUpon>
     </Compile>
@@ -459,10 +468,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AccountInfoControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Account\HomeAccountPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -614,6 +619,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Settings\SettingsMaintenanceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\WorkMainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -643,6 +652,9 @@
     <SDKReference Include="WindowsMobile, Version=10.0.14393.0">
       <Name>Windows Mobile Extensions for the UWP %28WindowsMobile, Version=10.0.14393.0%29</Name>
     </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

@@ -5,6 +5,8 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Windows.Input;
 
+using Windows.ApplicationModel.Resources;
+
 using Prism.Commands;
 using Prism.Windows.Navigation;
 
@@ -23,12 +25,13 @@ using Reactive.Bindings.Extensions;
 
 namespace Pyxis.ViewModels.Detail
 {
-    public class UserDetailPageViewModel : ThumbnailableViewModel
+    public class UserDetailPageViewModel : MultipleThumbnailableViewModel
     {
         private readonly IAccountService _accountService;
         private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
+        private readonly ResourceLoader Resources = ResourceLoader.GetForCurrentView();
         private string _id;
         private bool _isOffline;
         private PixivDetail _pixivUser;
@@ -102,6 +105,10 @@ namespace Pyxis.ViewModels.Detail
             {
                 _userDetail = w;
                 Thumbnailable = new PixivUserImage(w.User, _imageStoreService);
+                if (string.IsNullOrWhiteSpace(w.Profile.BackgroundImageUrl))
+                    Thumbnailable2 = new PixivUserImage(w.User, _imageStoreService);
+                else
+                    Thumbnailable2 = new PixivUrlImage(w.Profile.BackgroundImageUrl, _imageStoreService);
                 var param1 = new UserDetailParameter
                 {
                     Detail = w,
@@ -118,7 +125,11 @@ namespace Pyxis.ViewModels.Detail
                                   .Select(w => new Uri(w))
                                   .ToReadOnlyReactiveProperty()
                                   .AddTo(this);
-            Gender = observer.Select(w => w.Profile.Gender == "Male" ? "男" : "女").ToReadOnlyReactiveProperty().AddTo(this);
+            Gender = observer.Select(w => w.Profile.Gender)
+                             .Where(w => !string.IsNullOrWhiteSpace(w))
+                             .Select(w => w.ToLower() == "male" ? Resources.GetString("Male") : Resources.GetString("Famale"))
+                             .ToReadOnlyReactiveProperty()
+                             .AddTo(this);
             Region = observer.Select(w => w.Profile.Region).ToReadOnlyReactiveProperty().AddTo(this);
             Birthday = observer.Select(w => w.Profile.Birth).ToReadOnlyReactiveProperty().AddTo(this);
             Job = observer.Select(w => w.Profile.Job).ToReadOnlyReactiveProperty().AddTo(this);

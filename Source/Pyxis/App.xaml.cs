@@ -5,6 +5,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
+using Microsoft.HockeyApp;
 using Microsoft.Practices.Unity;
 
 using Prism.Unity.Windows;
@@ -26,7 +27,7 @@ namespace Pyxis
     /// <summary>
     ///     既定の Application クラスを補完するアプリケーション固有の動作を提供します。
     /// </summary>
-    sealed partial class App : PrismUnityApplication
+    public sealed partial class App : PrismUnityApplication
     {
         /// <summary>
         ///     単一アプリケーション オブジェクトを初期化します。これは、実行される作成したコードの
@@ -34,12 +35,12 @@ namespace Pyxis
         /// </summary>
         public App()
         {
+            HockeyClient.Current.Configure("096f082c19e54f24aab0d31ff4d9bfb7");
             InitializeComponent();
             UnhandledException += (sender, e) =>
             {
                 Debug.WriteLine("");
                 Debug.WriteLine(e.Message);
-
                 e.Handled = true;
                 Application.Current.Exit();
             };
@@ -59,7 +60,6 @@ namespace Pyxis
             var args = e as ProtocolActivatedEventArgs;
             if (args == null)
                 return Task.CompletedTask;
-
             PyxisSchemeActivator.Activate(args.Uri, NavigationService);
             return Task.CompletedTask;
         }
@@ -75,10 +75,8 @@ namespace Pyxis
         protected override async Task OnInitializeAsync(IActivatedEventArgs args)
         {
             UIDispatcherScheduler.Initialize();
-
             var pixivClient = new PixivApiClient();
             var accountService = new AccountService(pixivClient);
-
             Container.RegisterInstance<IPixivClient>(pixivClient, new LifetimeManager());
             Container.RegisterInstance<IAccountService>(accountService, new LifetimeManager());
             Container.RegisterType<IBrowsingHistoryService, BrowsingHistoryService>(new LifetimeManager());

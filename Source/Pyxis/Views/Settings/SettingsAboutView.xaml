@@ -8,12 +8,10 @@
              d:DataContext="{d:DesignInstance vm:SettingsAboutViewModel}"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d">
-    <ScrollViewer Margin="10,10,0,10"
-                  VerticalScrollBarVisibility="Auto">
+    <ScrollViewer Margin="10,10,0,10" VerticalScrollBarVisibility="Auto">
         <StackPanel>
             <StackPanel.Resources>
-                <Style BasedOn="{StaticResource BodyTextBlockStyle}"
-                       TargetType="TextBlock">
+                <Style BasedOn="{StaticResource BodyTextBlockStyle}" TargetType="TextBlock">
                     <Setter Property="HorizontalAlignment" Value="Left" />
                 </Style>
                 <Style x:Key="LicenseNameTextBlockStyle"
@@ -24,86 +22,83 @@
                     <Setter Property="FontWeight" Value="Bold" />
                 </Style>
             </StackPanel.Resources>
-            <TextBlock Style="{ThemeResource TitleTextBlockStyle}"
-                       Text="Pyxis" />
-            <TextBlock Style="{ThemeResource CaptionTextBlockStyle}"
-                       Text="Version 1.1.0" />
+            <TextBlock Style="{ThemeResource TitleTextBlockStyle}" Text="Pyxis" />
+            <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" Text="Version 1.1.0" />
             <TextBlock>
-                <Hyperlink NavigateUri="https://kokoiroworks.com/pyx/privacy">プライバシーポリシー</Hyperlink>
+                <Hyperlink NavigateUri="https://kokoiroworks.com/pyx/privacy">
+                    <Run x:Uid="Privacy" />
+                </Hyperlink>
             </TextBlock>
             <TextBlock Visibility="{x:Bind ViewModel.IsSupportFeedback, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
-                バグ報告や要望などは
-                <Hyperlink Click="{x:Bind ViewModel.OnClickedFeedbackLink}">フィードバック Hub</Hyperlink>
-                にて
+                <Run x:Uid="Feedback1" />
+                <Hyperlink Click="{x:Bind ViewModel.OnClickedFeedbackLink}">
+                    <Run x:Uid="FeedbackHub" />
+                </Hyperlink>
+                <Run x:Uid="Feedback2" />
+                <LineBreak />
+                <Run x:Uid="Feedback3" />
             </TextBlock>
             <TextBlock Visibility="{x:Bind ViewModel.IsSupportFeedback, Mode=OneWay, Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
-                バグ報告や要望などは Twitter
+                <Run x:Uid="Feedback1" />
                 <Hyperlink NavigateUri="https://twitter.com/hashtag/PyxisApp">#PyxisApp</Hyperlink>
-                にて
+                <Run x:Uid="Feedback2" />
             </TextBlock>
-            <TextBlock Margin="0,20,0,0"
-                       FontWeight="Bold"
-                       Text="ライセンス" />
+            <TextBlock x:Uid="License"
+                       Margin="0,20,0,0"
+                       FontWeight="Bold" />
             <!--#region HtmlAgilityPack-->
-            <TextBlock Style="{StaticResource LicenseNameTextBlockStyle}"
-                       Text="HtmlAgilityPack" />
+            <TextBlock Style="{StaticResource LicenseNameTextBlockStyle}" Text="HtmlAgilityPack" />
             <TextBlock Text="Copyright (c) Simon Mourrier, Jeff Klawiter, Stephan Grell" />
             <TextBlock>
-                ライセンス本文：
+                <Run x:Uid="License" />
                 <Hyperlink NavigateUri="http://htmlagilitypack.codeplex.com/license">MS-PL</Hyperlink>
             </TextBlock>
             <!--#endregion-->
             <!--#region Newtonsoft.Json-->
-            <TextBlock Style="{StaticResource LicenseNameTextBlockStyle}"
-                       Text="Json.NET" />
+            <TextBlock Style="{StaticResource LicenseNameTextBlockStyle}" Text="Json.NET" />
             <TextBlock Text="Copyright (c) 2007 James Newton-King" />
             <TextBlock>
-                ライセンス本文：
+                <Run x:Uid="License" />
                 <Hyperlink NavigateUri="https://raw.githubusercontent.com/JamesNK/Newtonsoft.Json/master/LICENSE.md">MIT</Hyperlink>
             </TextBlock>
             <!--#endregion-->
             <!--#region Prism.Windows-->
-            <TextBlock Style="{StaticResource LicenseNameTextBlockStyle}"
-                       Text="Prism 6 for Windows UWP" />
+            <TextBlock Style="{StaticResource LicenseNameTextBlockStyle}" Text="Prism 6 for Windows UWP" />
             <TextBlock Text="(C) Copyright .NET Foundation" />
             <TextBlock>
-                ライセンス本文：
+                <Run x:Uid="License" />
                 <Hyperlink NavigateUri="https://github.com/PrismLibrary/Prism/blob/master/LICENSE">Apache</Hyperlink>
             </TextBlock>
             <!--#endregion-->
             <!--#region ReactiveProperty-->
-            <TextBlock Style="{StaticResource LicenseNameTextBlockStyle}"
-                       Text="ReactiveProperty" />
+            <TextBlock Style="{StaticResource LicenseNameTextBlockStyle}" Text="ReactiveProperty" />
             <TextBlock Text="Copyright (c) 2016 neuecc, xin9le, okazuki" />
             <TextBlock>
-                ライセンス本文：
+                <Run x:Uid="License" />
                 <Hyperlink NavigateUri="https://github.com/runceel/ReactiveProperty/blob/master/LICENSE.txt">MIT</Hyperlink>
             </TextBlock>
             <!--#endregion-->
             <!--#region Rx-Main-->
-            <TextBlock Style="{StaticResource LicenseNameTextBlockStyle}"
-                       Text="Reactive Extensions" />
+            <TextBlock Style="{StaticResource LicenseNameTextBlockStyle}" Text="Reactive Extensions" />
             <TextBlock Text="Copyright (C) Microsoft Corporation" />
             <TextBlock>
-                ライセンス本文：
+                <Run x:Uid="License" />
                 <Hyperlink NavigateUri="http://go.microsoft.com/fwlink/?LinkID=261272">Apache</Hyperlink>
             </TextBlock>
             <!--#endregion-->
             <!--#region Win2D.uwp-->
-            <TextBlock Style="{StaticResource LicenseNameTextBlockStyle}"
-                       Text="Win2D.uwp" />
+            <TextBlock Style="{StaticResource LicenseNameTextBlockStyle}" Text="Win2D.uwp" />
             <TextBlock Text="Copyright (c) Microsoft Corporation. All rights reserved." />
             <TextBlock>
-                ライセンス本文：
+                <Run x:Uid="License" />
                 <Hyperlink NavigateUri="https://github.com/Microsoft/Win2D/blob/master/LICENSE.txt">MIT</Hyperlink>
             </TextBlock>
             <!--#endregion-->
             <!--#region WinRTXamlToolkit.UWP-->
-            <TextBlock Style="{StaticResource LicenseNameTextBlockStyle}"
-                       Text="WinRT XAML Toolkit for Windows 10" />
+            <TextBlock Style="{StaticResource LicenseNameTextBlockStyle}" Text="WinRT XAML Toolkit for Windows 10" />
             <TextBlock Text="Copyright (c) 2012 Filip Skakun" />
             <TextBlock>
-                ライセンス本文：
+                <Run x:Uid="License" />
                 <Hyperlink NavigateUri="https://github.com/xyzzer/WinRTXamlToolkit/blob/master/License.md">MIT</Hyperlink>
             </TextBlock>
             <!--#endregion-->
