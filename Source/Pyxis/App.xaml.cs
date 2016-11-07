@@ -5,7 +5,10 @@ using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
+<<<<<<< HEAD
 using Microsoft.HockeyApp;
+=======
+>>>>>>> parent of 8a617c4... SQLite の DB 作成
 using Microsoft.Practices.Unity;
 
 using Prism.Unity.Windows;
@@ -27,7 +30,7 @@ namespace Pyxis
     /// <summary>
     ///     既定の Application クラスを補完するアプリケーション固有の動作を提供します。
     /// </summary>
-    public sealed partial class App : PrismUnityApplication
+    sealed partial class App : PrismUnityApplication
     {
         /// <summary>
         ///     単一アプリケーション オブジェクトを初期化します。これは、実行される作成したコードの
@@ -44,9 +47,6 @@ namespace Pyxis
                 e.Handled = true;
                 Application.Current.Exit();
             };
-
-            using (var db = new CacheContext())
-                db.Database.Migrate();
         }
 
         #region Overrides of PrismApplication
@@ -83,7 +83,6 @@ namespace Pyxis
             Container.RegisterInstance<IPixivClient>(pixivClient, new LifetimeManager());
             Container.RegisterInstance<IAccountService>(accountService, new LifetimeManager());
             Container.RegisterType<IBrowsingHistoryService, BrowsingHistoryService>(new LifetimeManager());
-            Container.RegisterType<ICacheService, CacheService>(new LifetimeManager());
             Container.RegisterType<IImageStoreService, ImageStoreService>(new LifetimeManager());
             Container.RegisterType<IDialogService, DialogService>(new LifetimeManager());
             Container.RegisterType<ICategoryService, CategoryService>(new LifetimeManager());
