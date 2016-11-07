@@ -44,6 +44,9 @@ namespace Pyxis
                 e.Handled = true;
                 Application.Current.Exit();
             };
+
+            using (var db = new CacheContext())
+                db.Database.Migrate();
         }
 
         #region Overrides of PrismApplication
