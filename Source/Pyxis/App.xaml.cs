@@ -5,10 +5,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-<<<<<<< HEAD
 using Microsoft.HockeyApp;
-=======
->>>>>>> parent of 8a617c4... SQLite の DB 作成
 using Microsoft.Practices.Unity;
 
 using Prism.Unity.Windows;
@@ -30,7 +27,7 @@ namespace Pyxis
     /// <summary>
     ///     既定の Application クラスを補完するアプリケーション固有の動作を提供します。
     /// </summary>
-    sealed partial class App : PrismUnityApplication
+    internal sealed partial class App : PrismUnityApplication
     {
         /// <summary>
         ///     単一アプリケーション オブジェクトを初期化します。これは、実行される作成したコードの
