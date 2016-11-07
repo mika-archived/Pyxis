@@ -5,7 +5,6 @@ using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-using Microsoft.EntityFrameworkCore;
 using Microsoft.HockeyApp;
 using Microsoft.Practices.Unity;
 
@@ -14,7 +13,6 @@ using Prism.Unity.Windows;
 using Pyxis.Alpha;
 using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Models;
-using Pyxis.Models.Cache;
 using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
 using Pyxis.Services;
@@ -45,15 +43,7 @@ namespace Pyxis
                 Debug.WriteLine(e.Message);
                 e.Handled = true;
                 Application.Current.Exit();
-<<<<<<< HEAD
-            }
-                ;
-=======
             };
-
-            using (var db = new CacheContext())
-                db.Database.Migrate();
->>>>>>> parent of 528b55d... DB initialized and migration
         }
 
         #region Overrides of PrismApplication
@@ -103,22 +93,6 @@ namespace Pyxis
 #if !OFFLINE
             await accountService.Login();
 #endif
-<<<<<<< HEAD
-            Debug.WriteLine("Process A");
-            if (!((LaunchActivatedEventArgs) args).PrelaunchActivated)
-            {
-                Debug.WriteLine("Process B");
-                using (var db = new CacheContext())
-                {
-                    if (!db.IsCreated)
-                        await Container.Resolve<IImageStoreService>().ClearImagesAsync();
-                    db.Database.Migrate();
-                }
-            }
-
-            Debug.WriteLine("Process C");
-=======
->>>>>>> parent of 528b55d... DB initialized and migration
             await base.OnInitializeAsync(args);
         }
 
