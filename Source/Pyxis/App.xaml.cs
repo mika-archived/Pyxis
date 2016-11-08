@@ -1,10 +1,12 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
+using Microsoft.EntityFrameworkCore;
 using Microsoft.HockeyApp;
 using Microsoft.Practices.Unity;
 
@@ -12,7 +14,9 @@ using Prism.Unity.Windows;
 
 using Pyxis.Alpha;
 using Pyxis.Beta.Interfaces.Rest;
+using Pyxis.Helpers;
 using Pyxis.Models;
+using Pyxis.Models.Caching;
 using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
 using Pyxis.Services;
@@ -92,6 +96,12 @@ namespace Pyxis
 #if !OFFLINE
             await accountService.Login();
 #endif
+            RunHelper.Timeout(() =>
+            {
+                using (var db = new CacheContext())
+                    db.Database.Migrate();
+            }, TimeSpan.FromSeconds(3));
+
             await base.OnInitializeAsync(args);
         }
 

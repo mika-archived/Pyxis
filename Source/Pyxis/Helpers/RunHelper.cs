@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Reactive.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Reactive.Bindings.Extensions;
@@ -10,6 +12,32 @@ namespace Pyxis.Helpers
 {
     internal static class RunHelper
     {
+        /// <summary>
+        ///     dueTime 秒経過した場合、 action を中断します。
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="dueTime"></param>
+        public static void Timeout(Action action, TimeSpan dueTime)
+        {
+            // ReSharper disable  MethodSupportsCancellation
+            var tokenSource = new CancellationTokenSource();
+            Observable.Return(0).Delay(dueTime).Subscribe(w =>
+            {
+                if (tokenSource == null)
+                    return;
+                tokenSource.Cancel();
+                Debug.WriteLine("Timeout");
+            });
+            Task.Factory.StartNew(action.Invoke, tokenSource.Token)
+                .ContinueWith(w =>
+                {
+                    tokenSource.Dispose();
+                    tokenSource = null;
+                })
+                .Wait();
+            // ReSharper restore  MethodSupportsCancellation
+        }
+
         #region Run
 
         /// <summary>

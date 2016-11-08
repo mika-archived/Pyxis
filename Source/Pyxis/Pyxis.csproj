@@ -141,6 +141,10 @@
     <Compile Include="Migrations\20161108020313_CreateCacheFile.designer.cs">
       <DependentUpon>20161108020313_CreateCacheFile.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20161108021731_CreateCacheRule.cs" />
+    <Compile Include="Migrations\20161108021731_CreateCacheRule.designer.cs">
+      <DependentUpon>20161108021731_CreateCacheRule.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\CacheContextModelSnapshot.cs" />
     <Compile Include="Models\AccountInfo.cs" />
     <Compile Include="Models\AdaptiveSize.cs" />
