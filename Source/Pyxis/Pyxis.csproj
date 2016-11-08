@@ -137,11 +137,17 @@
     <Compile Include="Extensions\StringExt.cs" />
     <Compile Include="Helpers\ModelHelper.cs" />
     <Compile Include="Helpers\RunHelper.cs" />
+    <Compile Include="Migrations\20161108020313_CreateCacheFile.cs" />
+    <Compile Include="Migrations\20161108020313_CreateCacheFile.designer.cs">
+      <DependentUpon>20161108020313_CreateCacheFile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\CacheContextModelSnapshot.cs" />
     <Compile Include="Models\AccountInfo.cs" />
     <Compile Include="Models\AdaptiveSize.cs" />
     <Compile Include="Models\Base\ThumbnailableBase.cs" />
     <Compile Include="Models\Caching\CacheContext.cs" />
     <Compile Include="Models\Caching\CacheFile.cs" />
+    <Compile Include="Models\Caching\CacheRule.cs" />
     <Compile Include="Models\Caching\Category.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Enums\FollowType.cs" />
