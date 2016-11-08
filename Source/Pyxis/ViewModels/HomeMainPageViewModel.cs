@@ -28,6 +28,7 @@ namespace Pyxis.ViewModels
         private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
+        private readonly IQueryCacheService _queryCacheService;
         private ContentType _contentType;
         private PixivRanking _pixivRanking;
         private PixivRecommended _pixivRecommended;
@@ -38,12 +39,13 @@ namespace Pyxis.ViewModels
 
         public HomeMainPageViewModel(IAccountService accountService, ICategoryService categoryService,
                                      IImageStoreService imageStoreService, IPixivClient pixivClient,
-                                     INavigationService navigationService)
+                                     IQueryCacheService queryCacheService, INavigationService navigationService)
         {
             _accountService = accountService;
             _categoryService = categoryService;
             _imageStoreService = imageStoreService;
             _pixivClient = pixivClient;
+            _queryCacheService = queryCacheService;
             NavigationService = navigationService;
             RecommendedItems = new IncrementalObservableCollection<TappableThumbnailViewModel>();
         }
@@ -67,7 +69,7 @@ namespace Pyxis.ViewModels
             SelectedIndex = (int) parameter.ContentType;
             _contentType = parameter.ContentType;
             _pixivRanking = new PixivRanking(_pixivClient, parameter.ContentType);
-            _pixivRecommended = new PixivRecommended(_accountService, _pixivClient, parameter.ContentType);
+            _pixivRecommended = new PixivRecommended(_accountService, _pixivClient, _queryCacheService, parameter.ContentType);
 
             if (parameter.ContentType == ContentType.Novel)
             {

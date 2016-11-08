@@ -137,6 +137,8 @@
     <Compile Include="Models\AccountInfo.cs" />
     <Compile Include="Models\AdaptiveSize.cs" />
     <Compile Include="Models\Base\ThumbnailableBase.cs" />
+    <Compile Include="Models\Caching\QueryBuilder.cs" />
+    <Compile Include="Models\Caching\QueryCache.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Enums\FollowType.cs" />
     <Compile Include="Models\Enums\ContentType2.cs" />
@@ -205,8 +207,10 @@
     <Compile Include="Services\Interfaces\IDialogService.cs" />
     <Compile Include="Services\Interfaces\IImageStoreService.cs" />
     <Compile Include="Services\Interfaces\ILicenseService.cs" />
+    <Compile Include="Services\Interfaces\IQueryCacheService.cs" />
     <Compile Include="Services\LicenseService.cs" />
     <Compile Include="Services\LocalLicenseService.cs" />
+    <Compile Include="Services\QueryCacheService.cs" />
     <Compile Include="ViewModels\AccountInfoControlViewModel.cs" />
     <Compile Include="ViewModels\Account\LoginPageViewModel.cs" />
     <Compile Include="ViewModels\Base\DialogViewModel.cs" />

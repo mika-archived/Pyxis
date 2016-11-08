@@ -22,6 +22,7 @@ namespace Pyxis.ViewModels.Search
         private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
+        private readonly IQueryCacheService _queryCacheService;
         private PixivRecommended _pixivRecommended;
         private PixivSearch _pixivSearch;
         public INavigationService NavigationService { get; }
@@ -30,12 +31,13 @@ namespace Pyxis.ViewModels.Search
 
         public UserSearchPageViewModel(IAccountService accountService, ICategoryService categoryService,
                                        IImageStoreService imageStoreService, INavigationService navigationService,
-                                       IPixivClient pixivClient)
+                                       IPixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _accountService = accountService;
             _categoryService = categoryService;
             _imageStoreService = imageStoreService;
             _pixivClient = pixivClient;
+            _queryCacheService = queryCacheService;
             NavigationService = navigationService;
             Users = new IncrementalObservableCollection<TappableThumbnailViewModel>();
         }
@@ -55,7 +57,7 @@ namespace Pyxis.ViewModels.Search
         private void Initialize()
         {
             _categoryService.UpdateCategory();
-            _pixivRecommended = new PixivRecommended(_accountService, _pixivClient, ContentType.User);
+            _pixivRecommended = new PixivRecommended(_accountService, _pixivClient, _queryCacheService, ContentType.User);
             _pixivSearch = new PixivSearch(_pixivClient);
             ModelHelper.ConnectTo(Users, _pixivRecommended, w => w.RecommendedUsers, CreateUserViewModel).AddTo(this);
         }

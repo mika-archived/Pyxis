@@ -21,17 +21,19 @@ namespace Pyxis.Models
         private readonly IAccountService _accountService;
         private readonly ContentType _contentType;
         private readonly IPixivClient _pixivClient;
+        private readonly IQueryCacheService _queryCacheService;
         private string _offset;
 
         public ObservableCollection<IIllust> RecommendedImages { get; }
         public ObservableCollection<INovel> RecommendedNovels { get; }
         public ObservableCollection<IUserPreview> RecommendedUsers { get; }
 
-        public PixivRecommended(IAccountService accountService, IPixivClient pixivClient, ContentType contentType)
+        public PixivRecommended(IAccountService accountService, IPixivClient pixivClient, IQueryCacheService queryCacheService, ContentType contentType)
         {
             _accountService = accountService;
             _contentType = contentType;
             _pixivClient = pixivClient;
+            _queryCacheService = queryCacheService;
             _offset = "";
             RecommendedNovels = new ObservableCollection<INovel>();
             RecommendedImages = new ObservableCollection<IIllust>();
@@ -49,7 +51,7 @@ namespace Pyxis.Models
                 await FetchNovels();
             else if (_contentType == ContentType.User)
                 await FetchUsers();
-            else if (_contentType == ContentType.Illust || _contentType == ContentType.Manga)
+            else if ((_contentType == ContentType.Illust) || (_contentType == ContentType.Manga))
                 await FetchIllusts();
             else
                 throw new NotSupportedException();
@@ -73,12 +75,14 @@ namespace Pyxis.Models
         {
             // manga/recommended との違いがわからない。
             if (_accountService.IsLoggedIn)
-                return await _pixivClient.IllustV1.RecommendedAsync(content_type => contentType,
-                                                                    filter => "for_ios",
-                                                                    offset => _offset);
-            return await _pixivClient.IllustV1.RecommendedNologinAsync(content_type => contentType,
-                                                                       filter => "for_ios",
-                                                                       offset => _offset);
+                return await _queryCacheService.RunAsync(_pixivClient.IllustV1.RecommendedAsync,
+                                                         content_type => contentType,
+                                                         filter => "for_ios",
+                                                         offset => _offset);
+            return await _queryCacheService.RunAsync(_pixivClient.IllustV1.RecommendedNologinAsync,
+                                                     content_type => contentType,
+                                                     filter => "for_ios",
+                                                     offset => _offset);
         }
 
         private async Task FetchNovels()
