@@ -95,6 +95,9 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="project.json" />
     <None Include="Service References\HockeyApp\ConnectedService.json" />
     <PRIResource Include="Strings\en-US\Resources.resw" />
@@ -137,6 +140,9 @@
     <Compile Include="Models\AccountInfo.cs" />
     <Compile Include="Models\AdaptiveSize.cs" />
     <Compile Include="Models\Base\ThumbnailableBase.cs" />
+    <Compile Include="Models\Caching\CacheContext.cs" />
+    <Compile Include="Models\Caching\CacheFile.cs" />
+    <Compile Include="Models\Caching\Category.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Enums\FollowType.cs" />
     <Compile Include="Models\Enums\ContentType2.cs" />
