@@ -136,6 +136,7 @@
     <Compile Include="Helpers\RunHelper.cs" />
     <Compile Include="Models\AccountInfo.cs" />
     <Compile Include="Models\AdaptiveSize.cs" />
+    <Compile Include="Models\AsyncLock.cs" />
     <Compile Include="Models\Base\ThumbnailableBase.cs" />
     <Compile Include="Models\Caching\QueryBuilder.cs" />
     <Compile Include="Models\Caching\QueryCache.cs" />
