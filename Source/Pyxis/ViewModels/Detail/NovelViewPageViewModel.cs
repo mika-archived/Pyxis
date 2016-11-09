@@ -22,10 +22,11 @@ namespace Pyxis.ViewModels.Detail
         private readonly IQueryCacheService _queryCacheService;
         private PixivNovelText _pixivNovelText;
 
-        public NovelViewPageViewModel(ICategoryService categoryService, IPixivClient pixivClient)
+        public NovelViewPageViewModel(ICategoryService categoryService, IPixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _categoryService = categoryService;
             _pixivClient = pixivClient;
+            _queryCacheService = queryCacheService;
             Text = "読込中...";
         }
 

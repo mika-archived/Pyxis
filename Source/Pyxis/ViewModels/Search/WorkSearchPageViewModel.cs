@@ -38,7 +38,8 @@ namespace Pyxis.ViewModels.Search
 
         public WorkSearchPageViewModel(ICategoryService categoryService, IDialogService dialogService,
                                        IImageStoreService imageStoreService, ILicenseService licenseService,
-                                       INavigationService navigationService, IPixivClient pixivClient)
+                                       INavigationService navigationService, IPixivClient pixivClient,
+                                       IQueryCacheService queryCacheService)
         {
             _categoryService = categoryService;
             _dialogService = dialogService;
@@ -46,6 +47,7 @@ namespace Pyxis.ViewModels.Search
             _licenseService = licenseService;
             NavigationService = navigationService;
             _pixivClient = pixivClient;
+            _queryCacheService = queryCacheService;
             TrendingTags = new ObservableCollection<TrendingTagViewModel>();
         }
 

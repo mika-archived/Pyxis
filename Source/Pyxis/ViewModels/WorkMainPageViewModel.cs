@@ -32,13 +32,14 @@ namespace Pyxis.ViewModels
 
         public WorkMainPageViewModel(IAccountService accountService, ICategoryService categoryService,
                                      IImageStoreService imageStoreService, INavigationService navigationService,
-                                     IPixivClient pixivClient)
+                                     IPixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _accountService = accountService;
             _categoryService = categoryService;
             _imageStoreService = imageStoreService;
             NavigationService = navigationService;
             _pixivClient = pixivClient;
+            _queryCacheService = queryCacheService;
             WorkItems = new IncrementalObservableCollection<TappableThumbnailViewModel>();
         }
 
