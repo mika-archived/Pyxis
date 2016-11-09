@@ -31,6 +31,7 @@ namespace Pyxis.ViewModels.Detail
         private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
+        private readonly IQueryCacheService _queryCacheService;
         private readonly ResourceLoader Resources = ResourceLoader.GetForCurrentView();
         private string _id;
         private bool _isOffline;
@@ -65,13 +66,14 @@ namespace Pyxis.ViewModels.Detail
 
         public UserDetailPageViewModel(IAccountService accountService, ICategoryService categoryService,
                                        IImageStoreService imageStoreService, INavigationService navigationService,
-                                       IPixivClient pixivClient)
+                                       IPixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _accountService = accountService;
             _categoryService = categoryService;
             _imageStoreService = imageStoreService;
             NavigationService = navigationService;
             _pixivClient = pixivClient;
+            _queryCacheService = queryCacheService;
             ThumbnailPath = PyxisConstants.DummyIcon;
         }
 
@@ -99,7 +101,7 @@ namespace Pyxis.ViewModels.Detail
                 return;
             }
             _id = string.IsNullOrWhiteSpace(parameter.Id) ? _accountService.LoggedInAccount.Id : parameter.Id;
-            _pixivUser = new PixivDetail(_id, SearchType.Users, _pixivClient);
+            _pixivUser = new PixivDetail(_id, SearchType.Users, _pixivClient, _queryCacheService);
             var observer = _pixivUser.ObserveProperty(w => w.UserDetail).Where(w => w != null).Publish();
             observer.ObserveOnUIDispatcher().Subscribe(w =>
             {

@@ -89,9 +89,9 @@ namespace Pyxis.Models
         {
             IRecommendedNovels novels;
             if (_accountService.IsLoggedIn)
-                novels = await _pixivClient.NovelV1.RecommendedAsync(offset => _offset);
+                novels = await _queryCacheService.RunAsync(_pixivClient.NovelV1.RecommendedAsync, offset => _offset);
             else
-                novels = await _pixivClient.NovelV1.RecommendedNologinAsync(offset => _offset);
+                novels = await _queryCacheService.RunAsync(_pixivClient.NovelV1.RecommendedNologinAsync, offset => _offset);
             novels?.Novels.ForEach(w => RecommendedNovels.Add(w));
             if (string.IsNullOrWhiteSpace(novels?.NextUrl))
                 HasMoreItems = false;
@@ -101,7 +101,7 @@ namespace Pyxis.Models
 
         private async Task FetchUsers()
         {
-            var users = await _pixivClient.User.RecommendedAsync(offset => _offset);
+            var users = await _queryCacheService.RunAsync(_pixivClient.User.RecommendedAsync, offset => _offset);
             users?.UserPreviewList.ForEach(w => RecommendedUsers.Add(w));
             if (string.IsNullOrWhiteSpace(users?.NextUrl))
                 HasMoreItems = false;

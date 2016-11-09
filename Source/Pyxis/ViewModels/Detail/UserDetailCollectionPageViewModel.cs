@@ -29,6 +29,7 @@ namespace Pyxis.ViewModels.Detail
         private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
+        private readonly IQueryCacheService _queryCacheService;
         private string _id;
         private bool _isOffline;
         private PixivFavorite _pixivFavorite;
@@ -38,13 +39,14 @@ namespace Pyxis.ViewModels.Detail
 
         public UserDetailCollectionPageViewModel(IAccountService accountService, ICategoryService categoryService,
                                                  IImageStoreService imageStoreService,
-                                                 INavigationService navigationService, IPixivClient pixivClient)
+                                                 INavigationService navigationService, IPixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _accountService = accountService;
             _categoryService = categoryService;
             _imageStoreService = imageStoreService;
             NavigationService = navigationService;
             _pixivClient = pixivClient;
+            _queryCacheService = queryCacheService;
             ThumbnailPath = PyxisConstants.DummyIcon;
             Collection = new IncrementalObservableCollection<ThumbnailableViewModel>();
         }
@@ -139,7 +141,7 @@ namespace Pyxis.ViewModels.Detail
                 InitializeSubMenu(param1, true);
                 if (!full)
                     return;
-                _pixivWork = new PixivWork(parameter.Detail.User.Id, parameter.ContentType, _pixivClient);
+                _pixivWork = new PixivWork(parameter.Detail.User.Id, parameter.ContentType, _pixivClient, _queryCacheService);
                 if (parameter.ContentType != ContentType.Novel)
                     ModelHelper.ConnectTo(Collection, _pixivWork, w => w.Illusts, CreatePixivImage).AddTo(this);
                 else
@@ -150,7 +152,7 @@ namespace Pyxis.ViewModels.Detail
                 InitializeSubMenu(param1, false);
                 if (!full)
                     return;
-                _pixivFavorite = new PixivFavorite(_pixivClient);
+                _pixivFavorite = new PixivFavorite(_pixivClient, _queryCacheService);
                 if (parameter.ContentType != ContentType.Novel)
                     ModelHelper.ConnectTo(Collection, _pixivFavorite, w => w.ResultIllusts, CreatePixivImage)
                                .AddTo(this);

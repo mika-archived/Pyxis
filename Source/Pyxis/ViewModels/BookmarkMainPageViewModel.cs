@@ -22,18 +22,20 @@ namespace Pyxis.ViewModels
         private readonly IImageStoreService _imageStoreService;
         private readonly INavigationService _navigationService;
         private readonly IPixivClient _pixivClient;
+        private readonly IQueryCacheService _queryCacheService;
         private PixivBookmark _pixivBookmark;
         public IncrementalObservableCollection<TappableThumbnailViewModel> BookmarkItems { get; }
 
         public BookmarkMainPageViewModel(IAccountService accountService, ICategoryService categoryService,
                                          IImageStoreService imageStoreService, INavigationService navigationService,
-                                         IPixivClient pixivClient)
+                                         IPixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _accountService = accountService;
             _categoryService = categoryService;
             _imageStoreService = imageStoreService;
             _navigationService = navigationService;
             _pixivClient = pixivClient;
+            _queryCacheService = queryCacheService;
             BookmarkItems = new IncrementalObservableCollection<TappableThumbnailViewModel>();
         }
 
@@ -62,7 +64,7 @@ namespace Pyxis.ViewModels
         private void Initialize()
         {
             _categoryService.UpdateCategory();
-            _pixivBookmark = new PixivBookmark(_pixivClient);
+            _pixivBookmark = new PixivBookmark(_pixivClient, _queryCacheService);
             ModelHelper.ConnectTo(BookmarkItems, _pixivBookmark, w => w.Novels, CreatePixivNovel);
         }
 

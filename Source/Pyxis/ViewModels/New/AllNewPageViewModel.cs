@@ -21,17 +21,20 @@ namespace Pyxis.ViewModels.New
         private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
+        private readonly IQueryCacheService _queryCacheService;
+
         private PixivNew _pixivNew;
         public INavigationService NavigationService { get; }
 
         public IncrementalObservableCollection<TappableThumbnailViewModel> NewItems { get; }
 
         public AllNewPageViewModel(IImageStoreService imageStoreService, ICategoryService categoryService,
-                                   INavigationService navigationService, IPixivClient pixivClient)
+                                   INavigationService navigationService, IPixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _categoryService = categoryService;
             _imageStoreService = imageStoreService;
             _pixivClient = pixivClient;
+            _queryCacheService = queryCacheService;
             NavigationService = navigationService;
             NewItems = new IncrementalObservableCollection<TappableThumbnailViewModel>();
         }
@@ -54,7 +57,7 @@ namespace Pyxis.ViewModels.New
             _categoryService.UpdateCategory();
             SubSelectdIndex = (int) parameter.ContentType;
 
-            _pixivNew = new PixivNew(parameter.ContentType, FollowType.All, _pixivClient);
+            _pixivNew = new PixivNew(parameter.ContentType, FollowType.All, _pixivClient, _queryCacheService);
             if (parameter.ContentType == ContentType.Novel)
                 ModelHelper.ConnectTo(NewItems, _pixivNew, w => w.NewNovels, CreatePixivNovel).AddTo(this);
             else

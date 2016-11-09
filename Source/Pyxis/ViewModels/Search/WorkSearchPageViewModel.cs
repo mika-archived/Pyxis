@@ -26,6 +26,8 @@ namespace Pyxis.ViewModels.Search
         private readonly IImageStoreService _imageStoreService;
         private readonly ILicenseService _licenseService;
         private readonly IPixivClient _pixivClient;
+        private readonly IQueryCacheService _queryCacheService;
+
         private int _count;
         private PixivTrending _pixivTrending;
         private SearchOptionParameter _searchOption;
@@ -71,7 +73,7 @@ namespace Pyxis.ViewModels.Search
                 Duration = SearchDuration.Nothing
             };
             SelectedIndex = (int) parameter.SearchType;
-            _pixivTrending = new PixivTrending(parameter.SearchType, _pixivClient);
+            _pixivTrending = new PixivTrending(parameter.SearchType, _pixivClient, _queryCacheService);
             var observable = _pixivTrending.TrendingTags.ObserveAddChanged().Do(w => ++_count).Publish();
             observable.Where(w => _count <= 1)
                       .Select(CreateTrendingTag)

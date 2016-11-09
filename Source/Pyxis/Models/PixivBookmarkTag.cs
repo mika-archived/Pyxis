@@ -11,20 +11,24 @@ using Pyxis.Alpha.Models.v1;
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Models.Enums;
+using Pyxis.Services.Interfaces;
 
 namespace Pyxis.Models
 {
     internal class PixivBookmarkTag : ISupportIncrementalLoading
     {
         private readonly IPixivClient _pixivClient;
+        private readonly IQueryCacheService _queryCacheService;
         private string _offset;
         private RestrictType _restrict;
         private SearchType _searchType;
+
         public ObservableCollection<IBookmarkTag> BookmarkTags { get; }
 
-        public PixivBookmarkTag(IPixivClient pixivClient)
+        public PixivBookmarkTag(IPixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _pixivClient = pixivClient;
+            _queryCacheService = queryCacheService;
             BookmarkTags = new ObservableCollection<IBookmarkTag>();
 #if OFFLINE
             HasMoreItems = false;
@@ -55,11 +59,13 @@ namespace Pyxis.Models
         {
             IBookmarkTags tags;
             if (_searchType == SearchType.IllustsAndManga)
-                tags = await _pixivClient.User.BookmarkTags.IllustAsync(restrict => _restrict.ToParamString(),
-                                                                        offset => _offset);
+                tags = await _queryCacheService.RunAsync(_pixivClient.User.BookmarkTags.IllustAsync,
+                                                         restrict => _restrict.ToParamString(),
+                                                         offset => _offset);
             else if (_searchType == SearchType.Novels)
-                tags = await _pixivClient.User.BookmarkTags.NovelAsync(restrict => _restrict.ToParamString(),
-                                                                       offset => _offset);
+                tags = await _queryCacheService.RunAsync(_pixivClient.User.BookmarkTags.NovelAsync,
+                                                         restrict => _restrict.ToParamString(),
+                                                         offset => _offset);
             else
                 throw new NotSupportedException();
             tags?.BookmarkTagList.ForEach(w => BookmarkTags.Add(w));

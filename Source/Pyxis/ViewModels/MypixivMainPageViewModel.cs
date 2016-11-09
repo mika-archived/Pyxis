@@ -22,18 +22,21 @@ namespace Pyxis.ViewModels
         private readonly IImageStoreService _imageStoreService;
         private readonly INavigationService _navigationService;
         private readonly IPixivClient _pixivClient;
+        private readonly IQueryCacheService _queryCacheService;
+
         private PixivMypixiv _pixivMypixiv;
         public IncrementalObservableCollection<TappableThumbnailViewModel> Users { get; }
 
         public MypixivMainPageViewModel(IAccountService accountService, ICategoryService categoryService,
                                         IImageStoreService imageStoreService, INavigationService navigationService,
-                                        IPixivClient pixivClient)
+                                        IPixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _accountService = accountService;
             _categoryService = categoryService;
             _imageStoreService = imageStoreService;
             _navigationService = navigationService;
             _pixivClient = pixivClient;
+            _queryCacheService = queryCacheService;
             Users = new IncrementalObservableCollection<TappableThumbnailViewModel>();
         }
 
@@ -62,7 +65,7 @@ namespace Pyxis.ViewModels
         private void Initialize()
         {
             _categoryService.UpdateCategory();
-            _pixivMypixiv = new PixivMypixiv(_accountService.LoggedInAccount.Id, _pixivClient);
+            _pixivMypixiv = new PixivMypixiv(_accountService.LoggedInAccount.Id, _pixivClient, this._queryCacheService);
             ModelHelper.ConnectTo(Users, _pixivMypixiv, w => w.Users, CreateUserViewModel);
         }
 

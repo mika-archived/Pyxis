@@ -12,6 +12,7 @@ using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Extensions;
 using Pyxis.Models.Enums;
+using Pyxis.Services.Interfaces;
 
 namespace Pyxis.Models
 {
@@ -20,17 +21,19 @@ namespace Pyxis.Models
         private readonly ContentType _contentType;
         private readonly FollowType _followType;
         private readonly IPixivClient _pixivClient;
+        private readonly IQueryCacheService _queryCacheService;
         private string _maxIllustId;
         private string _maxNovelId;
         private string _offset;
         public ObservableCollection<IIllust> NewIllusts { get; }
         public ObservableCollection<INovel> NewNovels { get; }
 
-        public PixivNew(ContentType contentType, FollowType followType, IPixivClient pixivClient)
+        public PixivNew(ContentType contentType, FollowType followType, IPixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _contentType = contentType;
             _followType = followType;
             _pixivClient = pixivClient;
+            _queryCacheService = queryCacheService;
             NewIllusts = new ObservableCollection<IIllust>();
             NewNovels = new ObservableCollection<INovel>();
             _offset = "";
@@ -59,11 +62,13 @@ namespace Pyxis.Models
 
             INovels novels = null;
             if (_followType == FollowType.Following)
-                novels = await _pixivClient.NovelV1.FollowAsync(restrict => "all", offset => _offset);
+                novels = await _queryCacheService.RunAsync(_pixivClient.NovelV1.FollowAsync,
+                                                           restrict => "all",
+                                                           offset => _offset);
             else if (_followType == FollowType.Mypixiv)
-                novels = await _pixivClient.NovelV1.MypixivAsync(offset => _offset);
+                novels = await _queryCacheService.RunAsync(_pixivClient.NovelV1.MypixivAsync, offset => _offset);
             else if (_followType == FollowType.All)
-                novels = await _pixivClient.NovelV1.NewAsync(max_novel_id => _maxNovelId);
+                novels = await _queryCacheService.RunAsync(_pixivClient.NovelV1.NewAsync, max_novel_id => _maxNovelId);
             novels?.NovelList.ForEach(w => NewNovels.Add(w));
             if (string.IsNullOrWhiteSpace(novels?.NextUrl))
                 HasMoreItems = false;
@@ -101,12 +106,16 @@ namespace Pyxis.Models
         {
             IIllusts illusts = null;
             if (_followType == FollowType.Following)
-                illusts = await _pixivClient.IllustV2.FollowAsync(restrict => "all", offset => _offset);
+                illusts = await _queryCacheService.RunAsync(_pixivClient.IllustV2.FollowAsync,
+                                                            restrict => "all",
+                                                            offset => _offset);
             else if (_followType == FollowType.Mypixiv)
-                illusts = await _pixivClient.IllustV2.MypixivAsync(offset => _offset);
+                illusts = await _queryCacheService.RunAsync(_pixivClient.IllustV2.MypixivAsync, offset => _offset);
             else if (_followType == FollowType.All)
-                illusts = await _pixivClient.IllustV1.NewAsync(filter => "for_ios", content_type => "illust",
-                                                               max_illust_id => _maxIllustId);
+                illusts = await _queryCacheService.RunAsync(_pixivClient.IllustV1.NewAsync,
+                                                            filter => "for_ios",
+                                                            content_type => "illust",
+                                                            max_illust_id => _maxIllustId);
             return illusts;
         }
 
@@ -119,8 +128,10 @@ namespace Pyxis.Models
             if (_followType == FollowType.Mypixiv)
                 throw new NotSupportedException("Mypixiv");
             if (_followType == FollowType.All)
-                illusts = await _pixivClient.IllustV1.NewAsync(filter => "for_ios", content_type => "manga",
-                                                               max_illust_id => _maxIllustId);
+                illusts = await _queryCacheService.RunAsync(_pixivClient.IllustV1.NewAsync,
+                                                            filter => "for_ios",
+                                                            content_type => "manga",
+                                                            max_illust_id => _maxIllustId);
             return illusts;
         }
 

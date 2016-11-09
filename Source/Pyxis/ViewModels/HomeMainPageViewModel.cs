@@ -68,7 +68,7 @@ namespace Pyxis.ViewModels
             _categoryService.UpdateCategory();
             SelectedIndex = (int) parameter.ContentType;
             _contentType = parameter.ContentType;
-            _pixivRanking = new PixivRanking(_pixivClient, parameter.ContentType);
+            _pixivRanking = new PixivRanking(_pixivClient, parameter.ContentType, this._queryCacheService);
             _pixivRecommended = new PixivRecommended(_accountService, _pixivClient, _queryCacheService, parameter.ContentType);
 
             if (parameter.ContentType == ContentType.Novel)

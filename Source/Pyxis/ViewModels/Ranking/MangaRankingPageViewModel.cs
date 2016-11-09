@@ -20,17 +20,20 @@ namespace Pyxis.ViewModels.Ranking
         private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
+        private readonly IQueryCacheService _queryCacheService;
+
         private PixivRanking _pixivRanking;
         public INavigationService NavigationService { get; }
         public IncrementalObservableCollection<TappableThumbnailViewModel> RankingItems { get; }
 
         public MangaRankingPageViewModel(ICategoryService categoryService, IImageStoreService imageStoreService,
-                                         INavigationService navigationService, IPixivClient pixivClient)
+                                         INavigationService navigationService, IPixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _categoryService = categoryService;
             _imageStoreService = imageStoreService;
             NavigationService = navigationService;
             _pixivClient = pixivClient;
+            _queryCacheService = queryCacheService;
             RankingItems = new IncrementalObservableCollection<TappableThumbnailViewModel>();
         }
 
@@ -51,7 +54,7 @@ namespace Pyxis.ViewModels.Ranking
         {
             _categoryService.UpdateCategory();
             SelectedIndex = parameter.RankingMode.ToParamIndex(parameter.RankingType);
-            _pixivRanking = new PixivRanking(_pixivClient, parameter.RankingType, parameter.RankingMode);
+            _pixivRanking = new PixivRanking(_pixivClient, parameter.RankingType, parameter.RankingMode, _queryCacheService);
             ModelHelper.ConnectTo(RankingItems, _pixivRanking, w => w.Illusts, CreatePixivImage);
         }
 

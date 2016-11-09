@@ -58,7 +58,7 @@ namespace Pyxis.ViewModels.Search
         {
             _categoryService.UpdateCategory();
             _pixivRecommended = new PixivRecommended(_accountService, _pixivClient, _queryCacheService, ContentType.User);
-            _pixivSearch = new PixivSearch(_pixivClient);
+            _pixivSearch = new PixivSearch(_pixivClient, _queryCacheService);
             ModelHelper.ConnectTo(Users, _pixivRecommended, w => w.RecommendedUsers, CreateUserViewModel).AddTo(this);
         }
 

@@ -10,6 +10,7 @@ using Microsoft.Practices.ObjectBuilder2;
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Models.Enums;
+using Pyxis.Services.Interfaces;
 
 namespace Pyxis.Models
 {
@@ -17,15 +18,17 @@ namespace Pyxis.Models
     {
         private readonly ContentType2 _contentType;
         private readonly IPixivClient _pixivClient;
+        private readonly IQueryCacheService _queryCacheService;
         private string _offset;
 
         public ObservableCollection<IIllust> Illusts { get; }
         public ObservableCollection<INovel> Novels { get; }
 
-        public PixivBrowsingHistory(IPixivClient pixivClient, ContentType2 contentType)
+        public PixivBrowsingHistory(IPixivClient pixivClient, ContentType2 contentType, IQueryCacheService queryCacheService)
         {
             _pixivClient = pixivClient;
             _contentType = contentType;
+            _queryCacheService = queryCacheService;
             _offset = "";
             Illusts = new ObservableCollection<IIllust>();
             Novels = new ObservableCollection<INovel>();
@@ -49,7 +52,7 @@ namespace Pyxis.Models
 
         private async Task FetchIllusts()
         {
-            var illusts = await _pixivClient.User.BrowsingHistory.IllustAsync(offset => _offset);
+            var illusts = await _queryCacheService.RunAsync(_pixivClient.User.BrowsingHistory.IllustAsync, offset => _offset);
             illusts?.IllustList.ForEach(w => Illusts.Add(w));
             if (string.IsNullOrWhiteSpace(illusts?.NextUrl))
                 HasMoreItems = false;
@@ -59,7 +62,7 @@ namespace Pyxis.Models
 
         private async Task FetchNovels()
         {
-            var novels = await _pixivClient.User.BrowsingHistory.NovelAsync(offset => _offset);
+            var novels = await _queryCacheService.RunAsync(_pixivClient.User.BrowsingHistory.NovelAsync, offset => _offset);
             novels?.NovelList.ForEach(w => Novels.Add(w));
             if (string.IsNullOrWhiteSpace(novels?.NextUrl))
                 HasMoreItems = false;
