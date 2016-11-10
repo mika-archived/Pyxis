@@ -26,6 +26,8 @@ namespace Pyxis.ViewModels.Search
         private readonly IImageStoreService _imageStoreService;
         private readonly ILicenseService _licenseService;
         private readonly IPixivClient _pixivClient;
+        private readonly IQueryCacheService _queryCacheService;
+
         private int _count;
         private PixivTrending _pixivTrending;
         private SearchOptionParameter _searchOption;
@@ -36,7 +38,8 @@ namespace Pyxis.ViewModels.Search
 
         public WorkSearchPageViewModel(ICategoryService categoryService, IDialogService dialogService,
                                        IImageStoreService imageStoreService, ILicenseService licenseService,
-                                       INavigationService navigationService, IPixivClient pixivClient)
+                                       INavigationService navigationService, IPixivClient pixivClient,
+                                       IQueryCacheService queryCacheService)
         {
             _categoryService = categoryService;
             _dialogService = dialogService;
@@ -44,6 +47,7 @@ namespace Pyxis.ViewModels.Search
             _licenseService = licenseService;
             NavigationService = navigationService;
             _pixivClient = pixivClient;
+            _queryCacheService = queryCacheService;
             TrendingTags = new ObservableCollection<TrendingTagViewModel>();
         }
 
@@ -71,7 +75,7 @@ namespace Pyxis.ViewModels.Search
                 Duration = SearchDuration.Nothing
             };
             SelectedIndex = (int) parameter.SearchType;
-            _pixivTrending = new PixivTrending(parameter.SearchType, _pixivClient);
+            _pixivTrending = new PixivTrending(parameter.SearchType, _pixivClient, _queryCacheService);
             var observable = _pixivTrending.TrendingTags.ObserveAddChanged().Do(w => ++_count).Publish();
             observable.Where(w => _count <= 1)
                       .Select(CreateTrendingTag)

@@ -10,21 +10,24 @@ using Microsoft.Practices.ObjectBuilder2;
 
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest;
+using Pyxis.Services.Interfaces;
 
 namespace Pyxis.Models
 {
     internal class PixivFollower : ISupportIncrementalLoading
     {
         private readonly IPixivClient _pixivClient;
+        private readonly IQueryCacheService _queryCacheService;
         private readonly string _userId;
         private string _offset;
 
         public ObservableCollection<IUserPreview> Users { get; }
 
-        public PixivFollower(string userId, IPixivClient pixivClient)
+        public PixivFollower(string userId, IPixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _userId = userId;
             _pixivClient = pixivClient;
+            _queryCacheService = queryCacheService;
             Users = new ObservableCollection<IUserPreview>();
             _offset = "";
 #if OFFLINE
@@ -37,7 +40,9 @@ namespace Pyxis.Models
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         private async Task Fetch()
         {
-            var users = await _pixivClient.User.FollowerAsync(user_id => _userId, offset => _offset);
+            var users = await _queryCacheService.RunAsync(_pixivClient.User.FollowerAsync,
+                                                          user_id => _userId,
+                                                          offset => _offset);
             users?.UserPreviewList.ForEach(w => Users.Add(w));
             if (string.IsNullOrWhiteSpace(users?.NextUrl))
                 HasMoreItems = false;

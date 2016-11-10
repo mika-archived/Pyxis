@@ -29,6 +29,8 @@ namespace Pyxis.ViewModels.Search
         private readonly IImageStoreService _imageStoreService;
         private readonly ILicenseService _licenseService;
         private readonly IPixivClient _pixivClient;
+        private readonly IQueryCacheService _queryCacheService;
+
         private PixivSearch _pixivSearch;
         private SearchOptionParameter _searchOption;
 
@@ -40,7 +42,7 @@ namespace Pyxis.ViewModels.Search
         public SearchResultPageViewModel(IAccountService accountService, ICategoryService categoryService,
                                          IDialogService dialogService, IImageStoreService imageStoreService,
                                          ILicenseService licenseService, INavigationService navigationService,
-                                         IPixivClient pixivClient)
+                                         IPixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _accountService = accountService;
             _categoryService = categoryService;
@@ -49,6 +51,7 @@ namespace Pyxis.ViewModels.Search
             _licenseService = licenseService;
             NavigationService = navigationService;
             _pixivClient = pixivClient;
+            _queryCacheService = queryCacheService;
             Results = new IncrementalObservableCollection<ThumbnailableViewModel>();
         }
 
@@ -111,7 +114,7 @@ namespace Pyxis.ViewModels.Search
                     TextLength = parameter.TextLength
                 };
             }
-            _pixivSearch = new PixivSearch(_pixivClient);
+            _pixivSearch = new PixivSearch(_pixivClient, _queryCacheService);
             if (parameter.SearchType == SearchType.IllustsAndManga)
                 ModelHelper.ConnectTo(Results, _pixivSearch, w => w.ResultIllusts, CreatePixivImage).AddTo(this);
             else if (parameter.SearchType == SearchType.Novels)

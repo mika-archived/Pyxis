@@ -19,12 +19,14 @@ namespace Pyxis.ViewModels.Detail
     {
         private readonly ICategoryService _categoryService;
         private readonly IPixivClient _pixivClient;
+        private readonly IQueryCacheService _queryCacheService;
         private PixivNovelText _pixivNovelText;
 
-        public NovelViewPageViewModel(ICategoryService categoryService, IPixivClient pixivClient)
+        public NovelViewPageViewModel(ICategoryService categoryService, IPixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _categoryService = categoryService;
             _pixivClient = pixivClient;
+            _queryCacheService = queryCacheService;
             Text = "読込中...";
         }
 
@@ -32,7 +34,7 @@ namespace Pyxis.ViewModels.Detail
         {
             _categoryService.UpdateCategory();
             var novel = parameter.Novel;
-            _pixivNovelText = new PixivNovelText(novel, _pixivClient);
+            _pixivNovelText = new PixivNovelText(novel, _pixivClient, _queryCacheService);
             _pixivNovelText.ObserveProperty(w => w.Text)
                            .Where(w => w != null)
                            .ObserveOnUIDispatcher()

@@ -10,6 +10,7 @@ using Microsoft.Practices.ObjectBuilder2;
 
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest;
+using Pyxis.Services.Interfaces;
 
 namespace Pyxis.Models
 {
@@ -17,13 +18,15 @@ namespace Pyxis.Models
     {
         private readonly IIllust _illust;
         private readonly IPixivClient _pixivClient;
+        private readonly IQueryCacheService _queryCacheService;
         private string _seedIds;
         public ObservableCollection<IIllust> RelatedIllusts { get; }
 
-        public PixivRelated(IIllust illust, IPixivClient pixivClient)
+        public PixivRelated(IIllust illust, IPixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _illust = illust;
             _pixivClient = pixivClient;
+            _queryCacheService = queryCacheService;
             _seedIds = "";
             RelatedIllusts = new ObservableCollection<IIllust>();
 #if OFFLINE
@@ -36,9 +39,10 @@ namespace Pyxis.Models
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         private async Task FetchRelatedItems()
         {
-            var illusts = await _pixivClient.IllustV1.RelatedAsync(illust_id => _illust.Id,
-                                                                   filter => "for_ios",
-                                                                   seed_illust_ids => _seedIds);
+            var illusts = await _queryCacheService.RunAsync(_pixivClient.IllustV1.RelatedAsync,
+                                                            illust_id => _illust.Id,
+                                                            filter => "for_ios",
+                                                            seed_illust_ids => _seedIds);
             illusts?.IllustList.ForEach(w => RelatedIllusts.Add(w));
             if (string.IsNullOrWhiteSpace(illusts?.NextUrl))
                 HasMoreItems = false;

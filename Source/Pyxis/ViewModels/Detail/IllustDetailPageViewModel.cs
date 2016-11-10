@@ -36,6 +36,7 @@ namespace Pyxis.ViewModels.Detail
         private readonly IImageStoreService _imageStoreService;
         private readonly INavigationService _navigationService;
         private readonly IPixivClient _pixivClient;
+        private readonly IQueryCacheService _queryCacheService;
         private int _count;
         private DataTransferManager _dataTransferManager;
         private IIllust _illust;
@@ -50,7 +51,8 @@ namespace Pyxis.ViewModels.Detail
 
         public IllustDetailPageViewModel(IAccountService accountService, IBrowsingHistoryService browsingHistoryService,
                                          ICategoryService categoryService, IImageStoreService imageStoreService,
-                                         INavigationService navigationService, IPixivClient pixivClient)
+                                         INavigationService navigationService, IPixivClient pixivClient,
+                                         IQueryCacheService queryCacheService)
         {
             _accountService = accountService;
             _browsingHistoryService = browsingHistoryService;
@@ -58,6 +60,7 @@ namespace Pyxis.ViewModels.Detail
             _imageStoreService = imageStoreService;
             _navigationService = navigationService;
             _pixivClient = pixivClient;
+            _queryCacheService = queryCacheService;
             Tags = new ObservableCollection<PixivTagViewModel>();
             Comments = new ObservableCollection<PixivCommentViewModel>();
             RelatedItems = new IncrementalObservableCollection<PixivThumbnailViewModel>();
@@ -116,7 +119,7 @@ namespace Pyxis.ViewModels.Detail
                       .Where(w => !string.IsNullOrWhiteSpace(w))
                       .ObserveOnUIDispatcher()
                       .Subscribe(w => IconPath = w).AddTo(this);
-            _pixivComment = new PixivComment(_illust, _pixivClient);
+            _pixivComment = new PixivComment(_illust, _pixivClient, _queryCacheService);
             _pixivComment.Fetch();
             _pixivComment.Comments.ObserveAddChanged()
                          .Where(w => ++_count <= 5)
@@ -124,7 +127,7 @@ namespace Pyxis.ViewModels.Detail
                          .ObserveOnUIDispatcher()
                          .Subscribe(w => Comments.Add(w))
                          .AddTo(this);
-            _pixivRelated = new PixivRelated(_illust, _pixivClient);
+            _pixivRelated = new PixivRelated(_illust, _pixivClient, _queryCacheService);
             ModelHelper.ConnectTo(RelatedItems, _pixivRelated, w => w.RelatedIllusts, CreatePixivImage).AddTo(this);
 #if !OFFLINE
             if (IconPath == PyxisConstants.DummyIcon)
@@ -142,15 +145,15 @@ namespace Pyxis.ViewModels.Detail
         private void Initialize(DetailByIdParameter parameter)
         {
             _count = 0;
-            _pixivDetail = new PixivDetail(parameter.Id, SearchType.IllustsAndManga, _pixivClient);
+            _pixivDetail = new PixivDetail(parameter.Id, SearchType.IllustsAndManga, _pixivClient, _queryCacheService);
             _pixivDetail.ObserveProperty(w => w.IllustDetail)
                         .Where(w => w != null)
                         .ObserveOnUIDispatcher()
                         .Subscribe(w =>
-                                   {
-                                       _illust = w;
-                                       Initialize();
-                                   }).AddTo(this);
+                        {
+                            _illust = w;
+                            Initialize();
+                        }).AddTo(this);
             _pixivDetail.Fetch();
         }
 

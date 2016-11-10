@@ -35,6 +35,7 @@ namespace Pyxis.ViewModels.Detail
         private readonly IImageStoreService _imageStoreService;
         private readonly INavigationService _navigationService;
         private readonly IPixivClient _pixivClient;
+        private readonly IQueryCacheService _queryCacheService;
 
         private int _count;
         private DataTransferManager _dataTransferManager;
@@ -52,7 +53,7 @@ namespace Pyxis.ViewModels.Detail
 
         public NovelDetailPageViewModel(IAccountService accountService, IBrowsingHistoryService browsingHistoryService,
                                         ICategoryService categoryService, IImageStoreService imageStoreService,
-                                        INavigationService navigationService, IPixivClient pixivClient)
+                                        INavigationService navigationService, IPixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _accountService = accountService;
             _browsingHistoryService = browsingHistoryService;
@@ -60,6 +61,7 @@ namespace Pyxis.ViewModels.Detail
             _imageStoreService = imageStoreService;
             _navigationService = navigationService;
             _pixivClient = pixivClient;
+            _queryCacheService = queryCacheService;
             Tags = new ObservableCollection<PixivTagViewModel>();
             Comments = new ObservableCollection<PixivCommentViewModel>();
             ThumbnailPath = PyxisConstants.DummyImage;
@@ -124,7 +126,7 @@ namespace Pyxis.ViewModels.Detail
                       .ObserveOnUIDispatcher()
                       .Subscribe(w => IconPath = w)
                       .AddTo(this);
-            _pixivComment = new PixivComment(_novel, _pixivClient);
+            _pixivComment = new PixivComment(_novel, _pixivClient, _queryCacheService);
             _pixivComment.Comments.ObserveAddChanged()
                          .Where(w => ++_count <= 5)
                          .Select(CreatePixivComment)
@@ -147,15 +149,15 @@ namespace Pyxis.ViewModels.Detail
         private void Initialize(DetailByIdParameter parameter)
         {
             _count = 0;
-            _pixivDetail = new PixivDetail(parameter.Id, SearchType.Novels, _pixivClient);
+            _pixivDetail = new PixivDetail(parameter.Id, SearchType.Novels, _pixivClient, _queryCacheService);
             _pixivDetail.ObserveProperty(w => w.NovelDetail)
                         .Where(w => w != null)
                         .ObserveOnUIDispatcher()
                         .Subscribe(w =>
-                                   {
-                                       _novel = w;
-                                       Initialize();
-                                   }).AddTo(this);
+                        {
+                            _novel = w;
+                            Initialize();
+                        }).AddTo(this);
             _pixivDetail.Fetch();
         }
 

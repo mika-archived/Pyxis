@@ -23,6 +23,7 @@ namespace Pyxis.ViewModels
         private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
+        private readonly IQueryCacheService _queryCacheService;
         private PixivBrowsingHistory _pixivBrowsingHistory;
 
         public INavigationService NavigationService { get; }
@@ -31,13 +32,14 @@ namespace Pyxis.ViewModels
         public BrowsingHistoryMainPageViewModel(IAccountService accountService, ICategoryService categoryService,
                                                 IImageStoreService imageStoreService,
                                                 INavigationService navigationService,
-                                                IPixivClient pixivClient)
+                                                IPixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _accountService = accountService;
             _categoryService = categoryService;
             _imageStoreService = imageStoreService;
             NavigationService = navigationService;
             _pixivClient = pixivClient;
+            _queryCacheService = queryCacheService;
             BrowsingItems = new IncrementalObservableCollection<TappableThumbnailViewModel>();
         }
 
@@ -63,7 +65,7 @@ namespace Pyxis.ViewModels
         {
             _categoryService.UpdateCategory();
             SelectedIndex = (int) parameter.ContentType;
-            _pixivBrowsingHistory = new PixivBrowsingHistory(_pixivClient, parameter.ContentType);
+            _pixivBrowsingHistory = new PixivBrowsingHistory(_pixivClient, parameter.ContentType, _queryCacheService);
 
             if (parameter.ContentType == ContentType2.IllustAndManga)
                 ModelHelper.ConnectTo(BrowsingItems, _pixivBrowsingHistory, w => w.Illusts, CreatePixivImage)

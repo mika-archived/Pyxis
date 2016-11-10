@@ -25,6 +25,8 @@ namespace Pyxis.ViewModels.New
         private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
+        private readonly IQueryCacheService _queryCacheService;
+
         private PixivNew _pixivNew;
         public INavigationService NavigationService { get; }
 
@@ -32,12 +34,13 @@ namespace Pyxis.ViewModels.New
 
         public FollowMypixivNewPageViewModel(IAccountService accountService, ICategoryService categoryService,
                                              IImageStoreService imageStoreService, INavigationService navigationService,
-                                             IPixivClient pixivClient)
+                                             IPixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _accountService = accountService;
             _categoryService = categoryService;
             _imageStoreService = imageStoreService;
             _pixivClient = pixivClient;
+            _queryCacheService = queryCacheService;
             NavigationService = navigationService;
             NewItems = new IncrementalObservableCollection<TappableThumbnailViewModel>();
         }
@@ -65,7 +68,7 @@ namespace Pyxis.ViewModels.New
             if (IsLoggedInRequired)
                 return;
 
-            _pixivNew = new PixivNew(parameter.ContentType.Convert(), parameter.FollowType, _pixivClient);
+            _pixivNew = new PixivNew(parameter.ContentType.Convert(), parameter.FollowType, _pixivClient, _queryCacheService);
             if (parameter.ContentType == ContentType2.IllustAndManga)
                 ModelHelper.ConnectTo(NewItems, _pixivNew, w => w.NewIllusts, CreatePixivImage).AddTo(this);
             else

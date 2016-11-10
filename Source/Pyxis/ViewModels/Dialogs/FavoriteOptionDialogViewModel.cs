@@ -5,6 +5,7 @@ using Pyxis.Models;
 using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
 using Pyxis.Mvvm;
+using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
 
 using Reactive.Bindings;
@@ -15,6 +16,8 @@ namespace Pyxis.ViewModels.Dialogs
     public class FavoriteOptionDialogViewModel : DialogViewModel
     {
         private readonly IPixivClient _pixivClient;
+        private readonly IQueryCacheService _queryCacheService;
+
         private PixivBookmarkTag _bookmarkTag;
         private FavoriteOptionParameter _parameter;
 
@@ -22,9 +25,10 @@ namespace Pyxis.ViewModels.Dialogs
         public ReactiveProperty<string> SelectedTag { get; private set; }
         public IncrementalObservableCollection<string> Tags { get; }
 
-        public FavoriteOptionDialogViewModel(IPixivClient pixivClient)
+        public FavoriteOptionDialogViewModel(IPixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _pixivClient = pixivClient;
+            _queryCacheService = queryCacheService;
             Tags = new IncrementalObservableCollection<string>();
         }
 
@@ -35,7 +39,7 @@ namespace Pyxis.ViewModels.Dialogs
             _parameter = parameter as FavoriteOptionParameter ?? new FavoriteOptionParameter();
             RestrictType = _parameter.ToReactivePropertyAsSynchronized(w => w.Restrict);
             SelectedTag = _parameter.ToReactivePropertyAsSynchronized(w => w.Tag);
-            _bookmarkTag = new PixivBookmarkTag(_pixivClient);
+            _bookmarkTag = new PixivBookmarkTag(_pixivClient, _queryCacheService);
             ModelHelper.ConnectTo(Tags, _bookmarkTag, w => w.BookmarkTags, w => w.Name).AddTo(this);
 
             _bookmarkTag.Query(_parameter.Type, _parameter.Restrict);

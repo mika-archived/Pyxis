@@ -11,6 +11,7 @@ using Microsoft.Practices.ObjectBuilder2;
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Helpers;
+using Pyxis.Services.Interfaces;
 
 namespace Pyxis.Models
 {
@@ -19,14 +20,16 @@ namespace Pyxis.Models
         private readonly IIllust _illust;
         private readonly INovel _novel;
         private readonly IPixivClient _pixivClient;
+        private readonly IQueryCacheService _queryCacheService;
         private string _offset;
 
         public ObservableCollection<IComment> Comments { get; }
 
-        public PixivComment(IIllust illust, IPixivClient pixivClient)
+        public PixivComment(IIllust illust, IPixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _illust = illust;
             _pixivClient = pixivClient;
+            _queryCacheService = queryCacheService;
             _offset = "";
             Comments = new ObservableCollection<IComment>();
 #if OFFLINE
@@ -36,10 +39,11 @@ namespace Pyxis.Models
 #endif
         }
 
-        public PixivComment(INovel novel, IPixivClient pixivClient)
+        public PixivComment(INovel novel, IPixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _novel = novel;
             _pixivClient = pixivClient;
+            _queryCacheService = queryCacheService;
             Comments = new ObservableCollection<IComment>();
             _offset = "";
 #if OFFLINE
@@ -56,9 +60,13 @@ namespace Pyxis.Models
         {
             IComments comments;
             if (_illust != null)
-                comments = await _pixivClient.IllustV1.CommentsAsync(illust_id => _illust.Id, offset => _offset);
+                comments = await _queryCacheService.RunAsync(_pixivClient.IllustV1.CommentsAsync,
+                                                             illust_id => _illust.Id,
+                                                             offset => _offset);
             else
-                comments = await _pixivClient.NovelV1.CommentsAsync(novel_id => _novel.Id, offset => _offset);
+                comments = await _queryCacheService.RunAsync(_pixivClient.NovelV1.CommentsAsync,
+                                                             novel_id => _novel.Id,
+                                                             offset => _offset);
             comments?.CommentList.ForEach(w => Comments.Add(w));
             if (string.IsNullOrWhiteSpace(comments?.NextUrl))
                 HasMoreItems = false;

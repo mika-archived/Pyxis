@@ -22,6 +22,8 @@ namespace Pyxis.ViewModels
         private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
+        private readonly IQueryCacheService _queryCacheService;
+
         private PixivFollow _pixivFollow;
         public INavigationService NavigationService { get; }
 
@@ -29,13 +31,14 @@ namespace Pyxis.ViewModels
 
         public FollowingMainPageViewModel(IAccountService accountService, ICategoryService categoryService,
                                           IImageStoreService imageStoreService, INavigationService navigationService,
-                                          IPixivClient pixivClient)
+                                          IPixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _accountService = accountService;
             _categoryService = categoryService;
             _imageStoreService = imageStoreService;
             NavigationService = navigationService;
             _pixivClient = pixivClient;
+            _queryCacheService = queryCacheService;
             FollowingUsers = new IncrementalObservableCollection<TappableThumbnailViewModel>();
         }
 
@@ -66,7 +69,7 @@ namespace Pyxis.ViewModels
         {
             _categoryService.UpdateCategory();
             SelectedIndex = (int) parameter.Restrict - 1;
-            _pixivFollow = new PixivFollow(_accountService.LoggedInAccount.Id, parameter.Restrict, _pixivClient);
+            _pixivFollow = new PixivFollow(_accountService.LoggedInAccount.Id, parameter.Restrict, _pixivClient, _queryCacheService);
             ModelHelper.ConnectTo(FollowingUsers, _pixivFollow, w => w.Users, CreateUserViewModel).AddTo(this);
         }
 

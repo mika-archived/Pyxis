@@ -83,6 +83,7 @@ namespace Pyxis
             Container.RegisterType<IImageStoreService, ImageStoreService>(new LifetimeManager());
             Container.RegisterType<IDialogService, DialogService>(new LifetimeManager());
             Container.RegisterType<ICategoryService, CategoryService>(new LifetimeManager());
+            Container.RegisterType<IQueryCacheService, QueryCacheService>(new LifetimeManager());
 #if DEBUG
             Container.RegisterType<ILicenseService, LocalLicenseService>(new LifetimeManager());
 #else

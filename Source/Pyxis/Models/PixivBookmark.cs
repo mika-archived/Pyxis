@@ -9,19 +9,22 @@ using Microsoft.Practices.ObjectBuilder2;
 
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest;
+using Pyxis.Services.Interfaces;
 
 namespace Pyxis.Models
 {
     internal class PixivBookmark : ISupportIncrementalLoading
     {
         private readonly IPixivClient _pixivClient;
+        private readonly IQueryCacheService _queryCacheService;
         private string _offset;
 
         public ObservableCollection<INovel> Novels { get; }
 
-        public PixivBookmark(IPixivClient pixivClient)
+        public PixivBookmark(IPixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _pixivClient = pixivClient;
+            _queryCacheService = queryCacheService;
             _offset = "";
             Novels = new ObservableCollection<INovel>();
 #if OFFLINE
@@ -33,7 +36,7 @@ namespace Pyxis.Models
 
         private async Task Fetch()
         {
-            var novels = await _pixivClient.NovelV1.MarkersAsync(offset => _offset);
+            var novels = await _queryCacheService.RunAsync(_pixivClient.NovelV1.MarkersAsync, offset => _offset);
             novels?.NovelList.ForEach(w => Novels.Add(w));
             if (string.IsNullOrWhiteSpace(novels?.NextUrl))
                 HasMoreItems = false;

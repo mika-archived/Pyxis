@@ -25,6 +25,8 @@ namespace Pyxis.ViewModels
         private readonly IDialogService _dialogService;
         private readonly IImageStoreService _imageStoreService;
         private readonly IPixivClient _pixivClient;
+        private readonly IQueryCacheService _queryCacheService;
+
         private FavoriteOptionParameter _favoriteOption;
         private PixivFavorite _pixivFavorite;
         public INavigationService NavigationService { get; }
@@ -33,13 +35,14 @@ namespace Pyxis.ViewModels
 
         public FavoriteMainPageViewModel(IAccountService accountService, ICategoryService categoryService,
                                          IDialogService dialogService, IImageStoreService imageStoreService,
-                                         INavigationService navigationService, IPixivClient pixivClient)
+                                         INavigationService navigationService, IPixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _accountService = accountService;
             _categoryService = categoryService;
             _dialogService = dialogService;
             _imageStoreService = imageStoreService;
             _pixivClient = pixivClient;
+            _queryCacheService = queryCacheService;
             NavigationService = navigationService;
             FavoriteItems = new IncrementalObservableCollection<TappableThumbnailViewModel>();
         }
@@ -66,7 +69,7 @@ namespace Pyxis.ViewModels
             _favoriteOption = parameter;
             _favoriteOption.UserId = _accountService.LoggedInAccount.Id;
             SelectedIndex = (int) parameter.Type;
-            _pixivFavorite = new PixivFavorite(_pixivClient);
+            _pixivFavorite = new PixivFavorite(_pixivClient, this._queryCacheService);
 
             if (parameter.Type == SearchType.IllustsAndManga)
                 ModelHelper.ConnectTo(FavoriteItems, _pixivFavorite, w => w.ResultIllusts, CreatePixivImage).AddTo(this);
