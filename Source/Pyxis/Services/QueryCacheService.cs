@@ -26,13 +26,14 @@ namespace Pyxis.Services
         {
             lock (_lockObj)
             {
-                var builder = new QueryBuilder(dispatcher.GetMethodInfo().Name);
+                var builder = new QueryBuilder($"{dispatcher.GetMethodInfo().Module.FullyQualifiedName}+{dispatcher.GetMethodInfo().Name}");
                 builder.AddParams(query);
-                var cache = _queryCaches.SingleOrDefault(w => w.IsEnabled && (w.Query == builder.ToQuery()));
-                if (cache != null)
-                    return (T) cache.Result;
+                if (_queryCaches.Any(w => w.IsEnabled && (w.Query == builder.ToQuery())))
+                    // F*ck, If use Single query, thrown Exception (sequence contains more results)
+                    return (T) _queryCaches.First(w => w.IsEnabled && (w.Query == builder.ToQuery())).Result;
                 var result = dispatcher.Invoke(query);
-                _queryCaches.Add(new QueryCache {Query = builder.ToQuery(), Result = result});
+                if (result != null)
+                    _queryCaches.Add(new QueryCache {Query = builder.ToQuery(), Result = result});
                 return result;
             }
         }
@@ -41,13 +42,14 @@ namespace Pyxis.Services
         {
             using (await _asyncLock.LockAsync())
             {
-                var builder = new QueryBuilder(dispatcher.GetMethodInfo().Name);
+                var builder = new QueryBuilder($"{dispatcher.GetMethodInfo().DeclaringType.AssemblyQualifiedName}+{dispatcher.GetMethodInfo().Name}");
                 builder.AddParams(query);
-                var cache = _queryCaches.SingleOrDefault(w => w.IsEnabled && (w.Query == builder.ToQuery()));
-                if (cache != null)
-                    return (T) cache.Result;
+                if (_queryCaches.Any(w => w.IsEnabled && (w.Query == builder.ToQuery())))
+                    // F*ck, If use Single query, thrown Exception (sequence contains more results)
+                    return (T) _queryCaches.First(w => w.IsEnabled && (w.Query == builder.ToQuery())).Result;
                 var result = await dispatcher.Invoke(query);
-                _queryCaches.Add(new QueryCache {Query = builder.ToQuery(), Result = result});
+                if (result != null)
+                    _queryCaches.Add(new QueryCache {Query = builder.ToQuery(), Result = result});
                 return result;
             }
         }
