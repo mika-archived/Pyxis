@@ -153,6 +153,8 @@
     <Compile Include="Models\Caching\CacheFile.cs" />
     <Compile Include="Models\Caching\CacheRule.cs" />
     <Compile Include="Models\Caching\Category.cs" />
+    <Compile Include="Models\Caching\Order.cs" />
+    <Compile Include="Models\Caching\Size.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Enums\FollowType.cs" />
     <Compile Include="Models\Enums\ContentType2.cs" />
@@ -678,7 +680,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Offline Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Offline Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NETFX_CORE;WINDOWS_UWP;CODE_ANALYSIS;DISABLE_XAML_GENERATED_BREAK_ON_UNHANDLED_EXCEPTION;CODE_ANALYSIS;OFFLINE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NETFX_CORE;WINDOWS_UWP;CODE_ANALYSIS;DISABLE_XAML_GENERATED_BREAK_ON_UNHANDLED_EXCEPTION;CODE_ANALYSIS;OFFLINE;CODE_ANALYSIS;OFFLINE</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <NoStdLib>true</NoStdLib>
     <DebugType>full</DebugType>
@@ -704,7 +706,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Offline Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x64\Offline Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NETFX_CORE;WINDOWS_UWP;CODE_ANALYSIS;CODE_ANALYSIS;OFFLINE</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <NoStdLib>true</NoStdLib>
     <DebugType>full</DebugType>
