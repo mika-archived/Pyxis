@@ -83,6 +83,18 @@ namespace Pyxis.ViewModels.Base
 
         #endregion
 
+        #region HasMultiple
+
+        private bool _hasMultiple;
+
+        public bool HasMultiple
+        {
+            get { return _hasMultiple; }
+            set { SetProperty(ref _hasMultiple, value); }
+        }
+
+        #endregion
+
         #region IsProgress
 
         private bool _isProgress;

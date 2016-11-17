@@ -30,6 +30,7 @@ namespace Pyxis.ViewModels.Items
 
             ThumbnailPath = PyxisConstants.DummyImage;
             Thumbnailable = new PixivImage(illust, imageStoreService);
+            HasMultiple = illust.PageCount > 1;
         }
 
         public PixivThumbnailViewModel(INovel novel, IImageStoreService imageStoreService,

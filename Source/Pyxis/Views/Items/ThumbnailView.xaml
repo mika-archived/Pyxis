@@ -12,14 +12,27 @@
              mc:Ignorable="d">
     <Grid x:Name="RootGrid">
         <i:Interaction.Behaviors>
-            <core:EventTriggerBehavior EventName="Tapped"
-                                       SourceObject="{Binding ElementName=RootGrid}">
-                <core:CallMethodAction MethodName="OnItemTapped"
-                                       TargetObject="{Binding}" />
+            <core:EventTriggerBehavior EventName="Tapped" SourceObject="{Binding ElementName=RootGrid}">
+                <core:CallMethodAction MethodName="OnItemTapped" TargetObject="{Binding}" />
             </core:EventTriggerBehavior>
         </i:Interaction.Behaviors>
         <Image VerticalAlignment="Center"
                Source="{Binding ThumbnailPath}"
                Stretch="UniformToFill" />
+        <Grid HorizontalAlignment="Right"
+              VerticalAlignment="Top"
+              Opacity=".8"
+              Visibility="{Binding HasMultiple, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Polygon Fill="Silver"
+                     Points="0,0, 45,45, 45,0"
+                     Stroke="Silver" />
+            <TextBlock Margin="0,5,5,0"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Top"
+                       FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                       FontSize="14"
+                       Style="{ThemeResource SubheaderTextBlockStyle}"
+                       Text="&#xE8C8;" />
+        </Grid>
     </Grid>
 </UserControl>
