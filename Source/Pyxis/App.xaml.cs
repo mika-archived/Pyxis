@@ -36,6 +36,8 @@ namespace Pyxis
         public App()
         {
             HockeyClient.Current.Configure("096f082c19e54f24aab0d31ff4d9bfb7");
+            RequestedTheme = ApplicationTheme.Dark;
+
             InitializeComponent();
             UnhandledException += (sender, e) =>
             {

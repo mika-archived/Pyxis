@@ -75,7 +75,7 @@
                            Source="{x:Bind ViewModel.ThumbnailPath2, Mode=OneWay}"
                            Stretch="UniformToFill" />
                 </controls:BlurEffectControl>
-                <Border Background="White" Opacity=".75" />
+                <Border Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Opacity=".75" />
                 <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center">
                     <Grid Height="96" HorizontalAlignment="Stretch">
                         <Grid.ColumnDefinitions>
