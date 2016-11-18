@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 using Windows.ApplicationModel.Store;
@@ -15,7 +16,6 @@ namespace Pyxis.Services
 
         public LocalLicenseService()
         {
-            _licenseInformation = CurrentAppSimulator.LicenseInformation;
             RunHelper.RunAsync(LocalLicenseServiceCtor);
         }
 
@@ -35,9 +35,9 @@ namespace Pyxis.Services
                 var storeProxy = await ApplicationData.Current.LocalFolder.GetFileAsync("WindowsStoreProxy.xml");
                 await CurrentAppSimulator.ReloadSimulatorAsync(storeProxy);
             }
-            catch
+            catch (Exception e)
             {
-                // ignored
+                Debug.WriteLine(e.Message);
             }
             _licenseInformation = CurrentAppSimulator.LicenseInformation;
         }
