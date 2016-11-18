@@ -120,7 +120,7 @@ namespace Pyxis.ViewModels.Search
             else if (parameter.SearchType == SearchType.Novels)
                 ModelHelper.ConnectTo(Results, _pixivSearch, w => w.ResultNovels, CreatePixivNovel).AddTo(this);
 
-            Search();
+            RunHelper.RunLaterUI(Search, TimeSpan.FromMilliseconds(125));
         }
 
         private void GenerateQueries()
