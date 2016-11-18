@@ -5,7 +5,7 @@
            TargetType="TextBlock">
         <Setter Property="Margin" Value="10" />
         <Setter Property="HorizontalAlignment" Value="Center" />
-        <Setter Property="Foreground" Value="{ThemeResource ComboBoxItemDisabledForegroundThemeBrush}" />
+        <Setter Property="Foreground" Value="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" />
     </Style>
 </ResourceDictionary>
 
