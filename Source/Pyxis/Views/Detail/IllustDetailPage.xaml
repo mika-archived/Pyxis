@@ -117,11 +117,9 @@
                                                                                         Mode=OneWay}"
                                                                       ComparisonCondition="Equal"
                                                                       Value="False">
-                                                <core:ChangePropertyAction PropertyName="Foreground" TargetObject="{Binding ElementName=BookmarkButton}">
-                                                    <core:ChangePropertyAction.Value>
-                                                        <SolidColorBrush>Black</SolidColorBrush>
-                                                    </core:ChangePropertyAction.Value>
-                                                </core:ChangePropertyAction>
+                                                <core:ChangePropertyAction PropertyName="Foreground"
+                                                                           TargetObject="{Binding ElementName=BookmarkButton}"
+                                                                           Value="{ThemeResource ApplicationForegroundThemeBrush}" />
                                             </core:DataTriggerBehavior>
                                         </i:Interaction.Behaviors>
                                     </Button>
