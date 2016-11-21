@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="All.Text" xml:space="preserve">
-    <value>All</value>
+    <value>Everyone</value>
   </data>
   <data name="Bgm.Text" xml:space="preserve">
     <value>BGM</value>
@@ -145,7 +145,7 @@
     <value>Description</value>
   </data>
   <data name="Desktop.Text" xml:space="preserve">
-    <value>Items on the desktop</value>
+    <value>Waht is on the desk</value>
   </data>
   <data name="Detail.Text" xml:space="preserve">
     <value>Detail</value>
@@ -343,7 +343,7 @@
     <value>There are no related works.</value>
   </data>
   <data name="SearchOption.Title" xml:space="preserve">
-    <value>Search Option</value>
+    <value>Search options</value>
   </data>
   <data name="About.Text" xml:space="preserve">
     <value>About Pyxis</value>
@@ -415,7 +415,7 @@
     <value>Please login to pixiv.</value>
   </data>
   <data name="Privacy.Text" xml:space="preserve">
-    <value>Privacy policy</value>
+    <value>Privacy Policy</value>
   </data>
   <data name="SearchOption.PrimaryButtonText" xml:space="preserve">
     <value>OK</value>
@@ -427,40 +427,40 @@
     <value>Tag</value>
   </data>
   <data name="ZeroItems.Text" xml:space="preserve">
-    <value>0 items.</value>
+    <value>0 items</value>
   </data>
   <data name="Error1.Text" xml:space="preserve">
-    <value>Please register for/login to pixiv.</value>
+    <value>Please register or log in pixiv!</value>
   </data>
   <data name="NoNew.Text" xml:space="preserve">
     <value>There are no new posts.</value>
   </data>
   <data name="NoSearchResult.Text" xml:space="preserve">
-    <value>No search results found.</value>
+    <value>No search results</value>
   </data>
   <data name="Register.Text" xml:space="preserve">
     <value>Register</value>
   </data>
   <data name="AllTime.Content" xml:space="preserve">
-    <value>All time</value>
+    <value>Not specified</value>
   </data>
   <data name="Body.Content" xml:space="preserve">
-    <value>Body</value>
+    <value>Text</value>
   </data>
   <data name="Duration.Text" xml:space="preserve">
-    <value>Duration</value>
+    <value>Period</value>
   </data>
   <data name="Error2.Text" xml:space="preserve">
-    <value>You need to register for pixiv premium on browser to enable this feature,</value>
+    <value>To enable this function, register it with pixiv premium from the browser</value>
   </data>
   <data name="Error3.Text" xml:space="preserve">
-    <value>then restart app.</value>
+    <value>You need to restart the application.</value>
   </data>
   <data name="Error4.Text" xml:space="preserve">
-    <value>Please check your ID and password.</value>
+    <value>Please check ID and password</value>
   </data>
   <data name="ExactMatch.Content" xml:space="preserve">
-    <value>Exact match</value>
+    <value>Perfect mathcing</value>
   </data>
   <data name="Keyword.Content" xml:space="preserve">
     <value>Keyword</value>
