@@ -498,4 +498,7 @@
   <data name="NotLoggedIn.Text" xml:space="preserve">
     <value>Not logged in.</value>
   </data>
+  <data name="Faq.Text" xml:space="preserve">
+    <value>FAQ</value>
+  </data>
 </root>

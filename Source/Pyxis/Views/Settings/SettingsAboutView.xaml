@@ -23,7 +23,7 @@
                 </Style>
             </StackPanel.Resources>
             <TextBlock Style="{ThemeResource TitleTextBlockStyle}" Text="Pyxis" />
-            <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" Text="Version 1.1.0" />
+            <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" Text="Version 1.1" />
             <TextBlock>
                 <Hyperlink NavigateUri="https://kokoiroworks.com/pyx/privacy">
                     <Run x:Uid="Privacy" />
@@ -42,6 +42,11 @@
                 <Run x:Uid="Feedback1" />
                 <Hyperlink NavigateUri="https://twitter.com/hashtag/PyxisApp">#PyxisApp</Hyperlink>
                 <Run x:Uid="Feedback2" />
+            </TextBlock>
+            <TextBlock>
+                <Hyperlink NavigateUri="https://kokoiroworks.com/pyx/faq">
+                    <Run x:Uid="Faq" />
+                </Hyperlink>
             </TextBlock>
             <TextBlock x:Uid="License"
                        Margin="0,20,0,0"
