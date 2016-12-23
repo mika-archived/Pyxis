@@ -9,5 +9,46 @@
         public static string ApplicationKey => "8B2D7393-617C-4836-AA0E-68B502D9B1C9";
 
         public static string DownloadFoilderName => "Pyxis";
+
+        public static class ConfigurationKeys
+        {
+            #region Search
+
+            /// <summary>
+            ///     検索モード (Partial or Exact)
+            /// </summary>
+            public static string DefaultSearchMode => "Configuration.Search.DefaultMode";
+
+            #endregion
+
+            #region Cache
+            // TODO: This section is reserved for feature.
+
+            /// <summary>
+            ///     キャッシュ最大サイズ
+            /// </summary>
+            public static string MaximumCacheSize => "Configuration.Cache.MaxSize";
+
+            /// <summary>
+            ///     キャッシュ自動削除ルール
+            /// </summary>
+            public static string AutomaticClearRule => "Configuration.Cache.ClrarRule";
+
+            #endregion
+
+            #region View
+
+            /// <summary>
+            ///     Related Items の表示 (for zh-CN)
+            /// </summary>
+            public static string IsShowRelatedItems => "Configuration.View.RelatedItems";
+
+            /// <summary>
+            ///     テーマ (Dark, Light or Windows)
+            /// </summary>
+            public static string Theme => "Configuration.View.Theme";
+
+            #endregion
+        }
     }
 }

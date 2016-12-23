@@ -18,7 +18,7 @@
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PackageCertificateKeyFile>Pyxis_StoreKey.pfx</PackageCertificateKeyFile>
     <PackageCertificateThumbprint>0C76323FF3C8C5A68D9A86FCE0A66687F4F9392F</PackageCertificateThumbprint>
-    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <AppxBundle>Always</AppxBundle>
     <AppxSymbolPackageEnabled>True</AppxSymbolPackageEnabled>
@@ -199,6 +199,7 @@
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Services\BrowsingHistoryService.cs" />
     <Compile Include="Services\CategoryService.cs" />
+    <Compile Include="Services\ConfigurationService.cs" />
     <Compile Include="Services\DialogService.cs" />
     <Compile Include="Services\ImageStoreService.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -206,6 +207,7 @@
     <Compile Include="Services\Interfaces\IAccountService.cs" />
     <Compile Include="Services\Interfaces\IBrowsingHistoryService.cs" />
     <Compile Include="Services\Interfaces\ICategoryService.cs" />
+    <Compile Include="Services\Interfaces\IConfigurationService.cs" />
     <Compile Include="Services\Interfaces\IDialogService.cs" />
     <Compile Include="Services\Interfaces\IImageStoreService.cs" />
     <Compile Include="Services\Interfaces\ILicenseService.cs" />

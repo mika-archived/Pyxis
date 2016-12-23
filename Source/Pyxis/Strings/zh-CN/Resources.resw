@@ -489,9 +489,6 @@
   <data name="NoPost.Text" xml:space="preserve">
     <value>There are no posted works.</value>
   </data>
-  <data name="NoSearchResult.Text" xml:space="preserve">
-    <value>No search results</value>
-  </data>
   <data name="NoRelated.Text" xml:space="preserve">
     <value>There are no related works.</value>
   </data>
