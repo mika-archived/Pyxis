@@ -8,15 +8,12 @@ namespace Pyxis.Models
 
         public string Password { get; }
 
-        public string DeviceId { get; }
-
         public IAccount Account { get; }
 
-        public AccountInfo(string username, string password, string deviceId, IAccount account = null)
+        public AccountInfo(string username, string password, IAccount account = null)
         {
             Username = username;
             Password = password;
-            DeviceId = deviceId;
             Account = account;
         }
     }
