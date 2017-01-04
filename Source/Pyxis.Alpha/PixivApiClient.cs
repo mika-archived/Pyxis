@@ -63,10 +63,10 @@ namespace Pyxis.Alpha
         public PixivApiClient()
         {
             _httpClient = new HttpClient();
-            _httpClient.DefaultRequestHeaders.Add("App-Version", "6.1.2");
+            _httpClient.DefaultRequestHeaders.Add("App-Version", "6.4.0");
             _httpClient.DefaultRequestHeaders.Add("App-OS", "ios");
-            _httpClient.DefaultRequestHeaders.Add("App-OS-Version", "10.0.1");
-            _httpClient.DefaultRequestHeaders.Add("User-Agent", "PixivIOSApp/6.1.2 (iOS 10.0.1; iPhone7,2)");
+            _httpClient.DefaultRequestHeaders.Add("App-OS-Version", "10.2");
+            _httpClient.DefaultRequestHeaders.Add("User-Agent", "PixivIOSApp/6.4.0 (iOS 10.2; iPhone7,2)");
         }
 
         public async Task<T> GetAsync<T>(string url, bool requireAuth, params Expression<Func<string, object>>[] parameters)
