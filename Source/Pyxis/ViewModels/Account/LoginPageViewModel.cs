@@ -57,7 +57,7 @@ namespace Pyxis.ViewModels.Account
         private async Task LoginAsync()
         {
             IsProcessing = true;
-            _accountService.Save(new AccountInfo(Username.Value, Password.Value));
+            _accountService.Save(new AccountInfo(Username.Value, Password.Value, Guid.NewGuid().ToString().Replace("-", "")));
             await _accountService.Login();
             IsProcessing = false;
 

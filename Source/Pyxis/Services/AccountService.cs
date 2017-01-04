@@ -57,6 +57,7 @@ namespace Pyxis.Services
             {
                 var vault = new PasswordVault();
                 vault.Add(new PasswordCredential(PyxisConstants.ApplicationKey, account.Username, account.Password));
+                vault.Add(new PasswordCredential(PyxisConstants.ApplicationKey, $"{account.Username}+DeviceId", account.DeviceId));
             }
             catch (Exception e)
             {
@@ -73,16 +74,23 @@ namespace Pyxis.Services
                 vault.RetrieveAll();
 
                 var resources = vault.FindAllByResource(PyxisConstants.ApplicationKey);
-                var credential = resources.FirstOrDefault();
+                var credential = resources.FirstOrDefault(w => !w.UserName.Contains("+DeviceId"));
                 if (credential == null)
                     return;
                 credential.RetrievePassword();
-
+                var deviceCredential = resources.FirstOrDefault(w => w.UserName == $"{credential.UserName}+DeviceId");
+                if (deviceCredential == null)
+                {
+                    // When deviceCredential is null, user upgreding from Pyxis 1.1.x
+                    Clear();
+                    return;
+                }
+                deviceCredential.RetrievePassword();
                 var account = await _pixivClient.Authorization
                                                 .Login(get_secure_url => 1,
                                                        grant_type => "password",
                                                        client_secret => "HP3RmkgAmEGro0gn1x9ioawQE8WMfvLXDz3ZqxpK",
-                                                       device_token => Guid.NewGuid().ToString().Replace("-", ""),
+                                                       device_token => deviceCredential.Password,
                                                        password => credential.Password,
                                                        client_id => "bYGKuGVw91e0NMfPGp44euvGt59s",
                                                        username => credential.UserName);
