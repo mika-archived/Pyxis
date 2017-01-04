@@ -261,7 +261,6 @@
     <Compile Include="ViewModels\Search\WorkSearchPageViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsAboutViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsAccountViewModel.cs" />
-    <Compile Include="ViewModels\Settings\SettingsGeneralViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsMainPageViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsMaintenanceViewModel.cs" />
     <Compile Include="ViewModels\WorkMainPageViewModel.cs" />
@@ -373,8 +372,8 @@
     <Compile Include="Views\Settings\SettingsAccountView.xaml.cs">
       <DependentUpon>SettingsAccountView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Settings\SettingsGeneralView.xaml.cs">
-      <DependentUpon>SettingsGeneralView.xaml</DependentUpon>
+    <Compile Include="Views\Settings\SettingsAppearanceView.xaml.cs">
+      <DependentUpon>SettingsAppearanceView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Settings\SettingsMainPage.xaml.cs">
       <DependentUpon>SettingsMainPage.xaml</DependentUpon>
@@ -619,7 +618,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Settings\SettingsGeneralView.xaml">
+    <Page Include="Views\Settings\SettingsAppearanceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

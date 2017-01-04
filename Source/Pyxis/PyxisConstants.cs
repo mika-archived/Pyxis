@@ -36,17 +36,17 @@
 
             #endregion
 
-            #region View
+            #region Appearance
 
             /// <summary>
             ///     Related Items の表示 (for zh-CN)
             /// </summary>
-            public static string IsShowRelatedItems => "Configuration.View.RelatedItems";
+            public static string IsShowRelatedItems => "Configuration.Appearance.RelatedItems";
 
             /// <summary>
             ///     テーマ (Dark, Light or Windows)
             /// </summary>
-            public static string Theme => "Configuration.View.Theme";
+            public static string Theme => "Configuration.Appearance.Theme";
 
             #endregion
         }

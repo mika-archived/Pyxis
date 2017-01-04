@@ -13,11 +13,11 @@
         <Pivot Style="{StaticResource TabsStylePivotStyle}">
             <PivotItem>
                 <PivotItem.Header>
-                    <TextBlock x:Uid="General"
+                    <TextBlock x:Uid="Appearance"
                                Width="80"
                                Style="{StaticResource TabsStyleTextBlockStyle}" />
                 </PivotItem.Header>
-                <local:SettingsGeneralView Margin="10" />
+                <local:SettingsAppearanceView Margin="10" />
             </PivotItem>
             <PivotItem>
                 <PivotItem.Header>

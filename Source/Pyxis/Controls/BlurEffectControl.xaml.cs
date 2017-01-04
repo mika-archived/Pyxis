@@ -81,6 +81,6 @@ namespace Pyxis.Controls
             set { SetValue(BlurAmountProperty, value); }
         }
 
-        #endregion
+        #endregion BlurAmount
     }
 }
