@@ -75,7 +75,9 @@ namespace Pyxis.ViewModels.Detail
             base.OnNavigatedTo(e, viewModelState);
             var parameter = ParameterBase.ToObject<IllustDetailParameter>((string) e.Parameter);
             if (parameter.Illust != null)
+            {
                 Initialize(parameter);
+            }
             else
             {
                 var param = ParameterBase.ToObject<DetailByIdParameter>((string) e.Parameter);
@@ -106,8 +108,8 @@ namespace Pyxis.ViewModels.Detail
             ConvertValues = new List<object> {_illust.Caption, _navigationService};
             CreatedAt = _illust.CreateDate.ToString("g");
             Username = _illust.User.Name;
-            View = _illust.TotalView;
-            BookmarkCount = _illust.TotalBookmarks;
+            View = _illust.TotalView.ToString("##,###");
+            BookmarkCount = _illust.TotalBookmarks.ToString("##,###");
             Height = _illust.Height;
             Width = _illust.Width;
             IsManga = _illust.PageCount > 1;
@@ -303,9 +305,9 @@ namespace Pyxis.ViewModels.Detail
 
         #region View
 
-        private int _view;
+        private string _view;
 
-        public int View
+        public string View
         {
             get { return _view; }
             set { SetProperty(ref _view, value); }
@@ -315,9 +317,9 @@ namespace Pyxis.ViewModels.Detail
 
         #region BookmarkCount
 
-        private int _bookmarkCount;
+        private string _bookmarkCount;
 
-        public int BookmarkCount
+        public string BookmarkCount
         {
             get { return _bookmarkCount; }
             set { SetProperty(ref _bookmarkCount, value); }

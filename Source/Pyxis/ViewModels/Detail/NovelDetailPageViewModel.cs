@@ -82,7 +82,9 @@ namespace Pyxis.ViewModels.Detail
             base.OnNavigatedTo(e, viewModelState);
             var parameter = ParameterBase.ToObject<NovelDetailParameter>((string) e.Parameter);
             if (parameter.Novel != null)
+            {
                 Initialize(parameter);
+            }
             else
             {
                 var param = ParameterBase.ToObject<DetailByIdParameter>((string) e.Parameter);
@@ -114,10 +116,10 @@ namespace Pyxis.ViewModels.Detail
             ConvertValues = new List<object> {_novel.Caption, _navigationService};
             CreatedAt = _novel.CreateDate.ToString("g");
             Username = _novel.User.Name;
-            View = _novel.TotalView;
-            BookmarkCount = _novel.TotalBookmarks;
+            View = _novel.TotalView.ToString("##,###");
+            BookmarkCount = _novel.TotalBookmarks.ToString("##,###");
             IsBookmarked = _novel.IsBookmarked;
-            TextLength = $"{_novel.TextLength.ToString("##,###")}文字";
+            TextLength = $"{_novel.TextLength:##,###}文字";
             _novel.Tags.ForEach(w => Tags.Add(new PixivTagViewModel(w, _navigationService)));
             Thumbnailable = new PixivNovel(_novel, _imageStoreService);
             _pixivUser = new PixivUserImage(_novel.User, _imageStoreService);
@@ -285,9 +287,9 @@ namespace Pyxis.ViewModels.Detail
 
         #region View
 
-        private int _view;
+        private string _view;
 
-        public int View
+        public string View
         {
             get { return _view; }
             set { SetProperty(ref _view, value); }
@@ -297,9 +299,9 @@ namespace Pyxis.ViewModels.Detail
 
         #region BookmarkCount
 
-        private int _bookmarkCount;
+        private string _bookmarkCount;
 
-        public int BookmarkCount
+        public string BookmarkCount
         {
             get { return _bookmarkCount; }
             set { SetProperty(ref _bookmarkCount, value); }
