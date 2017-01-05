@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 
 using Pyxis.Alpha.Rest.Pximg;
 using Pyxis.Alpha.Rest.v1;
+using Pyxis.Beta.Events;
 using Pyxis.Beta.Exceptions;
 using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Beta.Interfaces.Rest.Pximg;
@@ -59,9 +60,14 @@ namespace Pyxis.Alpha
         public IPximgApi Pximg => new PximgApi();
 
         private readonly HttpClient _httpClient;
+        internal readonly string ClientId;
+        internal readonly string ClientSecret;
 
-        public PixivApiClient()
+        public PixivApiClient(string clientId, string clientSecret)
         {
+            ClientId = clientId;
+            ClientSecret = clientSecret;
+
             _httpClient = new HttpClient();
             _httpClient.DefaultRequestHeaders.Add("App-Version", "6.4.0");
             _httpClient.DefaultRequestHeaders.Add("App-OS", "ios");
@@ -86,6 +92,20 @@ namespace Pyxis.Alpha
                 var response = await _httpClient.GetAsync(url);
                 response.EnsureSuccessStatusCode();
                 return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+            }
+            catch (HttpRequestException e) when (e.Message.Contains("400") && url != Endpoints.OauthToken)
+            {
+                var eventArgs = new ReAuthenticateEventArgs();
+                OnReAuthenticate?.Invoke(eventArgs);
+                // ReSharper disable InconsistentNaming
+                var response = await Authorization.Login(get_secure_url => 1,
+                                                         grant_type => "password",
+                                                         device_token => eventArgs.DeviceId,
+                                                         password => eventArgs.Password,
+                                                         username => eventArgs.Username);
+                if (response != null)
+                    return await GetAsync<T>(url, requireAuth, parameters);
+                // ReSharper restore InconsistentNaming
             }
             catch (Exception e)
             {
@@ -112,12 +132,28 @@ namespace Pyxis.Alpha
                 response.EnsureSuccessStatusCode();
                 return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
             }
+            catch (HttpRequestException e) when (e.Message.Contains("400") && url != Endpoints.OauthToken)
+            {
+                var eventArgs = new ReAuthenticateEventArgs();
+                OnReAuthenticate?.Invoke(eventArgs);
+                // ReSharper disable InconsistentNaming
+                var response = await Authorization.Login(get_secure_url => 1,
+                                                         grant_type => "password",
+                                                         device_token => eventArgs.DeviceId,
+                                                         password => eventArgs.Password,
+                                                         username => eventArgs.Username);
+                if (response != null)
+                    return await PostAsync<T>(url, requireAuth, parameters);
+                // ReSharper restore InconsistentNaming
+            }
             catch (Exception e)
             {
                 Debug.WriteLine(e.Message);
             }
             return default(T);
         }
+
+        public event ReAuthenticateEventHandler OnReAuthenticate;
 
         #endregion Implementation of IPixivClient
     }

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
+using Pyxis.Beta.Events;
 using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Beta.Interfaces.Rest.Pximg;
 using Pyxis.Beta.Interfaces.Rest.v1;
@@ -83,6 +84,8 @@ namespace Pyxis.Gamma
             }
             return default(T);
         }
+
+        public event ReAuthenticateEventHandler OnReAuthenticate;
 
         #endregion
     }

@@ -77,7 +77,7 @@ namespace Pyxis
         protected override async Task OnInitializeAsync(IActivatedEventArgs args)
         {
             UIDispatcherScheduler.Initialize();
-            var pixivClient = new PixivApiClient();
+            var pixivClient = new PixivApiClient("bYGKuGVw91e0NMfPGp44euvGt59s", "HP3RmkgAmEGro0gn1x9ioawQE8WMfvLXDz3ZqxpK");
             var accountService = new AccountService(pixivClient);
             Container.RegisterInstance<IPixivClient>(pixivClient, new LifetimeManager());
             Container.RegisterInstance<IAccountService>(accountService, new LifetimeManager());

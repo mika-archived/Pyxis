@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Windows.Security.Credentials;
 
+using Pyxis.Beta.Events;
 using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Models;
@@ -44,6 +45,7 @@ namespace Pyxis.Services
                 IsLoggedIn = false;
                 IsPremium = false;
                 LoggedInAccount = null;
+                _pixivClient.OnReAuthenticate -= OnReAuthenticate;
             }
             catch (Exception e)
             {
@@ -88,10 +90,8 @@ namespace Pyxis.Services
                 var account = await _pixivClient.Authorization
                                                 .Login(get_secure_url => 1,
                                                        grant_type => "password",
-                                                       client_secret => "HP3RmkgAmEGro0gn1x9ioawQE8WMfvLXDz3ZqxpK",
                                                        device_token => deviceId,
                                                        password => credential.Password,
-                                                       client_id => "bYGKuGVw91e0NMfPGp44euvGt59s",
                                                        username => credential.UserName);
                 if (account == null)
                 {
@@ -102,6 +102,39 @@ namespace Pyxis.Services
                 IsPremium = account.User.IsPremium;
                 LoggedInAccount = account.User;
                 vault.Add(new PasswordCredential(PyxisConstants.ApplicationKey, $"{credential.UserName}+DeviceId", account.DeviceToken));
+
+                // re-auth
+                _pixivClient.OnReAuthenticate += OnReAuthenticate;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+        }
+
+        private void OnReAuthenticate(ReAuthenticateEventArgs args)
+        {
+            try
+            {
+                var vault = new PasswordVault();
+                vault.RetrieveAll();
+
+                var resources = vault.FindAllByResource(PyxisConstants.ApplicationKey);
+                var credential = resources.FirstOrDefault(w => !w.UserName.Contains("+DeviceId"));
+                if (credential == null)
+                    return;
+                credential.RetrievePassword();
+                var deviceCredential = resources.FirstOrDefault(w => w.UserName == $"{credential.UserName}+DeviceId");
+                var deviceId = "pixiv";
+                if (deviceCredential != null)
+                {
+                    // Last login
+                    deviceCredential.RetrievePassword();
+                    deviceId = deviceCredential.Password;
+                }
+                args.Username = credential.UserName;
+                args.Password = credential.Password;
+                args.DeviceId = deviceId;
             }
             catch (Exception e)
             {
