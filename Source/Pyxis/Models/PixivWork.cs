@@ -57,7 +57,7 @@ namespace Pyxis.Models
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         private async Task FetchIllusts(string contentType)
         {
-            var illusts = await _queryCacheService.RunAsync(_pixivClient.User.IllustsAsync,
+            var illusts = await _queryCacheService.RunAsync(_pixivClient.UserV1.IllustsAsync,
                                                             user_id => _id,
                                                             filter => "for_ios",
                                                             type => contentType,
@@ -72,7 +72,7 @@ namespace Pyxis.Models
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         private async Task FetchNovels()
         {
-            var noves = await _queryCacheService.RunAsync(_pixivClient.User.NovelsAsync, user_id => _id, offset => _offset);
+            var noves = await _queryCacheService.RunAsync(_pixivClient.UserV1.NovelsAsync, user_id => _id, offset => _offset);
             noves?.NovelList.ForEach(w => Novels.Add(w));
             if (string.IsNullOrWhiteSpace(noves?.NextUrl))
                 HasMoreItems = false;

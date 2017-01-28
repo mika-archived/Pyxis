@@ -52,7 +52,7 @@ namespace Pyxis.Models
 
         private async Task FetchIllusts()
         {
-            var illusts = await _queryCacheService.RunAsync(_pixivClient.User.BrowsingHistory.IllustAsync, offset => _offset);
+            var illusts = await _queryCacheService.RunAsync(_pixivClient.UserV1.BrowsingHistory.IllustAsync, offset => _offset);
             illusts?.IllustList.ForEach(w => Illusts.Add(w));
             if (string.IsNullOrWhiteSpace(illusts?.NextUrl))
                 HasMoreItems = false;
@@ -62,7 +62,7 @@ namespace Pyxis.Models
 
         private async Task FetchNovels()
         {
-            var novels = await _queryCacheService.RunAsync(_pixivClient.User.BrowsingHistory.NovelAsync, offset => _offset);
+            var novels = await _queryCacheService.RunAsync(_pixivClient.UserV1.BrowsingHistory.NovelAsync, offset => _offset);
             novels?.NovelList.ForEach(w => Novels.Add(w));
             if (string.IsNullOrWhiteSpace(novels?.NextUrl))
                 HasMoreItems = false;

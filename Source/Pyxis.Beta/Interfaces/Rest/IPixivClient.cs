@@ -58,7 +58,12 @@ namespace Pyxis.Beta.Interfaces.Rest
         /// <summary>
         ///     Wrapper of v1/user
         /// </summary>
-        IUserApi User { get; }
+        IUserApi UserV1 { get; }
+
+        /// <summary>
+        ///     Wrapper of v2/user
+        /// </summary>
+        v2.IUserApi UserV2 { get; }
 
         /// <summary>
         ///     Wrapper of v2/illust

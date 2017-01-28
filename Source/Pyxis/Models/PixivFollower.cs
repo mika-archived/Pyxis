@@ -40,7 +40,7 @@ namespace Pyxis.Models
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         private async Task Fetch()
         {
-            var users = await _queryCacheService.RunAsync(_pixivClient.User.FollowerAsync,
+            var users = await _queryCacheService.RunAsync(_pixivClient.UserV1.FollowerAsync,
                                                           user_id => _userId,
                                                           offset => _offset);
             users?.UserPreviewList.ForEach(w => Users.Add(w));

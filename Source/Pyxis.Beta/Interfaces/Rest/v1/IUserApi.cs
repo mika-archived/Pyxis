@@ -24,8 +24,6 @@ namespace Pyxis.Beta.Interfaces.Rest.v1
 
         Task<IIllusts> IllustsAsync(params Expression<Func<string, object>>[] parameters);
 
-        Task<IUsers> ListAsync(params Expression<Func<string, object>>[] parameters);
-
         Task<IUserPreviews> MypixivAsync(params Expression<Func<string, object>>[] parameters);
 
         Task<INovels> NovelsAsync(params Expression<Func<string, object>>[] parameters);

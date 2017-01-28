@@ -64,9 +64,9 @@ namespace Pyxis.ViewModels.Items
         {
             var id = _userPreview?.User?.Id ?? _user.Id;
             if ((_userPreview?.User ?? _user).IsFollowed)
-                await _pixivClient.User.Follow.DeleteAsunc(user_id => id);
+                await _pixivClient.UserV1.Follow.DeleteAsunc(user_id => id);
             else
-                await _pixivClient.User.Follow.AddAsync(user_id => id);
+                await _pixivClient.UserV1.Follow.AddAsync(user_id => id);
             IsFollowing = !IsFollowing;
         }
 

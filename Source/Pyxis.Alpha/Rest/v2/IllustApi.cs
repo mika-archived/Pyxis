@@ -27,6 +27,9 @@ namespace Pyxis.Alpha.Rest.v2
         public async Task<IIllusts> MypixivAsync(params Expression<Func<string, object>>[] parameters)
             => await _client.GetAsync<Illusts>(Endpoints.IllustMypixiv, true, parameters);
 
+        public async Task<IIllusts> RelatedAsync(params Expression<Func<string, object>>[] parameters)
+            => await _client.GetAsync<Illusts>(Endpoints.IllustRelated, false, ParameterUtil.Merge("seed_illust_ids", parameters));
+
         #endregion
     }
 }

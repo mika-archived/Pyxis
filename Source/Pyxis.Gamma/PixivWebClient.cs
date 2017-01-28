@@ -39,7 +39,7 @@ namespace Pyxis.Gamma
         public ISpotlightApi Spotlight { get; }
         public ITrendingTagsApi TrendingTags { get; }
         public IUgoiraApi Ugoira { get; }
-        public IUserApi User { get; }
+        public IUserApi UserV1 { get; }
         public Beta.Interfaces.Rest.v2.IIllustApi IllustV2 { get; }
         public Beta.Interfaces.Rest.v2.INovelApi NovelV2 { get; }
         public IPximgApi Pximg { get; }
@@ -86,6 +86,8 @@ namespace Pyxis.Gamma
         }
 
         public event ReAuthenticateEventHandler OnReAuthenticate;
+
+        public Beta.Interfaces.Rest.v2.IUserApi UserV2 { get; }
 
         #endregion
     }

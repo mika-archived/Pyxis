@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
+using Pyxis.Alpha.Rest;
 using Pyxis.Alpha.Rest.Pximg;
 using Pyxis.Alpha.Rest.v1;
 using Pyxis.Beta.Events;
@@ -21,10 +22,14 @@ using IllustV1 = Pyxis.Beta.Interfaces.Rest.v1.IIllustApi;
 using IllustV2 = Pyxis.Beta.Interfaces.Rest.v2.IIllustApi;
 using INovelV1 = Pyxis.Beta.Interfaces.Rest.v1.INovelApi;
 using INovelV2 = Pyxis.Beta.Interfaces.Rest.v2.INovelApi;
+using IUserV1 = Pyxis.Beta.Interfaces.Rest.v1.IUserApi;
+using IUserV2 = Pyxis.Beta.Interfaces.Rest.v2.IUserApi;
 using IllustApiV1 = Pyxis.Alpha.Rest.v1.IllustApi;
 using IllustApiV2 = Pyxis.Alpha.Rest.v2.IllustApi;
 using NovelApiV1 = Pyxis.Alpha.Rest.v1.NovelApi;
 using NovelApiV2 = Pyxis.Alpha.Rest.v2.NovelApi;
+using UserApiV1 = Pyxis.Alpha.Rest.v1.UserApi;
+using UserApiV2 = Pyxis.Alpha.Rest.v2.UserApi;
 
 namespace Pyxis.Alpha
 {
@@ -33,15 +38,10 @@ namespace Pyxis.Alpha
     /// </summary>
     public class PixivApiClient : IPixivClient
     {
-        private static Func<Expression<Func<string, object>>, string> F1 => expr => expr.Parameters[0].Name;
-
-        private static Func<Expression<Func<string, object>>, string> F2
-            => expr => expr.Compile().Invoke(null).ToString();
-
         public string AccessToken { get; internal set; }
 
         private IList<KeyValuePair<string, string>> GetPrameter(params Expression<Func<string, object>>[] parameters)
-            => parameters.Select(w => new KeyValuePair<string, string>(F1(w), F2(w))).ToList();
+            => parameters.Select(w => new KeyValuePair<string, string>(ParameterUtil.Name(w), ParameterUtil.Value(w))).ToList();
 
         #region Implementation of IPixivClient
 
@@ -54,10 +54,11 @@ namespace Pyxis.Alpha
         public ISpotlightApi Spotlight => new SpotlightApi(this);
         public ITrendingTagsApi TrendingTags => new TrendingTagsApi(this);
         public IUgoiraApi Ugoira => new UgoiraApi(this);
-        public IUserApi User => new UserApi(this);
+        public IUserV1 UserV1 => new UserApiV1(this);
         public IllustV2 IllustV2 => new IllustApiV2(this);
         public INovelV2 NovelV2 => new NovelApiV2(this);
         public IPximgApi Pximg => new PximgApi();
+        public IUserV2 UserV2 => new UserApiV2(this);
 
         private readonly HttpClient _httpClient;
         internal readonly string ClientId;

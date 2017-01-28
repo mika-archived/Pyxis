@@ -32,7 +32,7 @@
 
         public static string IllustRecommendedNoLogin => $"{BaseUrl}/{Version1}/illust/recommended-nologin";
 
-        public static string IllustRelated => $"{BaseUrl}/{Version1}/illust/related";
+        public static string IllustRelated => $"{BaseUrl}/{Version2}/illust/related";
 
         public static string MangaRecommended => $"{BaseUrl}/{Version1}/manga/recommended";
 
@@ -88,7 +88,7 @@
 
         public static string UserBrowsingHistoryIllusts => $"{BaseUrl}/{Version1}/user/browsing-history/illusts";
 
-        public static string UserBrowsingHistoryIllustAdd => $"{BaseUrl}/{Version1}/user/browsing-history/illust/add";
+        public static string UserBrowsingHistoryIllustAdd => $"{BaseUrl}/{Version2}/user/browsing-history/illust/add";
 
         public static string UserBrowsingHistoryNovels => $"{BaseUrl}/{Version1}/user/browsing-history/novels";
 
@@ -106,7 +106,7 @@
 
         public static string UserIllusts => $"{BaseUrl}/{Version1}/user/illusts";
 
-        public static string UserList => $"{BaseUrl}/{Version1}/user/list";
+        public static string UserList => $"{BaseUrl}/{Version2}/user/list";
 
         public static string UserMypixiv => $"{BaseUrl}/{Version1}/user/mypixiv";
 

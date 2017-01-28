@@ -27,12 +27,12 @@ namespace Pyxis.Services
         {
             if (isIllust)
             {
-                await _pixivClient.User.BrowsingHistory.Illust.AddAsync(illust_ids => string.Join(",", _illustIds));
+                await _pixivClient.UserV2.BrowsingHistory.Illust.AddAsync(illust_ids => string.Join(",", _illustIds));
                 _illustIds.Clear();
             }
             else
             {
-                await _pixivClient.User.BrowsingHistory.Novel.AddAsync(novel_ids => string.Join(",", _novelIds));
+                await _pixivClient.UserV1.BrowsingHistory.Novel.AddAsync(novel_ids => string.Join(",", _novelIds));
                 _novelIds.Clear();
             }
         }

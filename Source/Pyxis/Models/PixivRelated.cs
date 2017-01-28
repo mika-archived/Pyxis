@@ -39,7 +39,7 @@ namespace Pyxis.Models
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         private async Task FetchRelatedItems()
         {
-            var illusts = await _queryCacheService.RunAsync(_pixivClient.IllustV1.RelatedAsync,
+            var illusts = await _queryCacheService.RunAsync(_pixivClient.IllustV2.RelatedAsync,
                                                             illust_id => _illust.Id,
                                                             filter => "for_ios",
                                                             seed_illust_ids => _seedIds);
@@ -47,7 +47,7 @@ namespace Pyxis.Models
             if (string.IsNullOrWhiteSpace(illusts?.NextUrl))
                 HasMoreItems = false;
             else
-                _seedIds = UrlParameter.ParseQuery(illusts.NextUrl)["v1_seed_illust_ids"].Replace("%2C", ",");
+                _seedIds = UrlParameter.ParseQuery(illusts.NextUrl)["seed_illust_ids[]"];
         }
 
         #region Implementation of ISupportIncrementalLoading

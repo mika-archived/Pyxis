@@ -74,9 +74,9 @@ namespace Pyxis.ViewModels.Detail
         private async void Follow()
         {
             if (IsFollowing)
-                await _pixivClient.User.Follow.DeleteAsunc(user_id => _id, restrict => "public");
+                await _pixivClient.UserV1.Follow.DeleteAsunc(user_id => _id, restrict => "public");
             else
-                await _pixivClient.User.Follow.AddAsync(user_id => _id, restrict => "public");
+                await _pixivClient.UserV1.Follow.AddAsync(user_id => _id, restrict => "public");
             IsFollowing = !IsFollowing;
             var param = ParameterBase.ToObject<UserDetailParameter>(Parameter[1]);
             ((User) param.Detail.User).IsFollowed = IsFollowing;

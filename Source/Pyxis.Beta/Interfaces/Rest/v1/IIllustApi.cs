@@ -21,7 +21,5 @@ namespace Pyxis.Beta.Interfaces.Rest.v1
         Task<IRecommendedIllusts> RecommendedAsync(params Expression<Func<string, object>>[] parameters);
 
         Task<IRecommendedIllusts> RecommendedNologinAsync(params Expression<Func<string, object>>[] parameters);
-
-        Task<IIllusts> RelatedAsync(params Expression<Func<string, object>>[] parameters);
     }
 }

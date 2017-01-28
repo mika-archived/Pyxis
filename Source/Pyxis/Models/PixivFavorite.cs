@@ -71,7 +71,7 @@ namespace Pyxis.Models
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         private async Task QueryIllust()
         {
-            var bookmarksApi = _pixivClient.User.Bookmarks;
+            var bookmarksApi = _pixivClient.UserV1.Bookmarks;
             var illusts = await _queryCacheService.RunAsync(bookmarksApi.IllustAsync,
                                                             user_id => _optionParam.UserId,
                                                             filter => "for_ios",
@@ -88,7 +88,7 @@ namespace Pyxis.Models
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         private async Task QueryNovel()
         {
-            var bookmarksApi = _pixivClient.User.Bookmarks;
+            var bookmarksApi = _pixivClient.UserV1.Bookmarks;
             var novels = await _queryCacheService.RunAsync(bookmarksApi.NovelAsync,
                                                            user_id => _optionParam.UserId,
                                                            restrict => _optionParam.Restrict.ToParamString(),

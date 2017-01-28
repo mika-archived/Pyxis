@@ -51,7 +51,7 @@ namespace Pyxis.Models
                 await FetchNovels();
             else if (_contentType == ContentType.User)
                 await FetchUsers();
-            else if ((_contentType == ContentType.Illust) || (_contentType == ContentType.Manga))
+            else if (_contentType == ContentType.Illust || _contentType == ContentType.Manga)
                 await FetchIllusts();
             else
                 throw new NotSupportedException();
@@ -101,7 +101,7 @@ namespace Pyxis.Models
 
         private async Task FetchUsers()
         {
-            var users = await _queryCacheService.RunAsync(_pixivClient.User.RecommendedAsync, offset => _offset);
+            var users = await _queryCacheService.RunAsync(_pixivClient.UserV1.RecommendedAsync, offset => _offset);
             users?.UserPreviewList.ForEach(w => RecommendedUsers.Add(w));
             if (string.IsNullOrWhiteSpace(users?.NextUrl))
                 HasMoreItems = false;

@@ -48,7 +48,7 @@ namespace Pyxis.Models
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         private async Task FetchUser()
         {
-            UserDetail = await _queryCacheService.RunAsync(_pixivClient.User.DetailAsync, user_id => _id, filter => "for_ios");
+            UserDetail = await _queryCacheService.RunAsync(_pixivClient.UserV1.DetailAsync, user_id => _id, filter => "for_ios");
         }
 
         #region IllustDetail

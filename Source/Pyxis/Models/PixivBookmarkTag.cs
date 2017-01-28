@@ -59,11 +59,11 @@ namespace Pyxis.Models
         {
             IBookmarkTags tags;
             if (_searchType == SearchType.IllustsAndManga)
-                tags = await _queryCacheService.RunAsync(_pixivClient.User.BookmarkTags.IllustAsync,
+                tags = await _queryCacheService.RunAsync(_pixivClient.UserV1.BookmarkTags.IllustAsync,
                                                          restrict => _restrict.ToParamString(),
                                                          offset => _offset);
             else if (_searchType == SearchType.Novels)
-                tags = await _queryCacheService.RunAsync(_pixivClient.User.BookmarkTags.NovelAsync,
+                tags = await _queryCacheService.RunAsync(_pixivClient.UserV1.BookmarkTags.NovelAsync,
                                                          restrict => _restrict.ToParamString(),
                                                          offset => _offset);
             else
