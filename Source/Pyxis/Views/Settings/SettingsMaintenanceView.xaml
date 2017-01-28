@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:prism="using:Prism.Windows.Mvvm"
              xmlns:vm="using:Pyxis.ViewModels.Settings"
-             d:DataContext="{d:DesignInstance vm:SettingsGeneralViewModel}"
+             d:DataContext="{d:DesignInstance vm:SettingsMaintenanceViewModel}"
              d:DesignHeight="300"
              d:DesignWidth="400"
              prism:ViewModelLocator.AutoWireViewModel="True"

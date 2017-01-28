@@ -17,6 +17,7 @@ namespace Pyxis.ViewModels.Items
     {
         private readonly INavigationService _navigationService;
         private readonly IPixivClient _pixivClient;
+        private readonly IUser _user;
         private readonly IUserPreview _userPreview;
 
         public string Username => _userPreview.User.Name;
@@ -32,11 +33,21 @@ namespace Pyxis.ViewModels.Items
             Thumbnailable = new PixivUserImage(userPreview.User, imageStoreService);
         }
 
+        public UserCardViewModel(IUser user, IImageStoreService imageStoreService, INavigationService navigationService, IPixivClient pixivClient)
+        {
+            _user = user;
+            _navigationService = navigationService;
+            _pixivClient = pixivClient;
+            IsFollowing = _userPreview.User.IsFollowed;
+            ThumbnailPath = PyxisConstants.DummyIcon;
+            Thumbnailable = new PixivUserImage(user, imageStoreService);
+        }
+
         #region Overrides of TappableThumbnailViewModel
 
         public override void OnItemTapped()
         {
-            var parameter = new DetailByIdParameter {Id = _userPreview.User.Id};
+            var parameter = new DetailByIdParameter {Id = _userPreview?.User.Id ?? _user.Id};
             _navigationService.Navigate("Detail.UserDetail", parameter.ToJson());
         }
 
@@ -51,10 +62,11 @@ namespace Pyxis.ViewModels.Items
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         private async void Follow()
         {
-            if (_userPreview.User.IsFollowed)
-                await _pixivClient.User.Follow.DeleteAsunc(user_id => _userPreview.User.Id);
+            var id = _userPreview?.User?.Id ?? _user.Id;
+            if ((_userPreview?.User ?? _user).IsFollowed)
+                await _pixivClient.User.Follow.DeleteAsunc(user_id => id);
             else
-                await _pixivClient.User.Follow.AddAsync(user_id => _userPreview.User.Id);
+                await _pixivClient.User.Follow.AddAsync(user_id => id);
             IsFollowing = !IsFollowing;
         }
 

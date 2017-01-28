@@ -18,7 +18,7 @@
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PackageCertificateKeyFile>Pyxis_StoreKey.pfx</PackageCertificateKeyFile>
     <PackageCertificateThumbprint>0C76323FF3C8C5A68D9A86FCE0A66687F4F9392F</PackageCertificateThumbprint>
-    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <AppxBundle>Always</AppxBundle>
     <AppxSymbolPackageEnabled>True</AppxSymbolPackageEnabled>
@@ -142,6 +142,7 @@
     <Compile Include="Models\Caching\QueryBuilder.cs" />
     <Compile Include="Models\Caching\QueryCache.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Enums\FollowState.cs" />
     <Compile Include="Models\Enums\FollowType.cs" />
     <Compile Include="Models\Enums\ContentType2.cs" />
     <Compile Include="Models\Enums\ProfileType.cs" />
@@ -163,6 +164,7 @@
     <Compile Include="Models\Parameters\SearchResultParameter.cs" />
     <Compile Include="Models\Parameters\UserDetailParameter.cs" />
     <Compile Include="Models\Parameters\WorkParameter.cs" />
+    <Compile Include="Models\PixivBlocking.cs" />
     <Compile Include="Models\PixivBookmark.cs" />
     <Compile Include="Models\PixivBookmarkTag.cs" />
     <Compile Include="Models\PixivBrowsingHistory.cs" />
@@ -234,6 +236,7 @@
     <Compile Include="ViewModels\Dialogs\FavoriteOptionDialogViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\SearchOptionDialogViewModel.cs" />
     <Compile Include="ViewModels\FavoriteMainPageViewModel.cs" />
+    <Compile Include="ViewModels\BlockedUsersMainPageViewModel.cs" />
     <Compile Include="ViewModels\FollowerMainPageViewModel.cs" />
     <Compile Include="ViewModels\FollowingMainPageViewModel.cs" />
     <Compile Include="ViewModels\Items\PixivCommentViewModel.cs" />
@@ -269,6 +272,9 @@
     </Compile>
     <Compile Include="Views\Account\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BlockedUsersMainPage.xaml.cs">
+      <DependentUpon>BlockedUsersMainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\BookmarkMainPage.xaml.cs">
       <DependentUpon>BookmarkMainPage.xaml</DependentUpon>
@@ -479,6 +485,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Account\LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BlockedUsersMainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

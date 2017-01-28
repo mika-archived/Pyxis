@@ -91,6 +91,7 @@ namespace Pyxis.Alpha
                     _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
                 var response = await _httpClient.GetAsync(url);
                 response.EnsureSuccessStatusCode();
+                Debug.WriteLine(await response.Content.ReadAsStringAsync());
                 return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
             }
             catch (HttpRequestException e) when (e.Message.Contains("400") && url != Endpoints.OauthToken)
@@ -130,6 +131,7 @@ namespace Pyxis.Alpha
                     _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
                 var response = await _httpClient.PostAsync(url, content);
                 response.EnsureSuccessStatusCode();
+                Debug.WriteLine(await response.Content.ReadAsStringAsync());
                 return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
             }
             catch (HttpRequestException e) when (e.Message.Contains("400") && url != Endpoints.OauthToken)

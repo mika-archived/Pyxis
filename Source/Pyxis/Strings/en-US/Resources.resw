@@ -504,4 +504,10 @@
   <data name="Appearance.Text" xml:space="preserve">
     <value>Appearance</value>
   </data>
+  <data name="BlockedUsers.Text" xml:space="preserve">
+    <value>Blocked Users</value>
+  </data>
+  <data name="NoBlockedUsers.Text" xml:space="preserve">
+    <value>No blocked users.</value>
+  </data>
 </root>

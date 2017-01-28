@@ -25,6 +25,9 @@ namespace Pyxis.Alpha.Models.v1
         [JsonConverter(typeof(InterfaceToConcrete<IList<Novel>>))]
         public IList<INovel> Novels { get; set; }
 
+        [JsonProperty("is_muted")]
+        public bool IsMuted { get; set; }
+
         #endregion
     }
 }

@@ -18,5 +18,10 @@ namespace Pyxis.Beta.Interfaces.Models.v1
         ///     小説
         /// </summary>
         IList<INovel> Novels { get; }
+
+        /// <summary>
+        ///     ブロック状況
+        /// </summary>
+        bool IsMuted { get; }
     }
 }
