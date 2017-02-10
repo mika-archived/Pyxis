@@ -88,6 +88,9 @@ namespace Pyxis.Alpha.Models.v1
         [JsonProperty("total_comments")]
         public int TotalComments { get; set; }
 
+        [JsonProperty("is_muted")]
+        public bool IsMuted { get; set; }
+
         #endregion
 
         #region Implementation of IErrorResponse

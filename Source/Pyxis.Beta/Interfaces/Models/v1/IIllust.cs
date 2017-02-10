@@ -107,5 +107,10 @@ namespace Pyxis.Beta.Interfaces.Models.v1
         ///     コメント数
         /// </summary>
         int TotalComments { get; }
+
+        /// <summary>
+        ///     ミュート状態
+        /// </summary>
+        bool IsMuted { get; }
     }
 }
