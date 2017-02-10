@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
-using Pyxis.Alpha.Rest;
 using Pyxis.Alpha.Rest.Pximg;
 using Pyxis.Alpha.Rest.v1;
 using Pyxis.Beta.Events;

@@ -18,13 +18,11 @@ namespace Pyxis.Models
     {
         private readonly IPixivClient _pixivClient;
         private readonly IQueryCacheService _queryCacheService;
-        private readonly string _userId;
         private string _offset;
         public ObservableCollection<IUser> Users { get; }
 
-        public PixivBlocking(string userId, IPixivClient pixivClient, IQueryCacheService queryCacheService)
+        public PixivBlocking(IPixivClient pixivClient, IQueryCacheService queryCacheService)
         {
-            _userId = userId;
             _pixivClient = pixivClient;
             _queryCacheService = queryCacheService;
             Users = new ObservableCollection<IUser>();

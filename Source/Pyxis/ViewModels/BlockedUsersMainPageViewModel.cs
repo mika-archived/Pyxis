@@ -66,7 +66,7 @@ namespace Pyxis.ViewModels
         private void Initialize()
         {
             _categoryService.UpdateCategory();
-            _pixivBlocking = new PixivBlocking(_accountService.LoggedInAccount.Id, _pixivClient, _queryCacheService);
+            _pixivBlocking = new PixivBlocking(_pixivClient, _queryCacheService);
             ModelHelper.ConnectTo(BlockingUsers, _pixivBlocking, w => w.Users, CreateUserViewModel).AddTo(this);
         }
 
