@@ -1,0 +1,21 @@
+## Group Mute
+Mute related APIs.
+
+### GET /v1/mute/list
+Get user muted tags and users.
+
++ Response 200 (application/json)
+
+        {
+          "muted_tags": [
+            {
+              "tag": {
+                "name": "クッキー☆"
+              },
+              "is_premium_slot": false
+            }
+          ],
+          "muted_users": []
+        }
+
+

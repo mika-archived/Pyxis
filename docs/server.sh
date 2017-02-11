@@ -1,5 +1,5 @@
 #!/bin/bash
-aglio -i index.apib -p 8080 \
+aglio -i blueprints/index.apib -p 8080 \
   --theme-full-width \
   --theme-style default \
   --theme-style theme.css \

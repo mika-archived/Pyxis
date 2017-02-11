@@ -1,0 +1,140 @@
+## Group Manga
+Manga related APIs.
+
+# GET /v1/manga/ranking{?mode}
+Get mangas that ranked-in.
+
++ Parameters
+    + mode: `day` (enum[string], required) - Ranking mode.
+        + Members:
+            + `day`
+            + `day_male`
+            + `day_female`
+            + `week`
+            + `week_rookie`
+    + offset: `30` (integer, optional) - Offset index.
+    + date: `2017-02-09` (datetime, optional) - Datetime.
+        :::warning
+        <h2>Caution</h2>
+        This parameter must not use with `mode=past`
+        :::
+
+
++ Response 200 (application/json)
+
+
+## GET /v1/manga/recommended
+Get recommended mangas.
+
++ Parameters
+    + include_ranking_illusts: `true` (boolean, optional) - Including `ranking_illusts`.
+    + filter: `for_ios` (string, optional) - Filter for store vendors.
+    + bookmark_illust_ids: `270875923` (integer, optional) - ?
+
++ Response 200 (application/json)
+
+        {
+          "illusts": [
+            {
+              "id": 60897604,
+              "title": "[1/8ComicCity大阪109]無料配布漫画と通販お知らせ",
+              "type": "manga",
+              "image_urls": {
+                "square_medium": "https://i.pximg.net/c/360x360_70/img-master/img/2017/01/12/02/25/24/60897604_p0_square1200.jpg",
+                "medium": "https://i.pximg.net/c/540x540_70/img-master/img/2017/01/12/02/25/24/60897604_p0_master1200.jpg",
+                "large": "https://i.pximg.net/c/600x1200_90/img-master/img/2017/01/12/02/25/24/60897604_p0_master1200.jpg"
+              },
+              "caption": "お題・タイトル/ポムレット<br />漫画/天道れん<br /><br />年末にツイッターで頂いたお題から描かせてもらったものです。<br />インテックスで折本にして無料配布しました。<br />本年もミカ優を愛でて参りたいと思います♡宜しくお願い致します♪<br /><br />とらのあな様にて<br /><br />●新刊（<strong><a href=\"pixiv://illusts/60585884\">illust/60585884</a></strong>）の通販開始(<a href=\"http://www.toranoana.jp/mailorder/article/04/0030/49/18/040030491802.html\" target=\"_blank\">http://www.toranoana.jp/mailorder/article/04/0030/49/18/040030491802.html</a>)<br />●既刊本（<strong><a href=\"pixiv://illusts/58396183\">illust/58396183</a></strong>）の通販再開(<a href=\"http://www.toranoana.jp/mailorder/article/04/0030/45/48/040030454882.html\" target=\"_blank\">http://www.toranoana.jp/mailorder/article/04/0030/45/48/040030454882.html</a>)<br /><br />しております。",
+              "restrict": 0,
+              "user": {
+                "id": 17112627,
+                "name": "天道れん",
+                "account": "len-daasan-0305",
+                "profile_image_urls": {
+                  "medium": "https://i4.pixiv.net/user-profile/img/2016/08/12/02/29/48/11334791_168ac600901046c8f609c5e76f8ece8b_170.jpg"
+                },
+                "is_followed": false
+              },
+              "tags": [
+                {
+                  "name": "終わりのセラフ"
+                }
+              ],
+              "tools": [],
+              "create_date": "2017-01-12T02:25:24+09:00",
+              "page_count": 7,
+              "width": 4262,
+              "height": 6036,
+              "sanity_level": 2,
+              "meta_single_page": {},
+              "meta_pages": [
+                {
+                  "image_urls": {
+                    "square_medium": "https://i.pximg.net/c/360x360_70/img-master/img/2017/01/12/02/25/24/60897604_p0_square1200.jpg",
+                    "medium": "https://i.pximg.net/c/540x540_70/img-master/img/2017/01/12/02/25/24/60897604_p0_master1200.jpg",
+                    "large": "https://i.pximg.net/c/600x1200_90/img-master/img/2017/01/12/02/25/24/60897604_p0_master1200.jpg",
+                    "original": "https://i1.pixiv.net/img-original/img/2017/01/12/02/25/24/60897604_p0.jpg"
+                  }
+                }
+              ],
+              "total_view": 1515,
+              "total_bookmarks": 66,
+              "is_bookmarked": false,
+              "visible": true,
+              "is_muted": false
+            }
+          ],
+          "ranking_illusts": [
+            {
+              "id": 61362021,
+              "title": "イントロ⑥",
+              "type": "manga",
+              "image_urls": {
+                "square_medium": "https://i.pximg.net/c/360x360_70/img-master/img/2017/02/09/19/29/10/61362021_p0_square1200.jpg",
+                "medium": "https://i.pximg.net/c/540x540_70/img-master/img/2017/02/09/19/29/10/61362021_p0_master1200.jpg",
+                "large": "https://i.pximg.net/c/600x1200_90/img-master/img/2017/02/09/19/29/10/61362021_p0_master1200.jpg"
+              },
+              "caption": "単行本７巻！今月17日！発売！！<br /><a href=\"https://www.amazon.co.jp/dp/4063958493/ref=cm_sw_r_tw_dp_x_7ngLyb9RAVSF6\" target=\"_blank\">https://www.amazon.co.jp/dp/4063958493/ref=cm_sw_r_tw_dp_x_7ngLyb9RAVSF6</a>",
+              "restrict": 0,
+              "user": {
+                "id": 465084,
+                "name": "若林稔弥",
+                "account": "tsuredure_children",
+                "profile_image_urls": {
+                  "medium": "https://i3.pixiv.net/user-profile/img/2014/09/18/17/51/38/8411322_5bf7cfe8cf56b9add2ae63ed870f4264_170.jpg"
+                },
+                "is_followed": true
+              },
+              "tags": [
+                {
+                  "name": "漫画"
+                }
+              ],
+              "tools": [
+                "Photoshop"
+              ],
+              "create_date": "2017-02-09T19:29:10+09:00",
+              "page_count": 2,
+              "width": 450,
+              "height": 1337,
+              "sanity_level": 2,
+              "meta_single_page": {},
+              "meta_pages": [
+                {
+                  "image_urls": {
+                    "square_medium": "https://i.pximg.net/c/360x360_70/img-master/img/2017/02/09/19/29/10/61362021_p0_square1200.jpg",
+                    "medium": "https://i.pximg.net/c/540x540_70/img-master/img/2017/02/09/19/29/10/61362021_p0_master1200.jpg",
+                    "large": "https://i.pximg.net/c/600x1200_90/img-master/img/2017/02/09/19/29/10/61362021_p0_master1200.jpg",
+                    "original": "https://i2.pixiv.net/img-original/img/2017/02/09/19/29/10/61362021_p0.jpg"
+                  }
+                }
+              ],
+              "total_view": 181173,
+              "total_bookmarks": 2399,
+              "is_bookmarked": false,
+              "visible": true,
+              "is_muted": false
+            }
+          ],
+          "next_url": "https://app-api.pixiv.net/v1/manga/recommended?include_ranking_illusts=false&filter=for_ios&max_bookmark_id=2804687612&offset=27"
+        }

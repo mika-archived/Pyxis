@@ -1,0 +1,251 @@
+# Group User
+User related APIs.
+
+## GET /v1/user/detail{?user_id}
+Get user information.
+
++ Parameters
+    + user_id: `3623925` (integer, required) - User ID.
+
++ Response 200 (application/json)
+
+
+        {
+          "user": {
+            "id": 3623925,
+            "name": "みか",
+            "account": "mika_f",
+            "profile_image_urls": {
+              "medium": "https://i3.pixiv.net/user-profile/img/2015/01/06/20/14/59/8812642_c92af4bba4169418644c38ad55081748_170.png"
+            },
+            "comment": "Web 関連の人",
+            "is_followed": false
+          },
+          "profile": {
+            "webpage": "https://hiverlune.net",
+            "gender": "male",
+            "birth": "1996-01-30",
+            "region": "Hyogo, Japan",
+            "job": "Vocational/Technical school student",
+            "total_follow_users": 592,
+            "total_follower": 7,
+            "total_mypixiv_users": 0,
+            "total_illusts": 0,
+            "total_manga": 0,
+            "total_novels": 0,
+            "total_illust_bookmarks_public": 219,
+            "background_image_url": "https://source.pixiv.net/common/images/bg/uchu01.jpg",
+            "twitter_account": "",
+            "twitter_url": null,
+            "is_premium": true
+          },
+          "workspace": {
+            "pc": "バグってるPC",
+            "monitor": "でかい",
+            "tool": "ペイント",
+            "scanner": "",
+            "tablet": "",
+            "mouse": "",
+            "printer": "",
+            "desktop": "お菓子と飲み物",
+            "music": "",
+            "desk": "",
+            "chair": "",
+            "comment": "",
+            "workspace_image_url": null
+          }
+        }
+
+
+## GET /v1/user/follower{?user_id}
+Get users that user has been followed.
+
++ Parameters
+    + user_id: `3623925` (integer, required) - User ID.
+    + filter: `for_ios` (string, optional) - Filter for store vendors.
+    + offset: `30` (integer, optional) - Offset index.
+
++ Response 200 (application/json)
+
+        {
+          "user_previews": [
+            {
+              "user": {
+                "id": 20915247,
+                "name": "なたで ここ",
+                "account": "natade_cocoxxx",
+                "profile_image_urls": {
+                  "medium": "https://i1.pixiv.net/user-profile/img/2016/12/17/20/32/27/11880904_7729dbe2b32b094a50baa867e6c815c5_170.jpg"
+                },
+                "comment": "ヨーグルト",
+                "is_followed": true
+              },
+              "illusts": [
+                {
+                  "id": 61230798,
+                  "title": "ラブ・ストレート 中野有香ちゃん",
+                  "type": "illust",
+                  "image_urls": {
+                    "square_medium": "https://i.pximg.net/c/360x360_70/img-master/img/2017/02/02/00/31/17/61230798_p0_square1200.jpg",
+                    "medium": "https://i.pximg.net/c/540x540_70/img-master/img/2017/02/02/00/31/17/61230798_p0_master1200.jpg",
+                    "large": "https://i.pximg.net/c/600x1200_90/img-master/img/2017/02/02/00/31/17/61230798_p0_master1200.jpg"
+                  },
+                  "caption": "",
+                  "restrict": 0,
+                  "user": {
+                    "id": 20915247,
+                    "name": "なたで ここ",
+                    "account": "natade_cocoxxx",
+                    "profile_image_urls": {
+                      "medium": "https://i1.pixiv.net/user-profile/img/2016/12/17/20/32/27/11880904_7729dbe2b32b094a50baa867e6c815c5_170.jpg"
+                    },
+                    "is_followed": true
+                  },
+                  "tags": [
+                    {
+                      "name": "中野有香"
+                    }
+                  ],
+                  "tools": [],
+                  "create_date": "2017-02-02T00:31:17+09:00",
+                  "page_count": 1,
+                  "width": 994,
+                  "height": 1412,
+                  "sanity_level": 2,
+                  "meta_single_page": {
+                    "original_image_url": "https://i3.pixiv.net/img-original/img/2017/02/02/00/31/17/61230798_p0.jpg"
+                  },
+                  "meta_pages": [],
+                  "total_view": 141,
+                  "total_bookmarks": 6,
+                  "is_bookmarked": false,
+                  "visible": true,
+                  "is_muted": false
+                }
+              ],
+              "novels": [],
+              "is_muted": false
+            }
+          ],
+          "next_url": null
+        }
+
+
+
+## GET /v1/user/following{?user_id,restrict}
+Get users that user followed.
+
++ Parameters
+    + user_id: `3623925` (integer, required) - User ID.
+    + restrict: `public` (enum[string], required) - Restrict for user's accessible.
+        + Members:
+            + `public`
+            + `private`
+    + offset: `30` (integer, optional) - Offset index.
+
++ Response 200 (application/json)
+
+        {
+          "user_previews": [
+            {
+              "user": {
+                "id": 612602,
+                "name": "しゅがお",
+                "account": "shuga_o",
+                "profile_image_urls": {
+                  "medium": "https://i4.pixiv.net/user-profile/img/2016/07/30/01/45/00/11268851_0ebc537699e6670cb11ee50f31c7e274_170.jpg"
+                },
+                "comment": "角っ娘、けもみみ、ドラゴンが大好物です。\r\n\r\nマイピクは現在募集しておりません。すみません。\r\nまた、絵の使用につきましてのメッセージは基本お返事致しませんの\r\nでご了承ください。\r\n\r\n\r\n※現在個人様からのご依頼、ソーシャルゲーム、成人向け案件につきましてはお受けしておりません。\r\nもし何かございましたらこちらよりご連絡お願い致します。\r\nharukaa002@yahoo.co.jp",
+                "is_followed": true
+              },
+              "illusts": [
+                {
+                  "id": 61082722,
+                  "title": "ゆきぎつね",
+                  "type": "illust",
+                  "image_urls": {
+                    "square_medium": "https://i.pximg.net/c/360x360_70/img-master/img/2017/01/24/00/02/25/61082722_p0_square1200.jpg",
+                    "medium": "https://i.pximg.net/c/540x540_70/img-master/img/2017/01/24/00/02/25/61082722_p0_master1200.jpg",
+                    "large": "https://i.pximg.net/c/600x1200_90/img-master/img/2017/01/24/00/02/25/61082722_p0_master1200.jpg"
+                  },
+                  "caption": "遅くなりましたが明けましておめでとうございます。<br />今年もちょこちょこ絵を投稿していきたいと思いますのでよろしくお願いします。",
+                  "restrict": 0,
+                  "user": {
+                    "id": 612602,
+                    "name": "しゅがお",
+                    "account": "shuga_o",
+                    "profile_image_urls": {
+                      "medium": "https://i4.pixiv.net/user-profile/img/2016/07/30/01/45/00/11268851_0ebc537699e6670cb11ee50f31c7e274_170.jpg"
+                    },
+                    "is_followed": true
+                  },
+                  "tags": [
+                    {
+                      "name": "オリジナル"
+                    }
+                  ],
+                  "tools": [
+                    "SAI"
+                  ],
+                  "create_date": "2017-01-24T00:02:25+09:00",
+                  "page_count": 1,
+                  "width": 1000,
+                  "height": 1414,
+                  "sanity_level": 2,
+                  "meta_single_page": {
+                    "original_image_url": "https://i3.pixiv.net/img-original/img/2017/01/24/00/02/25/61082722_p0.png"
+                  },
+                  "meta_pages": [],
+                  "total_view": 77710,
+                  "total_bookmarks": 14395,
+                  "is_bookmarked": false,
+                  "visible": true,
+                  "is_muted": false
+                }
+              ],
+              "novels": [],
+              "is_muted": false
+            }
+          ],
+          "next_url": "https://app-api.pixiv.net/v1/user/following?restrict=public&user_id=3623925&offset=30"
+        }
+
+## GET /v2/user/list
+Get users that user blocked.
+
++ Parameters
+    + filter: `for_ios` (string, optional) - Filter for store vendors.
+
++ Response 200 (application/json)
+
+        {
+        }
+
+
+
+## GET /v1/user/me/state
+Get logged-in user's statuses.
+
++ Response 200 (application/json)
+
+        {
+          "user_state": {
+            "is_mail_authorized": true,
+            "has_changed_pixiv_id": true,
+            "can_change_pixiv_id": false
+          }
+        }
+
+
+
+## GET /v1/user/mypixiv{?user_id}
+Get users that user's friends.
+
++ Parameters
+    + user_id: `3623925` (integer, required) - User ID.
+    + offset: `30` (integer, optional) - Offset index.
+
++ Response 200 (application/json)
+
+        {
+        }

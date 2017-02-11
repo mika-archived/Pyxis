@@ -1,0 +1,216 @@
+## Group Novel
+Novel related APIs.
+
+### GET /v2/novel/markers
+Get marked novels.
+
++ Response 200 (application/json)
+
+        {
+          "marked_novels": [
+            {
+              "novel": {
+                "id": 4809179,
+                "title": "猫とカラスと魔女姫様",
+                "caption": "第一の童話。<br /><br />試しというか、ちょっとした落書きなのであまり深くつっこまないでくださると幸いです。",
+                "restrict": 0,
+                "image_urls": {
+                  "square_medium": "https://source.pixiv.net/common/images/novel_thumb/novel_thumb_0_128x128.jpg",
+                  "medium": "https://source.pixiv.net/common/images/novel_thumb/novel_thumb_0_176mw.jpg",
+                  "large": "https://source.pixiv.net/common/images/novel_thumb/novel_thumb_0_240mw.jpg"
+                },
+                "create_date": "2015-01-19T23:18:50+09:00",
+                "tags": [
+                  {
+                    "name": "オリジナル",
+                    "added_by_uploaded_user": true
+                  },
+                  {
+                    "name": "童話",
+                    "added_by_uploaded_user": true
+                  }
+                ],
+                "page_count": 1,
+                "text_length": 2743,
+                "user": {
+                  "id": 874186,
+                  "name": "如月カヤ",
+                  "account": "myon0305",
+                  "profile_image_urls": {
+                    "medium": "https://i3.pixiv.net/user-profile/img/2016/08/31/17/29/25/11434186_d51f48f6e721c0e18b8f64e31d349283_170.jpg"
+                  },
+                  "is_followed": true
+                },
+                "series": {
+                  "id": 705352,
+                  "title": "魔女の童話"
+                },
+                "is_bookmarked": true,
+                "total_bookmarks": 13,
+                "total_view": 650,
+                "visible": true,
+                "total_comments": 0,
+                "is_muted": false
+              },
+              "novel_marker": {
+                "page": 1
+              }
+            }
+          ],
+          "next_url": null
+        }
+
+
+# GET /v1/novel/ranking{?mode}
+Get novels that ranked-in.
+
++ Parameters
+    + mode: `day` (enum[string], required) - Ranking mode.
+        + Members:
+            + `day`
+            + `day_male`
+            + `day_female`
+            + `week`
+            + `week_rookie`
+    + offset: `30` (integer, optional) - Offset index.
+    + date: `2017-02-09` (datetime, optional) - Datetime.
+        :::warning
+        <h2>Caution</h2>
+        This parameter must not use with `mode=past`
+        :::
+
+
++ Response 200 (application/json)
+
+        {
+          "novels": [
+            {
+              "id": 7801442,
+              "title": "【ヴィク勇】家族に、なりたい",
+              "caption": "「勇利。おれの家族になってくれないか？」<br />僕たちは、恋より先に、家族になった。<br /><br />ヴィクトルは、長谷津で勇利と過ごすうちに、いつのまにか勇利へと家族のような親愛を抱いていた。でも、家族ってなんだろう？　おれは、勇利と、どんな家族になりたいんだ？<br />――ヴィクトルと勇利が、家族になることを前提に、そこから恋をはじめる話。<br /><br />ふたりの性格は基本的に過去作と同じつもりなのですが、恋に落ちるプロセスは別解釈／別時空のお話です。<br />近々なるべく早く、この設定のふたりのその後、甘々R-18も書く予定です！！<br /><br /><span style=\"color:#fe3a20;\">※3/20の氷奏で出す再録同人誌について、ご希望あれば部数把握のためのアンケートにご協力ください。</span><br /><br />2/11付デイリーと女子に人気ランキングで1位ありがとうございます。<br />感謝しかありません…！<br /><br />TwitterはYOI萌え語りと小説の進捗など壁打ちメイン。仲良くしてください。<br />18↑お仲間さんなら基本フォロバしますが漏れてたらスミマセン！<br /><a href=\"https://twitter.com/negi_sunahara\" target=\"_blank\">https://twitter.com/negi_sunahara</a><br /><br />*",
+              "restrict": 0,
+              "image_urls": {
+                "square_medium": "https://i4.pixiv.net/c/128x128/novel-cover-master/img/2017/02/09/20/36/17/7801442_1a7fd5f310e1921c4c8520300b615bc4_square1200.jpg",
+                "medium": "https://i4.pixiv.net/c/176x352/novel-cover-master/img/2017/02/09/20/36/17/7801442_1a7fd5f310e1921c4c8520300b615bc4_master1200.jpg",
+                "large": "https://i4.pixiv.net/c/240x480/novel-cover-master/img/2017/02/09/20/36/17/7801442_1a7fd5f310e1921c4c8520300b615bc4_master1200.jpg"
+              },
+              "create_date": "2017-02-09T20:36:17+09:00",
+              "tags": [
+                {
+                  "name": "YOI【腐】",
+                  "added_by_uploaded_user": true
+                }
+              ],
+              "page_count": 3,
+              "text_length": 23504,
+              "user": {
+                "id": 21234619,
+                "name": "砂原 葱@氷奏みどりのトマソン",
+                "account": "negi_sunahara",
+                "profile_image_urls": {
+                  "medium": "https://i1.pixiv.net/user-profile/img/2017/01/16/09/56/32/12014816_40aaae3a1746699f7908cc79c72ea08d_170.png"
+                },
+                "is_followed": false
+              },
+              "series": {},
+              "is_bookmarked": false,
+              "total_bookmarks": 4614,
+              "total_view": 25139,
+              "visible": true,
+              "total_comments": 40,
+              "is_muted": false
+            }
+          ],
+          "next_url": "https://app-api.pixiv.net/v1/novel/ranking?mode=day&offset=30"
+        }
+
+
+## GET /v1/novel/recommended
+Get recommended novels.
+
++ Parameters
+    + include_ranking_novels: `true` (boolean, optional) - Including `ranking_novels`.
+    + offset: `30` (integer, optional) - Offset index.
+    + max_bookmark_id_for_recommend: `270875923` (integer, optional) - ?
+
++ Response 200 (application/json)
+
+        {
+          "novels": [
+            {
+              "id": 6688570,
+              "title": "某大型デパートよろず屋と刀剣男士のエピソードを語るスレ",
+              "caption": "刀剣男士と、お買い物にまつわるあれやこれ。<br /><br />もし本丸とは別の空間に、審神者と刀剣男士が利用できる大きなデパート的なものがあったら楽しいんじゃないかと思い勢いでやらかしました。<br /><br />・ちゃんねる形式（雰囲気）<br />・モブ審神者出ます（男女）<br />・オール家族愛です<br />・原作にはない設定を捏造しています<br /><br />その他、一ページ目の注意書きに御目通し願います。<br /><br />表紙お借りしました。ありがとうございました！<br />【小説表紙用フリー素材9 | 芋煮 [pixiv] <strong><a href=\"pixiv://illusts/39508470\">illust/39508470</a></strong>】<br /><br />* 4/22　小説DR27位・女子に人気小説20位頂きました！ありがとうございました！<br />* 4/23　女子に人気5位(！)・男子に人気91位(!?)・小説DR2位(!!??)頂きました…！ありがとうございました!<br />* コメント・タグ・ブクマ等もありがとうございます！<br />* 4/21-27 小説WR 1位頂いておりました！ありがとうございました!!!",
+              "restrict": 0,
+              "image_urls": {
+                "square_medium": "https://i1.pixiv.net/c/128x128/novel-cover-master/img/2016/07/12/13/19/15/6688570_5532ebee13a45628ed788804bf9c6819_square1200.jpg",
+                "medium": "https://i1.pixiv.net/c/176x352/novel-cover-master/img/2016/07/12/13/19/15/6688570_5532ebee13a45628ed788804bf9c6819_master1200.jpg",
+                "large": "https://i1.pixiv.net/c/240x480/novel-cover-master/img/2016/07/12/13/19/15/6688570_5532ebee13a45628ed788804bf9c6819_master1200.jpg"
+              },
+              "create_date": "2016-04-22T00:01:57+09:00",
+              "tags": [
+                {
+                  "name": "刀剣乱舞",
+                  "added_by_uploaded_user": true
+                }
+              ],
+              "page_count": 2,
+              "text_length": 19439,
+              "user": {
+                "id": 528084,
+                "name": "フライパン",
+                "account": "take_it_easy_1989",
+                "profile_image_urls": {
+                  "medium": "https://i4.pixiv.net/user-profile/img/2015/06/04/14/15/26/9448255_ca149ea2281c5dc0132827f5833596e3_170.jpg"
+                },
+                "is_followed": false
+              },
+              "series": {},
+              "is_bookmarked": false,
+              "total_bookmarks": 4321,
+              "total_view": 69048,
+              "visible": true,
+              "total_comments": 21,
+              "is_muted": false
+            }
+          ],
+          "ranking_novels": [
+            {
+              "id": 7801442,
+              "title": "【ヴィク勇】家族に、なりたい",
+              "caption": "「勇利。おれの家族になってくれないか？」<br />僕たちは、恋より先に、家族になった。<br /><br />ヴィクトルは、長谷津で勇利と過ごすうちに、いつのまにか勇利へと家族のような親愛を抱いていた。でも、家族ってなんだろう？　おれは、勇利と、どんな家族になりたいんだ？<br />――ヴィクトルと勇利が、家族になることを前提に、そこから恋をはじめる話。<br /><br />ふたりの性格は基本的に過去作と同じつもりなのですが、恋に落ちるプロセスは別解釈／別時空のお話です。<br />近々なるべく早く、この設定のふたりのその後、甘々R-18も書く予定です！！<br /><br /><span style=\"color:#fe3a20;\">※3/20の氷奏で出す再録同人誌について、ご希望あれば部数把握のためのアンケートにご協力ください。</span><br /><br />2/11付デイリーと女子に人気ランキングで1位ありがとうございます。<br />感謝しかありません…！<br /><br />TwitterはYOI萌え語りと小説の進捗など壁打ちメイン。仲良くしてください。<br />18↑お仲間さんなら基本フォロバしますが漏れてたらスミマセン！<br /><a href=\"https://twitter.com/negi_sunahara\" target=\"_blank\">https://twitter.com/negi_sunahara</a><br /><br />*",
+              "restrict": 0,
+              "image_urls": {
+                "square_medium": "https://i4.pixiv.net/c/128x128/novel-cover-master/img/2017/02/09/20/36/17/7801442_1a7fd5f310e1921c4c8520300b615bc4_square1200.jpg",
+                "medium": "https://i4.pixiv.net/c/176x352/novel-cover-master/img/2017/02/09/20/36/17/7801442_1a7fd5f310e1921c4c8520300b615bc4_master1200.jpg",
+                "large": "https://i4.pixiv.net/c/240x480/novel-cover-master/img/2017/02/09/20/36/17/7801442_1a7fd5f310e1921c4c8520300b615bc4_master1200.jpg"
+              },
+              "create_date": "2017-02-09T20:36:17+09:00",
+              "tags": [
+                {
+                  "name": "YOI【腐】",
+                  "added_by_uploaded_user": true
+                }
+              ],
+              "page_count": 3,
+              "text_length": 23504,
+              "user": {
+                "id": 21234619,
+                "name": "砂原 葱@氷奏みどりのトマソン",
+                "account": "negi_sunahara",
+                "profile_image_urls": {
+                  "medium": "https://i1.pixiv.net/user-profile/img/2017/01/16/09/56/32/12014816_40aaae3a1746699f7908cc79c72ea08d_170.png"
+                },
+                "is_followed": false
+              },
+              "series": {},
+              "is_bookmarked": false,
+              "total_bookmarks": 4607,
+              "total_view": 25070,
+              "visible": true,
+              "total_comments": 40,
+              "is_muted": false
+            }
+          ],
+          "next_url": "https://app-api.pixiv.net/v1/novel/recommended?include_ranking_novels=false&offset=15&max_bookmark_id_for_recommend=270875923"
+        }

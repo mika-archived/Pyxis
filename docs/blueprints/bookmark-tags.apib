@@ -1,0 +1,45 @@
+## Group Bookmark Tags
+Bookmark's tag related APIs.
+
+### GET /v1/user/bookmarks-tags/illust
+Get bookmarked illustration's tags.
+
++ Parameters
+    + restrict: `public` (enum[string], optional) - Restrict for user's accessible.
+        + Members:
+            + `public`
+            + `private`
+
++ Response 200 (application/json)
+
+        {
+          "bookmark_tags": [
+            {
+              "name": "Charlotte(アニメ)",
+              "count": 2
+            }
+          ],
+          "next_url": null
+        }
+
+
+### GET /v1/user/bookmark-tags/novel
+Get bookmarked novel's tags.
+
++ Parameters
+    + restrict: `public` (enum[string], optional) - Restrict for user's accessible.
+        + Members:
+            + `public`
+            + `private`
+
++ Response 200 (application/json)
+
+        {
+          "bookmark_tags": [
+            {
+              "name": "オリジナル",
+              "count": 1
+            }
+          ],
+          "next_url": null
+        }
