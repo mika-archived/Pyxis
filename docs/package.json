@@ -1,0 +1,12 @@
+{
+  "name": "pyxis",
+  "version": "1.0.0",
+  "description": "Pyxis documantation",
+  "main": "index.js",
+  "repository": "git@github.com:fuyuno/Pyxis.git",
+  "author": "Mikazuki",
+  "license": "MIT",
+  "dependencies": {
+    "aglio": "^2.3.0"
+  }
+}

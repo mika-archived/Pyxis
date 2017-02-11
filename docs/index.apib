@@ -1,0 +1,27 @@
+FORMAT: 1A
+HOST: https://app-api.pixiv.net
+
+# Pyxis documantation
+
+Pyxis internal pixiv API documantation.
+
+:::note
+## Notice
+All API request's has below headers.
+
+```http
+App-OS-Version: 10.2.1
+App-OS: ios
+User-Agent: PixivIOSApp/6.5.2 (iOS 10.2.1; iPhone7,2)
+App-Version: 6.5.2
+```
+
+`App-OS-Version` is iOS version.  
+`App-Version` is pixiv application version.  
+`User-Agent` is `PixivIOSApp/${App-Version} (iOS ${App-OS-Version}; iPhone7,2)`
+
+:::
+
+<!-- include(authenticate.apib) -->
+<!-- include(user.apib) -->
+<!-- include(walkthrough.apib) -->
