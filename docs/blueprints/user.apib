@@ -1,7 +1,7 @@
 # Group User
 User related APIs.
 
-## GET /v1/user/detail{?user_id}
+### GET /v1/user/detail{?user_id}
 Get user information.
 
 + Parameters
@@ -57,7 +57,29 @@ Get user information.
         }
 
 
-## GET /v1/user/follower{?user_id}
+### POST /v1/user/follow/add
+Follow specified user.
+
++ Parameters
+    + user_id: `3623925` (integer, required) - User ID.
+    + restrict: `public` (enum[string], optional) - Restrict for user's accessible.
+        + Members:
+            + `all`
+            + `public`
+            + `private`
+
++ Request (application/x-www-form-urlencoded)
+    + Body
+
+            restrict=public&user_id=676740
+
++ Response 200 (application/json)
+
+        {
+        }
+
+
+### GET /v1/user/follower{?user_id}
 Get users that user has been followed.
 
 + Parameters
@@ -132,13 +154,14 @@ Get users that user has been followed.
 
 
 
-## GET /v1/user/following{?user_id,restrict}
+### GET /v1/user/following{?user_id,restrict}
 Get users that user followed.
 
 + Parameters
     + user_id: `3623925` (integer, required) - User ID.
-    + restrict: `public` (enum[string], required) - Restrict for user's accessible.
+    + restrict: `public` (enum[string], optional) - Restrict for user's accessible.
         + Members:
+            + `all`
             + `public`
             + `private`
     + offset: `30` (integer, optional) - Offset index.
@@ -210,7 +233,71 @@ Get users that user followed.
           "next_url": "https://app-api.pixiv.net/v1/user/following?restrict=public&user_id=3623925&offset=30"
         }
 
-## GET /v2/user/list
+
+### GET /v1/user/illusts{?type,user_id}
+Get illustration that specified user posted.
+
++ Parameters
+    + type: `illust` (enum[string], required) - Work type.
+        + Members:
+            + `illust`
+            + `manga`
+    + user_id: `3623925` (integer, required) - User ID.
+    + filter: `for_ios` (string, optional) - Filter for store vendors.
+    + offset: `30` (integer, optional) - Offset index.
+
++ Response 200 (application/json)
+
+        {
+          "illusts": [
+            {
+              "id": 60711408,
+              "title": "遠征先より",
+              "type": "illust",
+              "image_urls": {
+                "square_medium": "https://i.pximg.net/c/360x360_70/img-master/img/2017/01/02/00/00/00/60711408_p0_square1200.jpg",
+                "medium": "https://i.pximg.net/c/540x540_70/img-master/img/2017/01/02/00/00/00/60711408_p0_master1200.jpg",
+                "large": "https://i.pximg.net/c/600x1200_90/img-master/img/2017/01/02/00/00/00/60711408_p0_master1200.jpg"
+              },
+              "caption": "「主～あけましておめでとう～！」",
+              "restrict": 0,
+              "user": {
+                "id": 676740,
+                "name": "平井ゆづき＠1日目e20b",
+                "account": "higurashi40",
+                "profile_image_urls": {
+                  "medium": "https://i3.pixiv.net/user-profile/img/2016/11/29/01/51/16/11809230_4a16798ed189cc7feac9028b1c4d4596_170.jpg"
+                },
+                "is_followed": false
+              },
+              "tags": [
+                {
+                  "name": "刀剣乱舞"
+                }
+              ],
+              "tools": [],
+              "create_date": "2017-01-02T00:00:00+09:00",
+              "page_count": 1,
+              "width": 566,
+              "height": 800,
+              "sanity_level": 2,
+              "meta_single_page": {
+                "original_image_url": "https://i1.pixiv.net/img-original/img/2017/01/02/00/00/00/60711408_p0.jpg"
+              },
+              "meta_pages": [],
+              "total_view": 23812,
+              "total_bookmarks": 2494,
+              "is_bookmarked": false,
+              "visible": true,
+              "is_muted": false,
+              "total_comments": 2
+            }
+          ],
+          "next_url": "https://app-api.pixiv.net/v1/user/illusts?type=illust&filter=for_ios&user_id=676740&offset=30"
+        }
+
+
+### GET /v2/user/list
 Get users that user blocked.
 
 + Parameters
@@ -222,8 +309,217 @@ Get users that user blocked.
         }
 
 
+### GET /v1/user/novels{?user_id}
+Get novels that posted by specified user.
 
-## GET /v1/user/me/state
++ Parameters
+    + user_id: `3623925` (integer, required) - User ID.
+
++ Response 200 (application/json)
+
+            {
+              "novels": [
+                {
+                  "id": 7168003,
+                  "title": "ベランダ",
+                  "caption": "５年後ぐらいでうづりん同棲しています。",
+                  "restrict": 0,
+                  "image_urls": {
+                    "square_medium": "https://source.pixiv.net/common/images/novel_thumb/novel_thumb_6_128x128.jpg",
+                    "medium": "https://source.pixiv.net/common/images/novel_thumb/novel_thumb_6_176mw.jpg",
+                    "large": "https://source.pixiv.net/common/images/novel_thumb/novel_thumb_6_240mw.jpg"
+                  },
+                  "create_date": "2016-08-24T21:17:08+09:00",
+                  "tags": [
+                    {
+                      "name": "うづりん",
+                      "added_by_uploaded_user": true
+                    }
+                  ],
+                  "page_count": 1,
+                  "text_length": 5167,
+                  "user": {
+                    "id": 16957,
+                    "name": "ぼちゃ",
+                    "account": "gotipoke",
+                    "profile_image_urls": {
+                      "medium": "https://i3.pixiv.net/user-profile/img/2015/05/03/20/14/20/9312858_bfc1afcfdfd9a3c5a888950212bf1242_170.png"
+                    },
+                    "is_followed": true
+                  },
+                  "series": {},
+                  "is_bookmarked": false,
+                  "total_bookmarks": 183,
+                  "total_view": 3859,
+                  "visible": true,
+                  "total_comments": 1,
+                  "is_muted": false
+                }
+              ],
+              "next_url": null
+            }
+
+
+### GET /v1/user/recommended
+Get recommended users.
+
++ Parameters
+    + filter: `for_ios` (string, optional) - Filter for store vendors.
+    + offset: `30` (integer, optional) - Offset index.
+
++ Response 200 (application/json)
+
+            {
+              "user_previews": [
+                {
+                  "user": {
+                    "id": 1010501,
+                    "name": "にゅう＠にゅう工房",
+                    "account": "manekin-eko",
+                    "profile_image_urls": {
+                      "medium": "https://i1.pixiv.net/user-profile/img/2015/11/19/10/00/57/10134336_eda0413fecf93fa6b12d36cd2bcc67f1_170.jpg"
+                    },
+                    "is_followed": false
+                  },
+                  "illusts": [
+                    {
+                      "id": 60649615,
+                      "title": "C91オフレポ！",
+                      "type": "illust",
+                      "image_urls": {
+                        "square_medium": "https://i.pximg.net/c/360x360_70/img-master/img/2016/12/30/18/22/46/60649615_p0_square1200.jpg",
+                        "medium": "https://i.pximg.net/c/540x540_70/img-master/img/2016/12/30/18/22/46/60649615_p0_master1200.jpg",
+                        "large": "https://i.pximg.net/c/600x1200_90/img-master/img/2016/12/30/18/22/46/60649615_p0_master1200.jpg"
+                      },
+                      "caption": "2016年最後のイベント！<br />今年もありがとうございました…<br />来年もよろしくお願いします!!",
+                      "restrict": 0,
+                      "user": {
+                        "id": 1010501,
+                        "name": "にゅう＠にゅう工房",
+                        "account": "manekin-eko",
+                        "profile_image_urls": {
+                          "medium": "https://i1.pixiv.net/user-profile/img/2015/11/19/10/00/57/10134336_eda0413fecf93fa6b12d36cd2bcc67f1_170.jpg"
+                        },
+                        "is_followed": false
+                      },
+                      "tags": [
+                        {
+                          "name": "オフレポ"
+                        }
+                      ],
+                      "tools": [],
+                      "create_date": "2016-12-30T18:22:46+09:00",
+                      "page_count": 8,
+                      "width": 739,
+                      "height": 1034,
+                      "sanity_level": 2,
+                      "meta_single_page": {},
+                      "meta_pages": [
+                        {
+                          "image_urls": {
+                            "square_medium": "https://i.pximg.net/c/360x360_70/img-master/img/2016/12/30/18/22/46/60649615_p0_square1200.jpg",
+                            "medium": "https://i.pximg.net/c/540x540_70/img-master/img/2016/12/30/18/22/46/60649615_p0_master1200.jpg",
+                            "large": "https://i.pximg.net/c/600x1200_90/img-master/img/2016/12/30/18/22/46/60649615_p0_master1200.jpg",
+                            "original": "https://i4.pixiv.net/img-original/img/2016/12/30/18/22/46/60649615_p0.jpg"
+                          }
+                        }
+                      ],
+                      "total_view": 29228,
+                      "total_bookmarks": 247,
+                      "is_bookmarked": false,
+                      "visible": true,
+                      "is_muted": false
+                    }
+                  ],
+                  "novels": [],
+                  "is_muted": false
+                }
+              ],
+              "next_url": "https://app-api.pixiv.net/v1/user/recommended?filter=for_ios&offset=30"
+            }
+
+
+
+### GET /v1/user/related{?seed_user_id}
+Get related users.
+
++ Parameters
+    + seed_user_id: `676740` (integer, required) - User ID.
+    + filter: `for_ios` (string, optional) - Filter for store vendors.
+
+
++ Response 200 (application/json)
+
+        {
+          "user_previews": [
+            {
+              "user": {
+                "id": 216403,
+                "name": "しらび",
+                "account": "life-is-free",
+                "profile_image_urls": {
+                  "medium": "https://i2.pixiv.net/user-profile/img/2016/11/04/06/07/50/11706125_fcc9cf69109f56fe4dd6faaaafc8b9c7_170.jpg"
+                },
+                "is_followed": false
+              },
+              "illusts": [
+                {
+                  "id": 61352292,
+                  "title": "りゅうおうのおしごと！",
+                  "type": "illust",
+                  "image_urls": {
+                    "square_medium": "https://i.pximg.net/c/360x360_70/img-master/img/2017/02/09/00/14/14/61352292_p0_square1200.jpg",
+                    "medium": "https://i.pximg.net/c/540x540_70/img-master/img/2017/02/09/00/14/14/61352292_p0_master1200.jpg",
+                    "large": "https://i.pximg.net/c/600x1200_90/img-master/img/2017/02/09/00/14/14/61352292_p0_master1200.jpg"
+                  },
+                  "caption": "GA文庫、白鳥士郎先生著「りゅうおうのおしごと！」の1巻～5巻までのカバーイラストです。<br />下に行くほど以前のものです。<br />2月14日に最新5巻が発売されますので興味がありましたら是非",
+                  "restrict": 0,
+                  "user": {
+                    "id": 216403,
+                    "name": "しらび",
+                    "account": "life-is-free",
+                    "profile_image_urls": {
+                      "medium": "https://i2.pixiv.net/user-profile/img/2016/11/04/06/07/50/11706125_fcc9cf69109f56fe4dd6faaaafc8b9c7_170.jpg"
+                    },
+                    "is_followed": false
+                  },
+                  "tags": [
+                    {
+                      "name": "GA文庫"
+                    }
+                  ],
+                  "tools": [],
+                  "create_date": "2017-02-09T00:14:14+09:00",
+                  "page_count": 19,
+                  "width": 1125,
+                  "height": 1003,
+                  "sanity_level": 2,
+                  "meta_single_page": {},
+                  "meta_pages": [
+                    {
+                      "image_urls": {
+                        "square_medium": "https://i.pximg.net/c/360x360_70/img-master/img/2017/02/09/00/14/14/61352292_p0_square1200.jpg",
+                        "medium": "https://i.pximg.net/c/540x540_70/img-master/img/2017/02/09/00/14/14/61352292_p0_master1200.jpg",
+                        "large": "https://i.pximg.net/c/600x1200_90/img-master/img/2017/02/09/00/14/14/61352292_p0_master1200.jpg",
+                        "original": "https://i1.pixiv.net/img-original/img/2017/02/09/00/14/14/61352292_p0.jpg"
+                      }
+                    }
+                  ],
+                  "total_view": 118588,
+                  "total_bookmarks": 10366,
+                  "is_bookmarked": false,
+                  "visible": true,
+                  "is_muted": false
+                }
+              ],
+              "novels": [],
+              "is_muted": false
+            }
+          ]
+        }
+
+
+### GET /v1/user/me/state
 Get logged-in user's statuses.
 
 + Response 200 (application/json)
@@ -238,7 +534,7 @@ Get logged-in user's statuses.
 
 
 
-## GET /v1/user/mypixiv{?user_id}
+### GET /v1/user/mypixiv{?user_id}
 Get users that user's friends.
 
 + Parameters

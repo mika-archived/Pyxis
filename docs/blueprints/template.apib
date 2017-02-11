@@ -1,0 +1,72 @@
+## Template for Parameters
+
++ Parameters
+    + category: `all` (string, required) - category
+    + client_id: `bYGKuGVw91e0NMfPGp44euvGt59s` (string, required) - Set to `bYGKuGVw91e0NMfPGp44euvGt59s`.
+    + client_secret: `HP3RmkgAmEGro0gn1x9ioawQE8WMfvLXDz3ZqxpK` (string, required) - Set to `HP3RmkgAmEGro0gn1x9ioawQE8WMfvLXDz3ZqxpK`.
+    + content_type: `illust` (enum[string], required) - Work type.
+        + Members:
+            + `illust`
+            + `manga`
+    + date: `2017-02-09` (datetime, optional) - Datetime.
+    + device_token: `pixiv` (string, required) - Last login response's token or set to `pixiv`.
+    + duration: `within_last_day` (enum[string], optional) - Duration.
+        + Members:
+            + `within_last_day`
+            + `within_last_week`
+            + `within_last_month`
+    + filter: `for_ios` (string, optional) - Filter for store vendors.
+    + get_secure_url: `true` (boolean, required) - Set to `true`.
+    + grant_type: `password` (string, required) - Set to `password`.
+    + illust_id: `61352292` (integer, required) - Illustration ID.
+    + illust_ids: `61352292` (integer, required) - Illustration ID.
+    + illust_ids: `61352292` (integer, optional) - Illustration ID.
+    + include_ranking_illusts: `true` (boolean, optional) - Including `ranking_illusts`.
+    + include_total_comments: `true` (boolean, optional) - Including `total_comments`.
+    + max_bookmark_id: `2729948528` (integer, optional) - ?
+    + max_bookmark_id_for_recommend: `2953537646` (integer, optional) - ?
+    + max_illust_id: `61408265` (integer, optional) - ?
+    + max_novel_id: `7811373` (integer, optional) - ?
+    + min_bookmark_id_for_recent_illust: `2980101147` (integer, optional) - ?
+    + mode: `day` (enum[string], required) - Ranking mode.
+        + Members:
+            + `day`
+            + `day_male`
+            + `day_female`
+            + `week`
+            + `week_rookie`
+    + novel_id: `7168003` (integer, required) - Novel ID.
+    + novel_ids: `7168003` (integer, required) - Novel ID.
+    + offset: `30` (integer, optional) - Offset index.
+    + page: `1` (integer, required) - Page No.
+    + password: `password` (string, required) - User's password.
+    + restrict: `public` (enum[string], optional) - Restrict for user's accessible.
+        + Members:
+            + `all`
+            + `public`
+            + `private`
+    + search_target: `text` (enum[string], required) - Search target.
+        :::warning
+        <h3>Caution</h3>
+        `title_and_caption` and `exact_match_for_tags` is illust search only.
+        `text` and `keyword` is novel search only.
+        :::
+        + Members:
+            + `title_and_caption`
+            + `exact_match_for_tags`
+            + `partial_match_for_tags` 
+            + `text`
+            + `keyword`
+    + seed_user_id: `676740` (integer, required) - User ID.
+    + sort: `date_desc` (enum[string], required) - Sort mode.
+        + Members:
+            + `date_asc`
+            + `date_desc`
+            + `popular_desc`    + tag: `Charlotte` (string, optional) - URL encoded tag.
+    + type: `illust` (enum[string], required) - Work type.
+        + Members:
+            + `illust`
+            + `manga`
+    + user_id: `3623925` (integer, required) - User ID.
+    + username: `username` (string, required) - User's email or id.
+    + word: `小林さんちのメイドラゴン` (string, required) - URL encoded keyword.

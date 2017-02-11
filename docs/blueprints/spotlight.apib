@@ -1,0 +1,28 @@
+## Group Spotlight
+pixiv spotlight related APIs.
+
+### GET /v1/spotlight/articles{?category}
+Get pixiv spotlight articles.
+
++ Parameters
+    + category: `all` (string, required) - category
+    + offset: `30` (integer, optional) - Offset index.
+    + filter: `for_ios` (string, optional) - Filter for store vendors.
+
++ Response 200 (application/json)
+
+        {
+          "spotlight_articles": [
+            {
+              "id": 2104,
+              "title": "Miracle of the World! Salar de Uyuni Salt Flats",
+              "pure_title": "Miracle of the World! Salar de Uyuni Salt Flats",
+              "thumbnail": "https://i.pximg.net/c/540x540_70/img-master/img/2012/09/07/17/24/00/29946532_p0_master1200.jpg",
+              "article_url": "http://www.pixivision.net/en/a/2104",
+              "publish_date": "2017-02-11T18:00:00+09:00",
+              "category": "spotlight",
+              "subcategory_label": "Illustration"
+            }
+          ],
+          "next_url": "https://app-api.pixiv.net/v1/spotlight/articles?category=all&filter=for_ios&offset=10"
+        }

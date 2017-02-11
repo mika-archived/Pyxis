@@ -1,35 +1,14 @@
 ## Group Manga
 Manga related APIs.
 
-# GET /v1/manga/ranking{?mode}
-Get mangas that ranked-in.
 
-+ Parameters
-    + mode: `day` (enum[string], required) - Ranking mode.
-        + Members:
-            + `day`
-            + `day_male`
-            + `day_female`
-            + `week`
-            + `week_rookie`
-    + offset: `30` (integer, optional) - Offset index.
-    + date: `2017-02-09` (datetime, optional) - Datetime.
-        :::warning
-        <h2>Caution</h2>
-        This parameter must not use with `mode=past`
-        :::
-
-
-+ Response 200 (application/json)
-
-
-## GET /v1/manga/recommended
+### GET /v1/manga/recommended
 Get recommended mangas.
 
 + Parameters
-    + include_ranking_illusts: `true` (boolean, optional) - Including `ranking_illusts`.
-    + filter: `for_ios` (string, optional) - Filter for store vendors.
     + bookmark_illust_ids: `270875923` (integer, optional) - ?
+    + filter: `for_ios` (string, optional) - Filter for store vendors.
+    + include_ranking_illusts: `true` (boolean, optional) - Including `ranking_illusts`.
 
 + Response 200 (application/json)
 

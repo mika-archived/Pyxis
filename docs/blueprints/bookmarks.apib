@@ -6,13 +6,15 @@ Get bookmarked illustrations.
 
 + Parameters
     + user_id: `3623925` (integer, required) - User ID.
+    + max_bookmark_id: `2729948528` (integer, optional) - ?
+    + filter: `for_ios` (string, optional) - Filter for store vendors.
     + offset: `30` (integer, optional) - Offset index.
-    + restrict: `public` (enum[string], optional) - Restrict for user's age.
+    + restrict: `public` (enum[string], optional) - Restrict for user's accessible.
         + Members:
+            + `all`
             + `public`
             + `private`
     + tag: `Charlotte` (string, optional) - URL encoded tag.
-    + max_bookmark_id: `2729948528` (integer, optional) - ?
 
 + Response 200 (application/json)
 
@@ -72,8 +74,9 @@ Get bookmarked novels.
 + Parameters
     + user_id: `3623925` (integer, required) - User ID.
     + offset: `30` (integer, optional) - Offset index.
-    + restrict: `public` (enum[string], optional) - Restrict for user's age.
+    + restrict: `public` (enum[string], optional) - Restrict for user's accessible.
         + Members:
+            + `all`
             + `public`
             + `private`
     + tag: `Charlotte` (string, optional) - URL encoded tag.

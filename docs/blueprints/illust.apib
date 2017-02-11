@@ -1,0 +1,422 @@
+## Group Illustration
+Illustration related APIs.
+
+### GET /v1/illust/comment{?illust_id}
+Get comments that illustration.
+
++ Parameters
+    + illust_id: `61352292` (integer, required) - Illustration ID.
+    + include_total_comments: `true` (boolean, optional) - Including `total_comments`.
+    + offset: `30` (integer, optional) - Offset index.
+
++ Response 200 (application/json)
+
+        {
+          "total_comments": 0,
+          "comments": [
+            {
+              "id": 64885907,
+              "comment": "小傻逼 看这里",
+              "date": "2017-02-12T04:29:15+09:00",
+              "user": {
+                "id": 22763918,
+                "name": "_band",
+                "profile_image_urls": {
+                  "medium": "https://source.pixiv.net/common/images/no_profile.png"
+                }
+              }
+            }
+          ],
+          "next_url": "https://app-api.pixiv.net/v1/illust/comments?illust_id=61352292&offset=30&include_total_comments=false"
+        }
+
+
+### GET /v2/illust/follow
+Get illustrations that posted by followed users.
+
++ Parameters
+    + filter: `for_ios` (string, optional) - Filter for store vendors.
+    + offset: `30` (integer, optional) - Offset index.
+    + restrict: `public` (enum[string], optional) - Restrict for user's accessible.
+        + Members:
+            + `all`
+            + `public`
+            + `private`
+
+
++ Response 200 (application/json)
+
+            {
+              "illusts": [
+                {
+                  "id": 61408298,
+                  "title": "潮がお待ちしてます【日刊桐沢一三九八】",
+                  "type": "illust",
+                  "image_urls": {
+                    "square_medium": "https://i.pximg.net/c/360x360_70/img-master/img/2017/02/12/06/10/54/61408298_p0_square1200.jpg",
+                    "medium": "https://i.pximg.net/c/540x540_70/img-master/img/2017/02/12/06/10/54/61408298_p0_master1200.jpg",
+                    "large": "https://i.pximg.net/c/600x1200_90/img-master/img/2017/02/12/06/10/54/61408298_p0_master1200.jpg"
+                  },
+                  "caption": "羞かしがり屋さんな面に隠れて目立たないけれど、なんだかんだで生真面目＆慎重な潮ちゃん、とても頼りになるのです（うちの艦隊の場合です）。<br /><br />巨大イベント「コミックマーケット」の期間が来ると、ここ有明店海域には各地から店長さんや地区長さんが集まってきます。ものすごく手際がええで！ 朝も四時から営業なさってたりします。<br /><br />●サークル・キノコ灯は日曜日のコミティア119にサークル参加します。オリジナル創作物のオンリー・イベントなので艦これ以外の本を持ってゆきます。新刊は「さえもだ」連作の「ミギテノウタ」です。<br /><br />今回のコミティアで頒布予定の本のうち、お問合わせが多かった既刊「キリグラフ」だけは、BOOTHさんにもお預けしてます <a href=\"https://booth.pm/ja/items/341075\" target=\"_blank\">https://booth.pm/ja/items/341075</a>",
+                  "restrict": 0,
+                  "user": {
+                    "id": 999467,
+                    "name": "桐沢十三2/12TIAゆ48b",
+                    "account": "paulowniamarsh",
+                    "profile_image_urls": {
+                      "medium": "https://i1.pixiv.net/user-profile/img/2010/12/30/21/23/41/2563764_53a0e168f78568c3d7cff3eafa80289f_170.jpg"
+                    },
+                    "is_followed": true
+                  },
+                  "tags": [
+                    {
+                      "name": "日刊桐沢"
+                    }
+                  ],
+                  "tools": [],
+                  "create_date": "2017-02-12T06:10:54+09:00",
+                  "page_count": 1,
+                  "width": 900,
+                  "height": 900,
+                  "sanity_level": 0,
+                  "meta_single_page": {
+                    "original_image_url": "https://i3.pixiv.net/img-original/img/2017/02/12/06/10/54/61408298_p0.jpg"
+                  },
+                  "meta_pages": [],
+                  "total_view": 135,
+                  "total_bookmarks": 1,
+                  "is_bookmarked": false,
+                  "visible": true,
+                  "is_muted": false
+                }
+              ],
+              "next_url": "https://app-api.pixiv.net/v2/illust/follow?restrict=all&offset=30"
+            }
+
+
+### GET /v1/illust/mypixiv
+Get illustrations that posted by mypixiv.
+
++ Response 200 (application/json)
+
+            {
+            }
+
+
+### GET /v1/illust/new{?content_type}
+Get illustrations that posted by all users.
+
++ Parameters
+    + content_type: `illust` (enum[string], required) - Work type.
+        + Members:
+            + `illust`
+            + `manga`
+    + filter: `for_ios` (string, optional) - Filter for store vendors.
+    + max_illust_id: `61408265` (integer, optional) - ?
+
++ Response 200 (application/json)
+
+            {
+              "illusts": [
+                {
+                  "id": 61408333,
+                  "title": "【雑伊】他ついったログ",
+                  "type": "illust",
+                  "image_urls": {
+                    "square_medium": "https://i.pximg.net/c/360x360_70/img-master/img/2017/02/12/06/18/37/61408333_p0_square1200.jpg",
+                    "medium": "https://i.pximg.net/c/540x540_70/img-master/img/2017/02/12/06/18/37/61408333_p0_master1200.jpg",
+                    "large": "https://i.pximg.net/c/600x1200_90/img-master/img/2017/02/12/06/18/37/61408333_p0_master1200.jpg"
+                  },
+                  "caption": "ほんのり腐向け注意<br />・雑渡さんと一緒<br />・15歳にヨシヨシされる36歳<br />・六は<br />・伊作/仙蔵/久々知",
+                  "restrict": 0,
+                  "user": {
+                    "id": 963704,
+                    "name": "おゆみ俺ウサい30",
+                    "account": "guttan",
+                    "profile_image_urls": {
+                      "medium": "https://i3.pixiv.net/user-profile/img/2017/02/07/05/14/51/12114186_8c8517cbcda44e5a264f3d2d3c1604be_170.jpg"
+                    },
+                    "is_followed": false
+                  },
+                  "tags": [
+                    {
+                      "name": "立花仙蔵"
+                    }
+                  ],
+                  "tools": [
+                    "Photoshop",
+                    "ComicStudio"
+                  ],
+                  "create_date": "2017-02-12T06:18:37+09:00",
+                  "page_count": 6,
+                  "width": 1600,
+                  "height": 800,
+                  "sanity_level": 2,
+                  "meta_single_page": {},
+                  "meta_pages": [
+                    {
+                      "image_urls": {
+                        "square_medium": "https://i.pximg.net/c/360x360_70/img-master/img/2017/02/12/06/18/37/61408333_p0_square1200.jpg",
+                        "medium": "https://i.pximg.net/c/540x540_70/img-master/img/2017/02/12/06/18/37/61408333_p0_master1200.jpg",
+                        "large": "https://i.pximg.net/c/600x1200_90/img-master/img/2017/02/12/06/18/37/61408333_p0_master1200.jpg",
+                        "original": "https://i2.pixiv.net/img-original/img/2017/02/12/06/18/37/61408333_p0.jpg"
+                      }
+                    }
+                  ],
+                  "total_view": 0,
+                  "total_bookmarks": 0,
+                  "is_bookmarked": false,
+                  "visible": true,
+                  "is_muted": false
+                }
+              ],
+              "next_url": "https://app-api.pixiv.net/v1/illust/new?content_type=illust&filter=for_ios&max_illust_id=61408265"
+            }
+
+
+### GET /v1/illust/ranking{?mode}
+Get ilustrations that ranked-in.
+
++ Parameters
+    + mode: `day` (enum[string], required) - Ranking mode.
+        + Members:
+            + `day`
+            + `day_male`
+            + `day_female`
+            + `day_manga`
+            + `week`
+            + `week_original`
+            + `week_rookie`
+            + `week_manga`
+            + `week_rookie_manga`
+            + `month`
+            + `month_manga`
+    + date: `2017-02-09` (datetime, optional) - Datetime.
+    + filter: `for_ios` (string, optional) - Filter for store vendors.
+    + offset: `30` (integer, optional) - Offset index.
+
++ Response 200 (application/json)
+
+        {
+          "illusts": [
+            {
+              "id": 61352292,
+              "title": "りゅうおうのおしごと！",
+              "type": "illust",
+              "image_urls": {
+                "square_medium": "https://i.pximg.net/c/360x360_70/img-master/img/2017/02/09/00/14/14/61352292_p0_square1200.jpg",
+                "medium": "https://i.pximg.net/c/540x540_70/img-master/img/2017/02/09/00/14/14/61352292_p0_master1200.jpg",
+                "large": "https://i.pximg.net/c/600x1200_90/img-master/img/2017/02/09/00/14/14/61352292_p0_master1200.jpg"
+              },
+              "caption": "GA文庫、白鳥士郎先生著「りゅうおうのおしごと！」の1巻～5巻までのカバーイラストです。<br />下に行くほど以前のものです。<br />2月14日に最新5巻が発売されますので興味がありましたら是非",
+              "restrict": 0,
+              "user": {
+                "id": 216403,
+                "name": "しらび",
+                "account": "life-is-free",
+                "profile_image_urls": {
+                  "medium": "https://i2.pixiv.net/user-profile/img/2016/11/04/06/07/50/11706125_fcc9cf69109f56fe4dd6faaaafc8b9c7_170.jpg"
+                },
+                "is_followed": false
+              },
+              "tags": [
+                {
+                  "name": "GA文庫"
+                }
+              ],
+              "tools": [],
+              "create_date": "2017-02-09T00:14:14+09:00",
+              "page_count": 19,
+              "width": 1125,
+              "height": 1003,
+              "sanity_level": 2,
+              "meta_single_page": {},
+              "meta_pages": [
+                {
+                  "image_urls": {
+                    "square_medium": "https://i.pximg.net/c/360x360_70/img-master/img/2017/02/09/00/14/14/61352292_p0_square1200.jpg",
+                    "medium": "https://i.pximg.net/c/540x540_70/img-master/img/2017/02/09/00/14/14/61352292_p0_master1200.jpg",
+                    "large": "https://i.pximg.net/c/600x1200_90/img-master/img/2017/02/09/00/14/14/61352292_p0_master1200.jpg",
+                    "original": "https://i1.pixiv.net/img-original/img/2017/02/09/00/14/14/61352292_p0.jpg"
+                  }
+                }
+              ],
+              "total_view": 118260,
+              "total_bookmarks": 10337,
+              "is_bookmarked": false,
+              "visible": true,
+              "is_muted": false
+            }
+          ],
+          "next_url": "https://app-api.pixiv.net/v1/illust/ranking?mode=day&filter=for_ios&offset=30"
+        }
+
+
+### GET /v1/illust/recommended
+Get recommended illusts.
+
++ Parameters
+    + filter: `for_ios` (string, optional) - Filter for store vendors.
+    + include_ranking_illusts: `true` (boolean, optional) - Including `ranking_illusts`.
+    + max_bookmark_id_for_recommend: `2953537646` (integer, optional) - ?
+    + min_bookmark_id_for_recent_illust: `2980101147` (integer, optional) - ?
+
++ Response 200 (application/json)
+
+        {
+          "illusts": [
+            {
+              "id": 43353285,
+              "title": "あまちゃん",
+              "type": "illust",
+              "image_urls": {
+                "square_medium": "https://i.pximg.net/c/360x360_70/img-master/img/2014/05/07/00/35/34/43353285_p0_square1200.jpg",
+                "medium": "https://i.pximg.net/c/540x540_70/img-master/img/2014/05/07/00/35/34/43353285_p0_master1200.jpg",
+                "large": "https://i.pximg.net/c/600x1200_90/img-master/img/2014/05/07/00/35/34/43353285_p0_master1200.jpg"
+              },
+              "caption": "なんかもうあるかないかわからないくらいがいい<br /><br />5/10発売のコンプティーク6月号に艦これ一周年記念イラスト描かせて頂いてます！<br />大好きなあの子を描きました～よろしくお願いしますー！",
+              "restrict": 0,
+              "user": {
+                "id": 676740,
+                "name": "平井ゆづき＠1日目e20b",
+                "account": "higurashi40",
+                "profile_image_urls": {
+                  "medium": "https://i3.pixiv.net/user-profile/img/2016/11/29/01/51/16/11809230_4a16798ed189cc7feac9028b1c4d4596_170.jpg"
+                },
+                "is_followed": false
+              },
+              "tags": [
+                {
+                  "name": "艦これ"
+                }
+              ],
+              "tools": [],
+              "create_date": "2014-05-07T00:35:34+09:00",
+              "page_count": 1,
+              "width": 700,
+              "height": 852,
+              "sanity_level": 2,
+              "meta_single_page": {
+                "original_image_url": "https://i2.pixiv.net/img-original/img/2014/05/07/00/35/34/43353285_p0.jpg"
+              },
+              "meta_pages": [],
+              "total_view": 17577,
+              "total_bookmarks": 1667,
+              "is_bookmarked": false,
+              "visible": true,
+              "is_muted": false
+            }
+          ],
+          "ranking_illusts": [
+            {
+              "id": 61352292,
+              "title": "りゅうおうのおしごと！",
+              "type": "illust",
+              "image_urls": {
+                "square_medium": "https://i.pximg.net/c/360x360_70/img-master/img/2017/02/09/00/14/14/61352292_p0_square1200.jpg",
+                "medium": "https://i.pximg.net/c/540x540_70/img-master/img/2017/02/09/00/14/14/61352292_p0_master1200.jpg",
+                "large": "https://i.pximg.net/c/600x1200_90/img-master/img/2017/02/09/00/14/14/61352292_p0_master1200.jpg"
+              },
+              "caption": "GA文庫、白鳥士郎先生著「りゅうおうのおしごと！」の1巻～5巻までのカバーイラストです。<br />下に行くほど以前のものです。<br />2月14日に最新5巻が発売されますので興味がありましたら是非",
+              "restrict": 0,
+              "user": {
+                "id": 216403,
+                "name": "しらび",
+                "account": "life-is-free",
+                "profile_image_urls": {
+                  "medium": "https://i2.pixiv.net/user-profile/img/2016/11/04/06/07/50/11706125_fcc9cf69109f56fe4dd6faaaafc8b9c7_170.jpg"
+                },
+                "is_followed": false
+              },
+              "tags": [
+                {
+                  "name": "GA文庫"
+                }
+              ],
+              "tools": [],
+              "create_date": "2017-02-09T00:14:14+09:00",
+              "page_count": 19,
+              "width": 1125,
+              "height": 1003,
+              "sanity_level": 2,
+              "meta_single_page": {},
+              "meta_pages": [
+                {
+                  "image_urls": {
+                    "square_medium": "https://i.pximg.net/c/360x360_70/img-master/img/2017/02/09/00/14/14/61352292_p0_square1200.jpg",
+                    "medium": "https://i.pximg.net/c/540x540_70/img-master/img/2017/02/09/00/14/14/61352292_p0_master1200.jpg",
+                    "large": "https://i.pximg.net/c/600x1200_90/img-master/img/2017/02/09/00/14/14/61352292_p0_master1200.jpg",
+                    "original": "https://i1.pixiv.net/img-original/img/2017/02/09/00/14/14/61352292_p0.jpg"
+                  }
+                }
+              ],
+              "total_view": 118005,
+              "total_bookmarks": 10313,
+              "is_bookmarked": false,
+              "visible": true,
+              "is_muted": false
+            }
+          ],
+          "contest_exists": true,
+          "next_url": "https://app-api.pixiv.net/v1/illust/recommended?include_ranking_illusts=false&filter=for_ios&min_bookmark_id_for_recent_illust=2980101147&max_bookmark_id_for_recommend=2953537646&offset=0"
+        }
+
+
+### GET /v2/illust/related{?illust_id}
+Get related illustrations.
+
++ Parameters
+    + illust_id: `61352292` (integer, required) - Illustration ID.
+    + filter: `for_ios` (string, optional) - Filter for store vendors.
+    + illust_ids: `61352292` (integer, optional) - Illustration ID.
+
++ Response 200 (application/json)
+
+        {
+          "illusts": [
+            {
+              "id": 61369480,
+              "title": "☆",
+              "type": "illust",
+              "image_urls": {
+                "square_medium": "https://i.pximg.net/c/360x360_70/img-master/img/2017/02/10/01/00/01/61369480_p0_square1200.jpg",
+                "medium": "https://i.pximg.net/c/540x540_70/img-master/img/2017/02/10/01/00/01/61369480_p0_master1200.jpg",
+                "large": "https://i.pximg.net/c/600x1200_90/img-master/img/2017/02/10/01/00/01/61369480_p0_master1200.jpg"
+              },
+              "caption": "",
+              "restrict": 0,
+              "user": {
+                "id": 6996493,
+                "name": "Lpip",
+                "account": "lpmya",
+                "profile_image_urls": {
+                  "medium": "https://i3.pixiv.net/user-profile/img/2017/01/27/04/05/23/12061814_44196f064c0064fe89fdb6e719df20fe_170.png"
+                },
+                "is_followed": true
+              },
+              "tags": [
+                {
+                  "name": "オリジナル"
+                }
+              ],
+              "tools": [
+                "CLIP STUDIO PAINT"
+              ],
+              "create_date": "2017-02-10T01:00:01+09:00",
+              "page_count": 1,
+              "width": 620,
+              "height": 872,
+              "sanity_level": 2,
+              "meta_single_page": {
+                "original_image_url": "https://i1.pixiv.net/img-original/img/2017/02/10/01/00/01/61369480_p0.png"
+              },
+              "meta_pages": [],
+              "total_view": 30389,
+              "total_bookmarks": 4941,
+              "is_bookmarked": false,
+              "visible": true,
+              "is_muted": false
+            }
+          ],
+          "next_url": "https://app-api.pixiv.net/v2/illust/related?illust_id=61352292&filter=for_ios&seed_illust_ids%5B0%5D=57438330&seed_illust_ids%5B1%5D=60513471&seed_illust_ids%5B2%5D=52058891&seed_illust_ids%5B3%5D=60959995&seed_illust_ids%5B4%5D=60895455&seed_illust_ids%5B5%5D=53436823&seed_illust_ids%5B6%5D=54492701&seed_illust_ids%5B7%5D=49606412&seed_illust_ids%5B8%5D=58024247&seed_illust_ids%5B9%5D=49663744&seed_illust_ids%5B10%5D=54200719&seed_illust_ids%5B11%5D=43929008&seed_illust_ids%5B12%5D=60792968&seed_illust_ids%5B13%5D=57186104&seed_illust_ids%5B14%5D=59849745&seed_illust_ids%5B15%5D=61369480&seed_illust_ids%5B16%5D=61204068&seed_illust_ids%5B17%5D=40535589&seed_illust_ids%5B18%5D=55476538&seed_illust_ids%5B19%5D=59218696"
+        }

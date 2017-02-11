@@ -1,0 +1,119 @@
+## Group Trends
+Trend related APIs.
+
+### GET /v1/trending-tags/illust
+Get trending tags and illustrations.
+
++ Parameters
+    + filter: `for_ios` (string, optional) - Filter for store vendors.
+
++ Response 200 (application/json)
+    + Body
+
+            {
+              "trend_tags": [
+                {
+                  "tag": "ニューダンガンロンパV3",
+                  "illust": {
+                    "id": 61336270,
+                    "title": "V3",
+                    "type": "illust",
+                    "image_urls": {
+                      "square_medium": "https://i.pximg.net/c/360x360_70/img-master/img/2017/02/08/00/23/16/61336270_p0_square1200.jpg",
+                      "medium": "https://i.pximg.net/c/540x540_70/img-master/img/2017/02/08/00/23/16/61336270_p0_master1200.jpg",
+                      "large": "https://i.pximg.net/c/600x1200_90/img-master/img/2017/02/08/00/23/16/61336270_p0_master1200.jpg"
+                    },
+                    "caption": "クリアしました。<br />王馬くんめっちゃ推せる……",
+                    "restrict": 0,
+                    "user": {
+                      "id": 1925620,
+                      "name": "大宮PON",
+                      "account": "wowishi",
+                      "profile_image_urls": {
+                        "medium": "https://i4.pixiv.net/user-profile/img/2015/11/23/22/22/23/10154603_399448d4bff5abe8572f7382fcd95e6a_170.png"
+                      },
+                      "is_followed": false
+                    },
+                    "tags": [
+                      {
+                        "name": "ニューダンガンロンパV3"
+                      }
+                    ],
+                    "tools": [],
+                    "create_date": "2017-02-08T00:23:16+09:00",
+                    "page_count": 1,
+                    "width": 1000,
+                    "height": 1484,
+                    "sanity_level": 2,
+                    "meta_single_page": {
+                      "original_image_url": "https://i3.pixiv.net/img-original/img/2017/02/08/00/23/16/61336270_p0.png"
+                    },
+                    "meta_pages": [],
+                    "total_view": 13210,
+                    "total_bookmarks": 1323,
+                    "is_bookmarked": false,
+                    "visible": true,
+                    "is_muted": false
+                  }
+                }
+              ]
+            }
+
+
+### GET /v1/trending-tags/novel
+Get trending tags and novels.
+
++ Parameters
+    + filter: `for_ios` (string, optional) - Filter for store vendors.
+
++ Response 200 (application/json)
+    + Body
+
+            {
+              "trend_tags": [
+                {
+                  "tag": "ダンガンロンパ",
+                  "illust": {
+                    "id": 37739100,
+                    "title": "ダンガンロンパマンガ",
+                    "type": "illust",
+                    "image_urls": {
+                      "square_medium": "https://i.pximg.net/c/360x360_70/img-master/img/2013/08/12/02/49/19/37739100_p0_square1200.jpg",
+                      "medium": "https://i.pximg.net/c/540x540_70/img-master/img/2013/08/12/02/49/19/37739100_p0_master1200.jpg",
+                      "large": "https://i.pximg.net/c/600x1200_90/img-master/img/2013/08/12/02/49/19/37739100_p0_master1200.jpg"
+                    },
+                    "caption": "あっ！",
+                    "restrict": 0,
+                    "user": {
+                      "id": 209814,
+                      "name": "ぱげらった",
+                      "account": "suke1987",
+                      "profile_image_urls": {
+                        "medium": "https://i3.pixiv.net/user-profile/img/2008/06/27/05/53/45/181978_3e4acf6fb93abf7ae04bd91703c4f6f6_170.jpg"
+                      },
+                      "is_followed": false
+                    },
+                    "tags": [
+                      {
+                        "name": "ダンガンロンパ"
+                      }
+                    ],
+                    "tools": [],
+                    "create_date": "2013-08-12T02:49:19+09:00",
+                    "page_count": 1,
+                    "width": 750,
+                    "height": 19130,
+                    "sanity_level": 2,
+                    "meta_single_page": {
+                      "original_image_url": "https://i1.pixiv.net/img-original/img/2013/08/12/02/49/19/37739100_p0.jpg"
+                    },
+                    "meta_pages": [],
+                    "total_view": 486984,
+                    "total_bookmarks": 35082,
+                    "is_bookmarked": false,
+                    "visible": true,
+                    "is_muted": false
+                  }
+                }
+              ]
+            }

@@ -1,0 +1,154 @@
+## Group Search
+Search related APIs.
+
+### GET /v1/search/illust{?search_target,sort,word}
+Search illustrations.
+
++ Parameters
+    + search_target: `text` (enum[string], required) - Search target.
+        :::warning
+        <h3>Caution</h3>
+        `title_and_caption` and `exact_match_for_tags` is illust search only.
+        `text` and `keyword` is novel search only.
+        :::
+        + Members:
+            + `title_and_caption`
+            + `exact_match_for_tags`
+            + `partial_match_for_tags` 
+            + `text`
+            + `keyword`    + sort: `date_desc` (enum[string], required) - Sort mode.
+        + Members:
+            + `date_asc`
+            + `date_desc`
+            + `popular_desc`
+    + word: `小林さんちのメイドラゴン` (string, required) - URL encoded keyword.
+    + duration: `within_last_day` (enum[string], optional) - Duration.
+        + Members:
+            + `within_last_day`
+            + `within_last_week`
+            + `within_last_month`    + filter: `for_ios` (string, optional) - Filter for store vendors.
+    + offset: `30` (integer, optional) - Offset index.
+
++ Response 200 (application/json)
+
+            {
+              "illusts": [
+                {
+                  "id": 61407906,
+                  "title": "カンナ",
+                  "type": "illust",
+                  "image_urls": {
+                    "square_medium": "https://i.pximg.net/c/360x360_70/img-master/img/2017/02/12/04/42/19/61407906_p0_square1200.jpg",
+                    "medium": "https://i.pximg.net/c/540x540_70/img-master/img/2017/02/12/04/42/19/61407906_p0_master1200.jpg",
+                    "large": "https://i.pximg.net/c/600x1200_90/img-master/img/2017/02/12/04/42/19/61407906_p0_master1200.jpg"
+                  },
+                  "caption": "見て見て(X",
+                  "restrict": 0,
+                  "user": {
+                    "id": 1888004,
+                    "name": "kara",
+                    "account": "color1087",
+                    "profile_image_urls": {
+                      "medium": "https://i1.pixiv.net/user-profile/img/2015/09/12/01/30/34/9871152_c24939cc4fab6e33f8492ecc8592bf5d_170.jpg"
+                    },
+                    "is_followed": false
+                  },
+                  "tags": [
+                    {
+                      "name": "小林さんちのメイドラゴン"
+                    }
+                  ],
+                  "tools": [
+                    "SAI"
+                  ],
+                  "create_date": "2017-02-12T04:42:19+09:00",
+                  "page_count": 1,
+                  "width": 1700,
+                  "height": 2200,
+                  "sanity_level": 2,
+                  "meta_single_page": {
+                    "original_image_url": "https://i3.pixiv.net/img-original/img/2017/02/12/04/42/19/61407906_p0.jpg"
+                  },
+                  "meta_pages": [],
+                  "total_view": 59,
+                  "total_bookmarks": 11,
+                  "is_bookmarked": false,
+                  "visible": true,
+                  "is_muted": false
+                }
+              ],
+              "next_url": "https://app-api.pixiv.net/v1/search/illust?search_target=partial_match_for_tags&filter=for_ios&sort=date_desc&word=%E5%B0%8F%E6%9E%97%E3%81%95%E3%82%93%E3%81%A1%E3%81%AE%E3%83%A1%E3%82%A4%E3%83%89%E3%83%A9%E3%82%B4%E3%83%B3&offset=30"
+            }
+
+
+### GET /v1/search/novel{?search_target,sort,word}
+Search novels.
+
++ Parameters
+    + search_target: `text` (enum[string], required) - Search target.
+        :::warning
+        <h3>Caution</h3>
+        `title_and_caption` and `exact_match_for_tags` is illust search only.
+        `text` and `keyword` is novel search only.
+        :::
+        + Members:
+            + `title_and_caption`
+            + `exact_match_for_tags`
+            + `partial_match_for_tags` 
+            + `text`
+            + `keyword`    + sort: `date_desc` (enum[string], required) - Sort mode.
+        + Members:
+            + `date_asc`
+            + `date_desc`
+            + `popular_desc`
+    + word: `小林さんちのメイドラゴン` (string, required) - URL encoded keyword.
+    + duration: `within_last_day` (enum[string], optional) - Duration.
+        + Members:
+            + `within_last_day`
+            + `within_last_week`
+            + `within_last_month`    + filter: `for_ios` (string, optional) - Filter for store vendors.
+    + offset: `30` (integer, optional) - Offset index.
+
++ Response 200 (application/json)
+
+            {
+              "novels": [
+                {
+                  "id": 7808740,
+                  "title": "小林「バイト始めたって？」　トール「はい！」",
+                  "caption": "小林さんで短編。<br /><br />トールのバイト先であるメイド喫茶へ訪れた小林達は喫茶内に閉じ込められてしまう。<br />出口を探す小林達の前に、リビングメイドの姿が……。",
+                  "restrict": 0,
+                  "image_urls": {
+                    "square_medium": "https://source.pixiv.net/common/images/novel_thumb/novel_thumb_0_128x128.jpg",
+                    "medium": "https://source.pixiv.net/common/images/novel_thumb/novel_thumb_0_176mw.jpg",
+                    "large": "https://source.pixiv.net/common/images/novel_thumb/novel_thumb_0_240mw.jpg"
+                  },
+                  "create_date": "2017-02-11T18:56:48+09:00",
+                  "tags": [
+                    {
+                      "name": "小林さんちのメイドラゴン",
+                      "added_by_uploaded_user": true
+                    }
+                  ],
+                  "page_count": 1,
+                  "text_length": 15992,
+                  "user": {
+                    "id": 2046683,
+                    "name": "runo",
+                    "account": "runo1028",
+                    "profile_image_urls": {
+                      "medium": "https://i4.pixiv.net/user-profile/img/2012/05/29/19/19/21/4667087_afa22403d8f143301150c68feda1dd0d_170.png"
+                    },
+                    "is_followed": false
+                  },
+                  "series": {},
+                  "is_bookmarked": false,
+                  "total_bookmarks": 4,
+                  "total_view": 106,
+                  "visible": true,
+                  "total_comments": 0,
+                  "is_muted": false
+                }
+              ],
+              "next_url": null
+            }

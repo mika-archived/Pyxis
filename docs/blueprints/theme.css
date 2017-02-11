@@ -1,0 +1,24 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', '游ゴシック  Medium', meiryo, sans-serif !important;
+  --code-font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+code {
+  font-family: var(--code-font-family) !important;  
+}
+
+pre code {
+  font-family: var(--code-font-family) !important;  
+}
+
+.definition {
+  font-family: var(--code-font-family) !important;  
+}
+
+dl dt {
+  font-family: var(--code-font-family) !important;  
+}
+
+span.example span {
+  font-family: var(--code-font-family) !important;  
+}
