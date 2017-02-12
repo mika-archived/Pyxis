@@ -1,0 +1,24 @@
+## Group Ugoira
+Ugoira related APIs.
+
+### GET /v1/ugoira/metadata{?illust_id}
+Get ugoira metadata.
+
++ Parameters
+    + illust_id: `46384679` (integer, required) - Illustration ID.
+
++ Response 200 (application/json)
+
+            {
+              "ugoira_metadata": {
+                "zip_urls": {
+                  "medium": "https://i4.pixiv.net/img-zip-ugoira/img/2014/10/06/05/24/37/46384679_ugoira600x600.zip"
+                },
+                "frames": [
+                  {
+                    "file": "000000.jpg",
+                    "delay": 125
+                  }
+                ]
+              }
+            }

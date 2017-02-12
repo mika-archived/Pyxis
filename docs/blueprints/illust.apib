@@ -1,6 +1,66 @@
 ## Group Illustration
 Illustration related APIs.
 
+### POST /v2/illust/bookmark/add
+Add illustration to bookmark.
+
++ Parameters
+    + illust_id: `61413625` (integer, required) - Illustration ID.
+    + restrict: `public` (enum[string], required) - Restrict for user's accessible.
+        + Members:
+            + `all`
+            + `public`
+            + `private`
+    + tags: `この素晴らしい世界に祝福を!` (string, optional) - Bookmark tag.
+
++ Request (application/x-www-form-urlencoded)
+    + Body
+        
+            illust_id=61413625&restrict=public&tags%5B%5D=%E3%81%93%E3%81%AE%E7%B4%A0%E6%99%B4%E3%82%89%E3%81%97%E3%81%84%E4%B8%96%E7%95%8C%E3%81%AB%E7%A5%9D%E7%A6%8F%E3%82%92%21
+
++ Response 200 (application/json)
+
+        {}
+
+
+### POST /v2/illust/bookmark/delete
+Delete illustration from bookmark.
+
++ Parameters
+    + illust_id: `61352292` (integer, required) - Illustration ID.
+
++ Request (application/x-www-form-urlencoded)
+    + Body
+        
+            illust_id=57123210
+
++ Response 200 (application/json)
+
+        {}
+
+
+### GET /v2/illust/bookmark/detail{?illust_id}
+Get illustration details for bookmark.
+
++ Parameters
+    + illust_id: `61413625` (integer, required) - Illustration ID.
+
++ Response 200 (application/json)
+
+            {
+              "bookmark_detail": {
+                "is_bookmarked": false,
+                "tags": [
+                  {
+                    "name": "この素晴らしい世界に祝福を!",
+                    "is_registered": false
+                  }
+                ],
+                "restrict": "public"
+              }
+            }
+
+
 ### GET /v1/illust/comment{?illust_id}
 Get comments that illustration.
 

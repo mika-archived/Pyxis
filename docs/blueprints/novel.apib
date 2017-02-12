@@ -1,6 +1,99 @@
 ## Group Novel
 Novel related APIs.
 
+### POST /v2/novel/bookmark/add
+Add novel to bookmark.
+
++ Parameters
+    + novel_id: `7168003` (integer, required) - Novel ID.
+    + restrict: `public` (enum[string], required) - Restrict for user's accessible.
+        + Members:
+            + `all`
+            + `public`
+            + `private`
+    + tags: `この素晴らしい世界に祝福を!` (string, optional) - Bookmark tag.
+
++ Request
+    + Body
+
+            restrict=public&novel_id=5642384
+
++ Response 200 (application/json)
+
+            {
+            }
+
+
+### POST /v2/novel/bookmark/delete
+Delete novel from bookmark.
+
++ Parameters
+    + novel_id: `7168003` (integer, required) - Novel ID.
+    + offset: `30` (integer, optional) - Offset index.
+    + include_total_comments: `true` (boolean, optional) - Including `total_comments`.
+
++ Request
+    + Body
+
+            novel_id=5642384
+
++ Response 200 (application/json)
+
+            {
+            }
+
+
+### GET /v2/novel/bookmark/detail{?novel_id}
+Get bookmark detail for specified novel.
+
++ Parameters
+    + novel_id: `7168003` (integer, required) - Novel ID.
+
++ Response 200 (application/json)
+
+            {
+              "bookmark_detail": {
+                "is_bookmarked": false,
+                "restrict": "public",
+                "tags": [
+                  {
+                    "name": "講座",
+                    "is_registered": false
+                  }
+                ]
+              }
+            }
+
+
+### GET /v1/novel/comments{?novel_id}
+Get comments that posted to specified novel.
+
++ Parameters
+    + novel_id: `5642384` (integer, required) - Novel ID.
+
+
++ Response 200 (application/json)
+
+            {
+              "total_comments": 0,
+              "comments": [
+                {
+                  "id": 14685485,
+                  "comment": "23333，我们天朝愤青IQ一般都不高，23333",
+                  "date": "2017-01-09T17:17:00+09:00",
+                  "user": {
+                    "id": 22095494,
+                    "name": "HENENG",
+                    "profile_image_urls": {
+                      "medium": "https://source.pixiv.net/common/images/no_profile.png"
+                    }
+                  }
+                }
+              ],
+              "next_url": "https://app-api.pixiv.net/v1/novel/comments?novel_id=5642384&offset=30&include_total_comments=false"
+            }
+
+
 ### GET /v1/novel/follow
 Get novels that posted by followed users.
 

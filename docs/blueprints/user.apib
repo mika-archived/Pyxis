@@ -1,6 +1,135 @@
 # Group User
 User related APIs.
 
+### GET /v1/user/bookmarks/illust{?user_id}
+Get bookmarked illustrations.
+
++ Parameters
+    + user_id: `3623925` (integer, required) - User ID.
+    + max_bookmark_id: `2729948528` (integer, optional) - ?
+    + filter: `for_ios` (string, optional) - Filter for store vendors.
+    + offset: `30` (integer, optional) - Offset index.
+    + restrict: `public` (enum[string], optional) - Restrict for user's accessible.
+        + Members:
+            + `all`
+            + `public`
+            + `private`
+    + tag: `Charlotte` (string, optional) - URL encoded tag.
+
++ Response 200 (application/json)
+
+        {
+          "illusts": [
+            {
+              "id": 44606515,
+              "title": "レインコー兎",
+              "type": "illust",
+              "image_urls": {
+                "square_medium": "https://i.pximg.net/c/360x360_70/img-master/img/2014/07/09/20/40/06/44606515_p0_square1200.jpg",
+                "medium": "https://i.pximg.net/c/540x540_70/img-master/img/2014/07/09/20/40/06/44606515_p0_master1200.jpg",
+                "large": "https://i.pximg.net/c/600x1200_90/img-master/img/2014/07/09/20/40/06/44606515_p0_master1200.jpg"
+              },
+              "caption": "うさぎさんレインコート<br />7/11DR64位ありがとうございます！！",
+              "restrict": 0,
+              "user": {
+                "id": 612602,
+                "name": "しゅがお",
+                "account": "shuga_o",
+                "profile_image_urls": {
+                  "medium": "https://i4.pixiv.net/user-profile/img/2016/07/30/01/45/00/11268851_0ebc537699e6670cb11ee50f31c7e274_170.jpg"
+                },
+                "is_followed": true
+              },
+              "tags": [
+                {
+                  "name": "卯月"
+                }
+              ],
+              "tools": [
+                "SAI"
+              ],
+              "create_date": "2014-07-09T20:40:06+09:00",
+              "page_count": 1,
+              "width": 700,
+              "height": 866,
+              "sanity_level": 2,
+              "meta_single_page": {
+                "original_image_url": "https://i4.pixiv.net/img-original/img/2014/07/09/20/40/06/44606515_p0.png"
+              },
+              "meta_pages": [],
+              "total_view": 27327,
+              "total_bookmarks": 2164,
+              "is_bookmarked": true,
+              "visible": true,
+              "is_muted": false
+            }
+          ],
+          "next_url": "https://app-api.pixiv.net/v1/user/bookmarks/illust?restrict=public&user_id=3623925&max_bookmark_id=2729948528"
+        }
+
+
+### GET /v1/user/bookmarks/novel{?user_id}
+Get bookmarked novels.
+
++ Parameters
+    + user_id: `3623925` (integer, required) - User ID.
+    + offset: `30` (integer, optional) - Offset index.
+    + restrict: `public` (enum[string], optional) - Restrict for user's accessible.
+        + Members:
+            + `all`
+            + `public`
+            + `private`
+    + tag: `Charlotte` (string, optional) - URL encoded tag.
+    + max_bookmark_id: `2729948528` (integer, optional) - ??.
+
++ Response 200 (application/json)
+
+        {
+          "novels": [
+            {
+              "id": 4809179,
+              "title": "猫とカラスと魔女姫様",
+              "caption": "第一の童話。<br /><br />試しというか、ちょっとした落書きなのであまり深くつっこまないでくださると幸いです。",
+              "restrict": 0,
+              "image_urls": {
+                "square_medium": "https://source.pixiv.net/common/images/novel_thumb/novel_thumb_0_128x128.jpg",
+                "medium": "https://source.pixiv.net/common/images/novel_thumb/novel_thumb_0_176mw.jpg",
+                "large": "https://source.pixiv.net/common/images/novel_thumb/novel_thumb_0_240mw.jpg"
+              },
+              "create_date": "2015-01-19T23:18:50+09:00",
+              "tags": [
+                {
+                  "name": "オリジナル",
+                  "added_by_uploaded_user": true
+                }
+              ],
+              "page_count": 1,
+              "text_length": 2743,
+              "user": {
+                "id": 874186,
+                "name": "如月カヤ",
+                "account": "myon0305",
+                "profile_image_urls": {
+                  "medium": "https://i3.pixiv.net/user-profile/img/2016/08/31/17/29/25/11434186_d51f48f6e721c0e18b8f64e31d349283_170.jpg"
+                },
+                "is_followed": true
+              },
+              "series": {
+                "id": 705352,
+                "title": "魔女の童話"
+              },
+              "is_bookmarked": true,
+              "total_bookmarks": 13,
+              "total_view": 650,
+              "visible": true,
+              "total_comments": 0,
+              "is_muted": false
+            }
+          ],
+          "next_url": null
+        }
+
+
 ### GET /v1/user/detail{?user_id}
 Get user information.
 
@@ -72,6 +201,23 @@ Follow specified user.
     + Body
 
             restrict=public&user_id=676740
+
++ Response 200 (application/json)
+
+        {
+        }
+
+
+### POST /v1/user/follow/delete
+Unfollow specified user.
+
++ Parameters
+    + user_id: `3623925` (integer, required) - User ID.
+
++ Request (application/x-www-form-urlencoded)
+    + Body
+
+            user_id=676740
 
 + Response 200 (application/json)
 

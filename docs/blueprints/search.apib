@@ -1,6 +1,21 @@
 ## Group Search
 Search related APIs.
 
+### GET /v1/search/autocomplete{?word}
+Get search autocomplete words.
+
++ Parameters
+    + word: `この` (string, required) - URL encoded keyword.
+
++ Response 200 (application/json)
+
+            {
+              "search_auto_complete_keywords": [
+                "この発想はなかった"
+              ]
+            }
+
+
 ### GET /v1/search/illust{?search_target,sort,word}
 Search illustrations.
 
@@ -147,6 +162,87 @@ Search novels.
                   "total_view": 106,
                   "visible": true,
                   "total_comments": 0,
+                  "is_muted": false
+                }
+              ],
+              "next_url": null
+            }
+
+
+### GET /search/user{?word}
+Search users.
+
++ Parameters
+    + word: `三嶋` (string, required) - URL encoded keyword.
+
++ Response 200 (application/json)
+
+            {
+              "user_previews": [
+                {
+                  "user": {
+                    "id": 11098718,
+                    "name": "三嶋希昇",
+                    "account": "kita37_syoma62",
+                    "profile_image_urls": {
+                      "medium": "https://i2.pixiv.net/user-profile/img/2015/07/30/15/52/47/9682349_3fd0731172fcbd70bc322a5f7375f26d_170.jpg"
+                    },
+                    "comment": "下手くそなのにニョキってでてきてごめんなさい。",
+                    "is_followed": false
+                  },
+                  "illusts": [
+                    {
+                      "id": 50401378,
+                      "title": "ベイスターズと藤江ちゃん＃98",
+                      "type": "illust",
+                      "image_urls": {
+                        "square_medium": "https://i.pximg.net/c/360x360_70/img-master/img/2015/05/16/16/02/47/50401378_p0_square1200.jpg",
+                        "medium": "https://i.pximg.net/c/540x540_70/img-master/img/2015/05/16/16/02/47/50401378_p0_master1200.jpg",
+                        "large": "https://i.pximg.net/c/600x1200_90/img-master/img/2015/05/16/16/02/47/50401378_p0_master1200.jpg"
+                      },
+                      "caption": "山下　幸輝#38<br />小池　正晃<br />砂田　毅樹#111　<br />藤江　　均#98　<br />石川　雄洋#7　<br />荒波　　翔#4<br />平田　真吾#34　<br />三上　朋也#35<br />関根　大気#63",
+                      "restrict": 0,
+                      "user": {
+                        "id": 11098718,
+                        "name": "三嶋希昇",
+                        "account": "kita37_syoma62",
+                        "profile_image_urls": {
+                          "medium": "https://i2.pixiv.net/user-profile/img/2015/07/30/15/52/47/9682349_3fd0731172fcbd70bc322a5f7375f26d_170.jpg"
+                        },
+                        "is_followed": false
+                      },
+                      "tags": [
+                        {
+                          "name": "ベイスターズ"
+                        }
+                      ],
+                      "tools": [
+                        "PictBear"
+                      ],
+                      "create_date": "2015-05-16T16:02:47+09:00",
+                      "page_count": 9,
+                      "width": 519,
+                      "height": 515,
+                      "sanity_level": 2,
+                      "meta_single_page": {},
+                      "meta_pages": [
+                        {
+                          "image_urls": {
+                            "square_medium": "https://i.pximg.net/c/360x360_70/img-master/img/2015/05/16/16/02/47/50401378_p0_square1200.jpg",
+                            "medium": "https://i.pximg.net/c/540x540_70/img-master/img/2015/05/16/16/02/47/50401378_p0_master1200.jpg",
+                            "large": "https://i.pximg.net/c/600x1200_90/img-master/img/2015/05/16/16/02/47/50401378_p0_master1200.jpg",
+                            "original": "https://i3.pixiv.net/img-original/img/2015/05/16/16/02/47/50401378_p0.jpg"
+                          }
+                        }
+                      ],
+                      "total_view": 313,
+                      "total_bookmarks": 0,
+                      "is_bookmarked": false,
+                      "visible": true,
+                      "is_muted": false
+                    }
+                  ],
+                  "novels": [],
                   "is_muted": false
                 }
               ],
