@@ -61,6 +61,32 @@ Get illustration details for bookmark.
             }
 
 
+### GET /v1/illust/bookmark/users{?illust_id}
+Get bookmarked users.
+
++ Parameters
+    + illust_id: `61413743` (integer, required) - Illustration ID.
+    + offset: `30` (integer, optional) - Offset index.
+
++ Response 200 (application/json)
+
+            {
+              "users": [
+                {
+                  "id": 6375053,
+                  "name": "mickey0240",
+                  "account": "uranus0420",
+                  "profile_image_urls": {
+                    "medium": "https://source.pixiv.net/common/images/no_profile.png"
+                  },
+                  "comment": "",
+                  "is_followed": false
+                }
+              ],
+              "next_url": null
+            }
+
+
 ### GET /v1/illust/comment{?illust_id}
 Get comments that illustration.
 

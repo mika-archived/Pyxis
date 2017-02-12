@@ -65,6 +65,32 @@ Get bookmark detail for specified novel.
             }
 
 
+### GET /v1/novel/bookmark/users{?novel_id}
+Get bookmarked users.
+
++ Parameters
+    + novel_id: `7408561` (integer, required) - Novel ID.
+    + offset: `30` (integer, optional) - Offset index.
+
++ Response 200 (application/json)
+
+            {
+              "users": [
+                {
+                  "id": 22829827,
+                  "name": "兔兔",
+                  "account": "user_axnm5347",
+                  "profile_image_urls": {
+                    "medium": "https://source.pixiv.net/common/images/no_profile.png"
+                  },
+                  "comment": "",
+                  "is_followed": false
+                }
+              ],
+              "next_url": "https://app-api.pixiv.net/v1/novel/bookmark/users?novel_id=7408561&offset=30"
+            }
+
+
 ### GET /v1/novel/comments{?novel_id}
 Get comments that posted to specified novel.
 
