@@ -247,3 +247,4 @@ ModelManifest.xml
 # UWP publish files
 *.appx
 _pkginfo.txt
+*.html
