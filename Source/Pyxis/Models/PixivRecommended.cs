@@ -22,6 +22,8 @@ namespace Pyxis.Models
         private readonly ContentType _contentType;
         private readonly IPixivClient _pixivClient;
         private readonly IQueryCacheService _queryCacheService;
+        private string _maxBookmarkIdForRecommend;
+        private string _minBookmarkIdForRecentIllust;
         private string _offset;
 
         public ObservableCollection<IIllust> RecommendedImages { get; }
@@ -35,6 +37,8 @@ namespace Pyxis.Models
             _pixivClient = pixivClient;
             _queryCacheService = queryCacheService;
             _offset = "";
+            _maxBookmarkIdForRecommend = "";
+            _minBookmarkIdForRecentIllust = "";
             RecommendedNovels = new ObservableCollection<INovel>();
             RecommendedImages = new ObservableCollection<IIllust>();
             RecommendedUsers = new ObservableCollection<IUserPreview>();
@@ -66,23 +70,31 @@ namespace Pyxis.Models
                 illusts = await RecommendedAsync("manga");
             illusts?.Illusts.ForEach(w => RecommendedImages.Add(w));
             if (string.IsNullOrWhiteSpace(illusts?.NextUrl))
+            {
                 HasMoreItems = false;
+            }
             else
-                _offset = UrlParameter.ParseQuery(illusts.NextUrl)["offset"];
+            {
+                var urlParams = UrlParameter.ParseQuery(illusts.NextUrl);
+                _maxBookmarkIdForRecommend = urlParams["max_bookmark_id_for_recommend"];
+                _minBookmarkIdForRecentIllust = urlParams["min_bookmark_id_for_recent_illust"];
+            }
         }
 
         private async Task<IRecommendedIllusts> RecommendedAsync(string contentType)
         {
             // manga/recommended との違いがわからない。
             if (_accountService.IsLoggedIn)
-                return await _queryCacheService.RunAsync(_pixivClient.IllustV1.RecommendedAsync,
+                return await _queryCacheService.RunAsync(_pixivClient.IllustV1.RecommendedNologinAsync,
                                                          content_type => contentType,
                                                          filter => "for_ios",
-                                                         offset => _offset);
-            return await _queryCacheService.RunAsync(_pixivClient.IllustV1.RecommendedNologinAsync,
+                                                         max_bookmark_id_for_recommend => _maxBookmarkIdForRecommend,
+                                                         min_bookmark_id_for_recent_illust => _minBookmarkIdForRecentIllust);
+            return await _queryCacheService.RunAsync(_pixivClient.IllustV1.RecommendedAsync,
                                                      content_type => contentType,
                                                      filter => "for_ios",
-                                                     offset => _offset);
+                                                     max_bookmark_id_for_recommend => _maxBookmarkIdForRecommend,
+                                                     min_bookmark_id_for_recent_illust => _minBookmarkIdForRecentIllust);
         }
 
         private async Task FetchNovels()
