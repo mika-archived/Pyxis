@@ -16,9 +16,9 @@
 
         public static string IllustBookmarkUsers => $"{BaseUrl}/{Version1}/illust/bookmark/users";
 
-        public static string IllustBookmarkAdd => $"{BaseUrl}/{Version1}/illust/bookmark/add";
+        public static string IllustBookmarkAdd => $"{BaseUrl}/{Version2}/illust/bookmark/add";
 
-        public static string IllustBookmarkDelete => $"{BaseUrl}/{Version1}/illust/bookmark/delete";
+        public static string IllustBookmarkDelete => $"{BaseUrl}/{Version2}/illust/bookmark/delete";
 
         public static string IllustComments => $"{BaseUrl}/{Version1}/illust/comments";
 
@@ -36,9 +36,9 @@
 
         public static string MangaRecommended => $"{BaseUrl}/{Version1}/manga/recommended";
 
-        public static string NovelBookmarkAdd => $"{BaseUrl}/{Version1}/novel/bookmark/add";
+        public static string NovelBookmarkAdd => $"{BaseUrl}/{Version2}/novel/bookmark/add";
 
-        public static string NovelBookmarkDelete => $"{BaseUrl}/{Version1}/novel/bookmark/delete";
+        public static string NovelBookmarkDelete => $"{BaseUrl}/{Version2}/novel/bookmark/delete";
 
         public static string NovelComments => $"{BaseUrl}/{Version1}/novel/comments";
 
@@ -92,7 +92,7 @@
 
         public static string UserBrowsingHistoryNovels => $"{BaseUrl}/{Version1}/user/browsing-history/novels";
 
-        public static string UserBrowsingHistoryNovelAdd => $"{BaseUrl}/{Version1}/user/browsin-history/novel/add";
+        public static string UserBrowsingHistoryNovelAdd => $"{BaseUrl}/{Version2}/user/browsin-history/novel/add";
 
         public static string UserDetail => $"{BaseUrl}/{Version1}/user/detail";
 
