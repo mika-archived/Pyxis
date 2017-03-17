@@ -1,17 +1,18 @@
 ﻿using Prism.Windows.Navigation;
 
-using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Models;
 using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Home.Base;
 
+using Sagitta.Models;
+
 namespace Pyxis.ViewModels.Home
 {
     public class RankingNovelViewModel : RankingViewModel
     {
-        public RankingNovelViewModel(INovel novel, RankingMode mode, IImageStoreService imageStoreService,
+        public RankingNovelViewModel(Novel novel, RankingMode mode, IImageStoreService imageStoreService,
                                      INavigationService navigationService)
             : base(mode, imageStoreService, navigationService)
         {

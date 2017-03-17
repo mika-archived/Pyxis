@@ -1,6 +1,5 @@
 ﻿using Prism.Windows.Navigation;
 
-using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Extensions;
 using Pyxis.Models;
 using Pyxis.Models.Enums;
@@ -8,14 +7,16 @@ using Pyxis.Models.Parameters;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Home.Base;
 
+using Sagitta.Models;
+
 namespace Pyxis.ViewModels.Home
 {
     public class RankingImageViewModel : RankingViewModel
     {
         private readonly ContentType _contentType;
-        private readonly IIllust _illust;
+        private readonly Illust _illust;
 
-        public RankingImageViewModel(IIllust illust, RankingMode mode, ContentType contentType, IImageStoreService imageStoreService,
+        public RankingImageViewModel(Illust illust, RankingMode mode, ContentType contentType, IImageStoreService imageStoreService,
                                      INavigationService navigationService)
             : base(mode, imageStoreService, navigationService)
         {

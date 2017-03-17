@@ -2,10 +2,11 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-using Pyxis.Beta.Interfaces.Models.v1;
-using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Helpers;
 using Pyxis.Services.Interfaces;
+
+using Sagitta;
+using Sagitta.Models;
 
 namespace Pyxis.Services
 {
@@ -13,9 +14,9 @@ namespace Pyxis.Services
     {
         private readonly List<int> _illustIds;
         private readonly List<int> _novelIds;
-        private readonly IPixivClient _pixivClient;
+        private readonly PixivClient _pixivClient;
 
-        public BrowsingHistoryService(IPixivClient pixivClient)
+        public BrowsingHistoryService(PixivClient pixivClient)
         {
             _pixivClient = pixivClient;
             _illustIds = new List<int>();
@@ -27,19 +28,19 @@ namespace Pyxis.Services
         {
             if (isIllust)
             {
-                await _pixivClient.UserV2.BrowsingHistory.Illust.AddAsync(illust_ids => string.Join(",", _illustIds));
+                await _pixivClient.User.BrowsingHistory.AddIllustAsync(_illustIds);
                 _illustIds.Clear();
             }
             else
             {
-                await _pixivClient.UserV1.BrowsingHistory.Novel.AddAsync(novel_ids => string.Join(",", _novelIds));
+                await _pixivClient.User.BrowsingHistory.AddNovelAsync(_novelIds);
                 _novelIds.Clear();
             }
         }
 
         #region Implementation of IBrowsingHistoryService
 
-        public void Add(IIllust illust)
+        public void Add(Illust illust)
         {
             if (_illustIds.Contains(illust.Id))
                 return;
@@ -48,7 +49,7 @@ namespace Pyxis.Services
                 RunHelper.RunAsync(SendAsync, true);
         }
 
-        public void Add(INovel novel)
+        public void Add(Novel novel)
         {
             if (_novelIds.Contains(novel.Id))
                 return;

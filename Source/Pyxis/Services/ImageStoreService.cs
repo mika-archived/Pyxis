@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Streams;
 
-using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Services.Interfaces;
+
+using Sagitta;
 
 using WinRTXamlToolkit.IO.Extensions;
 
@@ -17,13 +18,13 @@ namespace Pyxis.Services
     internal class ImageStoreService : IImageStoreService
     {
         private readonly Regex _backgroundRegex = new Regex(@"^\d+_[a-z0-9]{32}$", RegexOptions.Compiled);
-        private readonly IPixivClient _client;
+        private readonly PixivClient _client;
         private readonly Regex _origRegex = new Regex(@"^\d+_p\d+$", RegexOptions.Compiled);
         private readonly StorageFolder _temporaryFolder;
         private readonly Regex _ugoiraRegex = new Regex(@"^\d+_ugoira\d+$", RegexOptions.Compiled);
         private readonly Regex _userRegex = new Regex(@"^\d+$", RegexOptions.Compiled);
 
-        public ImageStoreService(IPixivClient client)
+        public ImageStoreService(PixivClient client)
         {
             _client = client;
             _temporaryFolder = ApplicationData.Current.TemporaryFolder;
@@ -34,7 +35,7 @@ namespace Pyxis.Services
         {
             try
             {
-                var stream = await _client.Pximg.GetAsync(url);
+                var stream = await _client.Image.GetAsync(url);
                 var storageFile = await (await GetDirectory(url))
                     .CreateFileAsync(GetFileId(url), CreationCollisionOption.FailIfExists);
                 using (var transaction = await storageFile.OpenTransactedWriteAsync())

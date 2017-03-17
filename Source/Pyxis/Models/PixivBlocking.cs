@@ -8,25 +8,26 @@ using Windows.UI.Xaml.Data;
 
 using Microsoft.Practices.ObjectBuilder2;
 
-using Pyxis.Beta.Interfaces.Models.v1;
-using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Services.Interfaces;
+
+using Sagitta;
+using Sagitta.Models;
 
 namespace Pyxis.Models
 {
     internal class PixivBlocking : ISupportIncrementalLoading
     {
-        private readonly IPixivClient _pixivClient;
+        private readonly PixivClient _pixivClient;
         private readonly IQueryCacheService _queryCacheService;
-        private string _offset;
-        public ObservableCollection<IUser> Users { get; }
+        private int _offset;
+        public ObservableCollection<User> Users { get; }
 
-        public PixivBlocking(IPixivClient pixivClient, IQueryCacheService queryCacheService)
+        public PixivBlocking(PixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _pixivClient = pixivClient;
             _queryCacheService = queryCacheService;
-            Users = new ObservableCollection<IUser>();
-            _offset = "";
+            Users = new ObservableCollection<User>();
+            _offset = 0;
 #if OFFLINE
             HasMoreItems = false;
 #else
@@ -37,13 +38,12 @@ namespace Pyxis.Models
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         private async Task Fetch()
         {
-            var users = await _queryCacheService.RunAsync(_pixivClient.UserV2.ListAsync,
-                                                          offset => _offset);
-            users?.UserList.ForEach(w => Users.Add(w));
+            var users = await _pixivClient.User.ListAsync(offset: _offset);
+            users?.UserPreviews.ForEach(w => Users.Add(w.User));
             if (string.IsNullOrWhiteSpace(users?.NextUrl))
                 HasMoreItems = false;
             else
-                _offset = UrlParameter.ParseQuery(users.NextUrl)["offset"];
+                _offset = int.Parse(UrlParameter.ParseQuery(users.NextUrl)["offset"]);
         }
 
         #region Implementation of ISupportIncrementalLoading

@@ -9,48 +9,52 @@ using Windows.UI.Xaml.Data;
 
 using Microsoft.Practices.ObjectBuilder2;
 
-using Pyxis.Beta.Interfaces.Models.v1;
-using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Helpers;
 using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
 using Pyxis.Services.Interfaces;
 
+using Sagitta;
+using Sagitta.Enum;
+using Sagitta.Models;
+
+using SearchTarget = Sagitta.Enum.SearchTarget;
+
 namespace Pyxis.Models
 {
     internal class PixivSearch : ISupportIncrementalLoading
     {
-        private readonly IPixivClient _pixivClient;
+        private readonly PixivClient _pixivClient;
         private readonly IQueryCacheService _queryCacheService;
         private int _count;
-        private string _offset;
+        private int _offset;
         private SearchOptionParameter _optionParam;
 
         private string _query;
 
-        public ObservableCollection<IIllust> ResultIllusts { get; }
-        public ObservableCollection<INovel> ResultNovels { get; }
-        public ObservableCollection<IUserPreview> ResultUsers { get; }
+        public ObservableCollection<Illust> ResultIllustsRoot { get; }
+        public ObservableCollection<Novel> ResultNovels { get; }
+        public ObservableCollection<UserPreview> ResultUsers { get; }
 
-        public PixivSearch(IPixivClient pixivClient, IQueryCacheService queryCacheService)
+        public PixivSearch(PixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _pixivClient = pixivClient;
             _queryCacheService = queryCacheService;
-            ResultIllusts = new ObservableCollection<IIllust>();
-            ResultNovels = new ObservableCollection<INovel>();
-            ResultUsers = new ObservableCollection<IUserPreview>();
-            _offset = "";
+            ResultIllustsRoot = new ObservableCollection<Illust>();
+            ResultNovels = new ObservableCollection<Novel>();
+            ResultUsers = new ObservableCollection<UserPreview>();
+            _offset = 0;
             _count = 0;
             HasMoreItems = false;
         }
 
         public void Search(string query, SearchOptionParameter optionParameter, bool force = false)
         {
-            ResultIllusts.Clear();
+            ResultIllustsRoot.Clear();
             ResultNovels.Clear();
             ResultUsers.Clear();
             _query = query;
-            _offset = "";
+            _offset = 0;
             _count = 0;
             _optionParam = optionParameter;
             if (!string.IsNullOrWhiteSpace(_optionParam.EitherWord))
@@ -66,13 +70,13 @@ namespace Pyxis.Models
 
         private async Task SearchAsync()
         {
-            if ((_optionParam == null) || string.IsNullOrWhiteSpace(_query))
+            if (_optionParam == null || string.IsNullOrWhiteSpace(_query))
             {
                 HasMoreItems = false;
                 return;
             }
-            if ((_count > 0) && string.IsNullOrWhiteSpace(_offset))
-                _offset = "30"; // クソ
+            if (_count > 0 && _offset == 0)
+                _offset = 30; // クソ
             _count++;
             if (_optionParam.SearchType == SearchType.IllustsAndManga)
                 await SearchIllust();
@@ -87,37 +91,26 @@ namespace Pyxis.Models
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         private async Task SearchIllust()
         {
-            var illusts = await _queryCacheService.RunAsync(_pixivClient.Search.IllustAsync,
-                                                            duration => _optionParam.Duration.ToParamString(),
-                                                            search_target => _optionParam.Target.ToParamString(),
-                                                            sort => _optionParam.Sort.ToParamString(),
-                                                            word => _query,
-                                                            filter => "for_ios",
-                                                            offset => _offset);
-            illusts?.IllustList.Where(w => w.TotalBookmarks >= _optionParam.BookmarkCount)
+            var illusts = await _pixivClient.Search.IllustAsync(_query, SearchTarget.ExactMatchForTags, SortOrder.PopularDesc, filter: "for_ios",
+                                                                offset: _offset);
+            illusts?.Illusts.Where(w => w.TotalBookmarks >= _optionParam.BookmarkCount)
                     .Where(w => w.TotalView >= _optionParam.ViewCount)
-                    .Where(w => w.TotalComments >= _optionParam.CommentCount)
+                    .Where(w => w.TotalView >= _optionParam.CommentCount)
                     .Where(w => w.PageCount >= _optionParam.CommentCount)
-                    .Where(w => (w.Height >= _optionParam.Height) && (w.Width >= _optionParam.Width))
+                    .Where(w => w.Height >= _optionParam.Height && w.Width >= _optionParam.Width)
                     .Where(w => string.IsNullOrWhiteSpace(_optionParam.Tool) || w.Tools.Any(v => v == _optionParam.Tool))
-                    .ForEach(w => ResultIllusts.Add(w));
+                    .ForEach(w => ResultIllustsRoot.Add(w));
             if (string.IsNullOrWhiteSpace(illusts?.NextUrl))
                 HasMoreItems = false;
             else
-                _offset = UrlParameter.ParseQuery(illusts.NextUrl)["offset"];
+                _offset = int.Parse(UrlParameter.ParseQuery(illusts.NextUrl)["offset"]);
         }
 
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         private async Task SearchNovel()
         {
-            var novels = await _queryCacheService.RunAsync(_pixivClient.Search.NovelAsync,
-                                                           duration => _optionParam.Duration.ToParamString(),
-                                                           search_target => _optionParam.Target.ToParamString(),
-                                                           sort => _optionParam.Sort.ToParamString(),
-                                                           word => _query,
-                                                           offset => _offset);
-
-            novels?.NovelList.Where(w => w.TotalBookmarks >= _optionParam.BookmarkCount)
+            var novels = await _pixivClient.Search.NovelAsync(_query, SearchTarget.ExactMatchForTags, SortOrder.PopularDesc, offset: _offset);
+            novels?.Novels.Where(w => w.TotalBookmarks >= _optionParam.BookmarkCount)
                    .Where(w => w.TotalView >= _optionParam.ViewCount)
                    .Where(w => w.TotalComments >= _optionParam.CommentCount)
                    .Where(w => w.PageCount >= _optionParam.CommentCount)
@@ -126,20 +119,17 @@ namespace Pyxis.Models
             if (string.IsNullOrWhiteSpace(novels?.NextUrl))
                 HasMoreItems = false;
             else
-                _offset = UrlParameter.ParseQuery(novels.NextUrl)["offset"];
+                _offset = int.Parse(UrlParameter.ParseQuery(novels.NextUrl)["offset"]);
         }
 
         private async Task SearchUser()
         {
-            var users = await _queryCacheService.RunAsync(_pixivClient.Search.UserAsync,
-                                                          word => _query,
-                                                          filter => "for_ios",
-                                                          offset => _offset);
-            users?.UserPreviewList.ForEach(w => ResultUsers.Add(w));
+            var users = await _pixivClient.Search.UserAsync(_query, _offset);
+            users?.UserPreviews.ForEach(w => ResultUsers.Add(w));
             if (string.IsNullOrWhiteSpace(users?.NextUrl))
                 HasMoreItems = false;
             else
-                _offset = UrlParameter.ParseQuery(users.NextUrl)["offset"];
+                _offset = int.Parse(UrlParameter.ParseQuery(users.NextUrl)["offset"]);
         }
 
         #region Implementation of ISupportIncrementalLoading

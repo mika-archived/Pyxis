@@ -2,8 +2,6 @@
 
 using Prism.Windows.Navigation;
 
-using Pyxis.Beta.Interfaces.Models.v1;
-using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Collections;
 using Pyxis.Helpers;
 using Pyxis.Models;
@@ -14,6 +12,9 @@ using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
 using Pyxis.ViewModels.Items;
 
+using Sagitta;
+using Sagitta.Models;
+
 namespace Pyxis.ViewModels.Search
 {
     public class UserSearchPageViewModel : ViewModel
@@ -21,7 +22,7 @@ namespace Pyxis.ViewModels.Search
         private readonly IAccountService _accountService;
         private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
-        private readonly IPixivClient _pixivClient;
+        private readonly PixivClient _pixivClient;
         private readonly IQueryCacheService _queryCacheService;
         private PixivRecommended _pixivRecommended;
         private PixivSearch _pixivSearch;
@@ -31,7 +32,7 @@ namespace Pyxis.ViewModels.Search
 
         public UserSearchPageViewModel(IAccountService accountService, ICategoryService categoryService,
                                        IImageStoreService imageStoreService, INavigationService navigationService,
-                                       IPixivClient pixivClient, IQueryCacheService queryCacheService)
+                                       PixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _accountService = accountService;
             _categoryService = categoryService;
@@ -81,7 +82,7 @@ namespace Pyxis.ViewModels.Search
 
         #region Converters
 
-        private TappableThumbnailViewModel CreateUserViewModel(IUserPreview userPreview)
+        private TappableThumbnailViewModel CreateUserViewModel(UserPreview userPreview)
             => new UserCardViewModel(userPreview, _imageStoreService, NavigationService, _pixivClient);
 
         #endregion

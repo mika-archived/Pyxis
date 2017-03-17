@@ -12,8 +12,6 @@ using Microsoft.Practices.ObjectBuilder2;
 using Prism.Commands;
 using Prism.Windows.Navigation;
 
-using Pyxis.Beta.Interfaces.Models.v1;
-using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Collections;
 using Pyxis.Helpers;
 using Pyxis.Models;
@@ -26,6 +24,9 @@ using Pyxis.ViewModels.Items;
 
 using Reactive.Bindings.Extensions;
 
+using Sagitta;
+using Sagitta.Models;
+
 namespace Pyxis.ViewModels.Detail
 {
     public class IllustDetailPageViewModel : TappableThumbnailViewModel
@@ -35,11 +36,11 @@ namespace Pyxis.ViewModels.Detail
         private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
         private readonly INavigationService _navigationService;
-        private readonly IPixivClient _pixivClient;
+        private readonly PixivClient _pixivClient;
         private readonly IQueryCacheService _queryCacheService;
         private int _count;
         private DataTransferManager _dataTransferManager;
-        private IIllust _illust;
+        private Illust _illust;
         private PixivComment _pixivComment;
         private PixivDetail _pixivDetail;
         private PixivRelated _pixivRelated;
@@ -51,7 +52,7 @@ namespace Pyxis.ViewModels.Detail
 
         public IllustDetailPageViewModel(IAccountService accountService, IBrowsingHistoryService browsingHistoryService,
                                          ICategoryService categoryService, IImageStoreService imageStoreService,
-                                         INavigationService navigationService, IPixivClient pixivClient,
+                                         INavigationService navigationService, PixivClient pixivClient,
                                          IQueryCacheService queryCacheService)
         {
             _accountService = accountService;
@@ -106,7 +107,7 @@ namespace Pyxis.ViewModels.Detail
             _browsingHistoryService.Add(_illust);
             Title = _illust.Title;
             ConvertValues = new List<object> {_illust.Caption, _navigationService};
-            CreatedAt = _illust.CreateDate.ToString("g");
+            CreatedAt = _illust.CreatedAt.ToString("g");
             Username = _illust.User.Name;
             View = _illust.TotalView.ToString("##,###");
             BookmarkCount = _illust.TotalBookmarks.ToString("##,###");
@@ -121,7 +122,7 @@ namespace Pyxis.ViewModels.Detail
                       .Where(w => !string.IsNullOrWhiteSpace(w))
                       .ObserveOnUIDispatcher()
                       .Subscribe(w => IconPath = w).AddTo(this);
-            _pixivComment = new PixivComment(_illust, _pixivClient, _queryCacheService);
+            _pixivComment = new PixivComment(_illust, _pixivClient);
             _pixivComment.Fetch();
             _pixivComment.Comments.ObserveAddChanged()
                          .Where(w => ++_count <= 5)
@@ -130,7 +131,7 @@ namespace Pyxis.ViewModels.Detail
                          .Subscribe(w => Comments.Add(w))
                          .AddTo(this);
             _pixivRelated = new PixivRelated(_illust, _pixivClient, _queryCacheService);
-            ModelHelper.ConnectTo(RelatedItems, _pixivRelated, w => w.RelatedIllusts, CreatePixivImage).AddTo(this);
+            ModelHelper.ConnectTo(RelatedItems, _pixivRelated, w => w.RelatedIllustsRoot, CreatePixivImage).AddTo(this);
 #if !OFFLINE
             if (IconPath == PyxisConstants.DummyIcon)
                 RunHelper.RunLaterUI(_pixivUser.ShowThumbnail, TimeSpan.FromMilliseconds(100));
@@ -174,7 +175,7 @@ namespace Pyxis.ViewModels.Detail
 
         public void OnTappedUserIcon()
         {
-            var parameter = new DetailByIdParameter {Id = _illust.User.Id};
+            var parameter = new DetailByIdParameter {Id = _illust.User.Id.ToString()};
             _navigationService.Navigate("Detail.UserDetail", parameter.ToJson());
         }
 
@@ -196,9 +197,9 @@ namespace Pyxis.ViewModels.Detail
         private async void Bookmark()
         {
             if (IsBookmarked)
-                await _pixivClient.IllustV1.Bookmark.DeleteAsync(illust_id => _illust.Id, restrict => "public");
+                await _pixivClient.Illust.Bookmark.DeleteAsync(_illust.Id);
             else
-                await _pixivClient.IllustV1.Bookmark.AddAsync(illust_id => _illust.Id, restrict => "public");
+                await _pixivClient.Illust.Bookmark.AddAsync(_illust.Id);
             IsBookmarked = !IsBookmarked;
         }
 
@@ -228,10 +229,10 @@ namespace Pyxis.ViewModels.Detail
 
         #region Converters
 
-        private PixivThumbnailViewModel CreatePixivImage(IIllust w) =>
+        private PixivThumbnailViewModel CreatePixivImage(Illust w) =>
             new PixivThumbnailViewModel(w, _imageStoreService, _navigationService);
 
-        private PixivCommentViewModel CreatePixivComment(IComment w) =>
+        private PixivCommentViewModel CreatePixivComment(Comment w) =>
             new PixivCommentViewModel(w, _imageStoreService);
 
         #endregion

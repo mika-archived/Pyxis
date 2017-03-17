@@ -1,19 +1,21 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 
-using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Helpers;
 using Pyxis.Models.Base;
 using Pyxis.Services.Interfaces;
+
+using Sagitta.Models;
 
 namespace Pyxis.Models
 {
     internal class PixivMangaImage : ThumbnailableBase
     {
-        private readonly IIllust _illust;
+        private readonly Illust _illust;
         private readonly IImageStoreService _imageStoreService;
         private readonly int _index;
 
-        public PixivMangaImage(IIllust illust, int index, IImageStoreService imageStoreService)
+        public PixivMangaImage(Illust illust, int index, IImageStoreService imageStoreService)
         {
             _illust = illust;
             _index = index;
@@ -25,7 +27,7 @@ namespace Pyxis.Models
         // Support raw only
         private async Task DownloadImage()
         {
-            var orig = _illust.MetaPages[_index].ImageUrls.Original ?? _illust.MetaPages[_index].ImageUrls.Large;
+            var orig = _illust.MetaPages.ToList()[_index].ImageUrls.Original ?? _illust.MetaPages.ToList()[_index].ImageUrls.Large;
             if (await _imageStoreService.ExistImageAsync(orig))
                 ThumbnailPath = await _imageStoreService.LoadImageAsync(orig);
             else

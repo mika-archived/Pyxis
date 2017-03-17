@@ -4,24 +4,25 @@ using System.Threading.Tasks;
 
 using Prism.Mvvm;
 
-using Pyxis.Beta.Interfaces.Models.v1;
-using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Helpers;
 using Pyxis.Models.Enums;
 using Pyxis.Services.Interfaces;
+
+using Sagitta;
+using Sagitta.Models;
 
 namespace Pyxis.Models
 {
     internal class PixivDetail : BindableBase
     {
-        private readonly string _id;
-        private readonly IPixivClient _pixivClient;
+        private readonly int _id;
+        private readonly PixivClient _pixivClient;
         private readonly IQueryCacheService _queryCacheService;
         private readonly SearchType _searchType;
 
-        public PixivDetail(string id, SearchType searchType, IPixivClient pixivClient, IQueryCacheService queryCacheService)
+        public PixivDetail(string id, SearchType searchType, PixivClient pixivClient, IQueryCacheService queryCacheService)
         {
-            _id = id;
+            _id = int.Parse(id);
             _searchType = searchType;
             _pixivClient = pixivClient;
             _queryCacheService = queryCacheService;
@@ -42,20 +43,20 @@ namespace Pyxis.Models
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         private async Task FetchIllust()
         {
-            IllustDetail = await _queryCacheService.RunAsync(_pixivClient.IllustV1.DetailAsync, illust_id => _id);
+            IllustDetail = await _pixivClient.Illust.DetailAsync(_id);
         }
 
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         private async Task FetchUser()
         {
-            UserDetail = await _queryCacheService.RunAsync(_pixivClient.UserV1.DetailAsync, user_id => _id, filter => "for_ios");
+            UserDetail = await _pixivClient.User.DetailAsync(_id);
         }
 
         #region IllustDetail
 
-        private IIllust _illustDetail;
+        private Illust _illustDetail;
 
-        public IIllust IllustDetail
+        public Illust IllustDetail
         {
             get { return _illustDetail; }
             set { SetProperty(ref _illustDetail, value); }
@@ -65,9 +66,9 @@ namespace Pyxis.Models
 
         #region NovelDetail
 
-        private INovel _novelDetail;
+        private Novel _novelDetail;
 
-        public INovel NovelDetail
+        public Novel NovelDetail
         {
             get { return _novelDetail; }
             set { SetProperty(ref _novelDetail, value); }
@@ -77,9 +78,9 @@ namespace Pyxis.Models
 
         #region UserDetail
 
-        private IUserDetail _userDetail;
+        private UserDetail _userDetail;
 
-        public IUserDetail UserDetail
+        public UserDetail UserDetail
         {
             get { return _userDetail; }
             set { SetProperty(ref _userDetail, value); }

@@ -10,8 +10,6 @@ using Microsoft.Practices.Unity;
 
 using Prism.Unity.Windows;
 
-using Pyxis.Alpha;
-using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Models;
 using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
@@ -19,6 +17,8 @@ using Pyxis.Services;
 using Pyxis.Services.Interfaces;
 
 using Reactive.Bindings;
+
+using Sagitta;
 
 using LifetimeManager = Microsoft.Practices.Unity.ContainerControlledLifetimeManager;
 
@@ -77,9 +77,9 @@ namespace Pyxis
         protected override async Task OnInitializeAsync(IActivatedEventArgs args)
         {
             UIDispatcherScheduler.Initialize();
-            var pixivClient = new PixivApiClient("bYGKuGVw91e0NMfPGp44euvGt59s", "HP3RmkgAmEGro0gn1x9ioawQE8WMfvLXDz3ZqxpK");
+            var pixivClient = new PixivClient("bYGKuGVw91e0NMfPGp44euvGt59s", "HP3RmkgAmEGro0gn1x9ioawQE8WMfvLXDz3ZqxpK");
             var accountService = new AccountService(pixivClient);
-            Container.RegisterInstance<IPixivClient>(pixivClient, new LifetimeManager());
+            Container.RegisterInstance(pixivClient, new LifetimeManager());
             Container.RegisterInstance<IAccountService>(accountService, new LifetimeManager());
             Container.RegisterType<IBrowsingHistoryService, BrowsingHistoryService>(new LifetimeManager());
             Container.RegisterType<IImageStoreService, ImageStoreService>(new LifetimeManager());
@@ -92,7 +92,7 @@ namespace Pyxis
 #else
             Container.RegisterType<ILicenseService, LicenseService>(new LifetimeManager());
 #endif
-            // Container.RegisterInstance<IPixivClient>(new PixivWebClient(), new ContainerControlledLifetimeManager());
+            // Container.RegisterInstance<PixivClient>(new PixivWebClient(), new ContainerControlledLifetimeManager());
 #if !OFFLINE
             await accountService.Login();
 #endif

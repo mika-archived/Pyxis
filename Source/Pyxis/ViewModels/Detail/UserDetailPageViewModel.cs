@@ -10,9 +10,6 @@ using Windows.ApplicationModel.Resources;
 using Prism.Commands;
 using Prism.Windows.Navigation;
 
-using Pyxis.Alpha.Models.v1;
-using Pyxis.Beta.Interfaces.Models.v1;
-using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Models;
 using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
@@ -23,6 +20,9 @@ using Pyxis.ViewModels.Base;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 
+using Sagitta;
+using Sagitta.Models;
+
 namespace Pyxis.ViewModels.Detail
 {
     public class UserDetailPageViewModel : MultipleThumbnailableViewModel
@@ -30,13 +30,13 @@ namespace Pyxis.ViewModels.Detail
         private readonly IAccountService _accountService;
         private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
-        private readonly IPixivClient _pixivClient;
+        private readonly PixivClient _pixivClient;
         private readonly IQueryCacheService _queryCacheService;
         private readonly ResourceLoader Resources = ResourceLoader.GetForCurrentView();
         private string _id;
         private bool _isOffline;
         private PixivDetail _pixivUser;
-        private IUserDetail _userDetail;
+        private UserDetail _userDetail;
         public INavigationService NavigationService { get; }
 
         public ReadOnlyReactiveProperty<string> Username { get; private set; }
@@ -66,7 +66,7 @@ namespace Pyxis.ViewModels.Detail
 
         public UserDetailPageViewModel(IAccountService accountService, ICategoryService categoryService,
                                        IImageStoreService imageStoreService, INavigationService navigationService,
-                                       IPixivClient pixivClient, IQueryCacheService queryCacheService)
+                                       PixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _accountService = accountService;
             _categoryService = categoryService;
@@ -120,20 +120,20 @@ namespace Pyxis.ViewModels.Detail
                 Parameter = ParamGen.GenerateRaw(param1, v => v.ProfileType).Cast<object>().Skip(1).ToList();
             });
             Username = observer.Select(w => w.User.Name).ToReadOnlyReactiveProperty().AddTo(this);
-            ScreenName = observer.Select(w => $"@{w.User.AccountName}").ToReadOnlyReactiveProperty().AddTo(this);
-            Url = observer.Select(w => w.Profile.Webpage).ToReadOnlyReactiveProperty().AddTo(this);
-            NavigateUrl = observer.Select(w => w.Profile.Webpage)
+            ScreenName = observer.Select(w => $"@{w.User.Account}").ToReadOnlyReactiveProperty().AddTo(this);
+            Url = observer.Select(w => w.Profile.Website).ToReadOnlyReactiveProperty().AddTo(this);
+            NavigateUrl = observer.Select(w => w.Profile.Website)
                                   .Where(w => !string.IsNullOrWhiteSpace(w))
                                   .Select(w => new Uri(w))
                                   .ToReadOnlyReactiveProperty()
                                   .AddTo(this);
             Gender = observer.Select(w => w.Profile.Gender)
-                             .Where(w => !string.IsNullOrWhiteSpace(w))
-                             .Select(w => w.ToLower() == "male" ? Resources.GetString("Male") : Resources.GetString("Famale"))
+                             .Where(w => w != null)
+                             .Select(w => w == Sagitta.Enum.Gender.Male ? Resources.GetString("Male") : Resources.GetString("Famale"))
                              .ToReadOnlyReactiveProperty()
                              .AddTo(this);
             Region = observer.Select(w => w.Profile.Region).ToReadOnlyReactiveProperty().AddTo(this);
-            Birthday = observer.Select(w => w.Profile.Birth).ToReadOnlyReactiveProperty().AddTo(this);
+            Birthday = observer.Select(w => w.Profile.Birth?.ToString("YYMMDD")).ToReadOnlyReactiveProperty().AddTo(this);
             Job = observer.Select(w => w.Profile.Job).ToReadOnlyReactiveProperty().AddTo(this);
             Twitter = observer.Select(w => w.Profile.TwitterAccount).ToReadOnlyReactiveProperty().AddTo(this);
             TwitterUrl = observer.Select(w => w.Profile.TwitterAccount)
@@ -142,7 +142,7 @@ namespace Pyxis.ViewModels.Detail
                                  .ToReadOnlyReactiveProperty()
                                  .AddTo(this);
             Description = observer.Select(w => w.User.Comment).ToReadOnlyReactiveProperty().AddTo(this);
-            Computer = observer.Select(w => w.Workspace.Pc).ToReadOnlyReactiveProperty().AddTo(this);
+            Computer = observer.Select(w => w.Workspace.PC).ToReadOnlyReactiveProperty().AddTo(this);
             Monitor = observer.Select(w => w.Workspace.Monitor).ToReadOnlyReactiveProperty().AddTo(this);
             Software = observer.Select(w => w.Workspace.Tool).ToReadOnlyReactiveProperty().AddTo(this);
             Scanner = observer.Select(w => w.Workspace.Scanner).ToReadOnlyReactiveProperty().AddTo(this);
@@ -174,11 +174,11 @@ namespace Pyxis.ViewModels.Detail
         private async void Follow()
         {
             if (IsFollowing.Value)
-                await _pixivClient.UserV1.Follow.DeleteAsunc(user_id => _id, restrict => "public");
+                await _pixivClient.User.Follow.DeleteAsync(int.Parse(_id));
             else
-                await _pixivClient.UserV1.Follow.AddAsync(user_id => _id, restrict => "public");
+                await _pixivClient.User.Follow.AddAsync(int.Parse(_id));
             IsFollowing.Value = !IsFollowing.Value;
-            ((User) _userDetail.User).IsFollowed = IsFollowing.Value;
+            _userDetail.User.IsFollowed = IsFollowing.Value;
             var param1 = new UserDetailParameter
             {
                 Detail = _userDetail,

@@ -1,20 +1,21 @@
 ﻿using Prism.Windows.Navigation;
 
-using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
 using Pyxis.ViewModels.Base;
+
+using Sagitta.Models;
 
 namespace Pyxis.ViewModels.Items
 {
     public class PixivTagViewModel : ViewModel
     {
         private readonly INavigationService _navigationService;
-        private readonly ITag _tag;
+        private readonly Tag _tag;
 
         public string Name => _tag.Name;
 
-        public PixivTagViewModel(ITag tag, INavigationService navigationService)
+        public PixivTagViewModel(Tag tag, INavigationService navigationService)
         {
             _tag = tag;
             _navigationService = navigationService;

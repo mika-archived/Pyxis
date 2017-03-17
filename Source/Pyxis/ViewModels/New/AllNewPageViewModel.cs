@@ -2,8 +2,6 @@
 
 using Prism.Windows.Navigation;
 
-using Pyxis.Beta.Interfaces.Models.v1;
-using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Collections;
 using Pyxis.Helpers;
 using Pyxis.Models;
@@ -14,13 +12,16 @@ using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
 using Pyxis.ViewModels.Items;
 
+using Sagitta;
+using Sagitta.Models;
+
 namespace Pyxis.ViewModels.New
 {
     public class AllNewPageViewModel : ViewModel
     {
         private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
-        private readonly IPixivClient _pixivClient;
+        private readonly PixivClient _pixivClient;
         private readonly IQueryCacheService _queryCacheService;
 
         private PixivNew _pixivNew;
@@ -29,7 +30,7 @@ namespace Pyxis.ViewModels.New
         public IncrementalObservableCollection<TappableThumbnailViewModel> NewItems { get; }
 
         public AllNewPageViewModel(IImageStoreService imageStoreService, ICategoryService categoryService,
-                                   INavigationService navigationService, IPixivClient pixivClient, IQueryCacheService queryCacheService)
+                                   INavigationService navigationService, PixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _categoryService = categoryService;
             _imageStoreService = imageStoreService;
@@ -55,23 +56,23 @@ namespace Pyxis.ViewModels.New
         private void Initialize(HomeParameter parameter)
         {
             _categoryService.UpdateCategory();
-            SubSelectdIndex = (int) parameter.ContentType;
+            SubSelectdIndex = (int)parameter.ContentType;
 
             _pixivNew = new PixivNew(parameter.ContentType, FollowType.All, _pixivClient, _queryCacheService);
             if (parameter.ContentType == ContentType.Novel)
                 ModelHelper.ConnectTo(NewItems, _pixivNew, w => w.NewNovels, CreatePixivNovel).AddTo(this);
             else
-                ModelHelper.ConnectTo(NewItems, _pixivNew, w => w.NewIllusts, CreatePixivImage).AddTo(this);
+                ModelHelper.ConnectTo(NewItems, _pixivNew, w => w.NewIllustsRoot, CreatePixivImage).AddTo(this);
         }
 
         #endregion
 
         #region Converters
 
-        private PixivThumbnailViewModel CreatePixivImage(IIllust w) =>
+        private PixivThumbnailViewModel CreatePixivImage(Illust w) =>
             new PixivThumbnailViewModel(w, _imageStoreService, NavigationService);
 
-        private PixivThumbnailViewModel CreatePixivNovel(INovel w) =>
+        private PixivThumbnailViewModel CreatePixivNovel(Novel w) =>
             new PixivThumbnailViewModel(w, _imageStoreService, NavigationService);
 
         #endregion

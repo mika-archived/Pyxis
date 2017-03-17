@@ -6,8 +6,6 @@ using Windows.System;
 
 using Prism.Windows.Navigation;
 
-using Pyxis.Beta.Interfaces.Models.v1;
-using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Collections;
 using Pyxis.Extensions;
 using Pyxis.Helpers;
@@ -19,6 +17,9 @@ using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
 using Pyxis.ViewModels.Items;
 
+using Sagitta;
+using Sagitta.Models;
+
 namespace Pyxis.ViewModels.Search
 {
     public class SearchResultPageViewModel : ViewModel
@@ -28,7 +29,7 @@ namespace Pyxis.ViewModels.Search
         private readonly IDialogService _dialogService;
         private readonly IImageStoreService _imageStoreService;
         private readonly ILicenseService _licenseService;
-        private readonly IPixivClient _pixivClient;
+        private readonly PixivClient _pixivClient;
         private readonly IQueryCacheService _queryCacheService;
 
         private PixivSearch _pixivSearch;
@@ -42,7 +43,7 @@ namespace Pyxis.ViewModels.Search
         public SearchResultPageViewModel(IAccountService accountService, ICategoryService categoryService,
                                          IDialogService dialogService, IImageStoreService imageStoreService,
                                          ILicenseService licenseService, INavigationService navigationService,
-                                         IPixivClient pixivClient, IQueryCacheService queryCacheService)
+                                         PixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _accountService = accountService;
             _categoryService = categoryService;
@@ -61,7 +62,7 @@ namespace Pyxis.ViewModels.Search
         {
             base.OnNavigatedTo(e, viewModelState);
             var parameter = ParameterBase.ToObject<SearchResultAndTrendingParameter>((string) e?.Parameter);
-            if ((viewModelState != null) && viewModelState.ContainsKey("_searchOption"))
+            if (viewModelState != null && viewModelState.ContainsKey("_searchOption"))
             {
                 _searchOption = ParameterBase.ToObject<SearchOptionParameter>(viewModelState["_searchOption"]);
                 SearchQuery = viewModelState["SearchQuery"].ToString();
@@ -91,8 +92,8 @@ namespace Pyxis.ViewModels.Search
             HasTrendingTag = parameter.TrendingIllust != null;
             if (HasTrendingTag)
                 ThumbnailableViewModel = CreatePixivImage(parameter.TrendingIllust);
-            IsLoggedInRequired = !_accountService.IsLoggedIn && (parameter.Sort == SearchSort.Popular);
-            IsPremiumRequired = !_accountService.IsPremium && (parameter.Sort == SearchSort.Popular);
+            IsLoggedInRequired = !_accountService.IsLoggedIn && parameter.Sort == SearchSort.Popular;
+            IsPremiumRequired = !_accountService.IsPremium && parameter.Sort == SearchSort.Popular;
             if (_searchOption == null)
             {
                 SearchQuery = parameter.Query;
@@ -116,7 +117,7 @@ namespace Pyxis.ViewModels.Search
             }
             _pixivSearch = new PixivSearch(_pixivClient, _queryCacheService);
             if (parameter.SearchType == SearchType.IllustsAndManga)
-                ModelHelper.ConnectTo(Results, _pixivSearch, w => w.ResultIllusts, CreatePixivImage).AddTo(this);
+                ModelHelper.ConnectTo(Results, _pixivSearch, w => w.ResultIllustsRoot, CreatePixivImage).AddTo(this);
             else if (parameter.SearchType == SearchType.Novels)
                 ModelHelper.ConnectTo(Results, _pixivSearch, w => w.ResultNovels, CreatePixivNovel).AddTo(this);
 
@@ -191,10 +192,10 @@ namespace Pyxis.ViewModels.Search
 
         #region Converters
 
-        private PixivThumbnailViewModel CreatePixivImage(IIllust w) =>
+        private PixivThumbnailViewModel CreatePixivImage(Illust w) =>
             new PixivThumbnailViewModel(w, _imageStoreService, NavigationService);
 
-        private PixivThumbnailViewModel CreatePixivNovel(INovel w) =>
+        private PixivThumbnailViewModel CreatePixivNovel(Novel w) =>
             new PixivThumbnailViewModel(w, _imageStoreService, NavigationService);
 
         #endregion

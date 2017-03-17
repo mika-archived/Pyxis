@@ -7,50 +7,51 @@ using Windows.UI.Xaml.Data;
 
 using Microsoft.Practices.ObjectBuilder2;
 
-using Pyxis.Beta.Interfaces.Models.v1;
-using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Helpers;
 using Pyxis.Models.Enums;
 using Pyxis.Services.Interfaces;
+
+using Sagitta;
+using Sagitta.Models;
 
 namespace Pyxis.Models
 {
     internal class PixivRanking : ISupportIncrementalLoading
     {
-        private readonly IPixivClient _pixivClient;
+        private readonly PixivClient _pixivClient;
         private readonly IQueryCacheService _queryCacheService;
         private readonly RankingMode _rankingMode;
         private readonly ContentType _rankingType;
-        private string _offset;
+        private int _offset;
 
-        public ObservableCollection<Tuple<RankingMode, IIllusts>> Ranking { get; }
-        public ObservableCollection<Tuple<RankingMode, INovels>> RankingOfNovels { get; }
-        public ObservableCollection<IIllust> Illusts { get; }
-        public ObservableCollection<INovel> Novels { get; }
+        public ObservableCollection<Tuple<RankingMode, IllustsRoot>> Ranking { get; }
+        public ObservableCollection<Tuple<RankingMode, NovelsRoot>> RankingOfNovels { get; }
+        public ObservableCollection<Illust> Illusts { get; }
+        public ObservableCollection<Novel> Novels { get; }
 
-        public PixivRanking(IPixivClient pixivClient, ContentType rankingType, IQueryCacheService queryCacheService)
+        public PixivRanking(PixivClient pixivClient, ContentType rankingType, IQueryCacheService queryCacheService)
         {
             _pixivClient = pixivClient;
             _rankingType = rankingType;
             _queryCacheService = queryCacheService;
             if (_rankingType == ContentType.Novel)
-                RankingOfNovels = new ObservableCollection<Tuple<RankingMode, INovels>>();
+                RankingOfNovels = new ObservableCollection<Tuple<RankingMode, NovelsRoot>>();
             else
-                Ranking = new ObservableCollection<Tuple<RankingMode, IIllusts>>();
+                Ranking = new ObservableCollection<Tuple<RankingMode, IllustsRoot>>();
             HasMoreItems = false;
         }
 
-        public PixivRanking(IPixivClient pixivClient, ContentType rankingType, RankingMode rankingMode, IQueryCacheService queryCacheService)
+        public PixivRanking(PixivClient pixivClient, ContentType rankingType, RankingMode rankingMode, IQueryCacheService queryCacheService)
         {
             _pixivClient = pixivClient;
             _rankingType = rankingType;
             _rankingMode = rankingMode;
             _queryCacheService = queryCacheService;
-            _offset = "";
+            _offset = 0;
             if (_rankingType == ContentType.Novel)
-                Novels = new ObservableCollection<INovel>();
+                Novels = new ObservableCollection<Novel>();
             else
-                Illusts = new ObservableCollection<IIllust>();
+                Illusts = new ObservableCollection<Illust>();
 #if OFFLINE
             HasMoreItems = false;
 #else
@@ -65,32 +66,27 @@ namespace Pyxis.Models
             if (_rankingType == ContentType.Novel)
                 await FetchNovels();
             else
-                await FetchIllusts();
+                await FetchIllustsRoot();
         }
 
-        private async Task FetchIllusts()
+        private async Task FetchIllustsRoot()
         {
-            var illusts = await _queryCacheService.RunAsync(_pixivClient.IllustV1.RankingAsync,
-                                                            mode => _rankingMode.ToParamString(_rankingType),
-                                                            filter => "for_ios",
-                                                            offset => _offset);
-            illusts?.IllustList.ForEach(w => Illusts.Add(w));
-            if (string.IsNullOrWhiteSpace(illusts?.NextUrl))
+            var illustsRoot = await _pixivClient.Illust.RankingAsync(Sagitta.Enum.RankingMode.Day, filter: "for_ios", offset: _offset);
+            illustsRoot?.Illusts.ForEach(w => Illusts.Add(w));
+            if (string.IsNullOrWhiteSpace(illustsRoot?.NextUrl))
                 HasMoreItems = false;
             else
-                _offset = UrlParameter.ParseQuery(illusts.NextUrl)["offset"];
+                _offset = int.Parse(UrlParameter.ParseQuery(illustsRoot.NextUrl)["offset"]);
         }
 
         private async Task FetchNovels()
         {
-            var novels = await _queryCacheService.RunAsync(_pixivClient.NovelV1.RankingAsync,
-                                                           mode => _rankingMode.ToParamString(_rankingType),
-                                                           offset => _offset);
-            novels?.NovelList.ForEach(w => Novels.Add(w));
+            var novels = await _pixivClient.Novel.RankingAsync(Sagitta.Enum.RankingMode.Day, offset: _offset);
+            novels?.Novels.ForEach(w => Novels.Add(w));
             if (string.IsNullOrWhiteSpace(novels?.NextUrl))
                 HasMoreItems = false;
             else
-                _offset = UrlParameter.ParseQuery(novels.NextUrl)["offset"];
+                _offset = int.Parse(UrlParameter.ParseQuery(novels.NextUrl)["offset"]);
         }
 
         #endregion
@@ -115,9 +111,8 @@ namespace Pyxis.Models
             var modes = new[] {"day", "day_male", "day_female", "week_original", "week_rookie", "week", "month"};
             foreach (var _ in modes)
             {
-                var illusts = await _queryCacheService.RunAsync(_pixivClient.IllustV1.RankingAsync, mode => _, filter => "for_ios");
-                if (illusts != null)
-                    Ranking.Add(new Tuple<RankingMode, IIllusts>(RankingModeExt.FromString(_), illusts));
+                var illusts = await _pixivClient.Illust.RankingAsync(Sagitta.Enum.RankingMode.Day, filter: "for_ios");
+                Ranking.Add(new Tuple<RankingMode, IllustsRoot>(RankingModeExt.FromString(_), illusts));
             }
         }
 
@@ -127,9 +122,9 @@ namespace Pyxis.Models
             var modes = new[] {"day", "week_rookie", "week", "month"};
             foreach (var _ in modes)
             {
-                var illusts = await _queryCacheService.RunAsync(_pixivClient.IllustV1.RankingAsync, mode => $"{_}_manga");
+                var illusts = await _pixivClient.Illust.RankingAsync(Sagitta.Enum.RankingMode.DayManga, filter: "for_ios");
                 if (illusts != null)
-                    Ranking.Add(new Tuple<RankingMode, IIllusts>(RankingModeExt.FromString(_), illusts));
+                    Ranking.Add(new Tuple<RankingMode, IllustsRoot>(RankingModeExt.FromString(_), illusts));
             }
         }
 
@@ -139,9 +134,9 @@ namespace Pyxis.Models
             var modes = new[] {"day", "day_male", "day_female", "week_rookie", "week"};
             foreach (var _ in modes)
             {
-                var novels = await _queryCacheService.RunAsync(_pixivClient.NovelV1.RankingAsync, mode => _);
+                var novels = await _pixivClient.Novel.RankingAsync(Sagitta.Enum.RankingMode.Day);
                 if (novels != null)
-                    RankingOfNovels.Add(new Tuple<RankingMode, INovels>(RankingModeExt.FromString(_), novels));
+                    RankingOfNovels.Add(new Tuple<RankingMode, NovelsRoot>(RankingModeExt.FromString(_), novels));
             }
         }
 

@@ -1,18 +1,19 @@
 ﻿using Prism.Windows.Navigation;
 
-using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Models;
 using Pyxis.Models.Parameters;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
+
+using Sagitta.Models;
 
 namespace Pyxis.ViewModels.Items
 {
     public class PixivThumbnailViewModel : TappableThumbnailViewModel
     {
         protected INavigationService NavigationService { get; }
-        protected INovel Novel { get; }
-        protected IIllust Illust { get; }
+        protected Novel Novel { get; }
+        protected Illust Illust { get; }
 
         /// <summary>
         ///     Constructor for blank image.
@@ -22,7 +23,7 @@ namespace Pyxis.ViewModels.Items
             ThumbnailPath = PyxisConstants.DummyImage;
         }
 
-        public PixivThumbnailViewModel(IIllust illust, IImageStoreService imageStoreService,
+        public PixivThumbnailViewModel(Illust illust, IImageStoreService imageStoreService,
                                        INavigationService navigationService)
         {
             Illust = illust;
@@ -33,7 +34,7 @@ namespace Pyxis.ViewModels.Items
             HasMultiple = illust.PageCount > 1;
         }
 
-        public PixivThumbnailViewModel(INovel novel, IImageStoreService imageStoreService,
+        public PixivThumbnailViewModel(Novel novel, IImageStoreService imageStoreService,
                                        INavigationService navigationService)
         {
             Novel = novel;

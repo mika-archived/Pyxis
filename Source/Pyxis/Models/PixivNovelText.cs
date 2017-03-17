@@ -3,20 +3,21 @@ using System.Threading.Tasks;
 
 using Prism.Mvvm;
 
-using Pyxis.Beta.Interfaces.Models.v1;
-using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Helpers;
 using Pyxis.Services.Interfaces;
+
+using Sagitta;
+using Sagitta.Models;
 
 namespace Pyxis.Models
 {
     internal class PixivNovelText : BindableBase
     {
-        private readonly INovel _novel;
-        private readonly IPixivClient _pixivClient;
+        private readonly Novel _novel;
+        private readonly PixivClient _pixivClient;
         private readonly IQueryCacheService _queryCacheService;
 
-        public PixivNovelText(INovel novel, IPixivClient pixivClient, IQueryCacheService queryCacheService)
+        public PixivNovelText(Novel novel, PixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _novel = novel;
             _pixivClient = pixivClient;
@@ -26,13 +27,13 @@ namespace Pyxis.Models
         public void Fetch() => RunHelper.RunAsync(FetchText);
 
         [SuppressMessage("ReSharper", "InconsistentNaming")]
-        private async Task FetchText() => Text = await _queryCacheService.RunAsync(_pixivClient.NovelV1.TextAsync, novel_id => _novel.Id);
+        private async Task FetchText() => Text = await _pixivClient.Novel.TextAsync(_novel.Id);
 
         #region Text
 
-        private IText _text;
+        private Text _text;
 
-        public IText Text
+        public Text Text
         {
             get { return _text; }
             set { SetProperty(ref _text, value); }

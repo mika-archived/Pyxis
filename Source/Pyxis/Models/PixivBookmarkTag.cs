@@ -7,29 +7,30 @@ using Windows.UI.Xaml.Data;
 
 using Microsoft.Practices.ObjectBuilder2;
 
-using Pyxis.Alpha.Models.v1;
-using Pyxis.Beta.Interfaces.Models.v1;
-using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Models.Enums;
 using Pyxis.Services.Interfaces;
+
+using Sagitta;
+using Sagitta.Enum;
+using Sagitta.Models;
 
 namespace Pyxis.Models
 {
     internal class PixivBookmarkTag : ISupportIncrementalLoading
     {
-        private readonly IPixivClient _pixivClient;
+        private readonly PixivClient _pixivClient;
         private readonly IQueryCacheService _queryCacheService;
-        private string _offset;
+        private int _offset;
         private RestrictType _restrict;
         private SearchType _searchType;
 
-        public ObservableCollection<IBookmarkTag> BookmarkTags { get; }
+        public ObservableCollection<BookmarkTag> BookmarkTags { get; }
 
-        public PixivBookmarkTag(IPixivClient pixivClient, IQueryCacheService queryCacheService)
+        public PixivBookmarkTag(PixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _pixivClient = pixivClient;
             _queryCacheService = queryCacheService;
-            BookmarkTags = new ObservableCollection<IBookmarkTag>();
+            BookmarkTags = new ObservableCollection<BookmarkTag>();
 #if OFFLINE
             HasMoreItems = false;
 #else
@@ -49,7 +50,7 @@ namespace Pyxis.Models
             Reset();
             _searchType = searchType;
             _restrict = restrict;
-            _offset = "";
+            _offset = 0;
 #if !OFFLINE
             HasMoreItems = true;
 #endif
@@ -57,22 +58,18 @@ namespace Pyxis.Models
 
         private async Task QueryAsync()
         {
-            IBookmarkTags tags;
+            BookmarkTags tags;
             if (_searchType == SearchType.IllustsAndManga)
-                tags = await _queryCacheService.RunAsync(_pixivClient.UserV1.BookmarkTags.IllustAsync,
-                                                         restrict => _restrict.ToParamString(),
-                                                         offset => _offset);
+                tags = await _pixivClient.User.BookmarkTags.IllustAsync(Restrict.Public, _offset);
             else if (_searchType == SearchType.Novels)
-                tags = await _queryCacheService.RunAsync(_pixivClient.UserV1.BookmarkTags.NovelAsync,
-                                                         restrict => _restrict.ToParamString(),
-                                                         offset => _offset);
+                tags = await _pixivClient.User.BookmarkTags.NovelAsync(Restrict.Public, _offset);
             else
                 throw new NotSupportedException();
-            tags?.BookmarkTagList.ForEach(w => BookmarkTags.Add(w));
+            tags?.Tags.ForEach(w => BookmarkTags.Add(w));
             if (string.IsNullOrWhiteSpace(tags?.NextUrl))
                 HasMoreItems = false;
             else
-                _offset = UrlParameter.ParseQuery(tags.NextUrl)["offset"];
+                _offset = int.Parse(UrlParameter.ParseQuery(tags.NextUrl)["offset"]);
         }
 
         #region Implementation of ISupportIncrementalLoading

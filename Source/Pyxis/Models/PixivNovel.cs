@@ -1,18 +1,19 @@
 ﻿using System.Threading.Tasks;
 
-using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Helpers;
 using Pyxis.Models.Base;
 using Pyxis.Services.Interfaces;
+
+using Sagitta.Models;
 
 namespace Pyxis.Models
 {
     internal class PixivNovel : ThumbnailableBase
     {
         private readonly IImageStoreService _imageStoreService;
-        private readonly INovel _novel;
+        private readonly Novel _novel;
 
-        public PixivNovel(INovel novel, IImageStoreService imageStoreService)
+        public PixivNovel(Novel novel, IImageStoreService imageStoreService)
         {
             _novel = novel;
             _imageStoreService = imageStoreService;

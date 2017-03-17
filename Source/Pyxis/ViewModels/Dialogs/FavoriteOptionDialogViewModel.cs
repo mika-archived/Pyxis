@@ -1,5 +1,4 @@
-﻿using Pyxis.Beta.Interfaces.Rest;
-using Pyxis.Collections;
+﻿using Pyxis.Collections;
 using Pyxis.Helpers;
 using Pyxis.Models;
 using Pyxis.Models.Enums;
@@ -11,11 +10,13 @@ using Pyxis.ViewModels.Base;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 
+using Sagitta;
+
 namespace Pyxis.ViewModels.Dialogs
 {
     public class FavoriteOptionDialogViewModel : DialogViewModel
     {
-        private readonly IPixivClient _pixivClient;
+        private readonly PixivClient _pixivClient;
         private readonly IQueryCacheService _queryCacheService;
 
         private PixivBookmarkTag _bookmarkTag;
@@ -25,7 +26,7 @@ namespace Pyxis.ViewModels.Dialogs
         public ReactiveProperty<string> SelectedTag { get; private set; }
         public IncrementalObservableCollection<string> Tags { get; }
 
-        public FavoriteOptionDialogViewModel(IPixivClient pixivClient, IQueryCacheService queryCacheService)
+        public FavoriteOptionDialogViewModel(PixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _pixivClient = pixivClient;
             _queryCacheService = queryCacheService;

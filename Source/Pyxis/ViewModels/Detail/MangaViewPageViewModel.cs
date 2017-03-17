@@ -31,8 +31,8 @@ namespace Pyxis.ViewModels.Detail
             _categoryService.UpdateCategory();
             foreach (var item in parameter.Illust.MetaPages.Select((w, i) => new {Index = i}).Reverse())
                 MangaPages.Add(new PixivMangaImageViewModel(parameter.Illust, item.Index, _imageStoreService));
-            SelectedIndex = parameter.Illust.MetaPages.Count - 1;
-            MaxPage = parameter.Illust.MetaPages.Count;
+            SelectedIndex = parameter.Illust.MetaPages.Count() - 1;
+            MaxPage = parameter.Illust.MetaPages.Count();
             CurrentPage = 1;
         }
 

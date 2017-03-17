@@ -7,31 +7,32 @@ using Windows.UI.Xaml.Data;
 
 using Microsoft.Practices.ObjectBuilder2;
 
-using Pyxis.Beta.Interfaces.Models.v1;
-using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Models.Enums;
 using Pyxis.Services.Interfaces;
+
+using Sagitta;
+using Sagitta.Models;
 
 namespace Pyxis.Models
 {
     internal class PixivBrowsingHistory : ISupportIncrementalLoading
     {
         private readonly ContentType2 _contentType;
-        private readonly IPixivClient _pixivClient;
+        private readonly PixivClient _pixivClient;
         private readonly IQueryCacheService _queryCacheService;
-        private string _offset;
+        private int _offset;
 
-        public ObservableCollection<IIllust> Illusts { get; }
-        public ObservableCollection<INovel> Novels { get; }
+        public ObservableCollection<Illust> IllustsRoot { get; }
+        public ObservableCollection<Novel> Novels { get; }
 
-        public PixivBrowsingHistory(IPixivClient pixivClient, ContentType2 contentType, IQueryCacheService queryCacheService)
+        public PixivBrowsingHistory(PixivClient pixivClient, ContentType2 contentType, IQueryCacheService queryCacheService)
         {
             _pixivClient = pixivClient;
             _contentType = contentType;
             _queryCacheService = queryCacheService;
-            _offset = "";
-            Illusts = new ObservableCollection<IIllust>();
-            Novels = new ObservableCollection<INovel>();
+            _offset = 0;
+            IllustsRoot = new ObservableCollection<Illust>();
+            Novels = new ObservableCollection<Novel>();
 #if OFFLINE
             HasMoreItems = false;
 #else
@@ -44,30 +45,30 @@ namespace Pyxis.Models
         private async Task Fetch()
         {
             if (_contentType == ContentType2.IllustAndManga)
-                await FetchIllusts();
+                await FetchIllustsRoot();
             else
                 await FetchNovels();
             ;
         }
 
-        private async Task FetchIllusts()
+        private async Task FetchIllustsRoot()
         {
-            var illusts = await _queryCacheService.RunAsync(_pixivClient.UserV1.BrowsingHistory.IllustAsync, offset => _offset);
-            illusts?.IllustList.ForEach(w => Illusts.Add(w));
+            var illusts = await _pixivClient.User.BrowsingHistory.IllustsAsync(_offset);
+            illusts?.Illusts.ForEach(w => IllustsRoot.Add(w));
             if (string.IsNullOrWhiteSpace(illusts?.NextUrl))
                 HasMoreItems = false;
             else
-                _offset = UrlParameter.ParseQuery(illusts.NextUrl)["offset"];
+                _offset = int.Parse(UrlParameter.ParseQuery(illusts?.NextUrl)["offset"]);
         }
 
         private async Task FetchNovels()
         {
-            var novels = await _queryCacheService.RunAsync(_pixivClient.UserV1.BrowsingHistory.NovelAsync, offset => _offset);
-            novels?.NovelList.ForEach(w => Novels.Add(w));
+            var novels = await _pixivClient.User.BrowsingHistory.NovelsAsync(_offset);
+            novels?.Novels.ForEach(w => Novels.Add(w));
             if (string.IsNullOrWhiteSpace(novels?.NextUrl))
                 HasMoreItems = false;
             else
-                _offset = UrlParameter.ParseQuery(novels.NextUrl)["offset"];
+                _offset = int.Parse(UrlParameter.ParseQuery(novels.NextUrl)["offset"]);
         }
 
         public IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count)

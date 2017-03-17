@@ -87,7 +87,7 @@ Get bookmarked users.
             }
 
 
-### GET /v1/illust/comment{?illust_id}
+### GET /v1/illust/comments{?illust_id}
 Get comments that illustration.
 
 + Parameters
@@ -115,6 +115,60 @@ Get comments that illustration.
           ],
           "next_url": "https://app-api.pixiv.net/v1/illust/comments?illust_id=61352292&offset=30&include_total_comments=false"
         }
+
+
+### GET /v1/illust/detail{?illust_id}
+Get illustration details.
+
++ Parameters
+    + illust_id: `61421481` (integer, required) - Illustration ID.
+
++ Response 200 (application/json)
+
+            {
+              "illust": {
+                "id": 61421481,
+                "title": "艦これ２コマ劇場その２８４『暁にはまだ早い』",
+                "type": "manga",
+                "image_urls": {
+                  "square_medium": "https://i.pximg.net/c/360x360_70/img-master/img/2017/02/12/23/01/23/61421481_p0_square1200.jpg",
+                  "medium": "https://i.pximg.net/c/540x540_70/img-master/img/2017/02/12/23/01/23/61421481_p0_master1200.jpg",
+                  "large": "https://i.pximg.net/c/600x1200_90/img-master/img/2017/02/12/23/01/23/61421481_p0_master1200.jpg"
+                },
+                "caption": "【】次⇔前【<strong><a href=\"pixiv://illusts/61401740\">illust/61401740</a></strong>】　最初【<strong><a href=\"pixiv://illusts/44444541\">illust/44444541</a></strong>】<br /><br />※C91新刊【<strong><a href=\"pixiv://illusts/60496162\">illust/60496162</a></strong>】【<strong><a href=\"pixiv://illusts/60496397\">illust/60496397</a></strong>】<br />発行している最近の同人誌はコチラ【<strong><a href=\"pixiv://illusts/58165757\">illust/58165757</a></strong>】【<strong><a href=\"pixiv://illusts/58286705\">illust/58286705</a></strong>】<br />pixiv内に投稿した艦これ漫画のまとめ【<strong><a href=\"pixiv://illusts/52081689\">illust/52081689</a></strong>】<br /><br />話の内容はゆうじさん【<strong><a href=\"pixiv://users/31031\">user/31031</a></strong>】",
+                "restrict": 0,
+                "user": {
+                  "id": 147202,
+                  "name": "こうじ",
+                  "account": "koji128",
+                  "profile_image_urls": {
+                    "medium": "https://i3.pixiv.net/user-profile/img/2015/08/03/08/44/14/9698990_9d16d8ca262d7d8031b96d5b4f701219_170.jpg"
+                  },
+                  "is_followed": true
+                },
+                "tags": [
+                  {
+                    "name": "艦これ"
+                  }
+                ],
+                "tools": [],
+                "create_date": "2017-02-12T23:01:23+09:00",
+                "page_count": 1,
+                "width": 673,
+                "height": 950,
+                "sanity_level": 2,
+                "meta_single_page": {
+                  "original_image_url": "https://i2.pixiv.net/img-original/img/2017/02/12/23/01/23/61421481_p0.jpg"
+                },
+                "meta_pages": [],
+                "total_view": 41560,
+                "total_bookmarks": 597,
+                "is_bookmarked": false,
+                "visible": true,
+                "is_muted": false,
+                "total_comments": 70
+              }
+            }
 
 
 ### GET /v2/illust/follow

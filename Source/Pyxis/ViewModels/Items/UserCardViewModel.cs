@@ -4,26 +4,27 @@ using System.Windows.Input;
 using Prism.Commands;
 using Prism.Windows.Navigation;
 
-using Pyxis.Beta.Interfaces.Models.v1;
-using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Models;
 using Pyxis.Models.Parameters;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
+
+using Sagitta;
+using Sagitta.Models;
 
 namespace Pyxis.ViewModels.Items
 {
     internal class UserCardViewModel : TappableThumbnailViewModel
     {
         private readonly INavigationService _navigationService;
-        private readonly IPixivClient _pixivClient;
-        private readonly IUser _user;
-        private readonly IUserPreview _userPreview;
+        private readonly PixivClient _pixivClient;
+        private readonly User _user;
+        private readonly UserPreview _userPreview;
 
         public string Username => _userPreview.User.Name;
 
-        public UserCardViewModel(IUserPreview userPreview, IImageStoreService imageStoreService,
-                                 INavigationService navigationService, IPixivClient pixivClient)
+        public UserCardViewModel(UserPreview userPreview, IImageStoreService imageStoreService,
+                                 INavigationService navigationService, PixivClient pixivClient)
         {
             _userPreview = userPreview;
             _navigationService = navigationService;
@@ -33,7 +34,7 @@ namespace Pyxis.ViewModels.Items
             Thumbnailable = new PixivUserImage(userPreview.User, imageStoreService);
         }
 
-        public UserCardViewModel(IUser user, IImageStoreService imageStoreService, INavigationService navigationService, IPixivClient pixivClient)
+        public UserCardViewModel(User user, IImageStoreService imageStoreService, INavigationService navigationService, PixivClient pixivClient)
         {
             _user = user;
             _navigationService = navigationService;
@@ -47,7 +48,7 @@ namespace Pyxis.ViewModels.Items
 
         public override void OnItemTapped()
         {
-            var parameter = new DetailByIdParameter {Id = _userPreview?.User.Id ?? _user.Id};
+            var parameter = new DetailByIdParameter {Id = _userPreview?.User.Id.ToString() ?? _user.Id.ToString()};
             _navigationService.Navigate("Detail.UserDetail", parameter.ToJson());
         }
 
@@ -64,9 +65,9 @@ namespace Pyxis.ViewModels.Items
         {
             var id = _userPreview?.User?.Id ?? _user.Id;
             if ((_userPreview?.User ?? _user).IsFollowed)
-                await _pixivClient.UserV1.Follow.DeleteAsunc(user_id => id);
+                await _pixivClient.User.Follow.DeleteAsync(id);
             else
-                await _pixivClient.UserV1.Follow.AddAsync(user_id => id);
+                await _pixivClient.User.Follow.AddAsync(id);
             IsFollowing = !IsFollowing;
         }
 

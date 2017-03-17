@@ -8,10 +8,12 @@ using Windows.UI.Xaml.Data;
 
 using Microsoft.Practices.ObjectBuilder2;
 
-using Pyxis.Beta.Interfaces.Models.v1;
-using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Models.Enums;
 using Pyxis.Services.Interfaces;
+
+using Sagitta;
+using Sagitta.Enum;
+using Sagitta.Models;
 
 namespace Pyxis.Models
 {
@@ -19,22 +21,22 @@ namespace Pyxis.Models
     {
         private readonly ContentType _contentType;
         private readonly string _id;
-        private readonly IPixivClient _pixivClient;
+        private readonly PixivClient _pixivClient;
         private readonly IQueryCacheService _queryCacheService;
-        private string _offset;
+        private int _offset;
 
-        public ObservableCollection<IIllust> Illusts { get; }
-        public ObservableCollection<INovel> Novels { get; }
+        public ObservableCollection<Illust> IllustsRoot { get; }
+        public ObservableCollection<Novel> Novels { get; }
 
-        public PixivWork(string id, ContentType contentType, IPixivClient pixivClient, IQueryCacheService queryCacheService)
+        public PixivWork(string id, ContentType contentType, PixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _id = id;
             _contentType = contentType;
             _pixivClient = pixivClient;
             _queryCacheService = queryCacheService;
-            _offset = "";
-            Illusts = new ObservableCollection<IIllust>();
-            Novels = new ObservableCollection<INovel>();
+            _offset = 0;
+            IllustsRoot = new ObservableCollection<Illust>();
+            Novels = new ObservableCollection<Novel>();
 #if OFFLINE
             HasMoreItems = false;
 #else
@@ -45,9 +47,9 @@ namespace Pyxis.Models
         private async Task FetchAsync()
         {
             if (_contentType == ContentType.Illust)
-                await FetchIllusts("illust");
+                await FetchIllustsRoot("illust");
             else if (_contentType == ContentType.Manga)
-                await FetchIllusts("manga");
+                await FetchIllustsRoot("manga");
             else if (_contentType == ContentType.Novel)
                 await FetchNovels();
             else
@@ -55,29 +57,25 @@ namespace Pyxis.Models
         }
 
         [SuppressMessage("ReSharper", "InconsistentNaming")]
-        private async Task FetchIllusts(string contentType)
+        private async Task FetchIllustsRoot(string contentType)
         {
-            var illusts = await _queryCacheService.RunAsync(_pixivClient.UserV1.IllustsAsync,
-                                                            user_id => _id,
-                                                            filter => "for_ios",
-                                                            type => contentType,
-                                                            offset => _offset);
-            illusts?.IllustList.ForEach(w => Illusts.Add(w));
+            var illusts = await _pixivClient.User.IllustsAsync(IllustType.Illust, int.Parse(_id), "for_ios", _offset);
+            illusts?.Illusts.ForEach(w => IllustsRoot.Add(w));
             if (string.IsNullOrWhiteSpace(illusts?.NextUrl))
                 HasMoreItems = false;
             else
-                _offset = UrlParameter.ParseQuery(illusts.NextUrl)["offset"];
+                _offset = int.Parse(UrlParameter.ParseQuery(illusts.NextUrl)["offset"]);
         }
 
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         private async Task FetchNovels()
         {
-            var noves = await _queryCacheService.RunAsync(_pixivClient.UserV1.NovelsAsync, user_id => _id, offset => _offset);
-            noves?.NovelList.ForEach(w => Novels.Add(w));
-            if (string.IsNullOrWhiteSpace(noves?.NextUrl))
+            var novels = await _pixivClient.User.NovelsAsync(int.Parse(_id), _offset);
+            novels?.Novels.ForEach(w => Novels.Add(w));
+            if (string.IsNullOrWhiteSpace(novels?.NextUrl))
                 HasMoreItems = false;
             else
-                _offset = UrlParameter.ParseQuery(noves.NextUrl)["offset"];
+                _offset = int.Parse(UrlParameter.ParseQuery(novels.NextUrl)["offset"]);
         }
 
         #region Implementation of ISupportIncrementalLoading

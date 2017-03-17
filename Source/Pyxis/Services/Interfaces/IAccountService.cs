@@ -1,7 +1,8 @@
 ﻿using System.Threading.Tasks;
 
-using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Models;
+
+using Sagitta.Models;
 
 namespace Pyxis.Services.Interfaces
 {
@@ -11,7 +12,7 @@ namespace Pyxis.Services.Interfaces
 
         bool IsPremium { get; }
 
-        IAccount LoggedInAccount { get; }
+        Me LoggedInAccount { get; }
 
         void Clear();
 

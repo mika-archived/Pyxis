@@ -1,21 +1,22 @@
 ﻿using Prism.Windows.Navigation;
 
-using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Items;
+
+using Sagitta.Models;
 
 namespace Pyxis.ViewModels.Search.Items
 {
     public class TrendingTagViewModel : PixivThumbnailViewModel
     {
         private readonly SearchType _searchType;
-        private readonly ITrendTag _trendTag;
+        private readonly TrendingTag _trendTag;
 
         public string TagName => _trendTag.Tag;
 
-        public TrendingTagViewModel(SearchType searchType, ITrendTag trendTag, IImageStoreService imageStoreService,
+        public TrendingTagViewModel(SearchType searchType, TrendingTag trendTag, IImageStoreService imageStoreService,
                                     INavigationService navigationService)
             : base(trendTag.Illust, imageStoreService, navigationService)
         {

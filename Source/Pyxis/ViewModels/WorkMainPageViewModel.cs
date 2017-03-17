@@ -3,8 +3,6 @@ using System.Collections.Generic;
 
 using Prism.Windows.Navigation;
 
-using Pyxis.Beta.Interfaces.Models.v1;
-using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Collections;
 using Pyxis.Helpers;
 using Pyxis.Models;
@@ -15,6 +13,9 @@ using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
 using Pyxis.ViewModels.Items;
 
+using Sagitta;
+using Sagitta.Models;
+
 namespace Pyxis.ViewModels
 {
     public class WorkMainPageViewModel : ViewModel
@@ -22,7 +23,7 @@ namespace Pyxis.ViewModels
         private readonly IAccountService _accountService;
         private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
-        private readonly IPixivClient _pixivClient;
+        private readonly PixivClient _pixivClient;
         private readonly IQueryCacheService _queryCacheService;
 
         private PixivWork _pixivWork;
@@ -32,7 +33,7 @@ namespace Pyxis.ViewModels
 
         public WorkMainPageViewModel(IAccountService accountService, ICategoryService categoryService,
                                      IImageStoreService imageStoreService, INavigationService navigationService,
-                                     IPixivClient pixivClient, IQueryCacheService queryCacheService)
+                                     PixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _accountService = accountService;
             _categoryService = categoryService;
@@ -65,7 +66,7 @@ namespace Pyxis.ViewModels
             SelectedIndex = (int) parameter.ContentType;
             _pixivWork = new PixivWork(_accountService.LoggedInAccount.Id, parameter.ContentType, _pixivClient, _queryCacheService);
             if (parameter.ContentType != ContentType.Novel)
-                ModelHelper.ConnectTo(WorkItems, _pixivWork, w => w.Illusts, CreatePixivImage).AddTo(this);
+                ModelHelper.ConnectTo(WorkItems, _pixivWork, w => w.IllustsRoot, CreatePixivImage).AddTo(this);
             else
                 ModelHelper.ConnectTo(WorkItems, _pixivWork, w => w.Novels, CreatePixivNovel).AddTo(this);
         }
@@ -80,10 +81,10 @@ namespace Pyxis.ViewModels
 
         #region Converters
 
-        private PixivThumbnailViewModel CreatePixivImage(IIllust w) =>
+        private PixivThumbnailViewModel CreatePixivImage(Illust w) =>
             new PixivThumbnailViewModel(w, _imageStoreService, NavigationService);
 
-        private PixivThumbnailViewModel CreatePixivNovel(INovel w) =>
+        private PixivThumbnailViewModel CreatePixivNovel(Novel w) =>
             new PixivThumbnailViewModel(w, _imageStoreService, NavigationService);
 
         #endregion

@@ -1,16 +1,17 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 
-using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Helpers;
 using Pyxis.Models.Base;
 using Pyxis.Services.Interfaces;
+
+using Sagitta.Models;
 
 namespace Pyxis.Models
 {
     internal class PixivImage : ThumbnailableBase
     {
-        private readonly IIllust _illust;
+        private readonly Illust _illust;
         private readonly IImageStoreService _imageStoreService;
         private readonly bool _isRaw;
         private readonly bool _isShadow;
@@ -21,7 +22,7 @@ namespace Pyxis.Models
         /// <param name="imageStoreService"></param>
         /// <param name="isRaw">オリジナルサイズを取得</param>
         /// <param name="isShadow"><code>isRaw = true</code>の際、シャドウデータを表示</param>
-        public PixivImage(IIllust illust, IImageStoreService imageStoreService, bool isRaw = false, bool isShadow = true)
+        public PixivImage(Illust illust, IImageStoreService imageStoreService, bool isRaw = false, bool isShadow = true)
         {
             _illust = illust;
             _imageStoreService = imageStoreService;
@@ -34,7 +35,7 @@ namespace Pyxis.Models
         public async Task SaveImageAsync()
         {
             var orig = _illust.MetaPages.FirstOrDefault()?.ImageUrls.Original ??
-                       _illust.MetaSinglePage.Original ?? _illust.ImageUrls.Large;
+                       _illust.MetaSinglePage.OriginalImageUrl ?? _illust.ImageUrls.Large;
             await _imageStoreService.SaveToLocalFolderAsync(orig);
         }
 
@@ -53,7 +54,7 @@ namespace Pyxis.Models
             else
             {
                 var orig = _illust.MetaPages.FirstOrDefault()?.ImageUrls.Original ??
-                           _illust.MetaSinglePage.Original ?? _illust.ImageUrls.Large;
+                           _illust.MetaSinglePage.OriginalImageUrl ?? _illust.ImageUrls.Large;
                 if (await _imageStoreService.ExistImageAsync(orig))
                     ThumbnailPath = await _imageStoreService.LoadImageAsync(orig);
                 else

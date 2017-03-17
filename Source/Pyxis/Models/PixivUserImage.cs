@@ -1,9 +1,10 @@
 ﻿using System.Threading.Tasks;
 
-using Pyxis.Beta.Interfaces.Models.v1;
 using Pyxis.Helpers;
 using Pyxis.Models.Base;
 using Pyxis.Services.Interfaces;
+
+using Sagitta.Models;
 
 namespace Pyxis.Models
 {
@@ -11,9 +12,9 @@ namespace Pyxis.Models
     {
         private readonly IImageStoreService _imageStoreService;
 
-        private readonly IUserBase _user;
+        private readonly UserMini _user;
 
-        public PixivUserImage(IUserBase user, IImageStoreService imageStoreService)
+        public PixivUserImage(UserMini user, IImageStoreService imageStoreService)
         {
             _user = user;
             _imageStoreService = imageStoreService;
@@ -25,7 +26,9 @@ namespace Pyxis.Models
 
         private async Task DownloadImage()
         {
-            var icon = _user.ProfileImageUrls.Size50 ?? _user.ProfileImageUrls.Medium;
+            var icon = _user.ProfileImageUrls.Medium;
+            if (string.IsNullOrWhiteSpace(icon))
+                return;
             if (await _imageStoreService.ExistImageAsync(icon))
                 ThumbnailPath = await _imageStoreService.LoadImageAsync(icon);
             else

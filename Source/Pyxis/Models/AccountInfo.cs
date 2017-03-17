@@ -1,4 +1,4 @@
-﻿using Pyxis.Beta.Interfaces.Models.v1;
+﻿using Sagitta.Models;
 
 namespace Pyxis.Models
 {
@@ -8,9 +8,9 @@ namespace Pyxis.Models
 
         public string Password { get; }
 
-        public IAccount Account { get; }
+        public Me Account { get; }
 
-        public AccountInfo(string username, string password, IAccount account = null)
+        public AccountInfo(string username, string password, Me account = null)
         {
             Username = username;
             Password = password;

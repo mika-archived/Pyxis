@@ -8,31 +8,33 @@ using Windows.UI.Xaml.Data;
 
 using Microsoft.Practices.ObjectBuilder2;
 
-using Pyxis.Beta.Interfaces.Models.v1;
-using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
 using Pyxis.Services.Interfaces;
+
+using Sagitta;
+using Sagitta.Enum;
+using Sagitta.Models;
 
 namespace Pyxis.Models
 {
     internal class PixivFavorite : ISupportIncrementalLoading
     {
-        private readonly IPixivClient _pixivClient;
+        private readonly PixivClient _pixivClient;
         private readonly IQueryCacheService _queryCacheService;
 
-        private string _maxBookmarkId;
+        private int _maxBookmarkId;
         private FavoriteOptionParameter _optionParam;
 
-        public ObservableCollection<IIllust> ResultIllusts { get; }
-        public ObservableCollection<INovel> ResultNovels { get; }
+        public ObservableCollection<Illust> ResultIllustsRoot { get; }
+        public ObservableCollection<Novel> ResultNovels { get; }
 
-        public PixivFavorite(IPixivClient pixivClient, IQueryCacheService queryCacheService)
+        public PixivFavorite(PixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _pixivClient = pixivClient;
             _queryCacheService = queryCacheService;
-            ResultIllusts = new ObservableCollection<IIllust>();
-            ResultNovels = new ObservableCollection<INovel>();
+            ResultIllustsRoot = new ObservableCollection<Illust>();
+            ResultNovels = new ObservableCollection<Novel>();
 #if OFFLINE
             HasMoreItems = false;
 #else
@@ -42,12 +44,12 @@ namespace Pyxis.Models
 
         public void Query(FavoriteOptionParameter optionParameter)
         {
-            ResultIllusts.Clear();
+            ResultIllustsRoot.Clear();
             ResultNovels.Clear();
             _optionParam = optionParameter;
             // Magic number
             _optionParam.Tag = optionParameter.Tag == "すべて" ? "" : optionParameter.Tag;
-            _maxBookmarkId = "";
+            _maxBookmarkId = 0;
 #if !OFFLINE
             HasMoreItems = true;
 #endif
@@ -71,34 +73,24 @@ namespace Pyxis.Models
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         private async Task QueryIllust()
         {
-            var bookmarksApi = _pixivClient.UserV1.Bookmarks;
-            var illusts = await _queryCacheService.RunAsync(bookmarksApi.IllustAsync,
-                                                            user_id => _optionParam.UserId,
-                                                            filter => "for_ios",
-                                                            restrict => _optionParam.Restrict.ToParamString(),
-                                                            max_bookmark_id => _maxBookmarkId,
-                                                            tag => _optionParam.Tag ?? "");
-            illusts?.IllustList.ForEach(w => ResultIllusts.Add(w));
+            var illusts = await _pixivClient.User.Bookmarks.IllustAsync(int.Parse(_optionParam.UserId), "for_ios", restrict: Restrict.Public,
+                                                                        maxBookmarkId: _maxBookmarkId, tag: _optionParam.Tag);
+            illusts?.Illusts.ForEach(w => ResultIllustsRoot.Add(w));
             if (string.IsNullOrWhiteSpace(illusts?.NextUrl))
                 HasMoreItems = false;
             else
-                _maxBookmarkId = UrlParameter.ParseQuery(illusts.NextUrl)["max_bookmark_id"];
+                _maxBookmarkId = int.Parse(UrlParameter.ParseQuery(illusts.NextUrl)["max_bookmark_id"]);
         }
 
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         private async Task QueryNovel()
         {
-            var bookmarksApi = _pixivClient.UserV1.Bookmarks;
-            var novels = await _queryCacheService.RunAsync(bookmarksApi.NovelAsync,
-                                                           user_id => _optionParam.UserId,
-                                                           restrict => _optionParam.Restrict.ToParamString(),
-                                                           max_bookmark_id => _maxBookmarkId,
-                                                           tag => _optionParam.Tag ?? "");
-            novels?.NovelList.ForEach(w => ResultNovels.Add(w));
+            var novels = await _pixivClient.User.Bookmarks.NovelAsync(int.Parse(_optionParam.UserId), _maxBookmarkId, Restrict.Public, _optionParam.Tag);
+            novels?.Novels.ForEach(w => ResultNovels.Add(w));
             if (string.IsNullOrWhiteSpace(novels?.NextUrl))
                 HasMoreItems = false;
             else
-                _maxBookmarkId = UrlParameter.ParseQuery(novels.NextUrl)["max_bookmark_id"];
+                _maxBookmarkId = int.Parse(UrlParameter.ParseQuery(novels.NextUrl)["max_bookmark_id"]);
         }
 
         #region Implementation of ISupportIncrementalLoading

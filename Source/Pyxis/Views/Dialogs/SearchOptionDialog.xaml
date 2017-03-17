@@ -87,7 +87,6 @@
                                                  Converter={StaticResource EnumToBooleanConverter},
                                                  ConverterParameter=Pyxis.Models.Enums.SearchTarget.Keyword}"
                              IsEnabled="{x:Bind ViewModel.IsEnabledNovelMode, Mode=OneWay}" />
-
             </StackPanel>
         </StackPanel>
         <StackPanel Style="{StaticResource SectionStackPanelStyle}">

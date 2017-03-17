@@ -4,8 +4,6 @@ using System.Linq;
 
 using Prism.Windows.Navigation;
 
-using Pyxis.Beta.Interfaces.Models.v1;
-using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Collections;
 using Pyxis.Helpers;
 using Pyxis.Models;
@@ -20,6 +18,9 @@ using Pyxis.ViewModels.Items;
 
 using Reactive.Bindings;
 
+using Sagitta;
+using Sagitta.Models;
+
 namespace Pyxis.ViewModels
 {
     public class HomeMainPageViewModel : ViewModel
@@ -27,7 +28,7 @@ namespace Pyxis.ViewModels
         private readonly IAccountService _accountService;
         private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
-        private readonly IPixivClient _pixivClient;
+        private readonly PixivClient _pixivClient;
         private readonly IQueryCacheService _queryCacheService;
         private ContentType _contentType;
         private PixivRanking _pixivRanking;
@@ -38,7 +39,7 @@ namespace Pyxis.ViewModels
         public IncrementalObservableCollection<TappableThumbnailViewModel> RecommendedItems { get; }
 
         public HomeMainPageViewModel(IAccountService accountService, ICategoryService categoryService,
-                                     IImageStoreService imageStoreService, IPixivClient pixivClient,
+                                     IImageStoreService imageStoreService, PixivClient pixivClient,
                                      IQueryCacheService queryCacheService, INavigationService navigationService)
         {
             _accountService = accountService;
@@ -68,7 +69,7 @@ namespace Pyxis.ViewModels
             _categoryService.UpdateCategory();
             SelectedIndex = (int) parameter.ContentType;
             _contentType = parameter.ContentType;
-            _pixivRanking = new PixivRanking(_pixivClient, parameter.ContentType, this._queryCacheService);
+            _pixivRanking = new PixivRanking(_pixivClient, parameter.ContentType, _queryCacheService);
             _pixivRecommended = new PixivRecommended(_accountService, _pixivClient, _queryCacheService, parameter.ContentType);
 
             if (parameter.ContentType == ContentType.Novel)
@@ -92,16 +93,16 @@ namespace Pyxis.ViewModels
 
         #region Converters
 
-        private RankingViewModel CreateRankingImage(Tuple<RankingMode, IIllusts> w) =>
-            new RankingImageViewModel(w.Item2.IllustList.First(), w.Item1, _contentType, _imageStoreService, NavigationService);
+        private RankingViewModel CreateRankingImage(Tuple<RankingMode, IllustsRoot> w) =>
+            new RankingImageViewModel(w.Item2.Illusts.First(), w.Item1, _contentType, _imageStoreService, NavigationService);
 
-        private PixivThumbnailViewModel CreatePixivImage(IIllust w) =>
+        private PixivThumbnailViewModel CreatePixivImage(Illust w) =>
             new PixivThumbnailViewModel(w, _imageStoreService, NavigationService);
 
-        private RankingViewModel CreateRankingNovel(Tuple<RankingMode, INovels> w) =>
-            new RankingNovelViewModel(w.Item2.NovelList.First(), w.Item1, _imageStoreService, NavigationService);
+        private RankingViewModel CreateRankingNovel(Tuple<RankingMode, NovelsRoot> w) =>
+            new RankingNovelViewModel(w.Item2.Novels.First(), w.Item1, _imageStoreService, NavigationService);
 
-        private PixivThumbnailViewModel CreatePixivNovel(INovel w) =>
+        private PixivThumbnailViewModel CreatePixivNovel(Novel w) =>
             new PixivThumbnailViewModel(w, _imageStoreService, NavigationService);
 
         #endregion

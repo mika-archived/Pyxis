@@ -1,15 +1,10 @@
-﻿using Newtonsoft.Json;
-
-using Pyxis.Alpha.Models.v1;
-using Pyxis.Beta.Converters;
-using Pyxis.Beta.Interfaces.Models.v1;
+﻿using Sagitta.Models;
 
 namespace Pyxis.Models.Parameters
 {
     internal class SearchResultAndTrendingParameter : SearchResultParameter
     {
-        [JsonConverter(typeof(InterfaceToConcrete<Illust>))]
-        public IIllust TrendingIllust { get; set; }
+        public Illust TrendingIllust { get; set; }
 
         #region Overrides of ParameterBase
 

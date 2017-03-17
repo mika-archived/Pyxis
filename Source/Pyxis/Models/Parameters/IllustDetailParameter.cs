@@ -1,16 +1,10 @@
-﻿using Newtonsoft.Json;
-
-using Pyxis.Beta.Converters;
-using Pyxis.Beta.Interfaces.Models.v1;
-
-using AlphaIllust = Pyxis.Alpha.Models.v1.Illust;
+﻿using Sagitta.Models;
 
 namespace Pyxis.Models.Parameters
 {
     internal class IllustDetailParameter : ParameterBase
     {
-        [JsonConverter(typeof(InterfaceToConcrete<AlphaIllust>))]
-        public IIllust Illust { get; set; }
+        public Illust Illust { get; set; }
 
         #region Overrides of ParameterBase
 

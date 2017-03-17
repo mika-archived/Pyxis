@@ -646,17 +646,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Pyxis.Alpha\Pyxis.Alpha.csproj">
-      <Project>{35a2be79-6626-4659-b4c0-bf328dca1a20}</Project>
-      <Name>Pyxis.Alpha</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Pyxis.Beta\Pyxis.Beta.csproj">
-      <Project>{8fa1f127-a3ab-4cd4-9054-a9302828fb79}</Project>
-      <Name>Pyxis.Beta</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Pyxis.Gamma\Pyxis.Gamma.csproj">
-      <Project>{9ed540bc-61ee-45c9-98dd-35a011605176}</Project>
-      <Name>Pyxis.Gamma</Name>
+    <ProjectReference Include="..\Sagitta\Source\Sagitta\Sagitta.csproj">
+      <Project>{a93d65a1-c7c4-46bf-8679-ba5f3b117d61}</Project>
+      <Name>Sagitta</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

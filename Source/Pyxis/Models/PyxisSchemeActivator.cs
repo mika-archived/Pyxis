@@ -19,7 +19,7 @@ namespace Pyxis.Models
         {
             var host = uri.Host;
             var activateParams = UrlParameter.ParseQuery(uri.ToString());
-            var param = new DetailByIdParameter {Id = activateParams["id"]}.ToJson();
+            var param = new DetailByIdParameter { Id = activateParams["id"] }.ToJson();
             switch (host)
             {
                 case "illusts":

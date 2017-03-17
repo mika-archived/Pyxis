@@ -4,7 +4,6 @@ using System.Reactive.Linq;
 
 using Prism.Windows.Navigation;
 
-using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Models;
 using Pyxis.Models.Parameters;
 using Pyxis.Mvvm;
@@ -13,16 +12,18 @@ using Pyxis.ViewModels.Base;
 
 using Reactive.Bindings.Extensions;
 
+using Sagitta;
+
 namespace Pyxis.ViewModels.Detail
 {
     public class NovelViewPageViewModel : ViewModel
     {
         private readonly ICategoryService _categoryService;
-        private readonly IPixivClient _pixivClient;
+        private readonly PixivClient _pixivClient;
         private readonly IQueryCacheService _queryCacheService;
         private PixivNovelText _pixivNovelText;
 
-        public NovelViewPageViewModel(ICategoryService categoryService, IPixivClient pixivClient, IQueryCacheService queryCacheService)
+        public NovelViewPageViewModel(ICategoryService categoryService, PixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _categoryService = categoryService;
             _pixivClient = pixivClient;
@@ -35,10 +36,9 @@ namespace Pyxis.ViewModels.Detail
             _categoryService.UpdateCategory();
             var novel = parameter.Novel;
             _pixivNovelText = new PixivNovelText(novel, _pixivClient, _queryCacheService);
-            _pixivNovelText.ObserveProperty(w => w.Text)
-                           .Where(w => w != null)
+            _pixivNovelText.ObserveProperty(w => w.Text).Where(w => w != null)
                            .ObserveOnUIDispatcher()
-                           .Subscribe(w => Text = w.NovelText)
+                           .Subscribe(w => Text = w.Body)
                            .AddTo(this);
 #if !OFFLINE
             _pixivNovelText.Fetch();

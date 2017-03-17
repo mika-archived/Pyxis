@@ -7,9 +7,6 @@ using System.Windows.Input;
 using Prism.Commands;
 using Prism.Windows.Navigation;
 
-using Pyxis.Alpha.Models.v1;
-using Pyxis.Beta.Interfaces.Models.v1;
-using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Collections;
 using Pyxis.Extensions;
 using Pyxis.Helpers;
@@ -21,6 +18,9 @@ using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
 using Pyxis.ViewModels.Items;
 
+using Sagitta;
+using Sagitta.Models;
+
 namespace Pyxis.ViewModels.Detail
 {
     public class UserDetailCollectionPageViewModel : MultipleThumbnailableViewModel
@@ -28,7 +28,7 @@ namespace Pyxis.ViewModels.Detail
         private readonly IAccountService _accountService;
         private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
-        private readonly IPixivClient _pixivClient;
+        private readonly PixivClient _pixivClient;
         private readonly IQueryCacheService _queryCacheService;
         private string _id;
         private bool _isOffline;
@@ -39,7 +39,7 @@ namespace Pyxis.ViewModels.Detail
 
         public UserDetailCollectionPageViewModel(IAccountService accountService, ICategoryService categoryService,
                                                  IImageStoreService imageStoreService,
-                                                 INavigationService navigationService, IPixivClient pixivClient, IQueryCacheService queryCacheService)
+                                                 INavigationService navigationService, PixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _accountService = accountService;
             _categoryService = categoryService;
@@ -74,12 +74,12 @@ namespace Pyxis.ViewModels.Detail
         private async void Follow()
         {
             if (IsFollowing)
-                await _pixivClient.UserV1.Follow.DeleteAsunc(user_id => _id, restrict => "public");
+                await _pixivClient.User.Follow.DeleteAsync(int.Parse(_id));
             else
-                await _pixivClient.UserV1.Follow.AddAsync(user_id => _id, restrict => "public");
+                await _pixivClient.User.Follow.AddAsync(int.Parse(_id));
             IsFollowing = !IsFollowing;
             var param = ParameterBase.ToObject<UserDetailParameter>(Parameter[1]);
-            ((User) param.Detail.User).IsFollowed = IsFollowing;
+            param.Detail.User.IsFollowed = IsFollowing;
             Initialize(param, false);
         }
 
@@ -107,12 +107,12 @@ namespace Pyxis.ViewModels.Detail
             else
                 SubSelectedIndex2 = parameter.ContentType == ContentType.Illust ? 0 : 1;
             Username = parameter.Detail.User.Name;
-            ScreenName = $"@{parameter.Detail.User.AccountName}";
-            Url = parameter.Detail.Profile.Webpage;
+            ScreenName = $"@{parameter.Detail.User.Account}";
+            Url = parameter.Detail.Profile.Website;
             IsFollowing = parameter.Detail.User.IsFollowed;
-            _id = parameter.Detail.User.Id;
-            if (!string.IsNullOrWhiteSpace(parameter.Detail.Profile.Webpage))
-                NavigateUrl = new Uri(parameter.Detail.Profile.Webpage);
+            _id = parameter.Detail.User.Id.ToString();
+            if (!string.IsNullOrWhiteSpace(parameter.Detail.Profile.Website))
+                NavigateUrl = new Uri(parameter.Detail.Profile.Website);
             if (full)
             {
                 Thumbnailable = new PixivUserImage(parameter.Detail.User, _imageStoreService);
@@ -131,7 +131,7 @@ namespace Pyxis.ViewModels.Detail
             param2.ProfileType = ProfileType.Favorite;
             Parameter = new List<object>
             {
-                new DetailByIdParameter {Id = parameter.Detail.User.Id},
+                new DetailByIdParameter {Id = parameter.Detail.User.Id.ToString()},
                 param1,
                 param2
             };
@@ -141,9 +141,9 @@ namespace Pyxis.ViewModels.Detail
                 InitializeSubMenu(param1, true);
                 if (!full)
                     return;
-                _pixivWork = new PixivWork(parameter.Detail.User.Id, parameter.ContentType, _pixivClient, _queryCacheService);
+                _pixivWork = new PixivWork(parameter.Detail.User.Id.ToString(), parameter.ContentType, _pixivClient, _queryCacheService);
                 if (parameter.ContentType != ContentType.Novel)
-                    ModelHelper.ConnectTo(Collection, _pixivWork, w => w.Illusts, CreatePixivImage).AddTo(this);
+                    ModelHelper.ConnectTo(Collection, _pixivWork, w => w.IllustsRoot, CreatePixivImage).AddTo(this);
                 else
                     ModelHelper.ConnectTo(Collection, _pixivWork, w => w.Novels, CreatePixivNovel).AddTo(this);
             }
@@ -154,7 +154,7 @@ namespace Pyxis.ViewModels.Detail
                     return;
                 _pixivFavorite = new PixivFavorite(_pixivClient, _queryCacheService);
                 if (parameter.ContentType != ContentType.Novel)
-                    ModelHelper.ConnectTo(Collection, _pixivFavorite, w => w.ResultIllusts, CreatePixivImage)
+                    ModelHelper.ConnectTo(Collection, _pixivFavorite, w => w.ResultIllustsRoot, CreatePixivImage)
                                .AddTo(this);
                 else
                     ModelHelper.ConnectTo(Collection, _pixivFavorite, w => w.ResultNovels, CreatePixivNovel).AddTo(this);
@@ -163,7 +163,7 @@ namespace Pyxis.ViewModels.Detail
                     Restrict = RestrictType.Public,
                     Type = parameter.ContentType.ToSearchType(),
                     Tag = "",
-                    UserId = parameter.Detail.User.Id
+                    UserId = parameter.Detail.User.Id.ToString()
                 });
             }
         }
@@ -181,10 +181,10 @@ namespace Pyxis.ViewModels.Detail
 
         #region Converters
 
-        private PixivThumbnailViewModel CreatePixivImage(IIllust w) =>
+        private PixivThumbnailViewModel CreatePixivImage(Illust w) =>
             new PixivThumbnailViewModel(w, _imageStoreService, NavigationService);
 
-        private PixivThumbnailViewModel CreatePixivNovel(INovel w) =>
+        private PixivThumbnailViewModel CreatePixivNovel(Novel w) =>
             new PixivThumbnailViewModel(w, _imageStoreService, NavigationService);
 
         #endregion

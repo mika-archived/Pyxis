@@ -8,27 +8,28 @@ using Windows.UI.Xaml.Data;
 
 using Microsoft.Practices.ObjectBuilder2;
 
-using Pyxis.Beta.Interfaces.Models.v1;
-using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Services.Interfaces;
+
+using Sagitta;
+using Sagitta.Models;
 
 namespace Pyxis.Models
 {
     internal class PixivMypixiv : ISupportIncrementalLoading
     {
-        private readonly IPixivClient _pixivClient;
+        private readonly PixivClient _pixivClient;
         private readonly IQueryCacheService _queryCacheService;
-        private readonly string _userId;
-        private string _offset;
-        public ObservableCollection<IUserPreview> Users { get; }
+        private readonly int _userId;
+        private int _offset;
+        public ObservableCollection<UserPreview> Users { get; }
 
-        public PixivMypixiv(string userId, IPixivClient pixivClient, IQueryCacheService queryCacheService)
+        public PixivMypixiv(string userId, PixivClient pixivClient, IQueryCacheService queryCacheService)
         {
-            _userId = userId;
+            _userId = int.Parse(userId);
             _pixivClient = pixivClient;
             _queryCacheService = queryCacheService;
-            Users = new ObservableCollection<IUserPreview>();
-            _offset = "";
+            Users = new ObservableCollection<UserPreview>();
+            _offset = 0;
 #if OFFLINE
             HasMoreItems = false;
 #else
@@ -39,14 +40,12 @@ namespace Pyxis.Models
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         private async Task Fetch()
         {
-            var users = await _queryCacheService.RunAsync(_pixivClient.UserV1.MypixivAsync,
-                                                          user_id => _userId,
-                                                          offset => _offset);
-            users?.UserPreviewList.ForEach(w => Users.Add(w));
+            var users = await _pixivClient.User.MypixivAsync(_userId, _offset);
+            users?.UserPreviews.ForEach(w => Users.Add(w));
             if (string.IsNullOrWhiteSpace(users?.NextUrl))
                 HasMoreItems = false;
             else
-                _offset = UrlParameter.ParseQuery(users.NextUrl)["offset"];
+                _offset = int.Parse(UrlParameter.ParseQuery(users.NextUrl)["offset"]);
         }
 
         #region Implementation of ISupportIncrementalLoading

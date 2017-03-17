@@ -12,8 +12,6 @@ using Microsoft.Practices.ObjectBuilder2;
 using Prism.Commands;
 using Prism.Windows.Navigation;
 
-using Pyxis.Beta.Interfaces.Models.v1;
-using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Helpers;
 using Pyxis.Models;
 using Pyxis.Models.Enums;
@@ -25,6 +23,9 @@ using Pyxis.ViewModels.Items;
 
 using Reactive.Bindings.Extensions;
 
+using Sagitta;
+using Sagitta.Models;
+
 namespace Pyxis.ViewModels.Detail
 {
     public class NovelDetailPageViewModel : ThumbnailableViewModel
@@ -34,12 +35,12 @@ namespace Pyxis.ViewModels.Detail
         private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
         private readonly INavigationService _navigationService;
-        private readonly IPixivClient _pixivClient;
+        private readonly PixivClient _pixivClient;
         private readonly IQueryCacheService _queryCacheService;
 
         private int _count;
         private DataTransferManager _dataTransferManager;
-        private INovel _novel;
+        private Novel _novel;
 
         private PixivComment _pixivComment;
         private PixivDetail _pixivDetail;
@@ -53,7 +54,7 @@ namespace Pyxis.ViewModels.Detail
 
         public NovelDetailPageViewModel(IAccountService accountService, IBrowsingHistoryService browsingHistoryService,
                                         ICategoryService categoryService, IImageStoreService imageStoreService,
-                                        INavigationService navigationService, IPixivClient pixivClient, IQueryCacheService queryCacheService)
+                                        INavigationService navigationService, PixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _accountService = accountService;
             _browsingHistoryService = browsingHistoryService;
@@ -70,7 +71,7 @@ namespace Pyxis.ViewModels.Detail
 
         #region Converters
 
-        private PixivCommentViewModel CreatePixivComment(IComment w) =>
+        private PixivCommentViewModel CreatePixivComment(Comment w) =>
             new PixivCommentViewModel(w, _imageStoreService);
 
         #endregion
@@ -114,7 +115,7 @@ namespace Pyxis.ViewModels.Detail
             _browsingHistoryService.Add(_novel);
             Title = _novel.Title;
             ConvertValues = new List<object> {_novel.Caption, _navigationService};
-            CreatedAt = _novel.CreateDate.ToString("g");
+            CreatedAt = _novel.CreatedAt.ToString("g");
             Username = _novel.User.Name;
             View = _novel.TotalView.ToString("##,###");
             BookmarkCount = _novel.TotalBookmarks.ToString("##,###");
@@ -128,7 +129,7 @@ namespace Pyxis.ViewModels.Detail
                       .ObserveOnUIDispatcher()
                       .Subscribe(w => IconPath = w)
                       .AddTo(this);
-            _pixivComment = new PixivComment(_novel, _pixivClient, _queryCacheService);
+            _pixivComment = new PixivComment(_novel, _pixivClient);
             _pixivComment.Comments.ObserveAddChanged()
                          .Where(w => ++_count <= 5)
                          .Select(CreatePixivComment)
@@ -175,7 +176,7 @@ namespace Pyxis.ViewModels.Detail
 
         public void OnTappedUserIcon()
         {
-            var parameter = new DetailByIdParameter {Id = _novel.User.Id};
+            var parameter = new DetailByIdParameter {Id = _novel.User.Id.ToString()};
             _navigationService.Navigate("Detail.UserDetail", parameter.ToJson());
         }
 
@@ -197,9 +198,9 @@ namespace Pyxis.ViewModels.Detail
         private async void Bookmark()
         {
             if (IsBookmarked)
-                await _pixivClient.NovelV1.Bookmark.DeleteAsync(novel_id => _novel.Id, restrict => "public");
+                await _pixivClient.Novel.Bookmark.DeleteAsync(_novel.Id);
             else
-                await _pixivClient.NovelV1.Bookmark.AddAsync(novel_id => _novel.Id, restrict => "public");
+                await _pixivClient.Novel.Bookmark.AddAsync(_novel.Id);
             IsBookmarked = !IsBookmarked;
         }
 

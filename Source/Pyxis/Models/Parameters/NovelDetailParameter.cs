@@ -1,16 +1,10 @@
-﻿using Newtonsoft.Json;
-
-using Pyxis.Beta.Converters;
-using Pyxis.Beta.Interfaces.Models.v1;
-
-using AlphaNovel = Pyxis.Alpha.Models.v1.Novel;
+﻿using Sagitta.Models;
 
 namespace Pyxis.Models.Parameters
 {
     internal class NovelDetailParameter : ParameterBase
     {
-        [JsonConverter(typeof(InterfaceToConcrete<AlphaNovel>))]
-        public INovel Novel { get; set; }
+        public Novel Novel { get; set; }
 
         #region Overrides of ParameterBase
 

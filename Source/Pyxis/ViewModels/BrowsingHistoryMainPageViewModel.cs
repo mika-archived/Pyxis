@@ -3,8 +3,6 @@ using System.Collections.Generic;
 
 using Prism.Windows.Navigation;
 
-using Pyxis.Beta.Interfaces.Models.v1;
-using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Collections;
 using Pyxis.Helpers;
 using Pyxis.Models;
@@ -15,6 +13,9 @@ using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
 using Pyxis.ViewModels.Items;
 
+using Sagitta;
+using Sagitta.Models;
+
 namespace Pyxis.ViewModels
 {
     public class BrowsingHistoryMainPageViewModel : ViewModel
@@ -22,7 +23,7 @@ namespace Pyxis.ViewModels
         private readonly IAccountService _accountService;
         private readonly ICategoryService _categoryService;
         private readonly IImageStoreService _imageStoreService;
-        private readonly IPixivClient _pixivClient;
+        private readonly PixivClient _pixivClient;
         private readonly IQueryCacheService _queryCacheService;
         private PixivBrowsingHistory _pixivBrowsingHistory;
 
@@ -32,7 +33,7 @@ namespace Pyxis.ViewModels
         public BrowsingHistoryMainPageViewModel(IAccountService accountService, ICategoryService categoryService,
                                                 IImageStoreService imageStoreService,
                                                 INavigationService navigationService,
-                                                IPixivClient pixivClient, IQueryCacheService queryCacheService)
+                                                PixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _accountService = accountService;
             _categoryService = categoryService;
@@ -68,7 +69,7 @@ namespace Pyxis.ViewModels
             _pixivBrowsingHistory = new PixivBrowsingHistory(_pixivClient, parameter.ContentType, _queryCacheService);
 
             if (parameter.ContentType == ContentType2.IllustAndManga)
-                ModelHelper.ConnectTo(BrowsingItems, _pixivBrowsingHistory, w => w.Illusts, CreatePixivImage)
+                ModelHelper.ConnectTo(BrowsingItems, _pixivBrowsingHistory, w => w.IllustsRoot, CreatePixivImage)
                            .AddTo(this);
             else
                 ModelHelper.ConnectTo(BrowsingItems, _pixivBrowsingHistory, w => w.Novels, CreatePixivNovel)
@@ -91,10 +92,10 @@ namespace Pyxis.ViewModels
 
         #region Converters
 
-        private PixivThumbnailViewModel CreatePixivImage(IIllust w) =>
+        private PixivThumbnailViewModel CreatePixivImage(Illust w) =>
             new PixivThumbnailViewModel(w, _imageStoreService, NavigationService);
 
-        private PixivThumbnailViewModel CreatePixivNovel(INovel w) =>
+        private PixivThumbnailViewModel CreatePixivNovel(Novel w) =>
             new PixivThumbnailViewModel(w, _imageStoreService, NavigationService);
 
         #endregion

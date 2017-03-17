@@ -4,8 +4,6 @@ using System.Linq;
 
 using Prism.Windows.Navigation;
 
-using Pyxis.Beta.Interfaces.Models.v1;
-using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Collections;
 using Pyxis.Helpers;
 using Pyxis.Models;
@@ -16,6 +14,9 @@ using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
 using Pyxis.ViewModels.Items;
 
+using Sagitta;
+using Sagitta.Models;
+
 namespace Pyxis.ViewModels
 {
     public class FavoriteMainPageViewModel : ViewModel
@@ -24,7 +25,7 @@ namespace Pyxis.ViewModels
         private readonly ICategoryService _categoryService;
         private readonly IDialogService _dialogService;
         private readonly IImageStoreService _imageStoreService;
-        private readonly IPixivClient _pixivClient;
+        private readonly PixivClient _pixivClient;
         private readonly IQueryCacheService _queryCacheService;
 
         private FavoriteOptionParameter _favoriteOption;
@@ -35,7 +36,7 @@ namespace Pyxis.ViewModels
 
         public FavoriteMainPageViewModel(IAccountService accountService, ICategoryService categoryService,
                                          IDialogService dialogService, IImageStoreService imageStoreService,
-                                         INavigationService navigationService, IPixivClient pixivClient, IQueryCacheService queryCacheService)
+                                         INavigationService navigationService, PixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _accountService = accountService;
             _categoryService = categoryService;
@@ -69,10 +70,10 @@ namespace Pyxis.ViewModels
             _favoriteOption = parameter;
             _favoriteOption.UserId = _accountService.LoggedInAccount.Id;
             SelectedIndex = (int) parameter.Type;
-            _pixivFavorite = new PixivFavorite(_pixivClient, this._queryCacheService);
+            _pixivFavorite = new PixivFavorite(_pixivClient, _queryCacheService);
 
             if (parameter.Type == SearchType.IllustsAndManga)
-                ModelHelper.ConnectTo(FavoriteItems, _pixivFavorite, w => w.ResultIllusts, CreatePixivImage).AddTo(this);
+                ModelHelper.ConnectTo(FavoriteItems, _pixivFavorite, w => w.ResultIllustsRoot, CreatePixivImage).AddTo(this);
             else
                 ModelHelper.ConnectTo(FavoriteItems, _pixivFavorite, w => w.ResultNovels, CreatePixivNovel).AddTo(this);
 
@@ -108,10 +109,10 @@ namespace Pyxis.ViewModels
 
         #region Converters
 
-        private PixivThumbnailViewModel CreatePixivImage(IIllust w) =>
+        private PixivThumbnailViewModel CreatePixivImage(Illust w) =>
             new PixivThumbnailViewModel(w, _imageStoreService, NavigationService);
 
-        private PixivThumbnailViewModel CreatePixivNovel(INovel w) =>
+        private PixivThumbnailViewModel CreatePixivNovel(Novel w) =>
             new PixivThumbnailViewModel(w, _imageStoreService, NavigationService);
 
         #endregion

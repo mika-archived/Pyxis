@@ -8,11 +8,13 @@ using Windows.UI.Xaml.Data;
 
 using Microsoft.Practices.ObjectBuilder2;
 
-using Pyxis.Beta.Interfaces.Models.v1;
-using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Extensions;
 using Pyxis.Models.Enums;
 using Pyxis.Services.Interfaces;
+
+using Sagitta;
+using Sagitta.Enum;
+using Sagitta.Models;
 
 namespace Pyxis.Models
 {
@@ -20,25 +22,25 @@ namespace Pyxis.Models
     {
         private readonly ContentType _contentType;
         private readonly FollowType _followType;
-        private readonly IPixivClient _pixivClient;
+        private readonly PixivClient _pixivClient;
         private readonly IQueryCacheService _queryCacheService;
-        private string _maxIllustId;
-        private string _maxNovelId;
-        private string _offset;
-        public ObservableCollection<IIllust> NewIllusts { get; }
-        public ObservableCollection<INovel> NewNovels { get; }
+        private int _maxIllustId;
+        private int _maxNovelId;
+        private int _offset;
+        public ObservableCollection<Illust> NewIllustsRoot { get; }
+        public ObservableCollection<Novel> NewNovels { get; }
 
-        public PixivNew(ContentType contentType, FollowType followType, IPixivClient pixivClient, IQueryCacheService queryCacheService)
+        public PixivNew(ContentType contentType, FollowType followType, PixivClient pixivClient, IQueryCacheService queryCacheService)
         {
             _contentType = contentType;
             _followType = followType;
             _pixivClient = pixivClient;
             _queryCacheService = queryCacheService;
-            NewIllusts = new ObservableCollection<IIllust>();
-            NewNovels = new ObservableCollection<INovel>();
-            _offset = "";
-            _maxNovelId = "";
-            _maxIllustId = "";
+            NewIllustsRoot = new ObservableCollection<Illust>();
+            NewNovels = new ObservableCollection<Novel>();
+            _offset = 0;
+            _maxNovelId = 0;
+            _maxIllustId = 0;
 #if OFFLINE
             HasMoreItems = false;
 #else
@@ -51,7 +53,7 @@ namespace Pyxis.Models
             if (_contentType == ContentType.Novel)
                 await FetchNovels(isClear);
             else
-                await FetchIllusts(isClear);
+                await FetchIllustsRoot(isClear);
         }
 
         [SuppressMessage("ReSharper", "InconsistentNaming")]
@@ -60,79 +62,73 @@ namespace Pyxis.Models
             if (isClear)
                 NewNovels.Clear();
 
-            INovels novels = null;
+            NovelsRoot novels = null;
             if (_followType == FollowType.Following)
-                novels = await _queryCacheService.RunAsync(_pixivClient.NovelV1.FollowAsync,
-                                                           restrict => "all",
-                                                           offset => _offset);
+                novels = await _pixivClient.Novel.FollowAsync(Restrict.All, _offset);
             else if (_followType == FollowType.Mypixiv)
-                novels = await _queryCacheService.RunAsync(_pixivClient.NovelV1.MypixivAsync, offset => _offset);
+                novels = await _pixivClient.Novel.MypixivAsync(_offset);
             else if (_followType == FollowType.All)
-                novels = await _queryCacheService.RunAsync(_pixivClient.NovelV1.NewAsync, max_novel_id => _maxNovelId);
-            novels?.NovelList.ForEach(w => NewNovels.Add(w));
+                novels = await _pixivClient.Novel.NewAsync(_maxNovelId);
+            novels?.Novels.ForEach(w => NewNovels.Add(w));
             if (string.IsNullOrWhiteSpace(novels?.NextUrl))
+            {
                 HasMoreItems = false;
+            }
             else
             {
-                _offset = UrlParameter.ParseQuery(novels.NextUrl).TryGet("offset");
-                _maxNovelId = UrlParameter.ParseQuery(novels.NextUrl).TryGet("max_novel_id");
+                _offset = int.Parse(UrlParameter.ParseQuery(novels.NextUrl).TryGet("offset"));
+                _maxNovelId = int.Parse(UrlParameter.ParseQuery(novels.NextUrl).TryGet("max_novel_id"));
             }
         }
 
         #region Illust related
 
-        private async Task FetchIllusts(bool isClear)
+        private async Task FetchIllustsRoot(bool isClear)
         {
             if (isClear)
-                NewIllusts.Clear();
+                NewIllustsRoot.Clear();
 
-            IIllusts illusts;
+            IllustsRoot illustsRoot;
             if (_contentType == ContentType.Illust)
-                illusts = await FetchIllusts();
+                illustsRoot = await FetchIllustsRoot();
             else
-                illusts = await FetchManga();
-            illusts?.IllustList.ForEach(w => NewIllusts.Add(w));
-            if (string.IsNullOrWhiteSpace(illusts?.NextUrl))
+                illustsRoot = await FetchManga();
+            illustsRoot?.Illusts.ForEach(w => NewIllustsRoot.Add(w));
+            if (string.IsNullOrWhiteSpace(illustsRoot?.NextUrl))
+            {
                 HasMoreItems = false;
+            }
             else
             {
-                _offset = UrlParameter.ParseQuery(illusts.NextUrl).TryGet("offset");
-                _maxIllustId = UrlParameter.ParseQuery(illusts.NextUrl).TryGet("max_illust_id");
+                _offset = int.Parse(UrlParameter.ParseQuery(illustsRoot.NextUrl).TryGet("offset"));
+                _maxIllustId = int.Parse(UrlParameter.ParseQuery(illustsRoot.NextUrl).TryGet("max_illust_id"));
             }
         }
 
         [SuppressMessage("ReSharper", "InconsistentNaming")]
-        private async Task<IIllusts> FetchIllusts()
+        private async Task<IllustsRoot> FetchIllustsRoot()
         {
-            IIllusts illusts = null;
+            IllustsRoot illustsRoot = null;
             if (_followType == FollowType.Following)
-                illusts = await _queryCacheService.RunAsync(_pixivClient.IllustV2.FollowAsync,
-                                                            restrict => "all",
-                                                            offset => _offset);
+                illustsRoot = await _pixivClient.Illust.FollowAsync(Restrict.All, offset: _offset);
             else if (_followType == FollowType.Mypixiv)
-                illusts = await _queryCacheService.RunAsync(_pixivClient.IllustV2.MypixivAsync, offset => _offset);
+                illustsRoot = await _pixivClient.Illust.MypixivAsync(_offset);
             else if (_followType == FollowType.All)
-                illusts = await _queryCacheService.RunAsync(_pixivClient.IllustV1.NewAsync,
-                                                            filter => "for_ios",
-                                                            content_type => "illust",
-                                                            max_illust_id => _maxIllustId);
-            return illusts;
+                illustsRoot = await _pixivClient.Illust.NewAsync(IllustType.Illust, "for_ios", _maxIllustId);
+            return illustsRoot;
         }
 
         [SuppressMessage("ReSharper", "InconsistentNaming")]
-        private async Task<IIllusts> FetchManga()
+        private async Task<IllustsRoot> FetchManga()
         {
-            IIllusts illusts = null;
+            IllustsRoot illustsRoot = null;
             if (_followType == FollowType.Following)
                 throw new NotSupportedException("Following");
             if (_followType == FollowType.Mypixiv)
                 throw new NotSupportedException("Mypixiv");
             if (_followType == FollowType.All)
-                illusts = await _queryCacheService.RunAsync(_pixivClient.IllustV1.NewAsync,
-                                                            filter => "for_ios",
-                                                            content_type => "manga",
-                                                            max_illust_id => _maxIllustId);
-            return illusts;
+                illustsRoot = await _pixivClient.Illust.NewAsync(IllustType.Manga, "for_ios", _maxIllustId);
+            return illustsRoot;
         }
 
         #endregion

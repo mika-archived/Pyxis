@@ -5,8 +5,6 @@ using System.Reactive.Linq;
 
 using Prism.Windows.Navigation;
 
-using Pyxis.Beta.Interfaces.Models.v1;
-using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Models;
 using Pyxis.Models.Enums;
 using Pyxis.Models.Parameters;
@@ -17,6 +15,9 @@ using Pyxis.ViewModels.Search.Items;
 
 using Reactive.Bindings.Extensions;
 
+using Sagitta;
+using Sagitta.Models;
+
 namespace Pyxis.ViewModels.Search
 {
     public class WorkSearchPageViewModel : ViewModel
@@ -25,7 +26,7 @@ namespace Pyxis.ViewModels.Search
         private readonly IDialogService _dialogService;
         private readonly IImageStoreService _imageStoreService;
         private readonly ILicenseService _licenseService;
-        private readonly IPixivClient _pixivClient;
+        private readonly PixivClient _pixivClient;
         private readonly IQueryCacheService _queryCacheService;
 
         private int _count;
@@ -38,7 +39,7 @@ namespace Pyxis.ViewModels.Search
 
         public WorkSearchPageViewModel(ICategoryService categoryService, IDialogService dialogService,
                                        IImageStoreService imageStoreService, ILicenseService licenseService,
-                                       INavigationService navigationService, IPixivClient pixivClient,
+                                       INavigationService navigationService, PixivClient pixivClient,
                                        IQueryCacheService queryCacheService)
         {
             _categoryService = categoryService;
@@ -97,7 +98,7 @@ namespace Pyxis.ViewModels.Search
 
         #region Converters
 
-        private TrendingTagViewModel CreateTrendingTag(ITrendTag trendTag)
+        private TrendingTagViewModel CreateTrendingTag(TrendingTag trendTag)
             => new TrendingTagViewModel((SearchType) SelectedIndex, trendTag, _imageStoreService, NavigationService);
 
         #endregion

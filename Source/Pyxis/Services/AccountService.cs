@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 using Windows.Security.Credentials;
 
-using Pyxis.Beta.Events;
-using Pyxis.Beta.Interfaces.Models.v1;
-using Pyxis.Beta.Interfaces.Rest;
 using Pyxis.Models;
 using Pyxis.Services.Interfaces;
+
+using Sagitta;
+using Sagitta.Models;
 
 namespace Pyxis.Services
 {
     public class AccountService : IAccountService
     {
-        private readonly IPixivClient _pixivClient;
+        private readonly PixivClient _pixivClient;
 
-        public AccountService(IPixivClient pixivClient)
+        public AccountService(PixivClient pixivClient)
         {
             _pixivClient = pixivClient;
             IsLoggedIn = false;
@@ -30,7 +30,7 @@ namespace Pyxis.Services
         public bool IsLoggedIn { get; private set; }
         public bool IsPremium { get; private set; }
 
-        public IAccount LoggedInAccount { get; private set; }
+        public Me LoggedInAccount { get; private set; }
 
         public void Clear()
         {
@@ -45,7 +45,6 @@ namespace Pyxis.Services
                 IsLoggedIn = false;
                 IsPremium = false;
                 LoggedInAccount = null;
-                _pixivClient.OnReAuthenticate -= OnReAuthenticate;
             }
             catch (Exception e)
             {
@@ -87,12 +86,7 @@ namespace Pyxis.Services
                     deviceCredential.RetrievePassword();
                     deviceId = deviceCredential.Password;
                 }
-                var account = await _pixivClient.Authorization
-                                                .Login(get_secure_url => 1,
-                                                       grant_type => "password",
-                                                       device_token => deviceId,
-                                                       password => credential.Password,
-                                                       username => credential.UserName);
+                var account = await _pixivClient.OAuth.TokenAsync(credential.UserName, credential.Password, deviceId);
                 if (account == null)
                 {
                     Clear();
@@ -102,39 +96,6 @@ namespace Pyxis.Services
                 IsPremium = account.User.IsPremium;
                 LoggedInAccount = account.User;
                 vault.Add(new PasswordCredential(PyxisConstants.ApplicationKey, $"{credential.UserName}+DeviceId", account.DeviceToken));
-
-                // re-auth
-                _pixivClient.OnReAuthenticate += OnReAuthenticate;
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e.Message);
-            }
-        }
-
-        private void OnReAuthenticate(ReAuthenticateEventArgs args)
-        {
-            try
-            {
-                var vault = new PasswordVault();
-                vault.RetrieveAll();
-
-                var resources = vault.FindAllByResource(PyxisConstants.ApplicationKey);
-                var credential = resources.FirstOrDefault(w => !w.UserName.Contains("+DeviceId"));
-                if (credential == null)
-                    return;
-                credential.RetrievePassword();
-                var deviceCredential = resources.FirstOrDefault(w => w.UserName == $"{credential.UserName}+DeviceId");
-                var deviceId = "pixiv";
-                if (deviceCredential != null)
-                {
-                    // Last login
-                    deviceCredential.RetrievePassword();
-                    deviceId = deviceCredential.Password;
-                }
-                args.Username = credential.UserName;
-                args.Password = credential.Password;
-                args.DeviceId = deviceId;
             }
             catch (Exception e)
             {

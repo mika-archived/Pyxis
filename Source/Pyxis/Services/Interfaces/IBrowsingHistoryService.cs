@@ -1,12 +1,12 @@
-﻿using Pyxis.Beta.Interfaces.Models.v1;
+﻿using Sagitta.Models;
 
 namespace Pyxis.Services.Interfaces
 {
     public interface IBrowsingHistoryService
     {
-        void Add(IIllust illust);
+        void Add(Illust illust);
 
-        void Add(INovel novel);
+        void Add(Novel novel);
 
         void ForcePush();
     }
