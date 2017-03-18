@@ -62,7 +62,13 @@ namespace Pyxis
             var accountService = new AccountService(pixivClient);
 
             UIDispatcherScheduler.Initialize();
+
+            // Prism
+            Container.RegisterInstance(NavigationService);
+            Container.RegisterInstance(SessionStateService);
             Container.RegisterInstance<IResourceLoader>(new ResourceLoaderAdapter(new ResourceLoader()));
+
+            // Pyxis
             Container.RegisterInstance(pixivClient, new ContainerControlledLifetimeManager());
             Container.RegisterInstance<IAccountService>(accountService, new ContainerControlledLifetimeManager());
 
