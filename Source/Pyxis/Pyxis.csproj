@@ -109,6 +109,9 @@
       <DependentUpon>AppShell.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\AdaptiveGridViewEx\AdaptiveGridViewEx.cs" />
+    <Compile Include="Controls\DataTemplateCollection.cs" />
+    <Compile Include="Controls\HamburgerMenuImageItem.cs" />
+    <Compile Include="Controls\HamburgerMenuItemTemplateSelector.cs" />
     <Compile Include="Controls\ScrollHeaderEx\ScrollHeaderEx.cs" />
     <Compile Include="Helpers\RunHelper.cs" />
     <Compile Include="Mvvm\ViewModelHelper.cs" />
