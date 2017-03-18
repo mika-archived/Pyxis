@@ -108,287 +108,19 @@
     <Compile Include="AppShell.xaml.cs">
       <DependentUpon>AppShell.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Attach\AssumSize.cs" />
-    <Compile Include="Attach\NavigateTo.cs" />
-    <Compile Include="Behaviors\AdjustControlSizeBehavior.cs" />
-    <Compile Include="Behaviors\AttachNavigateToListBoxBehavior.cs" />
-    <Compile Include="Behaviors\AttachNavigationToPivotBehavior.cs" />
-    <Compile Include="Behaviors\FlipViewAutoMovePageBehavior.cs" />
-    <Compile Include="Behaviors\GridViewEuqalitySizeBehavior.cs" />
-    <Compile Include="Behaviors\ListBoxEmptyBehavior.cs" />
-    <Compile Include="Behaviors\RichTextBlockBindingBehavior.cs" />
-    <Compile Include="Behaviors\UniformToParentControlBehavior.cs" />
-    <Compile Include="Collections\IncrementalObservableCollection.cs" />
-    <Compile Include="Controls\BlurEffectControl.xaml.cs">
-      <DependentUpon>BlurEffectControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
-    <Compile Include="Converters\EnumToBooleanConverter.cs" />
-    <Compile Include="Converters\NovelStringToBlockCollectionCOnverter.cs" />
-    <Compile Include="Converters\ReverseBooleanToVisibilityConverter.cs" />
-    <Compile Include="Converters\HtmlStringToBlockCollectionConverter.cs" />
-    <Compile Include="Converters\StringFormatConverter.cs" />
-    <Compile Include="Converters\StringToVisibilityConverter.cs" />
-    <Compile Include="Extensions\DictionaryExt.cs" />
-    <Compile Include="Extensions\IEnumerableExt.cs" />
-    <Compile Include="Extensions\StorageFolderExt.cs" />
-    <Compile Include="Extensions\StringExt.cs" />
-    <Compile Include="Helpers\ModelHelper.cs" />
+    <Compile Include="Controls\AdaptiveGridViewEx\AdaptiveGridViewEx.cs" />
+    <Compile Include="Controls\ScrollHeaderEx\ScrollHeaderEx.cs" />
     <Compile Include="Helpers\RunHelper.cs" />
-    <Compile Include="Models\AccountInfo.cs" />
-    <Compile Include="Models\AdaptiveSize.cs" />
-    <Compile Include="Models\AsyncLock.cs" />
-    <Compile Include="Models\Base\ThumbnailableBase.cs" />
-    <Compile Include="Models\Caching\QueryBuilder.cs" />
-    <Compile Include="Models\Caching\QueryCache.cs" />
-    <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\Enums\FollowState.cs" />
-    <Compile Include="Models\Enums\FollowType.cs" />
-    <Compile Include="Models\Enums\ContentType2.cs" />
-    <Compile Include="Models\Enums\ProfileType.cs" />
-    <Compile Include="Models\Enums\RestrictType.cs" />
-    <Compile Include="Models\Enums\SearchDuration.cs" />
-    <Compile Include="Models\Enums\SearchSort.cs" />
-    <Compile Include="Models\Enums\SearchTarget.cs" />
-    <Compile Include="Models\Enums\SearchType.cs" />
-    <Compile Include="Models\Parameters\BrowsingHistoryParameter.cs" />
-    <Compile Include="Models\Parameters\DetailByIdParameter.cs" />
-    <Compile Include="Models\Parameters\FavoriteOptionParameter.cs" />
-    <Compile Include="Models\Parameters\FollowingParameter.cs" />
-    <Compile Include="Models\Parameters\NovelDetailParameter.cs" />
-    <Compile Include="Models\Parameters\ParamGen.cs" />
-    <Compile Include="Models\Parameters\RankingParameter.cs" />
-    <Compile Include="Models\Parameters\SearchHomeParameter.cs" />
-    <Compile Include="Models\Parameters\SearchOptionParameter.cs" />
-    <Compile Include="Models\Parameters\SearchResultAndTrendingParameter.cs" />
-    <Compile Include="Models\Parameters\SearchResultParameter.cs" />
-    <Compile Include="Models\Parameters\UserDetailParameter.cs" />
-    <Compile Include="Models\Parameters\WorkParameter.cs" />
-    <Compile Include="Models\PixivBlocking.cs" />
-    <Compile Include="Models\PixivBookmark.cs" />
-    <Compile Include="Models\PixivBookmarkTag.cs" />
-    <Compile Include="Models\PixivBrowsingHistory.cs" />
-    <Compile Include="Models\PixivComment.cs" />
-    <Compile Include="Models\Parameters\HomeParameter.cs" />
-    <Compile Include="Models\Parameters\IllustDetailParameter.cs" />
-    <Compile Include="Models\Parameters\NewParameter.cs" />
-    <Compile Include="Models\Parameters\ParameterBase.cs" />
-    <Compile Include="Models\Parameters\RedirectParameter.cs" />
-    <Compile Include="Models\PixivFavorite.cs" />
-    <Compile Include="Models\PixivFollow.cs" />
-    <Compile Include="Models\PixivFollower.cs" />
-    <Compile Include="Models\PixivMypixiv.cs" />
-    <Compile Include="Models\PixivNovelText.cs" />
-    <Compile Include="Models\PixivRelated.cs" />
-    <Compile Include="Models\PixivImage.cs" />
-    <Compile Include="Models\PixivMangaImage.cs" />
-    <Compile Include="Models\PixivNew.cs" />
-    <Compile Include="Models\PixivNovel.cs" />
-    <Compile Include="Models\PixivRanking.cs" />
-    <Compile Include="Models\PixivRecommended.cs" />
-    <Compile Include="Models\Enums\RankingMode.cs" />
-    <Compile Include="Models\Enums\ContentType.cs" />
-    <Compile Include="Models\PixivSearch.cs" />
-    <Compile Include="Models\PixivTrending.cs" />
-    <Compile Include="Models\PixivDetail.cs" />
-    <Compile Include="Models\PixivUrlImage.cs" />
-    <Compile Include="Models\PixivUserImage.cs" />
-    <Compile Include="Models\PixivWork.cs" />
-    <Compile Include="Models\PyxisSchemeActivator.cs" />
-    <Compile Include="Models\UrlParameter.cs" />
     <Compile Include="Mvvm\ViewModelHelper.cs" />
     <Compile Include="PyxisConstants.cs" />
-    <Compile Include="Services\AccountService.cs" />
-    <Compile Include="Services\BrowsingHistoryService.cs" />
-    <Compile Include="Services\CategoryService.cs" />
-    <Compile Include="Services\ConfigurationService.cs" />
-    <Compile Include="Services\DialogService.cs" />
-    <Compile Include="Services\ImageStoreService.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AccountService.cs" />
     <Compile Include="Services\Interfaces\IAccountService.cs" />
-    <Compile Include="Services\Interfaces\IBrowsingHistoryService.cs" />
-    <Compile Include="Services\Interfaces\ICategoryService.cs" />
-    <Compile Include="Services\Interfaces\IConfigurationService.cs" />
-    <Compile Include="Services\Interfaces\IDialogService.cs" />
-    <Compile Include="Services\Interfaces\IImageStoreService.cs" />
-    <Compile Include="Services\Interfaces\ILicenseService.cs" />
-    <Compile Include="Services\Interfaces\IQueryCacheService.cs" />
-    <Compile Include="Services\LicenseService.cs" />
-    <Compile Include="Services\LocalLicenseService.cs" />
-    <Compile Include="Services\QueryCacheService.cs" />
-    <Compile Include="ViewModels\AccountInfoControlViewModel.cs" />
-    <Compile Include="ViewModels\Account\LoginPageViewModel.cs" />
-    <Compile Include="ViewModels\Base\DialogViewModel.cs" />
-    <Compile Include="ViewModels\Base\MultipleThumbnailableViewModel.cs" />
-    <Compile Include="ViewModels\Base\ResourceViewModel.cs" />
-    <Compile Include="ViewModels\Base\TappableThumbnailViewModel.cs" />
-    <Compile Include="ViewModels\Base\ThumbnailableViewModel.cs" />
-    <Compile Include="ViewModels\BookmarkMainPageViewModel.cs" />
-    <Compile Include="ViewModels\BrowsingHistoryMainPageViewModel.cs" />
-    <Compile Include="ViewModels\Detail\IllustDetailPageViewModel.cs" />
-    <Compile Include="ViewModels\Detail\IllustViewPageViewModel.cs" />
-    <Compile Include="ViewModels\Detail\NovelDetailPageViewModel.cs" />
-    <Compile Include="ViewModels\Detail\NovelViewPageViewModel.cs" />
-    <Compile Include="ViewModels\Detail\UserDetailCollectionPageViewModel.cs" />
-    <Compile Include="ViewModels\Detail\UserDetailPageViewModel.cs" />
-    <Compile Include="ViewModels\Dialogs\AdvancedSearchOptionDialogViewModel.cs" />
-    <Compile Include="ViewModels\Dialogs\FavoriteOptionDialogViewModel.cs" />
-    <Compile Include="ViewModels\Dialogs\SearchOptionDialogViewModel.cs" />
-    <Compile Include="ViewModels\FavoriteMainPageViewModel.cs" />
-    <Compile Include="ViewModels\BlockedUsersMainPageViewModel.cs" />
-    <Compile Include="ViewModels\FollowerMainPageViewModel.cs" />
-    <Compile Include="ViewModels\FollowingMainPageViewModel.cs" />
-    <Compile Include="ViewModels\Items\PixivCommentViewModel.cs" />
-    <Compile Include="ViewModels\Detail\Items\PixivMangaImageViewModel.cs" />
-    <Compile Include="ViewModels\Detail\MangaViewPageViewModel.cs" />
-    <Compile Include="ViewModels\Error\LoginRequiredPageViewModel.cs" />
-    <Compile Include="ViewModels\Error\PremiumRequiredPageViewModel.cs" />
-    <Compile Include="ViewModels\HomeMainPageViewModel.cs" />
-    <Compile Include="ViewModels\Home\Base\RankingViewModel.cs" />
-    <Compile Include="ViewModels\Home\RankingImageViewModel.cs" />
-    <Compile Include="ViewModels\Home\RankingNovelViewModel.cs" />
-    <Compile Include="ViewModels\Items\PixivThumbnailViewModel.cs" />
-    <Compile Include="ViewModels\Items\PixivTagViewModel.cs" />
-    <Compile Include="ViewModels\MypixivMainPageViewModel.cs" />
-    <Compile Include="ViewModels\New\AllNewPageViewModel.cs" />
-    <Compile Include="ViewModels\New\FollowMypixivNewPageViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModel.cs" />
-    <Compile Include="ViewModels\Items\UserCardViewModel.cs" />
-    <Compile Include="ViewModels\Ranking\IllustRankingPageViewModel.cs" />
-    <Compile Include="ViewModels\Ranking\MangaRankingPageViewModel.cs" />
-    <Compile Include="ViewModels\Ranking\NovelRankingPageViewModel.cs" />
-    <Compile Include="ViewModels\Search\Items\TrendingTagViewModel.cs" />
-    <Compile Include="ViewModels\Search\SearchResultPageViewModel.cs" />
-    <Compile Include="ViewModels\Search\UserSearchPageViewModel.cs" />
-    <Compile Include="ViewModels\Search\WorkSearchPageViewModel.cs" />
-    <Compile Include="ViewModels\Settings\SettingsAboutViewModel.cs" />
-    <Compile Include="ViewModels\Settings\SettingsAccountViewModel.cs" />
-    <Compile Include="ViewModels\Settings\SettingsMainPageViewModel.cs" />
-    <Compile Include="ViewModels\Settings\SettingsMaintenanceViewModel.cs" />
-    <Compile Include="ViewModels\WorkMainPageViewModel.cs" />
-    <Compile Include="Views\AccountInfoControl.xaml.cs">
-      <DependentUpon>AccountInfoControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Account\LoginPage.xaml.cs">
-      <DependentUpon>LoginPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\BlockedUsersMainPage.xaml.cs">
-      <DependentUpon>BlockedUsersMainPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\BookmarkMainPage.xaml.cs">
-      <DependentUpon>BookmarkMainPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\BrowsingHistoryMainPage.xaml.cs">
-      <DependentUpon>BrowsingHistoryMainPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Detail\IllustDetailPage.xaml.cs">
-      <DependentUpon>IllustDetailPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Detail\IllustViewPage.xaml.cs">
-      <DependentUpon>IllustViewPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Detail\MangaViewPage.xaml.cs">
-      <DependentUpon>MangaViewPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Detail\NovelDetailPage.xaml.cs">
-      <DependentUpon>NovelDetailPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Detail\NovelViewPage.xaml.cs">
-      <DependentUpon>NovelViewPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Detail\UserDetailCollectionPage.xaml.cs">
-      <DependentUpon>UserDetailCollectionPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Detail\UserDetailPage.xaml.cs">
-      <DependentUpon>UserDetailPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Dialogs\AdvancedSearchOptionDialog.xaml.cs">
-      <DependentUpon>AdvancedSearchOptionDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Dialogs\FavoriteOptionDialog.xaml.cs">
-      <DependentUpon>FavoriteOptionDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Dialogs\SearchOptionDialog.xaml.cs">
-      <DependentUpon>SearchOptionDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Error\LoginRequiredPage.xaml.cs">
-      <DependentUpon>LoginRequiredPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Error\PremiumRequiredPage.xaml.cs">
-      <DependentUpon>PremiumRequiredPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\FavoriteMainPage.xaml.cs">
-      <DependentUpon>FavoriteMainPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\FollowerMainPage.xaml.cs">
-      <DependentUpon>FollowerMainPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\FollowingMainPage.xaml.cs">
-      <DependentUpon>FollowingMainPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\HomeMainPage.xaml.cs">
-      <DependentUpon>HomeMainPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Items\CommentView.xaml.cs">
-      <DependentUpon>CommentView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Items\TagView.xaml.cs">
-      <DependentUpon>TagView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Items\ThumbnailView.xaml.cs">
-      <DependentUpon>ThumbnailView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\MypixivMainPage.xaml.cs">
-      <DependentUpon>MypixivMainPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\New\AllNewPage.xaml.cs">
-      <DependentUpon>AllNewPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\New\FollowMypixivNewPage.xaml.cs">
-      <DependentUpon>FollowMypixivNewPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Ranking\IllustRankingPage.xaml.cs">
-      <DependentUpon>IllustRankingPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Ranking\MangaRankingPage.xaml.cs">
-      <DependentUpon>MangaRankingPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Ranking\NovelRankingPage.xaml.cs">
-      <DependentUpon>NovelRankingPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Search\SearchResultPage.xaml.cs">
-      <DependentUpon>SearchResultPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Search\TrendingTagView.xaml.cs">
-      <DependentUpon>TrendingTagView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Items\UserCardView.xaml.cs">
-      <DependentUpon>UserCardView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Search\UserSearchPage.xaml.cs">
-      <DependentUpon>UserSearchPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Search\WorkSearchPage.xaml.cs">
-      <DependentUpon>WorkSearchPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Settings\SettingsAboutView.xaml.cs">
-      <DependentUpon>SettingsAboutView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Settings\SettingsAccountView.xaml.cs">
-      <DependentUpon>SettingsAccountView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Settings\SettingsAppearanceView.xaml.cs">
-      <DependentUpon>SettingsAppearanceView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Settings\SettingsMainPage.xaml.cs">
-      <DependentUpon>SettingsMainPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Settings\SettingsMaintenanceView.xaml.cs">
-      <DependentUpon>SettingsMaintenanceView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\WorkMainPage.xaml.cs">
-      <DependentUpon>WorkMainPage.xaml</DependentUpon>
+    <Compile Include="ViewModels\HomePageViewModel.cs" />
+    <Compile Include="Views\HomePage.xaml.cs">
+      <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -457,9 +189,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\BlurEffectControl.xaml">
+    <Page Include="Controls\AdaptiveGridViewEx\AdaptiveGridViewEx.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Controls\ScrollHeaderEx\ScrollHeaderEx.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="Styles\Controls.Pivot.xaml">
       <SubType>Designer</SubType>
@@ -480,167 +218,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AccountInfoControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Account\LoginPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\BlockedUsersMainPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\BookmarkMainPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\BrowsingHistoryMainPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Detail\IllustDetailPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Detail\IllustViewPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Detail\MangaViewPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Detail\NovelDetailPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Detail\NovelViewPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Detail\UserDetailCollectionPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Detail\UserDetailPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Dialogs\AdvancedSearchOptionDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Dialogs\FavoriteOptionDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Dialogs\SearchOptionDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Error\LoginRequiredPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Error\PremiumRequiredPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\FavoriteMainPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\FollowerMainPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\FollowingMainPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\HomeMainPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Items\CommentView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Items\TagView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Items\ThumbnailView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\MypixivMainPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\New\AllNewPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\New\FollowMypixivNewPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Ranking\IllustRankingPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Ranking\MangaRankingPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Ranking\NovelRankingPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Search\SearchResultPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Search\TrendingTagView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Items\UserCardView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Search\UserSearchPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Search\WorkSearchPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Settings\SettingsAboutView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Settings\SettingsAccountView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Settings\SettingsAppearanceView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Settings\SettingsMainPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Settings\SettingsMaintenanceView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\WorkMainPage.xaml">
+    <Page Include="Views\HomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -664,6 +242,12 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Behaviors\" />
+    <Folder Include="Converters\" />
+    <Folder Include="Models\" />
+    <Folder Include="Themes\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

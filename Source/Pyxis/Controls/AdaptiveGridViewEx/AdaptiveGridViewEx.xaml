@@ -1,0 +1,36 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="using:Pyxis.Controls"
+                    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls">
+    <Style TargetType="controls:AdaptiveGridViewEx">
+        <Setter Property="DesiredWidth" Value="200" />
+        <Setter Property="ItemHeight" Value="200" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:AdaptiveGridViewEx">
+                    <toolkit:AdaptiveGridView x:Name="AdaptiveGridView"
+                                              DesiredWidth="{TemplateBinding DesiredWidth}"
+                                              IsItemClickEnabled="True"
+                                              ItemHeight="{TemplateBinding ItemHeight}"
+                                              ItemTemplate="{TemplateBinding ItemTemplate}"
+                                              ItemsSource="{TemplateBinding ItemsSource}"
+                                              OneRowModeEnabled="False"
+                                              SelectionMode="Single">
+                        <toolkit:AdaptiveGridView.Header>
+                            <Grid>
+                                <ContentPresenter Content="{TemplateBinding Header}" />
+                                <Grid x:Name="RootGrid">
+                                    <controls:ScrollHeaderEx Mode="QuickReturn"
+                                                             TargetHeaderElement="{Binding ElementName=RootGrid}"
+                                                             TargetListViewBase="{Binding ElementName=AdaptiveGridView}">
+                                        <ContentPresenter Content="{TemplateBinding FixedHeader}" />
+                                    </controls:ScrollHeaderEx>
+                                </Grid>
+                            </Grid>
+                        </toolkit:AdaptiveGridView.Header>
+                    </toolkit:AdaptiveGridView>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

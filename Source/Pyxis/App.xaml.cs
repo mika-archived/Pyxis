@@ -1,7 +1,7 @@
-﻿using System.Diagnostics;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Resources;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -9,18 +9,14 @@ using Microsoft.HockeyApp;
 using Microsoft.Practices.Unity;
 
 using Prism.Unity.Windows;
+using Prism.Windows.AppModel;
 
-using Pyxis.Models;
-using Pyxis.Models.Enums;
-using Pyxis.Models.Parameters;
 using Pyxis.Services;
 using Pyxis.Services.Interfaces;
 
 using Reactive.Bindings;
 
 using Sagitta;
-
-using LifetimeManager = Microsoft.Practices.Unity.ContainerControlledLifetimeManager;
 
 namespace Pyxis
 {
@@ -39,30 +35,17 @@ namespace Pyxis
             RequestedTheme = ApplicationTheme.Light;
 
             InitializeComponent();
-            UnhandledException += (sender, e) =>
-            {
-                Debug.WriteLine("");
-                Debug.WriteLine(e.Message);
-                e.Handled = true;
-                Application.Current.Exit();
-            };
         }
 
         #region Overrides of PrismApplication
 
         protected override async Task OnSuspendingApplicationAsync()
         {
-            var browsingHistory = Container.Resolve<IBrowsingHistoryService>();
-            browsingHistory.ForcePush();
             await base.OnSuspendingApplicationAsync();
         }
 
         protected override Task OnActivateApplicationAsync(IActivatedEventArgs e)
         {
-            var args = e as ProtocolActivatedEventArgs;
-            if (args == null)
-                return Task.CompletedTask;
-            PyxisSchemeActivator.Activate(args.Uri, NavigationService);
             return Task.CompletedTask;
         }
 
@@ -70,40 +53,26 @@ namespace Pyxis
         {
             var shell = Container.Resolve<AppShell>();
             shell.SetContentFrame(rootFrame);
-            shell.SetCategoryService(Container.Resolve<ICategoryService>());
             return shell;
         }
 
         protected override async Task OnInitializeAsync(IActivatedEventArgs args)
         {
-            UIDispatcherScheduler.Initialize();
             var pixivClient = new PixivClient("bYGKuGVw91e0NMfPGp44euvGt59s", "HP3RmkgAmEGro0gn1x9ioawQE8WMfvLXDz3ZqxpK");
             var accountService = new AccountService(pixivClient);
-            Container.RegisterInstance(pixivClient, new LifetimeManager());
-            Container.RegisterInstance<IAccountService>(accountService, new LifetimeManager());
-            Container.RegisterType<IBrowsingHistoryService, BrowsingHistoryService>(new LifetimeManager());
-            Container.RegisterType<IImageStoreService, ImageStoreService>(new LifetimeManager());
-            Container.RegisterType<IDialogService, DialogService>(new LifetimeManager());
-            Container.RegisterType<ICategoryService, CategoryService>(new LifetimeManager());
-            Container.RegisterType<IConfigurationService, ConfigurationService>(new LifetimeManager());
-            Container.RegisterType<IQueryCacheService, QueryCacheService>(new LifetimeManager());
-#if DEBUG
-            Container.RegisterType<ILicenseService, LocalLicenseService>(new LifetimeManager());
-#else
-            Container.RegisterType<ILicenseService, LicenseService>(new LifetimeManager());
-#endif
-            // Container.RegisterInstance<PixivClient>(new PixivWebClient(), new ContainerControlledLifetimeManager());
-#if !OFFLINE
-            await accountService.Login();
-#endif
+
+            UIDispatcherScheduler.Initialize();
+            Container.RegisterInstance<IResourceLoader>(new ResourceLoaderAdapter(new ResourceLoader()));
+            Container.RegisterInstance(pixivClient, new ContainerControlledLifetimeManager());
+            Container.RegisterInstance<IAccountService>(accountService, new ContainerControlledLifetimeManager());
+
+            // await accountService.LoginAsync();
             await base.OnInitializeAsync(args);
         }
 
         protected override Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)
         {
-            NavigationService.Navigate("HomeMain", "{\"ContentType\":0}");
-            var param = new BrowsingHistoryParameter {ContentType = ContentType2.IllustAndManga};
-            Debug.WriteLine(param.ToJson());
+            NavigationService.Navigate("Home", null);
             return Task.CompletedTask;
         }
 
