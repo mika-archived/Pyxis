@@ -15,17 +15,14 @@ namespace Pyxis.ViewModels.Base
 {
     public class ViewModel : ViewModelBase, IDisposable
     {
-        private static readonly Frame Frame;
+        private static Frame Frame { get; set; }
         public CompositeDisposable CompositeDisposable { get; }
-
-        static ViewModel()
-        {
-            Frame = ((Window.Current.Content as AppShell).FindDescendantByName("HamburgerMenuControl") as ContentControl)?.Content as Frame;
-        }
 
         protected ViewModel()
         {
             CompositeDisposable = new CompositeDisposable();
+            if (Frame == null)
+                Frame = ((Window.Current.Content as AppShell).FindDescendantByName("HamburgerMenuControl") as ContentControl)?.Content as Frame;
         }
 
         #region Implementation of IDisposable

@@ -4,7 +4,7 @@ using Microsoft.Toolkit.Uwp.UI.Controls;
 
 namespace Pyxis.Controls
 {
-    internal class HamburgerMenuImageItem : HamburgerMenuItem
+    public class HamburgerMenuImageItem : HamburgerMenuItem
     {
         public static readonly DependencyProperty ImageProperty =
             DependencyProperty.Register(nameof(Image), typeof(string), typeof(HamburgerMenuImageItem), new PropertyMetadata(null));

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 using Sagitta.Models;
 
@@ -13,5 +14,9 @@ namespace Pyxis.Services.Interfaces
         Task LogoutAsync();
 
         Task ClearAsync();
+
+        event EventHandler OnLoggedIn;
+
+        event EventHandler OnLoggedOut;
     }
 }

@@ -111,6 +111,7 @@
     <Compile Include="Behaviors\HamburgerNavigationBehavor.cs" />
     <Compile Include="Controls\AdaptiveGridViewEx\AdaptiveGridViewEx.cs" />
     <Compile Include="Controls\DataTemplateCollection.cs" />
+    <Compile Include="Controls\HamburgerMenuCustomViewItem.cs" />
     <Compile Include="Controls\HamburgerMenuImageItem.cs" />
     <Compile Include="Controls\HamburgerMenuItemTemplateSelector.cs" />
     <Compile Include="Controls\ScrollHeaderEx\ScrollHeaderEx.cs" />
@@ -123,9 +124,13 @@
     <Compile Include="Services\Interfaces\IAccountService.cs" />
     <Compile Include="ViewModels\AboutPageViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModel.cs" />
+    <Compile Include="ViewModels\HamburgerMenuUserControlViewModel.cs" />
     <Compile Include="ViewModels\HomePageViewModel.cs" />
     <Compile Include="Views\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HamburgerMenuUserControl.xaml.cs">
+      <DependentUpon>HamburgerMenuUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
@@ -227,6 +232,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AboutPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HamburgerMenuUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

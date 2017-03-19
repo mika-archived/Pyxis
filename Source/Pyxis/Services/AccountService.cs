@@ -51,6 +51,7 @@ namespace Pyxis.Services
 
                 Account = oauthToken.User;
                 vault.Add(new PasswordCredential(PyxisConstants.ApplicationKey, $"{Account.Name}+DeviceId", oauthToken.DeviceToken));
+                OnLoggedIn?.Invoke(this, new EventArgs());
             }
             catch (Exception e)
             {
@@ -61,6 +62,7 @@ namespace Pyxis.Services
         public Task LogoutAsync()
         {
             Account = null;
+            OnLoggedOut?.Invoke(this, new EventArgs());
             return Task.CompletedTask;
         }
 
@@ -83,5 +85,9 @@ namespace Pyxis.Services
         }
 
         public Me Account { get; private set; }
+
+        public event EventHandler OnLoggedIn;
+
+        public event EventHandler OnLoggedOut;
     }
 }

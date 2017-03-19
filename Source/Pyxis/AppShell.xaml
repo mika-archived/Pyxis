@@ -35,24 +35,10 @@
                         </Grid>
                     </DataTemplate>
                     <DataTemplate
-                        controlsEx:HamburgerMenuItemTemplateSelector.Target="controlsEx:HamburgerMenuImageItem"
-                        x:DataType="controlsEx:HamburgerMenuImageItem">
+                        controlsEx:HamburgerMenuItemTemplateSelector.Target="controlsEx:HamburgerMenuCustomViewItem"
+                        x:DataType="controlsEx:HamburgerMenuCustomViewItem">
                         <Grid Width="240" Height="48">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="48" />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Border Grid.Column="0"
-                                    Margin="5"
-                                    CornerRadius="19">
-                                <Border.Background>
-                                    <ImageBrush ImageSource="{Binding Image}" />
-                                </Border.Background>
-                            </Border>
-                            <TextBlock Grid.Column="1"
-                                       VerticalAlignment="Center"
-                                       FontSize="16"
-                                       Text="{Binding Label}" />
+                            <ContentPresenter Content="{Binding CustomView}" />
                         </Grid>
                     </DataTemplate>
                 </controlsEx:DataTemplateCollection>
@@ -84,8 +70,11 @@
             <!--  Options  -->
             <controls:HamburgerMenu.OptionsItemsSource>
                 <controls:HamburgerMenuItemCollection>
-                    <controlsEx:HamburgerMenuImageItem
-                        Image="https://pbs.twimg.com/profile_images/841963905186316288/NXcqz4Er.jpg" Label="あなた" />
+                    <controlsEx:HamburgerMenuCustomViewItem>
+                        <controlsEx:HamburgerMenuCustomViewItem.CustomView>
+                            <views:HamburgerMenuUserControl />
+                        </controlsEx:HamburgerMenuCustomViewItem.CustomView>
+                    </controlsEx:HamburgerMenuCustomViewItem>
                     <controls:HamburgerMenuGlyphItem Glyph="&#57621;" Label="設定" />
                     <controls:HamburgerMenuGlyphItem Glyph="&#xE783;"
                                                      Label="Pyxis について"
