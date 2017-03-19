@@ -15,11 +15,11 @@
                                 DisplayMode="CompactOverlay"
                                 HamburgerHeight="48"
                                 IsPaneOpen="False"
-                                OpenPaneLength="240">
+                                OpenPaneLength="240"
+                                PaneBackground="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <controls:HamburgerMenu.Resources>
                 <controlsEx:DataTemplateCollection x:Key="DataTemplateCollection">
-                    <DataTemplate controlsEx:HamburgerMenuItemTemplateSelector.Target="controls:HamburgerMenuGlyphItem"
-                                  x:DataType="controls:HamburgerMenuGlyphItem">
+                    <DataTemplate controlsEx:HamburgerMenuItemTemplateSelector.Target="controls:HamburgerMenuGlyphItem" x:DataType="controls:HamburgerMenuGlyphItem">
                         <Grid Width="240" Height="48">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="48" />
@@ -34,9 +34,7 @@
                                        Text="{Binding Label}" />
                         </Grid>
                     </DataTemplate>
-                    <DataTemplate
-                        controlsEx:HamburgerMenuItemTemplateSelector.Target="controlsEx:HamburgerMenuCustomViewItem"
-                        x:DataType="controlsEx:HamburgerMenuCustomViewItem">
+                    <DataTemplate controlsEx:HamburgerMenuItemTemplateSelector.Target="controlsEx:HamburgerMenuCustomViewItem" x:DataType="controlsEx:HamburgerMenuCustomViewItem">
                         <Grid Width="240" Height="48">
                             <ContentPresenter Content="{Binding CustomView}" />
                         </Grid>

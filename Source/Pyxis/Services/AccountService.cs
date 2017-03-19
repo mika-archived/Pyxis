@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 using Windows.Security.Credentials;
 
+using Pyxis.Models;
 using Pyxis.Services.Interfaces;
 
 using Sagitta;

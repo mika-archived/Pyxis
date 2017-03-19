@@ -1,5 +1,6 @@
 ﻿using System;
 
+using Pyxis.Models;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
 

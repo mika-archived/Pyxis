@@ -2,19 +2,77 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:m="using:Pyxis.Models"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:prism="using:Prism.Windows.Mvvm"
       xmlns:vm="using:Pyxis.ViewModels"
       d:DataContext="{d:DesignInstance vm:AboutPageViewModel}"
       prism:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d">
-    <StackPanel Orientation="Vertical">
-        <Grid Height="48">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
             <TextBlock Padding="12,0,0,0"
                        VerticalAlignment="Center"
                        FontWeight="Bold"
                        Style="{ThemeResource SubtitleTextBlockStyle}"
                        Text="Pyxis について" />
         </Grid>
-    </StackPanel>
+        <StackPanel Grid.Row="1" Padding="10,0">
+            <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Text="{x:Bind ViewModel.Name}" />
+            <TextBlock Text="{x:Bind ViewModel.Version}" />
+            <TextBlock Text="Copyright 2017 Mikazuki." />
+            <TextBlock>
+                <Hyperlink NavigateUri="https://kokoiroworks.com/pyx/privacy">Privacy Policy</Hyperlink>
+                <Run>|</Run>
+                <Hyperlink NavigateUri="https://kokoiroworks.com/pyx/release">Release Note</Hyperlink>
+                <Run>|</Run>
+                <Hyperlink NavigateUri="https://kokoiroworks.com/pyx/faq">FAQ</Hyperlink>
+            </TextBlock>
+
+            <StackPanel Padding="0,15,0,0" Orientation="Vertical">
+                <Button Command="{x:Bind ViewModel.OpenFeedBackHubCommand}"
+                        Style="{ThemeResource TextBlockButtonStyle}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <FontIcon Width="24"
+                                      Height="24"
+                                      Glyph="&#59705;" />
+                            <TextBlock VerticalAlignment="Center" Text="Send your feedback." />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Command="{x:Bind ViewModel.OpenStoreReviewCommand}"
+                        Style="{ThemeResource TextBlockButtonStyle}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <FontIcon Width="24"
+                                      Height="24"
+                                      Glyph="&#xE735;" />
+                            <TextBlock VerticalAlignment="Center" Text="Rate Pyxis." />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+            </StackPanel>
+
+            <TextBlock Padding="0,30,0,0" Text="Pyxis uses the following libraries:" />
+            <ItemsControl Margin="5,0,0,0" ItemsSource="{x:Bind ViewModel.Softwares}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="m:Software">
+                        <TextBlock TextTrimming="CharacterEllipsis" TextWrapping="Wrap">
+                            <Run>・</Run>
+                            <Hyperlink NavigateUri="{Binding Url}">
+                                <Run Text="{Binding Name}" />
+                            </Hyperlink>
+                            <Run Text="by" />
+                            <Run Text="{Binding Author}" />
+                        </TextBlock>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </Grid>
 </Page>
