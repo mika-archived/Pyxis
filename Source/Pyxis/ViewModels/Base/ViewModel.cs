@@ -15,7 +15,13 @@ namespace Pyxis.ViewModels.Base
 {
     public class ViewModel : ViewModelBase, IDisposable
     {
+        private static readonly Frame Frame;
         public CompositeDisposable CompositeDisposable { get; }
+
+        static ViewModel()
+        {
+            Frame = ((Window.Current.Content as AppShell).FindDescendantByName("HamburgerMenuControl") as ContentControl)?.Content as Frame;
+        }
 
         protected ViewModel()
         {
@@ -41,11 +47,9 @@ namespace Pyxis.ViewModels.Base
         public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
         {
             base.OnNavigatedTo(e, viewModelState);
-            var frame = ((Window.Current.Content as AppShell).FindDescendantByName("HamburgerMenuControl") as ContentControl)?.Content as Frame;
-            if (frame != null && frame.CanGoBack)
-                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
-            else
-                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = Frame.CanGoBack
+                ? AppViewBackButtonVisibility.Visible
+                : AppViewBackButtonVisibility.Collapsed;
         }
 
         #endregion
