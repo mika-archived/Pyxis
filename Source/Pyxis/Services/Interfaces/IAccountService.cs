@@ -11,6 +11,8 @@ namespace Pyxis.Services.Interfaces
 
         Task LoginAsync();
 
+        Task LoginAsync(string username, string password);
+
         Task LogoutAsync();
 
         Task ClearAsync();

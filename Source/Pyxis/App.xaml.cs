@@ -71,14 +71,16 @@ namespace Pyxis
             // Pyxis
             Container.RegisterInstance(pixivClient, new ContainerControlledLifetimeManager());
             Container.RegisterInstance<IAccountService>(accountService, new ContainerControlledLifetimeManager());
+            Container.RegisterType<IDialogService, DialogService>(new ContainerControlledLifetimeManager());
 
-            // await accountService.LoginAsync();
+            await accountService.ClearAsync();
+            //await accountService.LoginAsync();
             await base.OnInitializeAsync(args);
         }
 
         protected override Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)
         {
-            NavigationService.Navigate("Home", null);
+            NavigationService.Navigate(Container.Resolve<IAccountService>().Account == null ? "Login" : "Home", null);
             return Task.CompletedTask;
         }
 

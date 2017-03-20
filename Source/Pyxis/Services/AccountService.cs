@@ -60,6 +60,26 @@ namespace Pyxis.Services
             }
         }
 
+        public async Task LoginAsync(string username, string password)
+        {
+            try
+            {
+                var oauthToken = await _pixivClient.OAuth.TokenAsync(username, password);
+                if (oauthToken == null)
+                    return;
+
+                Account = oauthToken.User;
+                var vault = new PasswordVault();
+                vault.Add(new PasswordCredential(PyxisConstants.ApplicationKey, username, password));
+                vault.Add(new PasswordCredential(PyxisConstants.ApplicationKey, $"{Account.Name}+DeviceId", oauthToken.DeviceToken));
+                OnLoggedIn?.Invoke(this, new EventArgs());
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+        }
+
         public Task LogoutAsync()
         {
             Account = null;

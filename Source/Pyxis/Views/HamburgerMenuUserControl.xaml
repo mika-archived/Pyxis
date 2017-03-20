@@ -19,11 +19,11 @@
                 Margin="5"
                 CornerRadius="19">
             <Border.Background>
-                <ImageBrush ImageSource="{x:Bind ViewModel.Thumbnail}" />
+                <ImageBrush ImageSource="{x:Bind ViewModel.Thumbnail, Mode=OneWay}" />
             </Border.Background>
         </Border>
         <TextBlock Grid.Column="1"
                    VerticalAlignment="Center"
-                   Text="{x:Bind ViewModel.Username}" />
+                   Text="{x:Bind ViewModel.Username, Mode=OneWay}" />
     </Grid>
 </UserControl>
