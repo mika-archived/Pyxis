@@ -125,7 +125,9 @@
     <Compile Include="Models\Database\Cache.cs" />
     <Compile Include="Models\Database\CacheContext.cs" />
     <Compile Include="Models\Database\CacheType.cs" />
+    <Compile Include="Models\Enum\TransitionMode.cs" />
     <Compile Include="Models\Software.cs" />
+    <Compile Include="Models\TransitionParameter.cs" />
     <Compile Include="Mvvm\ViewModelHelper.cs" />
     <Compile Include="Models\PyxisConstants.cs" />
     <Compile Include="Properties\Annotations.cs" />

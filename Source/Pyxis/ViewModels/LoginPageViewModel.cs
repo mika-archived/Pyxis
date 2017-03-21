@@ -2,8 +2,8 @@
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 
-using Prism.Windows.Navigation;
-
+using Pyxis.Models;
+using Pyxis.Models.Enum;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
 
@@ -14,19 +14,15 @@ namespace Pyxis.ViewModels
 {
     public class LoginPageViewModel : ViewModel
     {
-        private readonly IAccountService _accountService;
         private readonly IDialogService _dialogService;
-        private readonly INavigationService _navigationService;
 
         public ReactiveProperty<string> Username { get; }
         public ReactiveProperty<string> Password { get; }
         public ReactiveCommand LoginCommand { get; }
 
-        public LoginPageViewModel(IAccountService accountService, IDialogService dialogService, INavigationService navigationService)
+        public LoginPageViewModel(IDialogService dialogService)
         {
-            _accountService = accountService;
             _dialogService = dialogService;
-            _navigationService = navigationService;
 
             Username = new ReactiveProperty<string>();
             Password = new ReactiveProperty<string>();
@@ -41,13 +37,13 @@ namespace Pyxis.ViewModels
 
         private async Task LoginAsync()
         {
-            await _accountService.LoginAsync(Username.Value, Password.Value);
-            if (_accountService.Account == null)
+            await AccountService.LoginAsync(Username.Value, Password.Value);
+            if (AccountService.Account == null)
             {
                 await _dialogService.ShowErrorDialogAsync("エラー", "メールアドレスもしくはパスワードが間違えているため、ログインに失敗しました。");
                 return;
             }
-            _navigationService.Navigate("Home", null);
+            NavigationService.Navigate("Home", new TransitionParameter {Mode = TransitionMode.Redirect}.ToQuery());
         }
     }
 }

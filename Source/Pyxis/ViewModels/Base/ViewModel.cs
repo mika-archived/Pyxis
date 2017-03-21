@@ -3,26 +3,34 @@ using System.Collections.Generic;
 using System.Reactive.Disposables;
 
 using Windows.UI.Core;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 
-using Microsoft.Toolkit.Uwp.UI;
+using Microsoft.Practices.Unity;
 
+using Prism.Unity.Windows;
 using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
+
+using Pyxis.Helpers;
+using Pyxis.Models;
+using Pyxis.Models.Enum;
+using Pyxis.Services.Interfaces;
+using Pyxis.Views;
 
 namespace Pyxis.ViewModels.Base
 {
     public class ViewModel : ViewModelBase, IDisposable
     {
-        private static Frame Frame { get; set; }
         public CompositeDisposable CompositeDisposable { get; }
+
+        protected IAccountService AccountService { get; }
+
+        protected INavigationService NavigationService { get; }
 
         protected ViewModel()
         {
             CompositeDisposable = new CompositeDisposable();
-            if (Frame == null)
-                Frame = ((Window.Current.Content as AppShell).FindDescendantByName("HamburgerMenuControl") as ContentControl)?.Content as Frame;
+            AccountService = PrismUnityApplication.Current.Container.Resolve<IAccountService>();
+            NavigationService = PrismUnityApplication.Current.Container.Resolve<INavigationService>();
         }
 
         #region Implementation of IDisposable
@@ -44,7 +52,28 @@ namespace Pyxis.ViewModels.Base
         public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
         {
             base.OnNavigatedTo(e, viewModelState);
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = Frame.CanGoBack
+            // Redirect to
+            if (AccountService.Account == null && e.SourcePageType != typeof(LoginPage))
+            {
+                RunHelper.RunLaterUI(() => NavigationService.Navigate("Login", new TransitionParameter {Mode = TransitionMode.Redirect}.ToQuery()),
+                                     TimeSpan.FromMilliseconds(1));
+                return;
+            }
+
+            // When natigated to this by redirect, remove backstack history.
+            if (e.Parameter != null)
+            {
+                var parameter = TransitionParameter.FromQuery(e.Parameter.ToString());
+                if (parameter.Mode == TransitionMode.Redirect)
+                {
+                    // 1: This page, 2: Last (redirect source) page.
+                    NavigationService.RemoveLastPage();
+                    NavigationService.RemoveLastPage();
+                }
+            }
+
+            // Back Button
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = NavigationService.CanGoBack()
                 ? AppViewBackButtonVisibility.Visible
                 : AppViewBackButtonVisibility.Collapsed;
         }
