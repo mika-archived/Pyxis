@@ -5,12 +5,14 @@ using Windows.ApplicationModel.Resources;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
+using Microsoft.EntityFrameworkCore;
 using Microsoft.HockeyApp;
 using Microsoft.Practices.Unity;
 
 using Prism.Unity.Windows;
 using Prism.Windows.AppModel;
 
+using Pyxis.Models.Database;
 using Pyxis.Services;
 using Pyxis.Services.Interfaces;
 
@@ -35,6 +37,9 @@ namespace Pyxis
             RequestedTheme = ApplicationTheme.Light;
 
             InitializeComponent();
+
+            using (var db = new CacheContext())
+                db.Database.Migrate();
         }
 
         #region Overrides of PrismApplication
@@ -71,10 +76,11 @@ namespace Pyxis
             // Pyxis
             Container.RegisterInstance(pixivClient, new ContainerControlledLifetimeManager());
             Container.RegisterInstance<IAccountService>(accountService, new ContainerControlledLifetimeManager());
+            Container.RegisterType<ICacheService, CacheService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IDialogService, DialogService>(new ContainerControlledLifetimeManager());
 
-            await accountService.ClearAsync();
-            //await accountService.LoginAsync();
+            //await accountService.ClearAsync();
+            await accountService.LoginAsync();
             await base.OnInitializeAsync(args);
         }
 

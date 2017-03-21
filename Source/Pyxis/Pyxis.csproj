@@ -115,15 +115,26 @@
     <Compile Include="Controls\HamburgerMenuImageItem.cs" />
     <Compile Include="Controls\HamburgerMenuItemTemplateSelector.cs" />
     <Compile Include="Controls\ScrollHeaderEx\ScrollHeaderEx.cs" />
+    <Compile Include="Extensions\StorageFolderExt.cs" />
     <Compile Include="Helpers\RunHelper.cs" />
+    <Compile Include="Migrations\20170320150655_CreateCacheTable.cs" />
+    <Compile Include="Migrations\20170320150655_CreateCacheTable.designer.cs">
+      <DependentUpon>20170320150655_CreateCacheTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\CacheContextModelSnapshot.cs" />
+    <Compile Include="Models\Database\Cache.cs" />
+    <Compile Include="Models\Database\CacheContext.cs" />
+    <Compile Include="Models\Database\CacheType.cs" />
     <Compile Include="Models\Software.cs" />
     <Compile Include="Mvvm\ViewModelHelper.cs" />
     <Compile Include="Models\PyxisConstants.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AccountService.cs" />
+    <Compile Include="Services\CacheService.cs" />
     <Compile Include="Services\DialogService.cs" />
     <Compile Include="Services\Interfaces\IAccountService.cs" />
+    <Compile Include="Services\Interfaces\ICacheService.cs" />
     <Compile Include="Services\Interfaces\IDialogService.cs" />
     <Compile Include="ViewModels\AboutPageViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModel.cs" />

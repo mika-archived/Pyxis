@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Threading.Tasks;
 
+using Pyxis.Helpers;
 using Pyxis.Models;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
@@ -9,23 +11,26 @@ namespace Pyxis.ViewModels
     public class HamburgerMenuUserControlViewModel : ViewModel
     {
         private readonly IAccountService _accountService;
+        private readonly ICacheService _cacheService;
 
-        public HamburgerMenuUserControlViewModel(IAccountService accountService)
+        public HamburgerMenuUserControlViewModel(IAccountService accountService, ICacheService cacheService)
         {
             _accountService = accountService;
+            _cacheService = cacheService;
             _accountService.OnLoggedIn += OnUserAction;
             _accountService.OnLoggedOut += OnUserAction;
-            UpdateUserInformation();
+            Thumbnail = PyxisConstants.DefaultIcon;
+            RunHelper.RunLaterUIAsync(UpdateUserInformation, TimeSpan.FromMilliseconds(1));
         }
 
-        private void OnUserAction(object sender, EventArgs eventArgs) => UpdateUserInformation();
+        private async void OnUserAction(object sender, EventArgs eventArgs) => await UpdateUserInformation();
 
-        private void UpdateUserInformation()
+        private async Task UpdateUserInformation()
         {
             if (_accountService.Account != null)
             {
                 Username = _accountService.Account.Name;
-                Thumbnail = _accountService.Account.ProfileImageUrls.Medium;
+                Thumbnail = await _cacheService.SaveFileAsync(_accountService.Account.ProfileImageUrls.Medium);
             }
             else
             {
