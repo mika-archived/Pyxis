@@ -42,6 +42,9 @@ namespace Pyxis.Services
 
         public async Task<string> SaveFileAsync(string url)
         {
+            if (await ExistFileAsync(url))
+                return await LoadFileAsync(url);
+
             try
             {
                 var stream = await _pixivClient.File.GetAsync(url);

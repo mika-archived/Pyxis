@@ -44,14 +44,9 @@ namespace Pyxis.Services
                 }
 
                 var oauthToken = await _pixivClient.OAuth.TokenAsync(credentials.UserName, credentials.Password, deviceId);
-                if (oauthToken == null)
-                {
-                    await ClearAsync();
-                    return;
-                }
 
                 Account = oauthToken.User;
-                vault.Add(new PasswordCredential(PyxisConstants.ApplicationKey, $"{Account.Name}+DeviceId", oauthToken.DeviceToken));
+                vault.Add(new PasswordCredential(PyxisConstants.ApplicationKey, $"{credentials.UserName}+DeviceId", oauthToken.DeviceToken));
                 OnLoggedIn?.Invoke(this, new EventArgs());
             }
             catch (Exception e)
@@ -71,7 +66,7 @@ namespace Pyxis.Services
                 Account = oauthToken.User;
                 var vault = new PasswordVault();
                 vault.Add(new PasswordCredential(PyxisConstants.ApplicationKey, username, password));
-                vault.Add(new PasswordCredential(PyxisConstants.ApplicationKey, $"{Account.Name}+DeviceId", oauthToken.DeviceToken));
+                vault.Add(new PasswordCredential(PyxisConstants.ApplicationKey, $"{username}+DeviceId", oauthToken.DeviceToken));
                 OnLoggedIn?.Invoke(this, new EventArgs());
             }
             catch (Exception e)
