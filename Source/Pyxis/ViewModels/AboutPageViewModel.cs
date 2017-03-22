@@ -43,7 +43,7 @@ namespace Pyxis.ViewModels
         public ICommand OpenStoreReviewCommand => _openStoreReviewCommand ?? (_openStoreReviewCommand = new DelegateCommand(OpenStoreReview));
 
         private async void OpenStoreReview() =>
-            await Launcher.LaunchUriAsync(new Uri(string.Format("ms-windows-store:REVIEW?PFN={0}", Package.Current.Id.FamilyName)));
+            await Launcher.LaunchUriAsync(new Uri($"ms-windows-store:REVIEW?PFN={Package.Current.Id.FamilyName}"));
 
         #endregion
     }
