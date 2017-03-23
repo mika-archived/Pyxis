@@ -19,8 +19,7 @@
                                 PaneBackground="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <controls:HamburgerMenu.Resources>
                 <controlsEx:DataTemplateCollection x:Key="DataTemplateCollection">
-                    <DataTemplate controlsEx:HamburgerMenuItemTemplateSelector.Target="controls:HamburgerMenuGlyphItem"
-                                  x:DataType="controls:HamburgerMenuGlyphItem">
+                    <DataTemplate controlsEx:HamburgerMenuItemTemplateSelector.Target="controls:HamburgerMenuGlyphItem" x:DataType="controls:HamburgerMenuGlyphItem">
                         <Grid Width="240" Height="48">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="48" />
@@ -35,9 +34,7 @@
                                        Text="{Binding Label}" />
                         </Grid>
                     </DataTemplate>
-                    <DataTemplate
-                        controlsEx:HamburgerMenuItemTemplateSelector.Target="controlsEx:HamburgerMenuCustomViewItem"
-                        x:DataType="controlsEx:HamburgerMenuCustomViewItem">
+                    <DataTemplate controlsEx:HamburgerMenuItemTemplateSelector.Target="controlsEx:HamburgerMenuCustomViewItem" x:DataType="controlsEx:HamburgerMenuCustomViewItem">
                         <Grid Width="240" Height="48">
                             <ContentPresenter Content="{Binding CustomView}" />
                         </Grid>
@@ -65,6 +62,7 @@
                     <controls:HamburgerMenuGlyphItem Glyph="&#xE81C;" Label="閲覧履歴" />
                     <controls:HamburgerMenuGlyphItem Glyph="&#xE8A4;" Label="ブックマーク" />
                     <controls:HamburgerMenuGlyphItem Glyph="&#xE8CF;" Label="つながり" />
+                    <controls:HamburgerMenuGlyphItem Glyph="&#xE722;" Label="定点観測" />
                 </controls:HamburgerMenuItemCollection>
             </controls:HamburgerMenu.ItemsSource>
 
