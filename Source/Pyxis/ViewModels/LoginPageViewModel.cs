@@ -2,8 +2,8 @@
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 
-using Pyxis.Models;
 using Pyxis.Models.Enum;
+using Pyxis.Models.Parameters;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
 

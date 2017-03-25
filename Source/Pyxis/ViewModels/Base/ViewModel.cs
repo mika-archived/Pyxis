@@ -11,8 +11,8 @@ using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
 
 using Pyxis.Helpers;
-using Pyxis.Models;
 using Pyxis.Models.Enum;
+using Pyxis.Models.Parameters;
 using Pyxis.Services.Interfaces;
 using Pyxis.Views;
 
@@ -39,6 +39,11 @@ namespace Pyxis.ViewModels.Base
 
         #endregion
 
+        protected void RedirectTo(string pageToken, TransitionParameter parameter)
+        {
+            RunHelper.RunLaterUI(() => NavigationService.Navigate(pageToken, parameter.ToQuery()), TimeSpan.FromMilliseconds(1));
+        }
+
         #region Overrides of ViewModelBase
 
         public override void OnNavigatingFrom(NavigatingFromEventArgs e, Dictionary<string, object> viewModelState,
@@ -55,8 +60,7 @@ namespace Pyxis.ViewModels.Base
             // Redirect to
             if (AccountService.Account == null && e.SourcePageType != typeof(LoginPage))
             {
-                RunHelper.RunLaterUI(() => NavigationService.Navigate("Login", new TransitionParameter {Mode = TransitionMode.Redirect}.ToQuery()),
-                                     TimeSpan.FromMilliseconds(1));
+                RedirectTo("Login", new TransitionParameter {Mode = TransitionMode.Redirect});
                 return;
             }
 

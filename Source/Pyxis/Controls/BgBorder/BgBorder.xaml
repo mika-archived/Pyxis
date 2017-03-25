@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="using:Pyxis.Controls">
+    <Style TargetType="controls:BgBorder">
+        <Setter Property="BorderBackground" Value="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+        <Setter Property="CornerRadius" Value="7.25" />
+        <Setter Property="BorderOpacity" Value=".5" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:BgBorder">
+                    <Grid>
+                        <Border Background="{TemplateBinding BorderBackground}"
+                                CornerRadius="{TemplateBinding CornerRadius}"
+                                Opacity="{TemplateBinding BorderOpacity}" />
+                        <Grid>
+                            <ContentPresenter />
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

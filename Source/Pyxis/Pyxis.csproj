@@ -110,10 +110,12 @@
     </Compile>
     <Compile Include="Behaviors\HamburgerNavigationBehavor.cs" />
     <Compile Include="Controls\AdaptiveGridViewEx\AdaptiveGridViewEx.cs" />
+    <Compile Include="Controls\BgBorder\BgBorder.cs" />
     <Compile Include="Controls\DataTemplateCollection.cs" />
     <Compile Include="Controls\HamburgerMenuCustomViewItem.cs" />
     <Compile Include="Controls\HamburgerMenuImageItem.cs" />
     <Compile Include="Controls\HamburgerMenuItemTemplateSelector.cs" />
+    <Compile Include="Controls\ImageEx\ImageEx.cs" />
     <Compile Include="Controls\ScrollHeaderEx\ScrollHeaderEx.cs" />
     <Compile Include="Extensions\StorageFolderExt.cs" />
     <Compile Include="Helpers\RunHelper.cs" />
@@ -122,12 +124,15 @@
       <DependentUpon>20170320150655_CreateCacheTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\CacheContextModelSnapshot.cs" />
+    <Compile Include="Models\Async\AsyncLock.cs" />
     <Compile Include="Models\Database\Cache.cs" />
     <Compile Include="Models\Database\CacheContext.cs" />
     <Compile Include="Models\Database\CacheType.cs" />
     <Compile Include="Models\Enum\TransitionMode.cs" />
+    <Compile Include="Models\Parameters\UserParameter.cs" />
+    <Compile Include="Models\Pixiv\PixivUser.cs" />
     <Compile Include="Models\Software.cs" />
-    <Compile Include="Models\TransitionParameter.cs" />
+    <Compile Include="Models\Parameters\TransitionParameter.cs" />
     <Compile Include="Mvvm\ViewModelHelper.cs" />
     <Compile Include="Models\PyxisConstants.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -173,6 +178,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Package.StoreAssociation.xml" />
+    <Content Include="Assets\Placeholders\Banner-851.png" />
+    <Content Include="Assets\Placeholders\Square-200.png" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
     <Content Include="Assets\SplashScreen.scale-125.png" />
     <Content Include="Assets\SplashScreen.scale-150.png" />
@@ -231,6 +238,16 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\AdaptiveGridViewEx\AdaptiveGridViewEx.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Controls\BgBorder\BgBorder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Controls\ImageEx\ImageEx.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -306,7 +323,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Converters\" />
-    <Folder Include="Themes\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

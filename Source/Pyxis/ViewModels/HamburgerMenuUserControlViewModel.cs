@@ -17,7 +17,7 @@ namespace Pyxis.ViewModels
             _cacheService = cacheService;
             AccountService.OnLoggedIn += OnUserAction;
             AccountService.OnLoggedOut += OnUserAction;
-            Thumbnail = PyxisConstants.DefaultIcon;
+            Thumbnail = PyxisConstants.PlaceholderSquare;
             RunHelper.RunLaterUIAsync(UpdateUserInformation, TimeSpan.FromMilliseconds(1));
         }
 
@@ -33,7 +33,7 @@ namespace Pyxis.ViewModels
             else
             {
                 Username = "ゲスト";
-                Thumbnail = PyxisConstants.DefaultIcon;
+                Thumbnail = PyxisConstants.PlaceholderSquare;
             }
         }
 

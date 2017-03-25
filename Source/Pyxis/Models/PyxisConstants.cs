@@ -5,11 +5,9 @@ namespace Pyxis.Models
 {
     public static class PyxisConstants
     {
-        public static string DefaultImage => "https://placehold.jp/1x1.png";
-
-        public static string DefaultIcon => "http://placehold.jp/24/cccccc/999999/48x48.png?text=A";
-
         public static string ApplicationKey => "8B2D7393-617C-4836-AA0E-68B502D9B1C9";
+        public static string PlaceholderSquare => "ms-appx:///Assets/Placeholders/Square-200.png";
+        public static string PlaceholderBanner => "ms-appx:///Assets/Placeholders/Banner-851.png";
 
         public static Lazy<List<Software>> Softwares => new Lazy<List<Software>>(() => new List<Software>
         {
