@@ -114,7 +114,7 @@
     <Compile Include="Controls\DataTemplateCollection.cs" />
     <Compile Include="Controls\HamburgerMenuCustomViewItem.cs" />
     <Compile Include="Controls\HamburgerMenuImageItem.cs" />
-    <Compile Include="Controls\HamburgerMenuItemTemplateSelector.cs" />
+    <Compile Include="Controls\TypeNamedDataTemplateSelector.cs" />
     <Compile Include="Controls\ImageEx\ImageEx.cs" />
     <Compile Include="Controls\IndexHub\IndexHub.cs" />
     <Compile Include="Controls\ScrollHeaderEx\ScrollHeaderEx.cs" />

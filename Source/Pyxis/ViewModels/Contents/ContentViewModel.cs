@@ -11,7 +11,7 @@ namespace Pyxis.ViewModels.Contents
         private readonly Post _post;
 
         public string Title => _post.Title;
-        public string Username => _post.User.Name;
+        public string Username => $"by {_post.User.Name}";
         public abstract Uri Thumbnail { get; }
 
         protected ContentViewModel(Post post)

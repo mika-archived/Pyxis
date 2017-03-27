@@ -8,7 +8,7 @@ using Windows.UI.Xaml.Markup;
 namespace Pyxis.Controls
 {
     [ContentProperty(Name = "Templates")]
-    public class HamburgerMenuItemTemplateSelector : DataTemplateSelector
+    public class TypeNamedDataTemplateSelector : DataTemplateSelector
     {
         // ReSharper disable once CollectionNeverUpdated.Global
         public DataTemplateCollection Templates { get; set; }
@@ -21,7 +21,7 @@ namespace Pyxis.Controls
         #region Target
 
         public static readonly DependencyProperty TargetProperty =
-            DependencyProperty.RegisterAttached("Target", typeof(Type), typeof(HamburgerMenuItemTemplateSelector), new PropertyMetadata(null));
+            DependencyProperty.RegisterAttached("Target", typeof(Type), typeof(TypeNamedDataTemplateSelector), new PropertyMetadata(null));
 
         public static Type GetTarget(DependencyObject obj)
         {

@@ -12,7 +12,8 @@ namespace Pyxis.ViewModels.Contents
         private readonly Novel _novel;
 
         public override Uri Thumbnail => new Uri(_novel.ImageUrls.Medium);
-        public string Tags => _novel.Tags.Take(3).Join();
+        public string Tags => _novel.Tags.Take(5).Select(w => w.Name).Join();
+        public string TextLength => $"{_novel.TextLength:##,###}文字";
 
         public NovelViewModel(Novel novel) : base(novel)
         {

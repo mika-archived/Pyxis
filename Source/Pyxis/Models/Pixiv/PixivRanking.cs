@@ -33,22 +33,28 @@ namespace Pyxis.Models.Pixiv
 
         public async Task FetchIllustRankingAsync(RankingMode mode, DateTime? date)
         {
+            var ranking = await EffectiveCallAsync("IllustRanking", () => PixivClient.Illust.RankingAsync(mode, date), null);
+            if (ranking == null)
+                return;
             IllustRanking.Clear();
-            var ranking = await PixivClient.Illust.RankingAsync(mode, date);
             ranking.Illusts.Take(Pickup).ForEach(w => IllustRanking.Add(w));
         }
 
         public async Task FetchMangaRankingAsync(RankingMode mode, DateTime? date)
         {
+            var ranking = await EffectiveCallAsync("MangaRanking", () => PixivClient.Illust.RankingAsync(mode, date), null);
+            if (ranking == null)
+                return;
             MangaRanking.Clear();
-            var ranking = await PixivClient.Illust.RankingAsync(mode, date);
             ranking.Illusts.Take(Pickup).ForEach(w => MangaRanking.Add(w));
         }
 
         public async Task FetchNovelRankingAsync(RankingMode mode, DateTime? date)
         {
+            var ranking = await EffectiveCallAsync("NovelRanking", () => PixivClient.Novel.RankingAsync(mode, date), null);
+            if (ranking == null)
+                return;
             NovelRanking.Clear();
-            var ranking = await PixivClient.Novel.RankingAsync(mode, date);
             ranking.Novels.Take(Pickup).ForEach(w => NovelRanking.Add(w));
         }
     }
