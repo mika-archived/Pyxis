@@ -20,7 +20,7 @@ using WinRTXamlToolkit.IO.Extensions;
 
 namespace Pyxis.Services
 {
-    public class CacheService : ICacheService
+    public class FileCacheService : IFileCacheService
     {
         private readonly Regex _defaultImagesRegex = new Regex(@"\/common\/", RegexOptions.Compiled);
         private readonly Regex _novelCoveRegex = new Regex(@"\/novel-cover-master\/", RegexOptions.Compiled);
@@ -34,7 +34,7 @@ namespace Pyxis.Services
         private readonly Regex _ugoiraZipRegex = new Regex(@"\/img-zip-ugoira\/", RegexOptions.Compiled);
         private readonly Regex _workspaceRegex = new Regex(@"\/workspace\/", RegexOptions.Compiled);
 
-        public CacheService(PixivClient pixivClient)
+        public FileCacheService(PixivClient pixivClient)
         {
             _pixivClient = pixivClient;
             _temporaryFolder = ApplicationData.Current.TemporaryFolder;
@@ -166,7 +166,7 @@ namespace Pyxis.Services
             return (await _temporaryFolder.CreateFolderAsync(tuple.Item1, CreationCollisionOption.OpenIfExists), tuple.Item2);
         }
 
-        private string GetFileName(string url)
+        private static string GetFileName(string url)
         {
             var name = Path.GetFileName(url);
             if (Path.GetInvalidFileNameChars().Any(w => name.Contains(w)))

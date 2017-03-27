@@ -118,6 +118,7 @@
     <Compile Include="Controls\ImageEx\ImageEx.cs" />
     <Compile Include="Controls\IndexHub\IndexHub.cs" />
     <Compile Include="Controls\ScrollHeaderEx\ScrollHeaderEx.cs" />
+    <Compile Include="Extensions\DictionaryExt.cs" />
     <Compile Include="Extensions\StorageFolderExt.cs" />
     <Compile Include="Helpers\RunHelper.cs" />
     <Compile Include="Migrations\20170320150655_CreateCacheTable.cs" />
@@ -143,10 +144,12 @@
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AccountService.cs" />
-    <Compile Include="Services\CacheService.cs" />
+    <Compile Include="Services\FileCacheService.cs" />
     <Compile Include="Services\DialogService.cs" />
+    <Compile Include="Services\ObjectCacheService.cs" />
     <Compile Include="Services\Interfaces\IAccountService.cs" />
-    <Compile Include="Services\Interfaces\ICacheService.cs" />
+    <Compile Include="Services\Interfaces\IObjectCacheService.cs" />
+    <Compile Include="Services\Interfaces\IFileCacheService.cs" />
     <Compile Include="Services\Interfaces\IDialogService.cs" />
     <Compile Include="ViewModels\AboutPageViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModel.cs" />

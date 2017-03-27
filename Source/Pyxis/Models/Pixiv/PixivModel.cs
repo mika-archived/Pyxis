@@ -1,8 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using Microsoft.Practices.Unity;
+
 using Prism.Mvvm;
+using Prism.Unity.Windows;
+
+using Pyxis.Services.Interfaces;
 
 using Sagitta;
 
@@ -10,40 +14,25 @@ namespace Pyxis.Models.Pixiv
 {
     public abstract class PixivModel : BindableBase
     {
-        private readonly Dictionary<string, DateTime> _cacheTable;
+        private readonly IObjectCacheService _objectCacheService;
+
         protected PixivClient PixivClient { get; }
-        public TimeSpan Expire { get; set; } = TimeSpan.FromMinutes(5);
+        public TimeSpan? Expire { get; set; } = null;
 
         protected PixivModel(PixivClient pixivClient)
         {
             PixivClient = pixivClient;
-            _cacheTable = new Dictionary<string, DateTime>();
+            _objectCacheService = PrismUnityApplication.Current.Container.Resolve<IObjectCacheService>();
         }
 
-        protected async Task<T> EffectiveCallAsync<T>(string identifier, Func<Task<T>> action, T ignore)
+        protected Task<T> EffectiveCallAsync<T>(string identifier, Func<Task<T>> action)
         {
-            if (_cacheTable.ContainsKey(identifier))
-            {
-                if (_cacheTable[identifier].AddMinutes(Expire.TotalMinutes) > DateTime.Now)
-                    return await Task.FromResult(ignore);
-                _cacheTable[identifier] = DateTime.Now;
-                return await action.Invoke();
-            }
-            _cacheTable.Add(identifier, DateTime.Now);
-            return await action.Invoke();
+            return _objectCacheService.EffectiveCallAsync(identifier, action, Expire);
         }
 
-        protected T EffectiveCall<T>(string identifier, Func<T> action, T ignore)
+        protected T EffectiveCall<T>(string identifier, Func<T> action)
         {
-            if (_cacheTable.ContainsKey(identifier))
-            {
-                if (_cacheTable[identifier].AddMinutes(Expire.TotalMinutes) > DateTime.Now)
-                    return ignore;
-                _cacheTable[identifier] = DateTime.Now;
-                return action.Invoke();
-            }
-            _cacheTable.Add(identifier, DateTime.Now);
-            return action.Invoke();
+            return _objectCacheService.EffectiveCall(identifier, action, Expire);
         }
     }
 }

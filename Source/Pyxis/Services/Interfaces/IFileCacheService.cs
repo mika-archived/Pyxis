@@ -2,7 +2,7 @@
 
 namespace Pyxis.Services.Interfaces
 {
-    public interface ICacheService
+    public interface IFileCacheService
     {
         Task<string> SaveFileAsync(string url);
 

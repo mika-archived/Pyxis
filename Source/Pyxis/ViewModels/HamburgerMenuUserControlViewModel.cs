@@ -11,9 +11,9 @@ namespace Pyxis.ViewModels
 {
     public class HamburgerMenuUserControlViewModel : ViewModel
     {
-        private readonly ICacheService _cacheService;
+        private readonly IFileCacheService _cacheService;
 
-        public HamburgerMenuUserControlViewModel(ICacheService cacheService)
+        public HamburgerMenuUserControlViewModel(IFileCacheService cacheService)
         {
             _cacheService = cacheService;
             AccountService.OnLoggedIn += OnUserAction;

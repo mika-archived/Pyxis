@@ -36,7 +36,7 @@ namespace Pyxis.Controls
         public static readonly DependencyProperty StretchProperty
             = DependencyProperty.Register(nameof(Stretch), typeof(Stretch), typeof(ImageEx), new PropertyMetadata(Stretch.Uniform));
 
-        private readonly ICacheService _cacheService;
+        private readonly IFileCacheService _cacheService;
 
         private MsImageEx _image;
         private bool _isInitialized;
@@ -75,7 +75,7 @@ namespace Pyxis.Controls
         public ImageEx()
         {
             DefaultStyleKey = typeof(ImageEx);
-            _cacheService = PrismUnityApplication.Current.Container.Resolve<ICacheService>();
+            _cacheService = PrismUnityApplication.Current.Container.Resolve<IFileCacheService>();
         }
 
         private static void OnSourceChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)

@@ -77,7 +77,8 @@ namespace Pyxis
             // Pyxis
             Container.RegisterInstance(pixivClient, new ContainerControlledLifetimeManager());
             Container.RegisterInstance<IAccountService>(accountService, new ContainerControlledLifetimeManager());
-            Container.RegisterType<ICacheService, CacheService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IFileCacheService, FileCacheService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IObjectCacheService, ObjectCacheService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IDialogService, DialogService>(new ContainerControlledLifetimeManager());
 
             //await accountService.ClearAsync();
