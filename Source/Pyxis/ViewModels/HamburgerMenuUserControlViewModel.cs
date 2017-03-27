@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reactive;
 using System.Threading.Tasks;
 
 using Pyxis.Helpers;
@@ -23,7 +24,7 @@ namespace Pyxis.ViewModels
 
         private async void OnUserAction(object sender, EventArgs eventArgs) => await UpdateUserInformation();
 
-        private async Task UpdateUserInformation()
+        private async Task<Unit> UpdateUserInformation()
         {
             if (AccountService.Account != null)
             {
@@ -35,6 +36,7 @@ namespace Pyxis.ViewModels
                 Username = "ゲスト";
                 Thumbnail = PyxisConstants.PlaceholderSquare;
             }
+            return Unit.Default;
         }
 
         #region Username

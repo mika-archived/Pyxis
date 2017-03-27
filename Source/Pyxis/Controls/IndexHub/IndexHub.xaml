@@ -1,0 +1,50 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+                    xmlns:controlsEx="using:Pyxis.Controls">
+    <Style TargetType="controlsEx:IndexHub">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controlsEx:IndexHub">
+                    <controls:AdaptiveGridView x:Name="Root"
+                                               DesiredWidth="200"
+                                               IsItemClickEnabled="True"
+                                               ItemHeight="200"
+                                               ItemTemplate="{TemplateBinding ItemTemplate}"
+                                               ItemsSource="{TemplateBinding ItemsSource}"
+                                               SelectionMode="Single">
+                        <controls:AdaptiveGridView.Header>
+                            <StackPanel Height="290">
+                                <Hub Height="240" Padding="0,0,0,0">
+                                    <HubSection Padding="0,0,15,0"
+                                                ContentTemplate="{TemplateBinding HubContentTemplate}"
+                                                IsHeaderInteractive="True">
+                                        <HubSection.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <FontIcon VerticalAlignment="Center"
+                                                          Foreground="Orange"
+                                                          Glyph="&#xE825;" />
+                                                <TextBlock Padding="7.5,0,0,0"
+                                                           VerticalAlignment="Center"
+                                                           Text="{TemplateBinding HubHeaderText}" />
+                                            </StackPanel>
+                                        </HubSection.Header>
+                                    </HubSection>
+                                </Hub>
+                                <StackPanel Padding="0,20,0,0" Orientation="Horizontal">
+                                    <FontIcon VerticalAlignment="Center"
+                                              Foreground="Pink"
+                                              Glyph="&#xEB52;" />
+                                    <TextBlock Padding="7.5,0,0,0"
+                                               VerticalAlignment="Center"
+                                               Style="{ThemeResource SubtitleTextBlockStyle}"
+                                               Text="{TemplateBinding HeaderText}" />
+                                </StackPanel>
+                            </StackPanel>
+                        </controls:AdaptiveGridView.Header>
+                    </controls:AdaptiveGridView>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

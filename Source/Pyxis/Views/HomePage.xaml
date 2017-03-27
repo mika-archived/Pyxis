@@ -1,20 +1,67 @@
 ﻿<Page x:Class="Pyxis.Views.HomePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controlsEx="using:Pyxis.Controls"
+      xmlns:core="using:Microsoft.Xaml.Interactions.Core"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:prism="using:Prism.Windows.Mvvm"
       xmlns:vm="using:Pyxis.ViewModels"
+      xmlns:vmc="using:Pyxis.ViewModels.Contents"
       d:DataContext="{d:DesignInstance vm:HomePageViewModel}"
       prism:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d">
-    <StackPanel Orientation="Vertical">
-        <Grid Height="48">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
             <TextBlock Padding="12,0,0,0"
                        VerticalAlignment="Center"
                        FontWeight="Bold"
                        Style="{ThemeResource SubtitleTextBlockStyle}"
                        Text="ホーム" />
         </Grid>
-    </StackPanel>
+        <Pivot x:Name="Pivot" Grid.Row="1">
+            <i:Interaction.Behaviors>
+                <core:EventTriggerBehavior EventName="SelectionChanged">
+                    <core:InvokeCommandAction Command="{x:Bind ViewModel.SelectionChangedCommand}"
+                                              CommandParameter="{x:Bind Pivot.SelectedIndex}" />
+                </core:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+            <Pivot.Resources>
+                <Style TargetType="PivotItem">
+                    <Setter Property="Margin" Value="0" />
+                </Style>
+            </Pivot.Resources>
+            <PivotItem Header="イラスト">
+                <controlsEx:IndexHub HeaderText="あなたへのオススメ" HubHeaderText="イラストランキング">
+                    <controlsEx:IndexHub.HubContentTemplate>
+                        <DataTemplate>
+                            <ItemsControl Padding="0" ItemsSource="{Binding IllustRanking, Mode=OneWay}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="vmc:IllustViewModel">
+                                        <Grid Width="205"
+                                              Height="205"
+                                              Padding="2.5,0">
+                                            <controlsEx:ImageEx Source="{Binding Thumbnail}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </DataTemplate>
+                    </controlsEx:IndexHub.HubContentTemplate>
+                </controlsEx:IndexHub>
+            </PivotItem>
+            <PivotItem Header="マンガ" />
+            <PivotItem Header="小説" />
+        </Pivot>
+    </Grid>
 </Page>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Windows.UI.Xaml;
@@ -38,6 +39,8 @@ namespace Pyxis.Controls
         private readonly ICacheService _cacheService;
 
         private MsImageEx _image;
+        private bool _isInitialized;
+        private readonly string[] _targetHosts = {"pixiv", "pximg"};
 
         public ImageSource PlaceholderSource
         {
@@ -85,6 +88,7 @@ namespace Pyxis.Controls
         protected override void OnApplyTemplate()
         {
             _image = GetTemplateChild("Image") as MsImageEx;
+            _isInitialized = true;
             SetSource(Source);
             base.OnApplyTemplate();
         }
@@ -96,8 +100,11 @@ namespace Pyxis.Controls
 
         private async void SetSource(object source)
         {
+            if (!_isInitialized)
+                return;
+
             var uri = source as Uri;
-            if (uri == null || IsHttpUri(uri) && !uri.Host.Contains("pixiv"))
+            if (uri == null || IsHttpUri(uri) && !_targetHosts.Any(w => uri.Host.Contains(w)))
                 _image.Source = source;
             else
                 await LoadPixivImageAsync(uri.ToString());

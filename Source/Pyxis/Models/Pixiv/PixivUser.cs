@@ -1,7 +1,5 @@
 ﻿using System.Threading.Tasks;
 
-using Prism.Mvvm;
-
 using Sagitta;
 using Sagitta.Enum;
 using Sagitta.Models;
@@ -11,23 +9,18 @@ namespace Pyxis.Models.Pixiv
     /// <summary>
     ///     ユーザー詳細
     /// </summary>
-    internal class PixivUser : BindableBase
+    internal class PixivUser : PixivModel
     {
-        private readonly PixivClient _pixivClient;
-
-        public PixivUser(PixivClient pixivClient)
-        {
-            _pixivClient = pixivClient;
-        }
+        public PixivUser(PixivClient pixivClient) : base(pixivClient) {}
 
         public async Task FetchAsync(int userId)
         {
-            UserDetail = await _pixivClient.User.DetailAsync(userId);
-            Illusts = await _pixivClient.User.IllustsAsync(IllustType.Illust, userId);
-            Mangas = await _pixivClient.User.IllustsAsync(IllustType.Manga, userId);
-            Novels = await _pixivClient.User.NovelsAsync(userId);
-            BookmarkIllusts = await _pixivClient.User.Bookmarks.IllustAsync(userId);
-            BookmarkNovels = await _pixivClient.User.Bookmarks.NovelAsync(userId);
+            UserDetail = await PixivClient.User.DetailAsync(userId);
+            Illusts = await PixivClient.User.IllustsAsync(IllustType.Illust, userId);
+            Mangas = await PixivClient.User.IllustsAsync(IllustType.Manga, userId);
+            Novels = await PixivClient.User.NovelsAsync(userId);
+            BookmarkIllusts = await PixivClient.User.Bookmarks.IllustAsync(userId);
+            BookmarkNovels = await PixivClient.User.Bookmarks.NovelAsync(userId);
         }
 
         #region User
@@ -44,9 +37,9 @@ namespace Pyxis.Models.Pixiv
 
         #region Illusts
 
-        private IllustsRoot _illusts;
+        private IllustCollection _illusts;
 
-        public IllustsRoot Illusts
+        public IllustCollection Illusts
         {
             get { return _illusts; }
             set { SetProperty(ref _illusts, value); }
@@ -56,9 +49,9 @@ namespace Pyxis.Models.Pixiv
 
         #region Mangas
 
-        private IllustsRoot _mangas;
+        private IllustCollection _mangas;
 
-        public IllustsRoot Mangas
+        public IllustCollection Mangas
         {
             get { return _mangas; }
             set { SetProperty(ref _mangas, value); }
@@ -68,9 +61,9 @@ namespace Pyxis.Models.Pixiv
 
         #region Novels
 
-        private NovelsRoot _novels;
+        private NovelCollection _novels;
 
-        public NovelsRoot Novels
+        public NovelCollection Novels
         {
             get { return _novels; }
             set { SetProperty(ref _novels, value); }
@@ -80,9 +73,9 @@ namespace Pyxis.Models.Pixiv
 
         #region BookmarkIllusts
 
-        private IllustsRoot _bookmarkIllusts;
+        private IllustCollection _bookmarkIllusts;
 
-        public IllustsRoot BookmarkIllusts
+        public IllustCollection BookmarkIllusts
         {
             get { return _bookmarkIllusts; }
             set { SetProperty(ref _bookmarkIllusts, value); }
@@ -92,9 +85,9 @@ namespace Pyxis.Models.Pixiv
 
         #region BookmarkNovels
 
-        private NovelsRoot _bookmarkNovels;
+        private NovelCollection _bookmarkNovels;
 
-        public NovelsRoot BookmarkNovels
+        public NovelCollection BookmarkNovels
         {
             get { return _bookmarkNovels; }
             set { SetProperty(ref _bookmarkNovels, value); }

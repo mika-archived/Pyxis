@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reactive;
 using System.Reactive.Linq;
 
 using Prism.Windows.Navigation;
@@ -23,12 +24,12 @@ namespace Pyxis.ViewModels
         private readonly PixivUser _pixivUser;
         private int _userId;
 
-        public ReadOnlyReactiveProperty<string> Title { get; private set; }
-        public ReadOnlyReactiveProperty<string> Username { get; private set; }
-        public ReadOnlyReactiveProperty<string> ScreenName { get; private set; }
-        public ReadOnlyReactiveProperty<Uri> ProfileIcon { get; private set; }
-        public ReadOnlyReactiveProperty<Uri> ProfileBackground { get; private set; }
-        public ReadOnlyReactiveProperty<string> Description { get; private set; }
+        public ReadOnlyReactiveProperty<string> Title { get; }
+        public ReadOnlyReactiveProperty<string> Username { get; }
+        public ReadOnlyReactiveProperty<string> ScreenName { get; }
+        public ReadOnlyReactiveProperty<Uri> ProfileIcon { get; }
+        public ReadOnlyReactiveProperty<Uri> ProfileBackground { get; }
+        public ReadOnlyReactiveProperty<string> Description { get; }
 
         public UserPageViewModel(PixivClient pixivClient)
         {
@@ -90,42 +91,46 @@ namespace Pyxis.ViewModels
                 // Not provide UserID and loggied in.
                 RedirectTo("Login", new TransitionParameter {Mode = TransitionMode.Redirect});
             }
-            RunHelper.RunAsync(() => _pixivUser.FetchAsync(_userId));
+            RunHelper.RunAsync(async () =>
+            {
+                await _pixivUser.FetchAsync(_userId);
+                return Unit.Default;
+            });
         }
 
         #region Profile
 
-        public ReadOnlyReactiveProperty<string> Website { get; private set; }
-        public ReadOnlyReactiveProperty<string> Gender { get; private set; }
-        public ReadOnlyReactiveProperty<string> Birthday { get; private set; }
-        public ReadOnlyReactiveProperty<string> Region { get; private set; }
-        public ReadOnlyReactiveProperty<string> Job { get; private set; }
-        public ReadOnlyReactiveProperty<int> TotalFollowings { get; private set; }
-        public ReadOnlyReactiveProperty<int> TotalFollowers { get; private set; }
-        public ReadOnlyReactiveProperty<int> TotalMypixivs { get; private set; }
-        public ReadOnlyReactiveProperty<int> TotalIllusts { get; private set; }
-        public ReadOnlyReactiveProperty<int> TotalMangas { get; private set; }
-        public ReadOnlyReactiveProperty<int> TotalNovels { get; private set; }
-        public ReadOnlyReactiveProperty<int> TotalBookmarks { get; private set; }
-        public ReadOnlyReactiveProperty<string> Twitter { get; private set; }
+        public ReadOnlyReactiveProperty<string> Website { get; }
+        public ReadOnlyReactiveProperty<string> Gender { get; }
+        public ReadOnlyReactiveProperty<string> Birthday { get; }
+        public ReadOnlyReactiveProperty<string> Region { get; }
+        public ReadOnlyReactiveProperty<string> Job { get; }
+        public ReadOnlyReactiveProperty<int> TotalFollowings { get; }
+        public ReadOnlyReactiveProperty<int> TotalFollowers { get; }
+        public ReadOnlyReactiveProperty<int> TotalMypixivs { get; }
+        public ReadOnlyReactiveProperty<int> TotalIllusts { get; }
+        public ReadOnlyReactiveProperty<int> TotalMangas { get; }
+        public ReadOnlyReactiveProperty<int> TotalNovels { get; }
+        public ReadOnlyReactiveProperty<int> TotalBookmarks { get; }
+        public ReadOnlyReactiveProperty<string> Twitter { get; }
 
         #endregion
 
         #region Workspace
 
-        public ReadOnlyReactiveProperty<string> Computer { get; private set; } // as 'PC'
-        public ReadOnlyReactiveProperty<string> Monitor { get; private set; }
-        public ReadOnlyReactiveProperty<string> Tools { get; private set; }
-        public ReadOnlyReactiveProperty<string> Scanner { get; private set; }
-        public ReadOnlyReactiveProperty<string> Tablet { get; private set; }
-        public ReadOnlyReactiveProperty<string> Mouse { get; private set; }
-        public ReadOnlyReactiveProperty<string> Printer { get; private set; }
-        public ReadOnlyReactiveProperty<string> Desktop { get; private set; }
-        public ReadOnlyReactiveProperty<string> Music { get; private set; }
-        public ReadOnlyReactiveProperty<string> Desk { get; private set; }
-        public ReadOnlyReactiveProperty<string> Chair { get; private set; }
-        public ReadOnlyReactiveProperty<string> Comment { get; private set; }
-        public ReadOnlyReactiveProperty<Uri> WorkspaceImage { get; private set; }
+        public ReadOnlyReactiveProperty<string> Computer { get; } // as 'PC'
+        public ReadOnlyReactiveProperty<string> Monitor { get; }
+        public ReadOnlyReactiveProperty<string> Tools { get; }
+        public ReadOnlyReactiveProperty<string> Scanner { get; }
+        public ReadOnlyReactiveProperty<string> Tablet { get; }
+        public ReadOnlyReactiveProperty<string> Mouse { get; }
+        public ReadOnlyReactiveProperty<string> Printer { get; }
+        public ReadOnlyReactiveProperty<string> Desktop { get; }
+        public ReadOnlyReactiveProperty<string> Music { get; }
+        public ReadOnlyReactiveProperty<string> Desk { get; }
+        public ReadOnlyReactiveProperty<string> Chair { get; }
+        public ReadOnlyReactiveProperty<string> Comment { get; }
+        public ReadOnlyReactiveProperty<Uri> WorkspaceImage { get; }
 
         #endregion
     }

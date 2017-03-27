@@ -116,6 +116,7 @@
     <Compile Include="Controls\HamburgerMenuImageItem.cs" />
     <Compile Include="Controls\HamburgerMenuItemTemplateSelector.cs" />
     <Compile Include="Controls\ImageEx\ImageEx.cs" />
+    <Compile Include="Controls\IndexHub\IndexHub.cs" />
     <Compile Include="Controls\ScrollHeaderEx\ScrollHeaderEx.cs" />
     <Compile Include="Extensions\StorageFolderExt.cs" />
     <Compile Include="Helpers\RunHelper.cs" />
@@ -130,6 +131,10 @@
     <Compile Include="Models\Database\CacheType.cs" />
     <Compile Include="Models\Enum\TransitionMode.cs" />
     <Compile Include="Models\Parameters\UserParameter.cs" />
+    <Compile Include="Models\Pixiv\PixivModel.cs" />
+    <Compile Include="Models\Pixiv\PixivRanking.cs" />
+    <Compile Include="Models\Pixiv\PixivRankingSource.cs" />
+    <Compile Include="Models\Pixiv\PixivRecommendSource.cs" />
     <Compile Include="Models\Pixiv\PixivUser.cs" />
     <Compile Include="Models\Software.cs" />
     <Compile Include="Models\Parameters\TransitionParameter.cs" />
@@ -145,6 +150,9 @@
     <Compile Include="Services\Interfaces\IDialogService.cs" />
     <Compile Include="ViewModels\AboutPageViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModel.cs" />
+    <Compile Include="ViewModels\Contents\ContentViewModel.cs" />
+    <Compile Include="ViewModels\Contents\IllustViewModel.cs" />
+    <Compile Include="ViewModels\Contents\NovelViewModel.cs" />
     <Compile Include="ViewModels\ErrorDialogViewModel.cs" />
     <Compile Include="ViewModels\HamburgerMenuUserControlViewModel.cs" />
     <Compile Include="ViewModels\HomePageViewModel.cs" />
@@ -252,6 +260,11 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
+    <Page Include="Controls\IndexHub\IndexHub.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
     <Page Include="Controls\ScrollHeaderEx\ScrollHeaderEx.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -275,6 +288,10 @@
     <Page Include="Styles\Controls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\AboutPage.xaml">
       <SubType>Designer</SubType>
