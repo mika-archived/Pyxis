@@ -38,6 +38,11 @@
         DefaultImages = 6,
 
         /// <summary>
+        ///     オリジナルサイズ画像
+        /// </summary>
+        Original = 7,
+
+        /// <summary>
         ///     その他
         /// </summary>
         Others = 10

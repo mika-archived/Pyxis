@@ -24,6 +24,7 @@ namespace Pyxis.Services
     {
         private readonly Regex _defaultImagesRegex = new Regex(@"\/common\/", RegexOptions.Compiled);
         private readonly Regex _novelCoveRegex = new Regex(@"\/novel-cover-master\/", RegexOptions.Compiled);
+        private readonly Regex _originalRegex = new Regex(@"\/img-original\/", RegexOptions.Compiled);
 
         private readonly PixivClient _pixivClient;
         private readonly Regex _profileBackgroundRegex = new Regex(@"\/background\/", RegexOptions.Compiled);
@@ -100,6 +101,7 @@ namespace Pyxis.Services
                 await _temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("others"),
                 await _temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("profile-images"),
                 await _temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("thumbnails"),
+                await _temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("original"),
                 await _temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("novel-covers"),
                 await _temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("workspaces"),
                 await _temporaryFolder.GetFolderWhenNotFoundReturnNullAsync("background-images"),
@@ -142,6 +144,9 @@ namespace Pyxis.Services
             // Thumbnail -> /c/SIZE/img-master/img/DATETIME/{illust_id}_p{page}_SIZE.{ext}
             else if (_thumbnailRegex.IsMatch(url))
                 tuple = ("thumbnails", CacheType.MasterImage);
+            // Original -> /img-original/img/DATETIME/{illust_id}_p{page}.{ext}
+            else if (_originalRegex.IsMatch(url))
+                tuple = ("original", CacheType.Original);
             // Novel Cover -> /c/SIZE/novel-cover-master/img/DATETIME/{novel_id}_{hash}_master_SIZE.{ext}
             else if (_novelCoveRegex.IsMatch(url))
                 tuple = ("novel-covers", CacheType.NovelCover);
