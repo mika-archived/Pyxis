@@ -31,7 +31,7 @@ namespace Pyxis.Models.Pixiv
 
         Task<IEnumerable<TU>> IIncrementalSource<TU>.GetPagedItemsAsync(int pageIndex, int pageSize, CancellationToken cancellationToken)
         {
-            return _illustType != null ? GetPagedIllustsAsync(pageIndex) : GetPagedNovelsAsync(pageIndex);
+            return typeof(T) != typeof(Novel) ? GetPagedIllustsAsync(pageIndex) : GetPagedNovelsAsync(pageIndex);
         }
 
         [SuppressMessage("ReSharper", "PossibleInvalidOperationException")]

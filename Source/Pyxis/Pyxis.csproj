@@ -171,6 +171,9 @@
     <Compile Include="Views\Contents\MangaItem.xaml.cs">
       <DependentUpon>MangaItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Contents\NovelItem.xaml.cs">
+      <DependentUpon>NovelItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ErrorDialog.xaml.cs">
       <DependentUpon>ErrorDialog.xaml</DependentUpon>
     </Compile>
@@ -317,6 +320,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Contents\MangaItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Contents\NovelItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

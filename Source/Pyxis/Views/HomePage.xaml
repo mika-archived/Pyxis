@@ -143,7 +143,10 @@
                 </controlsEx:IndexHub>
             </PivotItem>
             <PivotItem Header="小説">
-                <controlsEx:IndexHub HeaderText="あなたへのオススメ" HubHeaderText="小説ランキング">
+                <controlsEx:IndexHub HeaderText="あなたへのオススメ"
+                                     HubHeaderText="小説ランキング"
+                                     ItemHeight="280"
+                                     ItemsSource="{x:Bind ViewModel.RecommendNovels, Mode=OneWay}">
                     <controlsEx:IndexHub.HubContentTemplate>
                         <DataTemplate d:DataContext="{d:DesignInstance vm:HomePageViewModel}">
                             <ItemsControl Padding="0"
@@ -152,6 +155,11 @@
                                           ItemsSource="{Binding NovelRanking, Mode=OneWay}" />
                         </DataTemplate>
                     </controlsEx:IndexHub.HubContentTemplate>
+                    <controlsEx:IndexHub.ItemTemplate>
+                        <DataTemplate>
+                            <vc:NovelItem DataContext="{Binding}" />
+                        </DataTemplate>
+                    </controlsEx:IndexHub.ItemTemplate>
                 </controlsEx:IndexHub>
             </PivotItem>
         </Pivot>
