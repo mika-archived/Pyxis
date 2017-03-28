@@ -24,6 +24,12 @@ namespace Pyxis.Controls
         public static readonly DependencyProperty ItemTemplateProperty =
             DependencyProperty.Register(nameof(ItemTemplate), typeof(DataTemplate), typeof(IndexHub), new PropertyMetadata(default(DataTemplate)));
 
+        public static readonly DependencyProperty DesiredWidthProperty =
+            DependencyProperty.Register(nameof(DesiredWidth), typeof(double), typeof(IndexHub), new PropertyMetadata(default(double)));
+
+        public static readonly DependencyProperty ItemHeightProperty =
+            DependencyProperty.Register(nameof(ItemHeight), typeof(double), typeof(IndexHub), new PropertyMetadata(default(double)));
+
         public string HubHeaderText
         {
             get { return (string) GetValue(HubHeaderTextProperty); }
@@ -52,6 +58,18 @@ namespace Pyxis.Controls
         {
             get { return (DataTemplate) GetValue(ItemTemplateProperty); }
             set { SetValue(ItemTemplateProperty, value); }
+        }
+
+        public double DesiredWidth
+        {
+            get { return (double) GetValue(DesiredWidthProperty); }
+            set { SetValue(DesiredWidthProperty, value); }
+        }
+
+        public double ItemHeight
+        {
+            get { return (double) GetValue(ItemHeightProperty); }
+            set { SetValue(ItemHeightProperty, value); }
         }
 
         public IndexHub()

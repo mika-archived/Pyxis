@@ -22,13 +22,9 @@
                 RelativePanel.AlignRightWithPanel="True"
                 RelativePanel.AlignTopWithPanel="True"
                 Visibility="{Binding HasMultiPage, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
-            <StackPanel Orientation="Horizontal">
-                <FontIcon VerticalAlignment="Center" Glyph="&#xE8B9;" />
-                <TextBlock Padding="5,0,0,0"
-                           VerticalAlignment="Center"
-                           Style="{ThemeResource CaptionTextBlockStyle}"
-                           Text="{Binding PageCount, Mode=OneWay}" />
-            </StackPanel>
+            <controls:TextBlockWithGlyph Glyph="&#xE8B9;"
+                                         Text="{Binding PageCount, Mode=OneWay}"
+                                         TextStyle="{ThemeResource CaptionTextBlockStyle}" />
         </Border>
     </RelativePanel>
 </UserControl>

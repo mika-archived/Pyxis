@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Linq;
+
+using Microsoft.Practices.ObjectBuilder2;
 
 using Pyxis.ViewModels.Base;
 
@@ -12,6 +15,7 @@ namespace Pyxis.ViewModels.Contents
 
         public string Title => _post.Title;
         public string Username => $"by {_post.User.Name}";
+        public string Tags => _post.Tags.Take(5).Select(w => w.Name).JoinStrings(", ");
         public abstract Uri Thumbnail { get; }
 
         protected ContentViewModel(Post post)

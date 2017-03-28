@@ -114,6 +114,7 @@
     <Compile Include="Controls\DataTemplateCollection.cs" />
     <Compile Include="Controls\HamburgerMenuCustomViewItem.cs" />
     <Compile Include="Controls\HamburgerMenuImageItem.cs" />
+    <Compile Include="Controls\TextBlockWithGlyph\TextBlockWithGlyph.cs" />
     <Compile Include="Controls\TypeNamedDataTemplateSelector.cs" />
     <Compile Include="Controls\ImageEx\ImageEx.cs" />
     <Compile Include="Controls\IndexHub\IndexHub.cs" />
@@ -166,6 +167,9 @@
     </Compile>
     <Compile Include="Views\Contents\IllustItem.xaml.cs">
       <DependentUpon>IllustItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Contents\MangaItem.xaml.cs">
+      <DependentUpon>MangaItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ErrorDialog.xaml.cs">
       <DependentUpon>ErrorDialog.xaml</DependentUpon>
@@ -276,6 +280,11 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
+    <Page Include="Controls\TextBlockWithGlyph\TextBlockWithGlyph.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
     <Page Include="Styles\Controls.Pivot.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -304,6 +313,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Contents\IllustItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Contents\MangaItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -38,16 +38,74 @@
                           Height="205"
                           Padding="2.5,0">
                         <controlsEx:ImageEx Source="{Binding Thumbnail}" />
+                        <Border Height="153.75"
+                                Padding="15"
+                                VerticalAlignment="Bottom">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Offset="0.0" Color="Transparent" />
+                                    <GradientStop Offset="1" Color="{ThemeResource SystemBaseHighColor}" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <StackPanel VerticalAlignment="Bottom">
+                                <TextBlock Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                                           Style="{ThemeResource SubtitleTextBlockStyle}"
+                                           Text="{Binding Title}"
+                                           TextTrimming="CharacterEllipsis"
+                                           TextWrapping="NoWrap" />
+                                <TextBlock Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                                           Style="{ThemeResource CaptionTextBlockStyle}"
+                                           Text="{Binding Username}"
+                                           TextTrimming="CharacterEllipsis"
+                                           TextWrapping="NoWrap" />
+                            </StackPanel>
+                        </Border>
                     </Grid>
                 </DataTemplate>
-                <DataTemplate x:Key="IllustTemplate" x:DataType="vmc:IllustViewModel">
-                    <vc:IllustItem DataContext="{Binding}" />
+                <DataTemplate x:Key="NovelRankingTemplate" x:DataType="vmc:NovelViewModel">
+                    <Grid Width="205"
+                          Height="205"
+                          Padding="2.5,0">
+                        <Border Background="{ThemeResource ApplicationForegroundThemeBrush}" Opacity=".5">
+                            <controlsEx:ImageEx HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Source="{Binding Thumbnail}">
+                                <i:Interaction.Behaviors>
+                                    <behaviors:Blur x:Name="BlurBehavior"
+                                                    AutomaticallyStart="True"
+                                                    Delay="0"
+                                                    Value="2"
+                                                    Duration="10" />
+                                </i:Interaction.Behaviors>
+                            </controlsEx:ImageEx>
+                        </Border>
+                        <RelativePanel Padding="15">
+                            <TextBlock RelativePanel.AlignRightWithPanel="True"
+                                       RelativePanel.AlignTopWithPanel="True"
+                                       Style="{ThemeResource CaptionTextBlockStyle}"
+                                       Text="{Binding TextLength}" />
+                            <StackPanel RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
+                                <TextBlock x:Name="NovelTitle"
+                                           Style="{ThemeResource SubtitleTextBlockStyle}"
+                                           Text="{Binding Title}"
+                                           TextTrimming="CharacterEllipsis"
+                                           TextWrapping="NoWrap" />
+                                <TextBlock Text="{Binding Tags}"
+                                           TextTrimming="CharacterEllipsis"
+                                           TextWrapping="NoWrap" />
+                            </StackPanel>
+                            <TextBlock RelativePanel.AlignBottomWithPanel="True"
+                                       RelativePanel.AlignLeftWithPanel="True"
+                                       Style="{ThemeResource CaptionTextBlockStyle}"
+                                       Text="{Binding Username}"
+                                       TextTrimming="CharacterEllipsis" />
+                        </RelativePanel>
+                    </Grid>
                 </DataTemplate>
             </Pivot.Resources>
             <PivotItem Header="イラスト">
                 <controlsEx:IndexHub HeaderText="あなたへのオススメ"
                                      HubHeaderText="イラストランキング"
-                                     ItemTemplate="{StaticResource IllustTemplate}"
                                      ItemsSource="{x:Bind ViewModel.RecommendIllusts, Mode=OneWay}">
                     <controlsEx:IndexHub.HubContentTemplate>
                         <DataTemplate>
@@ -57,10 +115,18 @@
                                           ItemsSource="{Binding IllustRanking, Mode=OneWay}" />
                         </DataTemplate>
                     </controlsEx:IndexHub.HubContentTemplate>
+                    <controlsEx:IndexHub.ItemTemplate>
+                        <DataTemplate x:DataType="vmc:IllustViewModel">
+                            <vc:IllustItem DataContext="{Binding}" />
+                        </DataTemplate>
+                    </controlsEx:IndexHub.ItemTemplate>
                 </controlsEx:IndexHub>
             </PivotItem>
             <PivotItem Header="マンガ">
-                <controlsEx:IndexHub HeaderText="あなたへのオススメ" HubHeaderText="マンガランキング">
+                <controlsEx:IndexHub HeaderText="あなたへのオススメ"
+                                     HubHeaderText="マンガランキング"
+                                     ItemHeight="250"
+                                     ItemsSource="{x:Bind ViewModel.RecommendMangas, Mode=OneWay}">
                     <controlsEx:IndexHub.HubContentTemplate>
                         <DataTemplate d:DataContext="{d:DesignInstance vm:HomePageViewModel}">
                             <ItemsControl Padding="0"
@@ -69,6 +135,11 @@
                                           ItemsSource="{Binding MangaRanking, Mode=OneWay}" />
                         </DataTemplate>
                     </controlsEx:IndexHub.HubContentTemplate>
+                    <controlsEx:IndexHub.ItemTemplate>
+                        <DataTemplate>
+                            <vc:MangaItem DataContext="{Binding}" />
+                        </DataTemplate>
+                    </controlsEx:IndexHub.ItemTemplate>
                 </controlsEx:IndexHub>
             </PivotItem>
             <PivotItem Header="小説">
@@ -76,50 +147,9 @@
                     <controlsEx:IndexHub.HubContentTemplate>
                         <DataTemplate d:DataContext="{d:DesignInstance vm:HomePageViewModel}">
                             <ItemsControl Padding="0"
+                                          ItemTemplate="{StaticResource NovelRankingTemplate}"
                                           ItemsPanel="{StaticResource ItemsPanelTemplate}"
-                                          ItemsSource="{Binding NovelRanking, Mode=OneWay}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate x:DataType="vmc:NovelViewModel">
-                                        <Grid Width="205"
-                                              Height="205"
-                                              Padding="2.5,0">
-                                            <Border Background="{ThemeResource ApplicationForegroundThemeBrush}" Opacity=".5">
-                                                <controlsEx:ImageEx HorizontalAlignment="Center"
-                                                                    VerticalAlignment="Center"
-                                                                    Source="{Binding Thumbnail}">
-                                                    <i:Interaction.Behaviors>
-                                                        <behaviors:Blur x:Name="BlurBehavior"
-                                                                        AutomaticallyStart="True"
-                                                                        Delay="0"
-                                                                        Value="2"
-                                                                        Duration="10" />
-                                                    </i:Interaction.Behaviors>
-                                                </controlsEx:ImageEx>
-                                            </Border>
-                                            <RelativePanel Padding="15">
-                                                <TextBlock RelativePanel.AlignRightWithPanel="True"
-                                                           RelativePanel.AlignTopWithPanel="True"
-                                                           Style="{ThemeResource CaptionTextBlockStyle}"
-                                                           Text="{Binding TextLength}" />
-                                                <StackPanel RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
-                                                    <TextBlock x:Name="NovelTitle"
-                                                               Style="{ThemeResource SubtitleTextBlockStyle}"
-                                                               Text="{Binding Title}"
-                                                               TextTrimming="CharacterEllipsis"
-                                                               TextWrapping="NoWrap" />
-                                                    <TextBlock Text="{Binding Tags}"
-                                                               TextTrimming="CharacterEllipsis"
-                                                               TextWrapping="NoWrap" />
-                                                </StackPanel>
-                                                <TextBlock RelativePanel.AlignBottomWithPanel="True"
-                                                           RelativePanel.AlignLeftWithPanel="True"
-                                                           Text="{Binding Username}"
-                                                           TextTrimming="CharacterEllipsis" />
-                                            </RelativePanel>
-                                        </Grid>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
+                                          ItemsSource="{Binding NovelRanking, Mode=OneWay}" />
                         </DataTemplate>
                     </controlsEx:IndexHub.HubContentTemplate>
                 </controlsEx:IndexHub>

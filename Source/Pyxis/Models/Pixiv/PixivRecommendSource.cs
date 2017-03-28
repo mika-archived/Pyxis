@@ -38,7 +38,8 @@ namespace Pyxis.Models.Pixiv
         private async Task<IEnumerable<TU>> GetPagedIllustsAsync(int pageIndex)
         {
             if (_previousIllustCursor != null)
-                _previousIllustCursor = await EffectiveCallAsync($"IllustRecommend-${pageIndex}", () => _previousIllustCursor.NextPageAsync());
+                _previousIllustCursor = await EffectiveCallAsync($"{(_illustType.Value == IllustType.Illust ? "Illust" : "Manga")}Recommend-${pageIndex}",
+                                                                 () => _previousIllustCursor.NextPageAsync());
             else if (_illustType.Value == IllustType.Illust)
                 _previousIllustCursor = await EffectiveCallAsync($"IllustRecommend-${pageIndex}", () => PixivClient.Illust.RecommendedAsync(false));
             else

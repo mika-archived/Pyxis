@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 
+using Windows.ApplicationModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -74,6 +75,9 @@ namespace Pyxis.Controls
 
         public ImageEx()
         {
+            if (DesignMode.DesignModeEnabled)
+                return;
+
             DefaultStyleKey = typeof(ImageEx);
             _cacheService = PrismUnityApplication.Current.Container.Resolve<IFileCacheService>();
         }
