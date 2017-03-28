@@ -10,8 +10,8 @@ namespace Pyxis.ViewModels.Contents
         private readonly Illust _illust;
 
         public override Uri Thumbnail => new Uri(_illust.ImageUrls.SquareMedium ?? _illust.MetaPages.First().ImageUrls.SquareMedium);
-        public bool HasMultiPage => _illust.MetaSinglePage != null;
-        public int PageCount => HasMultiPage ? _illust.MetaPages.Count() : 0;
+        public bool HasMultiPage => _illust.PageCount > 1;
+        public int PageCount => HasMultiPage ? _illust.PageCount : 1;
 
         public IllustViewModel(Illust illust) : base(illust)
         {

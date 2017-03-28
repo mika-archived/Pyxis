@@ -13,10 +13,9 @@ using Reactive.Bindings;
 
 using Sagitta;
 using Sagitta.Enum;
-using Sagitta.Models;
 
-using IllustRecommendSource = Pyxis.Models.Pixiv.PixivRecommendSource<Sagitta.Models.Illust>;
-using NovelRecommendSource = Pyxis.Models.Pixiv.PixivRecommendSource<Sagitta.Models.Novel>;
+using IllustRecommendSource = Pyxis.Models.Pixiv.PixivRecommendSource<Sagitta.Models.Illust, Pyxis.ViewModels.Contents.IllustViewModel>;
+using NovelRecommendSource = Pyxis.Models.Pixiv.PixivRecommendSource<Sagitta.Models.Novel, Pyxis.ViewModels.Contents.NovelViewModel>;
 
 namespace Pyxis.ViewModels
 {
@@ -25,9 +24,9 @@ namespace Pyxis.ViewModels
         public ReadOnlyReactiveCollection<IllustViewModel> IllustRanking { get; }
         public ReadOnlyReactiveCollection<IllustViewModel> MangaRanking { get; }
         public ReadOnlyReactiveCollection<NovelViewModel> NovelRanking { get; }
-        public IncrementalLoadingCollection<IllustRecommendSource, Illust> RecommendIllusts { get; }
-        public IncrementalLoadingCollection<IllustRecommendSource, Illust> RecommendMangas { get; }
-        public IncrementalLoadingCollection<NovelRecommendSource, Novel> RecommendNovels { get; }
+        public IncrementalLoadingCollection<IllustRecommendSource, IllustViewModel> RecommendIllusts { get; }
+        public IncrementalLoadingCollection<IllustRecommendSource, IllustViewModel> RecommendMangas { get; }
+        public IncrementalLoadingCollection<NovelRecommendSource, NovelViewModel> RecommendNovels { get; }
         public ReactiveProperty<int> SelectedIndex { get; }
 
         public HomePageViewModel(PixivClient client)
@@ -36,9 +35,12 @@ namespace Pyxis.ViewModels
             IllustRanking = pixivRanking.IllustRanking.ToReadOnlyReactiveCollection(w => new IllustViewModel(w)).AddTo(this);
             MangaRanking = pixivRanking.MangaRanking.ToReadOnlyReactiveCollection(w => new IllustViewModel(w)).AddTo(this);
             NovelRanking = pixivRanking.NovelRanking.ToReadOnlyReactiveCollection(w => new NovelViewModel(w)).AddTo(this);
-            RecommendIllusts = new IncrementalLoadingCollection<IllustRecommendSource, Illust>(new IllustRecommendSource(client, IllustType.Illust));
-            RecommendMangas = new IncrementalLoadingCollection<IllustRecommendSource, Illust>(new IllustRecommendSource(client, IllustType.Manga));
-            RecommendNovels = new IncrementalLoadingCollection<NovelRecommendSource, Novel>(new NovelRecommendSource(client));
+            RecommendIllusts = new IncrementalLoadingCollection<IllustRecommendSource, IllustViewModel>(
+                new IllustRecommendSource(client, IllustType.Illust, w => new IllustViewModel(w)));
+            RecommendMangas = new IncrementalLoadingCollection<IllustRecommendSource, IllustViewModel>(
+                new IllustRecommendSource(client, IllustType.Manga, w => new IllustViewModel(w)));
+            RecommendNovels = new IncrementalLoadingCollection<NovelRecommendSource, NovelViewModel>(
+                new NovelRecommendSource(client, converter: w => new NovelViewModel(w)));
             SelectedIndex = new ReactiveProperty<int>();
             SelectedIndex.SelectMany(async w =>
             {

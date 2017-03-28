@@ -37,10 +37,10 @@ namespace Pyxis.Controls
             = DependencyProperty.Register(nameof(Stretch), typeof(Stretch), typeof(ImageEx), new PropertyMetadata(Stretch.Uniform));
 
         private readonly IFileCacheService _cacheService;
+        private readonly string[] _targetHosts = {"pixiv", "pximg"};
 
         private MsImageEx _image;
         private bool _isInitialized;
-        private readonly string[] _targetHosts = {"pixiv", "pximg"};
 
         public ImageSource PlaceholderSource
         {

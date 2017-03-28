@@ -3,11 +3,11 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
       xmlns:controlsEx="using:Pyxis.Controls"
-      xmlns:core="using:Microsoft.Xaml.Interactions.Core"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:prism="using:Prism.Windows.Mvvm"
+      xmlns:vc="using:Pyxis.Views.Contents"
       xmlns:vm="using:Pyxis.ViewModels"
       xmlns:vmc="using:Pyxis.ViewModels.Contents"
       d:DataContext="{d:DesignInstance vm:HomePageViewModel}"
@@ -40,9 +40,15 @@
                         <controlsEx:ImageEx Source="{Binding Thumbnail}" />
                     </Grid>
                 </DataTemplate>
+                <DataTemplate x:Key="IllustTemplate" x:DataType="vmc:IllustViewModel">
+                    <vc:IllustItem DataContext="{Binding}" />
+                </DataTemplate>
             </Pivot.Resources>
             <PivotItem Header="イラスト">
-                <controlsEx:IndexHub HeaderText="あなたへのオススメ" HubHeaderText="イラストランキング">
+                <controlsEx:IndexHub HeaderText="あなたへのオススメ"
+                                     HubHeaderText="イラストランキング"
+                                     ItemTemplate="{StaticResource IllustTemplate}"
+                                     ItemsSource="{x:Bind ViewModel.RecommendIllusts, Mode=OneWay}">
                     <controlsEx:IndexHub.HubContentTemplate>
                         <DataTemplate>
                             <ItemsControl Padding="0"
