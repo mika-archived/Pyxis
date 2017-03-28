@@ -9,6 +9,7 @@ using Pyxis.Services.Interfaces;
 
 namespace Pyxis.Services
 {
+    // ReSharper disable once ClassNeverInstantiated.Global
     internal class ObjectCacheService : IObjectCacheService
     {
         private readonly Dictionary<string, object> _cacheObjects;
@@ -20,6 +21,16 @@ namespace Pyxis.Services
             _cacheObjects = new Dictionary<string, object>();
             Observable.Timer(TimeSpan.FromSeconds(0), TimeSpan.FromMinutes(1)).Subscribe(_ =>
             {
+                if (_cacheTimes.Count > MaxSize)
+                {
+                    var count = _cacheTimes.Count;
+                    for (var i = count; i < MaxSize; i++)
+                    {
+                        var key = _cacheTimes.First().Key;
+                        _cacheTimes.Remove(key);
+                        _cacheObjects.Remove(key);
+                    }
+                }
                 _cacheTimes.Where(w => w.Value.AddMinutes(Expire.TotalMinutes * 2) < DateTime.Now).ToList().ForEach(w =>
                 {
                     _cacheTimes.Remove(w.Key);
@@ -29,6 +40,7 @@ namespace Pyxis.Services
         }
 
         public TimeSpan Expire { get; set; } = TimeSpan.FromMinutes(5);
+        public int MaxSize { get; set; } = byte.MaxValue;
 
         public async Task<T> EffectiveCallAsync<T>(string identifier, Func<Task<T>> action, TimeSpan? expire = null)
         {
