@@ -106,7 +106,8 @@
             <PivotItem Header="イラスト">
                 <controlsEx:IndexHub HeaderText="あなたへのオススメ"
                                      HubHeaderText="イラストランキング"
-                                     ItemsSource="{x:Bind ViewModel.RecommendIllusts, Mode=OneWay}">
+                                     ItemsSource="{x:Bind ViewModel.RecommendIllusts, Mode=OneWay}"
+                                     SelectedItem="{x:Bind ViewModel.SelectedItem.Value, Mode=TwoWay}">
                     <controlsEx:IndexHub.HubContentTemplate>
                         <DataTemplate>
                             <ItemsControl Padding="0"
@@ -126,7 +127,8 @@
                 <controlsEx:IndexHub HeaderText="あなたへのオススメ"
                                      HubHeaderText="マンガランキング"
                                      ItemHeight="250"
-                                     ItemsSource="{x:Bind ViewModel.RecommendMangas, Mode=OneWay}">
+                                     ItemsSource="{x:Bind ViewModel.RecommendMangas, Mode=OneWay}"
+                                     SelectedItem="{x:Bind ViewModel.SelectedItem.Value, Mode=TwoWay}">
                     <controlsEx:IndexHub.HubContentTemplate>
                         <DataTemplate d:DataContext="{d:DesignInstance vm:HomePageViewModel}">
                             <ItemsControl Padding="0"
@@ -146,7 +148,8 @@
                 <controlsEx:IndexHub HeaderText="あなたへのオススメ"
                                      HubHeaderText="小説ランキング"
                                      ItemHeight="280"
-                                     ItemsSource="{x:Bind ViewModel.RecommendNovels, Mode=OneWay}">
+                                     ItemsSource="{x:Bind ViewModel.RecommendNovels, Mode=OneWay}"
+                                     SelectedItem="{x:Bind ViewModel.SelectedItem.Value, Mode=TwoWay}">
                     <controlsEx:IndexHub.HubContentTemplate>
                         <DataTemplate d:DataContext="{d:DesignInstance vm:HomePageViewModel}">
                             <ItemsControl Padding="0"

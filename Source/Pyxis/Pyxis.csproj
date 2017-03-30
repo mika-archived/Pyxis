@@ -132,6 +132,7 @@
     <Compile Include="Models\Database\CacheContext.cs" />
     <Compile Include="Models\Database\CacheType.cs" />
     <Compile Include="Models\Enum\TransitionMode.cs" />
+    <Compile Include="Models\Parameters\IllustParameter.cs" />
     <Compile Include="Models\Parameters\UserParameter.cs" />
     <Compile Include="Models\Pixiv\PixivModel.cs" />
     <Compile Include="Models\Pixiv\PixivRanking.cs" />
@@ -142,6 +143,8 @@
     <Compile Include="Models\Parameters\TransitionParameter.cs" />
     <Compile Include="Mvvm\ViewModelHelper.cs" />
     <Compile Include="Models\PyxisConstants.cs" />
+    <Compile Include="Navigation\PyxisNavigatedToEventArgs.cs" />
+    <Compile Include="Navigation\PyxisNavigatingFromEventArgs.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AccountService.cs" />

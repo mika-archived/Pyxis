@@ -13,6 +13,7 @@ using Prism.Windows.Navigation;
 using Pyxis.Helpers;
 using Pyxis.Models.Enum;
 using Pyxis.Models.Parameters;
+using Pyxis.Navigation;
 using Pyxis.Services.Interfaces;
 using Pyxis.Views;
 
@@ -20,17 +21,16 @@ namespace Pyxis.ViewModels.Base
 {
     public class ViewModel : ViewModelBase, IDisposable
     {
+        private readonly INavigationService _navigationService;
         public CompositeDisposable CompositeDisposable { get; }
 
         protected IAccountService AccountService { get; }
-
-        protected INavigationService NavigationService { get; }
 
         protected ViewModel()
         {
             CompositeDisposable = new CompositeDisposable();
             AccountService = PrismUnityApplication.Current.Container.Resolve<IAccountService>();
-            NavigationService = PrismUnityApplication.Current.Container.Resolve<INavigationService>();
+            _navigationService = PrismUnityApplication.Current.Container.Resolve<INavigationService>();
         }
 
         #region Implementation of IDisposable
@@ -41,20 +41,27 @@ namespace Pyxis.ViewModels.Base
 
         protected void RedirectTo(string pageToken, TransitionParameter parameter)
         {
-            RunHelper.RunLaterUI(() => NavigationService.Navigate(pageToken, parameter.ToQuery()), TimeSpan.FromMilliseconds(1));
+            RunHelper.RunLaterUI(() => _navigationService.Navigate(pageToken, parameter.ToQuery()), TimeSpan.FromMilliseconds(1));
         }
+
+        protected void NavigateTo(string pageToken, TransitionParameter parameter) => _navigationService.Navigate(pageToken, parameter.ToQuery());
+
+        public virtual void OnNavigatingFrom(PyxisNavigatingFromEventArgs e, Dictionary<string, object> viewModelState, bool suspending) {}
+
+        public virtual void OnNavigatedTo(PyxisNavigatedToEventArgs e, Dictionary<string, object> viewModelState) {}
 
         #region Overrides of ViewModelBase
 
-        public override void OnNavigatingFrom(NavigatingFromEventArgs e, Dictionary<string, object> viewModelState,
-                                              bool suspending)
+        public sealed override void OnNavigatingFrom(NavigatingFromEventArgs e, Dictionary<string, object> viewModelState,
+                                                     bool suspending)
         {
             base.OnNavigatingFrom(e, viewModelState, suspending);
+            OnNavigatingFrom(new PyxisNavigatingFromEventArgs(e), viewModelState, suspending);
             if (suspending)
                 CompositeDisposable.Dispose();
         }
 
-        public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
+        public sealed override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
         {
             base.OnNavigatedTo(e, viewModelState);
             // Redirect to
@@ -71,15 +78,17 @@ namespace Pyxis.ViewModels.Base
                 if (parameter.Mode == TransitionMode.Redirect)
                 {
                     // 1: This page, 2: Last (redirect source) page.
-                    NavigationService.RemoveLastPage();
-                    NavigationService.RemoveLastPage();
+                    _navigationService.RemoveLastPage();
+                    _navigationService.RemoveLastPage();
                 }
             }
 
             // Back Button
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = NavigationService.CanGoBack()
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = _navigationService.CanGoBack()
                 ? AppViewBackButtonVisibility.Visible
                 : AppViewBackButtonVisibility.Collapsed;
+
+            OnNavigatedTo(new PyxisNavigatedToEventArgs(e), viewModelState);
         }
 
         #endregion

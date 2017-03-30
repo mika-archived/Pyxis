@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Reactive;
 using System.Reactive.Linq;
 
-using Prism.Windows.Navigation;
-
 using Pyxis.Helpers;
-using Pyxis.Models.Enum;
 using Pyxis.Models.Parameters;
 using Pyxis.Models.Pixiv;
 using Pyxis.Mvvm;
+using Pyxis.Navigation;
 using Pyxis.ViewModels.Base;
 
 using Reactive.Bindings;
@@ -74,22 +72,16 @@ namespace Pyxis.ViewModels
             connector.Connect().AddTo(this);
         }
 
-        public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
+        public override void OnNavigatedTo(PyxisNavigatedToEventArgs e, Dictionary<string, object> viewModelState)
         {
-            base.OnNavigatedTo(e, viewModelState);
             if (e.Parameter != null)
             {
-                var parameter = TransitionParameter.FromQuery<UserParameter>(e.Parameter.ToString());
+                var parameter = e.ParsedQuery<UserParameter>();
                 _userId = parameter.UserId;
-            }
-            else if (AccountService.Account != null)
-            {
-                _userId = int.Parse(AccountService.Account.Id);
             }
             else
             {
-                // Not provide UserID and loggied in.
-                RedirectTo("Login", new TransitionParameter {Mode = TransitionMode.Redirect});
+                _userId = int.Parse(AccountService.Account.Id);
             }
             RunHelper.RunAsync(async () =>
             {

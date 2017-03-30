@@ -28,6 +28,7 @@ namespace Pyxis.ViewModels
         public IncrementalLoadingCollection<IllustRecommendSource, IllustViewModel> RecommendMangas { get; }
         public IncrementalLoadingCollection<NovelRecommendSource, NovelViewModel> RecommendNovels { get; }
         public ReactiveProperty<int> SelectedIndex { get; }
+        public ReactiveProperty<object> SelectedItem { get; }
 
         public HomePageViewModel(PixivClient client)
         {
@@ -63,6 +64,9 @@ namespace Pyxis.ViewModels
                 }
                 return Unit.Default;
             }).Subscribe().AddTo(this);
+            SelectedItem = new ReactiveProperty<object>();
+            SelectedItem.Select(w => w as ContentViewModel).Where(w => w != null)
+                        .Subscribe(w => w.NavigatedTo()).AddTo(this);
         }
     }
 }

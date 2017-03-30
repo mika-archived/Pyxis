@@ -81,7 +81,7 @@ namespace Pyxis
             Container.RegisterType<IObjectCacheService, ObjectCacheService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IDialogService, DialogService>(new ContainerControlledLifetimeManager());
 
-            //await accountService.ClearAsync();
+            // await accountService.ClearAsync();
             await accountService.LoginAsync();
             await base.OnInitializeAsync(args);
         }

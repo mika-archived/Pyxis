@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 
+using Pyxis.Models.Parameters;
+
 using Sagitta.Models;
 
 namespace Pyxis.ViewModels.Contents
@@ -17,5 +19,7 @@ namespace Pyxis.ViewModels.Contents
         {
             _illust = illust;
         }
+
+        public override void NavigatedTo() => NavigateTo("Illust", new TransitionParameter());
     }
 }

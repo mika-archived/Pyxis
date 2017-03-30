@@ -22,5 +22,7 @@ namespace Pyxis.ViewModels.Contents
         {
             _post = post;
         }
+
+        public abstract void NavigatedTo();
     }
 }
