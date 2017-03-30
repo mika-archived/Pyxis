@@ -1,9 +1,9 @@
-﻿using System;
-using System.Reactive.Linq;
+﻿using System.Reactive.Linq;
 using System.Threading.Tasks;
 
 using Pyxis.Models.Enum;
 using Pyxis.Models.Parameters;
+using Pyxis.Mvvm;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
 
@@ -18,7 +18,7 @@ namespace Pyxis.ViewModels
 
         public ReactiveProperty<string> Username { get; }
         public ReactiveProperty<string> Password { get; }
-        public ReactiveCommand LoginCommand { get; }
+        public AsyncReactiveCommand LoginCommand { get; }
 
         public LoginPageViewModel(IDialogService dialogService)
         {
@@ -31,8 +31,8 @@ namespace Pyxis.ViewModels
                 Username.Select(string.IsNullOrWhiteSpace),
                 Password.Select(string.IsNullOrWhiteSpace)
             }.CombineLatestValuesAreAllFalse()
-             .ToReactiveCommand();
-            LoginCommand.Subscribe(async w => await LoginAsync());
+             .ToAsyncReactiveCommand();
+            LoginCommand.Subscribe(async w => await LoginAsync()).AddTo(this);
         }
 
         private async Task LoginAsync()
