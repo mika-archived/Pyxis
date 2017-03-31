@@ -84,8 +84,7 @@ namespace Pyxis.ViewModels
 
         public void OnImageTapped()
         {
-            if (_postDetail.Post.PageCount == 1)
-                NavigateTo("Viewers.IllustViewer", new IllustParameter {Illust = _postDetail.Post});
+            NavigateTo(_postDetail.Post.PageCount == 1 ? "Viewers.IllustViewer" : "Viewers.MangaViewer", new IllustParameter {Illust = _postDetail.Post});
         }
     }
 }

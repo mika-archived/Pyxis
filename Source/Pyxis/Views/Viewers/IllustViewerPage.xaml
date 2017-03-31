@@ -10,11 +10,12 @@
       prism:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d">
     <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                  HorizontalScrollBarVisibility="Auto"
-                  VerticalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="{x:Bind ViewModel.ScrollBarVisibility, Mode=OneWay}"
+                  VerticalScrollBarVisibility="{x:Bind ViewModel.ScrollBarVisibility, Mode=OneWay}"
                   ZoomMode="Enabled">
         <controlsEx:ImageEx MaxWidth="{x:Bind ViewModel.MaxWidth.Value, Mode=OneWay}"
                             MaxHeight="{x:Bind ViewModel.MaxHeight.Value, Mode=OneWay}"
+                            SizeChanged="{x:Bind ViewModel.OnSizeChanged, Mode=OneWay}"
                             Source="{x:Bind ViewModel.OriginaiImageUrl.Value, Mode=OneWay}" />
     </ScrollViewer>
 </Page>
