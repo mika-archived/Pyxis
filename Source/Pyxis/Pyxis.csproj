@@ -135,6 +135,7 @@
     <Compile Include="Models\Parameters\IllustParameter.cs" />
     <Compile Include="Models\Parameters\UserParameter.cs" />
     <Compile Include="Models\Pixiv\PixivModel.cs" />
+    <Compile Include="Models\Pixiv\PixivPostDetail.cs" />
     <Compile Include="Models\Pixiv\PixivRanking.cs" />
     <Compile Include="Models\Pixiv\PixivRankingSource.cs" />
     <Compile Include="Models\Pixiv\PixivRecommendSource.cs" />
@@ -160,9 +161,11 @@
     <Compile Include="ViewModels\Contents\ContentViewModel.cs" />
     <Compile Include="ViewModels\Contents\IllustViewModel.cs" />
     <Compile Include="ViewModels\Contents\NovelViewModel.cs" />
+    <Compile Include="ViewModels\Contents\TagViewModel.cs" />
     <Compile Include="ViewModels\ErrorDialogViewModel.cs" />
     <Compile Include="ViewModels\HamburgerMenuUserControlViewModel.cs" />
     <Compile Include="ViewModels\HomePageViewModel.cs" />
+    <Compile Include="ViewModels\IllustPageViewModel.cs" />
     <Compile Include="ViewModels\LoginPageViewModel.cs" />
     <Compile Include="ViewModels\UserPageViewModel.cs" />
     <Compile Include="Views\AboutPage.xaml.cs">
@@ -177,6 +180,9 @@
     <Compile Include="Views\Contents\NovelItem.xaml.cs">
       <DependentUpon>NovelItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Contents\TagsArea.xaml.cs">
+      <DependentUpon>TagsArea.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ErrorDialog.xaml.cs">
       <DependentUpon>ErrorDialog.xaml</DependentUpon>
     </Compile>
@@ -185,6 +191,9 @@
     </Compile>
     <Compile Include="Views\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\IllustPage.xaml.cs">
+      <DependentUpon>IllustPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
@@ -330,6 +339,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Contents\TagsArea.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ErrorDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -339,6 +352,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\HomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\IllustPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

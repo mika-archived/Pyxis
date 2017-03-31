@@ -26,9 +26,13 @@ namespace Pyxis.Helpers
         ///     バックグラウンドスレッド上で、非同期操作 action を実行します。
         /// </summary>
         /// <param name="asyncAction"></param>
-        public static void RunAsync(Func<Task<Unit>> asyncAction)
+        public static void RunAsync(Func<Task> asyncAction)
         {
-            Observable.Timer(TimeSpan.Zero).SelectMany(w => asyncAction.Invoke()).Subscribe();
+            Observable.Timer(TimeSpan.Zero).SelectMany(async w =>
+            {
+                await asyncAction.Invoke();
+                return Unit.Default;
+            }).Subscribe();
         }
 
         #endregion
@@ -50,9 +54,13 @@ namespace Pyxis.Helpers
         /// </summary>
         /// <param name="action"></param>
         /// <param name="behind"></param>
-        public static void RunLaterUIAsync(Func<Task<Unit>> action, TimeSpan behind)
+        public static void RunLaterUIAsync(Func<Task> action, TimeSpan behind)
         {
-            Observable.Return(0).Delay(behind).ObserveOnUIDispatcher().SelectMany(w => action.Invoke()).Subscribe();
+            Observable.Return(0).Delay(behind).ObserveOnUIDispatcher().SelectMany(async w =>
+            {
+                await action.Invoke();
+                return Unit.Default;
+            }).Subscribe();
         }
 
         #endregion

@@ -19,7 +19,7 @@ namespace Pyxis.ViewModels.Contents
             _novel = novel;
         }
 
-        public override void NavigatedTo()
+        public override void NavigateTo()
         {
             throw new NotImplementedException();
         }

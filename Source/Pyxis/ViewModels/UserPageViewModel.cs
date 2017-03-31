@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reactive;
 using System.Reactive.Linq;
 
 using Pyxis.Helpers;
@@ -83,11 +82,7 @@ namespace Pyxis.ViewModels
             {
                 _userId = int.Parse(AccountService.Account.Id);
             }
-            RunHelper.RunAsync(async () =>
-            {
-                await _pixivUser.FetchAsync(_userId);
-                return Unit.Default;
-            });
+            RunHelper.RunAsync(() => _pixivUser.FetchAsync(_userId));
         }
 
         #region Profile

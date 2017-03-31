@@ -18,7 +18,7 @@ namespace Pyxis.ViewModels
     public class AboutPageViewModel : ViewModel
     {
         public string Name { get; private set; }
-        public string Version { get; private set; }
+        public string Version { get; }
         public List<Software> Softwares => PyxisConstants.Softwares.Value;
 
         public AboutPageViewModel()
@@ -26,6 +26,8 @@ namespace Pyxis.ViewModels
             Name = SystemInformation.ApplicationName;
             var version = SystemInformation.ApplicationVersion;
             Version = $"Version {version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
+            if (!string.IsNullOrWhiteSpace(PyxisConstants.Branch))
+                Version += $" - {PyxisConstants.Branch}";
         }
 
         #region OpenFeedbackHubCommand

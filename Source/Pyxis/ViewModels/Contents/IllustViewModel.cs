@@ -20,6 +20,6 @@ namespace Pyxis.ViewModels.Contents
             _illust = illust;
         }
 
-        public override void NavigatedTo() => NavigateTo("Illust", new TransitionParameter());
+        public override void NavigateTo() => NavigateTo("Illust", new IllustParameter {Illust = _illust});
     }
 }

@@ -57,8 +57,7 @@ namespace Pyxis.ViewModels.Base
         {
             base.OnNavigatingFrom(e, viewModelState, suspending);
             OnNavigatingFrom(new PyxisNavigatingFromEventArgs(e), viewModelState, suspending);
-            if (suspending)
-                CompositeDisposable.Dispose();
+            CompositeDisposable.Dispose();
         }
 
         public sealed override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)

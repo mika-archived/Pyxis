@@ -66,7 +66,7 @@ namespace Pyxis.ViewModels
             }).Subscribe().AddTo(this);
             SelectedItem = new ReactiveProperty<object>();
             SelectedItem.Select(w => w as ContentViewModel).Where(w => w != null)
-                        .Subscribe(w => w.NavigatedTo()).AddTo(this);
+                        .Subscribe(w => w.NavigateTo()).AddTo(this);
         }
     }
 }

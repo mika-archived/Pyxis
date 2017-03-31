@@ -20,6 +20,8 @@ using MsImageEx = Microsoft.Toolkit.Uwp.UI.Controls.ImageEx;
 namespace Pyxis.Controls
 {
     [TemplatePart(Name = "Image", Type = typeof(Image))]
+    [TemplateVisualState(Name = "Loading", GroupName = "CommonStateEx")]
+    [TemplateVisualState(Name = "Loaded", GroupName = "CommonStateEx")]
     internal class ImageEx : Control
     {
         public static readonly DependencyProperty PlaceholderSourceProperty =
@@ -107,16 +109,17 @@ namespace Pyxis.Controls
             if (!_isInitialized)
                 return;
 
+            VisualStateManager.GoToState(this, "Loading", true);
             var uri = source as Uri;
             if (uri == null || IsHttpUri(uri) && !_targetHosts.Any(w => uri.Host.Contains(w)))
                 _image.Source = source;
             else
                 await LoadPixivImageAsync(uri.ToString());
+            VisualStateManager.GoToState(this, "Loaded", true);
         }
 
         private async Task LoadPixivImageAsync(string imageUri)
         {
-            VisualStateManager.GoToState(_image, "Loading", true);
             if (await _cacheService.ExistFileAsync(imageUri))
                 _image.Source = await _cacheService.LoadFileAsync(imageUri);
             else
