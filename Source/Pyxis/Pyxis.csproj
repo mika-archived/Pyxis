@@ -168,6 +168,7 @@
     <Compile Include="ViewModels\IllustPageViewModel.cs" />
     <Compile Include="ViewModels\LoginPageViewModel.cs" />
     <Compile Include="ViewModels\UserPageViewModel.cs" />
+    <Compile Include="ViewModels\Viewers\IllustViewerPageViewModel.cs" />
     <Compile Include="Views\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
@@ -200,6 +201,9 @@
     </Compile>
     <Compile Include="Views\UserPage.xaml.cs">
       <DependentUpon>UserPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Viewers\IllustViewerPage.xaml.cs">
+      <DependentUpon>IllustViewerPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -364,6 +368,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Viewers\IllustViewerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

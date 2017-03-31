@@ -63,7 +63,8 @@
                                     PlaceholderSource="{x:Bind ViewModel.ThumbnailUrl.Value, Mode=OneWay}"
                                     PlaceholderStretch="Uniform"
                                     Source="{x:Bind ViewModel.OriginalUrl.Value, Mode=OneWay}"
-                                    Stretch="Uniform" />
+                                    Stretch="Uniform"
+                                    Tapped="{x:Bind ViewModel.OnImageTapped}" />
                 <StackPanel Padding="0,20,0,0" Orientation="Horizontal">
                     <StackPanel.Resources>
                         <Style BasedOn="{StaticResource CaptionTextBlockStyle}" TargetType="TextBlock">

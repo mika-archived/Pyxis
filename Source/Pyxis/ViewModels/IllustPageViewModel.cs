@@ -81,5 +81,11 @@ namespace Pyxis.ViewModels
             else
                 RunHelper.RunAsync(() => _postDetail.FetchAsync(parameter.Id));
         }
+
+        public void OnImageTapped()
+        {
+            if (_postDetail.Post.PageCount == 1)
+                NavigateTo("Viewers.IllustViewer", new IllustParameter {Illust = _postDetail.Post});
+        }
     }
 }
