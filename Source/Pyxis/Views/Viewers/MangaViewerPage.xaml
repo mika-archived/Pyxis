@@ -1,4 +1,4 @@
-﻿<Page x:Class="Pyxis.Views.Viewers.IllustViewerPage"
+﻿<Page x:Class="Pyxis.Views.Viewers.MangaViewerPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:contents="using:Pyxis.Views.Contents"
@@ -6,8 +6,14 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:prism="using:Prism.Windows.Mvvm"
       xmlns:vm="using:Pyxis.ViewModels.Viewers"
-      d:DataContext="{d:DesignInstance vm:IllustViewerPageViewModel}"
+      d:DataContext="{d:DesignInstance vm:MangaViewerPageViewModel}"
       prism:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d">
-    <contents:SingleIllustPage DataContext="{x:Bind ViewModel.PageViewModel.Value, Mode=OneWay}" />
+    <FlipView ItemsSource="{x:Bind ViewModel.OriginalImageUris, Mode=OneWay}" SelectedIndex="{x:Bind ViewModel.SelectedIndex, Mode=TwoWay}">
+        <FlipView.ItemTemplate>
+            <DataTemplate>
+                <contents:SingleIllustPage DataContext="{Binding}" />
+            </DataTemplate>
+        </FlipView.ItemTemplate>
+    </FlipView>
 </Page>

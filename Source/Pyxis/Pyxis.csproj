@@ -161,6 +161,7 @@
     <Compile Include="ViewModels\Contents\ContentViewModel.cs" />
     <Compile Include="ViewModels\Contents\IllustViewModel.cs" />
     <Compile Include="ViewModels\Contents\NovelViewModel.cs" />
+    <Compile Include="ViewModels\Contents\SingleIllustPageViewModel.cs" />
     <Compile Include="ViewModels\Contents\TagViewModel.cs" />
     <Compile Include="ViewModels\ErrorDialogViewModel.cs" />
     <Compile Include="ViewModels\HamburgerMenuUserControlViewModel.cs" />
@@ -169,11 +170,15 @@
     <Compile Include="ViewModels\LoginPageViewModel.cs" />
     <Compile Include="ViewModels\UserPageViewModel.cs" />
     <Compile Include="ViewModels\Viewers\IllustViewerPageViewModel.cs" />
+    <Compile Include="ViewModels\Viewers\MangaViewerPageViewModel.cs" />
     <Compile Include="Views\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Contents\IllustItem.xaml.cs">
       <DependentUpon>IllustItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Contents\SingleIllustPage.xaml.cs">
+      <DependentUpon>SingleIllustPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Contents\MangaItem.xaml.cs">
       <DependentUpon>MangaItem.xaml</DependentUpon>
@@ -204,6 +209,9 @@
     </Compile>
     <Compile Include="Views\Viewers\IllustViewerPage.xaml.cs">
       <DependentUpon>IllustViewerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Viewers\MangaViewerPage.xaml.cs">
+      <DependentUpon>MangaViewerPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -335,6 +343,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Contents\SingleIllustPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Contents\MangaItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -372,6 +384,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Viewers\IllustViewerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Viewers\MangaViewerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -12,11 +12,10 @@ using Microsoft.Practices.Unity;
 using Prism.Unity.Windows;
 using Prism.Windows.AppModel;
 
+using Pyxis.Models;
 using Pyxis.Models.Database;
 using Pyxis.Services;
 using Pyxis.Services.Interfaces;
-
-using Reactive.Bindings;
 
 using Sagitta;
 
@@ -63,12 +62,11 @@ namespace Pyxis
 
         protected override async Task OnInitializeAsync(IActivatedEventArgs args)
         {
+            PyxisConstants.UIDispatcher = Window.Current.CoreWindow.Dispatcher;
+
             var pixivClient = new PixivClient("bYGKuGVw91e0NMfPGp44euvGt59s", "HP3RmkgAmEGro0gn1x9ioawQE8WMfvLXDz3ZqxpK");
             // New API key 'KzEZED7aC0vird8jWyHM38mXjNTY', 'W9JZoJe00qPvJsiyCGT3CCtC6ZUtdpKpzMbNlUGP'
             var accountService = new AccountService(pixivClient);
-
-            UIDispatcherScheduler.Initialize();
-
             // Prism
             Container.RegisterInstance(NavigationService);
             Container.RegisterInstance(SessionStateService);

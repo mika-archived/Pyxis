@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Reactive.Linq;
 
 using Pyxis.Helpers;
@@ -56,7 +55,7 @@ namespace Pyxis.ViewModels
                     return await cacheService.LoadFileAsync(w.ImageUrls.SquareMedium);
                 return PyxisConstants.PlaceholderSquare;
             }).ToReadOnlyReactiveProperty(PyxisConstants.PlaceholderSquare).AddTo(this);
-            OriginalUrl = connector.Select(w => new Uri(w.MetaSinglePage.OriginalImageUrl ?? w.MetaPages.First().ImageUrls.Original))
+            OriginalUrl = connector.Select(w => new Uri(w.ImageUrls.Large))
                                    .ToReadOnlyReactiveProperty()
                                    .AddTo(this);
             MaxHeight = connector.Select(w => w.Height).ToReadOnlyReactiveProperty().AddTo(this);

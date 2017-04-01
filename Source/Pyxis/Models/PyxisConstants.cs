@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Windows.UI.Core;
+
 namespace Pyxis.Models
 {
     public static class PyxisConstants
@@ -9,6 +11,9 @@ namespace Pyxis.Models
         public static string Branch => "Twilight";
         public static string PlaceholderSquare => "ms-appx:///Assets/Placeholders/Square-200.png";
         public static string PlaceholderBanner => "ms-appx:///Assets/Placeholders/Banner-851.png";
+
+        // ReSharper disable once InconsistentNaming
+        public static CoreDispatcher UIDispatcher { get; set; }
 
         public static Lazy<List<Software>> Softwares => new Lazy<List<Software>>(() => new List<Software>
         {

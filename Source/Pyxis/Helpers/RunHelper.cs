@@ -3,6 +3,10 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 
+using Windows.UI.Core;
+
+using Pyxis.Models;
+
 using Reactive.Bindings.Extensions;
 
 // ReSharper disable InconsistentNaming
@@ -33,6 +37,11 @@ namespace Pyxis.Helpers
                 await asyncAction.Invoke();
                 return Unit.Default;
             }).Subscribe();
+        }
+
+        public static void RunOnUI(Action action)
+        {
+            Task.Run(() => PyxisConstants.UIDispatcher.RunAsync(CoreDispatcherPriority.Normal, action.Invoke)).Wait();
         }
 
         #endregion
