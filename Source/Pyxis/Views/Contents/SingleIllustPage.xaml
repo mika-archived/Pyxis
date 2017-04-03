@@ -13,12 +13,20 @@
                   HorizontalScrollBarVisibility="{x:Bind ViewModel.ScrollBarVisibility, Mode=OneWay}"
                   VerticalScrollBarVisibility="{x:Bind ViewModel.ScrollBarVisibility, Mode=OneWay}"
                   ZoomMode="Enabled">
+        <i:Interaction.Behaviors>
+            <core:EventTriggerBehavior EventName="SizeChanged">
+                <core:InvokeCommandAction Command="{x:Bind ViewModel.OnScrollViewerSizeChangedCommand, Mode=OneWay}" />
+            </core:EventTriggerBehavior>
+        </i:Interaction.Behaviors>
         <controlsEx:ImageEx MaxWidth="{x:Bind ViewModel.MaxWidth, Mode=OneWay}"
                             MaxHeight="{x:Bind ViewModel.MaxHeight, Mode=OneWay}"
                             Source="{x:Bind ViewModel.OriginalImageUrl, Mode=OneWay}">
             <i:Interaction.Behaviors>
                 <core:EventTriggerBehavior EventName="SizeChanged">
                     <core:InvokeCommandAction Command="{x:Bind ViewModel.OnSizeChangedCommand, Mode=OneWay}" />
+                </core:EventTriggerBehavior>
+                <core:EventTriggerBehavior EventName="ImageExOpened">
+                    <core:InvokeCommandAction Command="{x:Bind ViewModel.OnImageExOpenedCommand, Mode=OneWay}" />
                 </core:EventTriggerBehavior>
             </i:Interaction.Behaviors>
         </controlsEx:ImageEx>

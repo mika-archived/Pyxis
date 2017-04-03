@@ -8,6 +8,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 
 using Microsoft.Practices.Unity;
+using Microsoft.Toolkit.Uwp.UI.Controls;
 
 using Prism.Unity.Windows;
 
@@ -84,6 +85,8 @@ namespace Pyxis.Controls
             _cacheService = PrismUnityApplication.Current.Container.Resolve<IFileCacheService>();
         }
 
+        public event ImageExOpenedEventHandler ImageExOpened;
+
         private static void OnSourceChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
             var control = obj as ImageEx;
@@ -93,7 +96,8 @@ namespace Pyxis.Controls
 
         protected override void OnApplyTemplate()
         {
-            _image = GetTemplateChild("Image") as MsImageEx;
+            _image = (MsImageEx) GetTemplateChild("Image");
+            _image.ImageExOpened += (sender, e) => ImageExOpened?.Invoke(sender, e);
             _isInitialized = true;
             SetSource(Source);
             base.OnApplyTemplate();

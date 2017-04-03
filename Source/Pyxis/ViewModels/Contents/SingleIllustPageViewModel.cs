@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Linq;
-using System.Reactive.Linq;
 
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+
+using Microsoft.Toolkit.Uwp.UI.Controls;
 
 using Pyxis.Helpers;
 using Pyxis.Mvvm;
@@ -18,25 +19,42 @@ namespace Pyxis.ViewModels.Contents
 {
     public class SingleIllustPageViewModel : ViewModel
     {
+        private readonly Illust _illust;
+        public ReactiveCommand<SizeChangedEventArgs> OnScrollViewerSizeChangedCommand { get; }
         public ReactiveCommand<SizeChangedEventArgs> OnSizeChangedCommand { get; }
+        public ReactiveCommand<ImageExOpenedEventArgs> OnImageExOpenedCommand { get; }
 
         public SingleIllustPageViewModel(Illust illust, int page)
         {
+            _illust = illust;
             RunHelper.RunOnUI(() => ScrollBarVisibility = ScrollBarVisibility.Disabled);
             MaxHeight = illust.Height;
             MaxWidth = illust.Width;
             OriginalImageUrl = new Uri(illust.MetaSinglePage.OriginalImageUrl ?? illust.MetaPages.ToList()[page - 1].ImageUrls.Original);
+            OnScrollViewerSizeChangedCommand = new ReactiveCommand<SizeChangedEventArgs>();
+            OnScrollViewerSizeChangedCommand.Subscribe(w =>
+            {
+                if (w.PreviousSize == default(Size))
+                    return;
+                ApplyNewSize(w.NewSize);
+            }).AddTo(this);
             OnSizeChangedCommand = new ReactiveCommand<SizeChangedEventArgs>();
             OnSizeChangedCommand.Subscribe(w =>
             {
                 if (w.PreviousSize != default(Size))
                     return;
-                MaxHeight = w.NewSize.Height;
-                MaxWidth = w.NewSize.Width;
+                ApplyNewSize(w.NewSize);
             }).AddTo(this);
+            OnImageExOpenedCommand = new ReactiveCommand<ImageExOpenedEventArgs>();
+            OnImageExOpenedCommand.Subscribe(w => ScrollBarVisibility = ScrollBarVisibility.Auto).AddTo(this);
+        }
 
-            Observable.Return(0).Delay(TimeSpan.FromMilliseconds(500))
-                      .Subscribe(w => RunHelper.RunOnUI(() => ScrollBarVisibility = ScrollBarVisibility.Auto)).AddTo(this);
+        private void ApplyNewSize(Size size)
+        {
+            if (_illust.Height > size.Height)
+                MaxHeight = size.Height;
+            if (_illust.Width > size.Width)
+                MaxWidth = size.Width;
         }
 
         #region ScrollBarVisibility
