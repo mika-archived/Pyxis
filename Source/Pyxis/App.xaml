@@ -2,7 +2,8 @@
                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                              xmlns:converters="using:WinRTXamlToolkit.Converters"
-                             xmlns:prism="using:Prism.Unity.Windows">
+                             xmlns:prism="using:Prism.Unity.Windows"
+                             xmlns:pyxisConverter="using:Pyxis.Converters">
     <prism:PrismUnityApplication.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -14,6 +15,7 @@
                 <ResourceDictionary Source="Controls/TextBlockWithGlyph/TextBlockWithGlyph.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <pyxisConverter:HtmlStringToBlockCollectionConverter x:Key="HtmlStringToBlockCollectionConverter" />
         </ResourceDictionary>
     </prism:PrismUnityApplication.Resources>
 </prism:PrismUnityApplication>

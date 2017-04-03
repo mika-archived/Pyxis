@@ -1,9 +1,11 @@
 ﻿<Page x:Class="Pyxis.Views.IllustPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:behaviors="using:Pyxis.Behaviors"
       xmlns:contents="using:Pyxis.Views.Contents"
       xmlns:controlsEx="using:Pyxis.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:prism="using:Prism.Windows.Mvvm"
       xmlns:vm="using:Pyxis.ViewModels"
@@ -76,7 +78,11 @@
                     <TextBlock Padding="10,0,0,0" Text="{x:Bind ViewModel.Bookmarks.Value, Mode=OneWay}" />
                 </StackPanel>
                 <contents:TagsArea Tags="{x:Bind ViewModel.Tags, Mode=OneWay}" />
-                <TextBlock Text="{x:Bind ViewModel.Description.Value, Mode=OneWay}" TextWrapping="Wrap" />
+                <RichTextBlock Style="{ThemeResource BodyRichTextBlockStyle}">
+                    <i:Interaction.Behaviors>
+                        <behaviors:RichTextBlockBindingBehavior BindingDocument="{x:Bind ViewModel.Description.Value, Mode=OneWay, Converter={StaticResource HtmlStringToBlockCollectionConverter}}" />
+                    </i:Interaction.Behaviors>
+                </RichTextBlock>
             </StackPanel>
         </ScrollViewer>
     </Grid>

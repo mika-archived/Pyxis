@@ -109,6 +109,7 @@
       <DependentUpon>AppShell.xaml</DependentUpon>
     </Compile>
     <Compile Include="Behaviors\HamburgerNavigationBehavor.cs" />
+    <Compile Include="Behaviors\RichTextBlockBindingBehavior.cs" />
     <Compile Include="Controls\AdaptiveGridViewEx\AdaptiveGridViewEx.cs" />
     <Compile Include="Controls\BgBorder\BgBorder.cs" />
     <Compile Include="Controls\DataTemplateCollection.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="Controls\ImageEx\ImageEx.cs" />
     <Compile Include="Controls\IndexHub\IndexHub.cs" />
     <Compile Include="Controls\ScrollHeaderEx\ScrollHeaderEx.cs" />
+    <Compile Include="Converters\HtmlStringToBlockCollectionConverter.cs" />
     <Compile Include="Extensions\DictionaryExt.cs" />
     <Compile Include="Extensions\StorageFolderExt.cs" />
     <Compile Include="Helpers\RunHelper.cs" />
@@ -412,9 +414,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Converters\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
