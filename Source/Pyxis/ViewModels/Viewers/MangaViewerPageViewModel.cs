@@ -31,7 +31,11 @@ namespace Pyxis.ViewModels.Viewers
             _postDetail = new PixivPostDetail<Illust>(null);
             _postDetail.ObserveProperty(w => w.Post)
                        .Where(w => w != null)
-                       .Subscribe(w => Enumerable.Range(1, w.PageCount).ForEach(v => OriginalImageUris.Add(new SingleIllustPageViewModel(w, v))))
+                       .Subscribe(w =>
+                       {
+                           OriginalImageUris.Clear();
+                           Enumerable.Range(1, w.PageCount).ForEach(v => OriginalImageUris.Add(new SingleIllustPageViewModel(w, v)));
+                       })
                        .AddTo(this);
         }
 
