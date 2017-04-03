@@ -60,13 +60,23 @@
                       HorizontalScrollBarVisibility="Disabled"
                       VerticalScrollBarVisibility="Auto">
             <StackPanel Orientation="Vertical">
-                <controlsEx:ImageEx MaxWidth="{x:Bind ViewModel.MaxWidth.Value, Mode=OneWay}"
-                                    MaxHeight="{x:Bind ViewModel.MaxHeight.Value, Mode=OneWay}"
-                                    PlaceholderSource="{x:Bind ViewModel.ThumbnailUrl.Value, Mode=OneWay}"
-                                    PlaceholderStretch="Uniform"
-                                    Source="{x:Bind ViewModel.OriginalUrl.Value, Mode=OneWay}"
-                                    Stretch="Uniform"
-                                    Tapped="{x:Bind ViewModel.OnImageTapped}" />
+                <RelativePanel MaxWidth="{x:Bind ViewModel.MaxWidth.Value, Mode=OneWay}" MaxHeight="{x:Bind ViewModel.MaxHeight.Value, Mode=OneWay}">
+                    <controlsEx:ImageEx PlaceholderSource="{x:Bind ViewModel.ThumbnailUrl.Value, Mode=OneWay}"
+                                        PlaceholderStretch="Uniform"
+                                        Source="{x:Bind ViewModel.OriginalUrl.Value, Mode=OneWay}"
+                                        Stretch="Uniform"
+                                        Tapped="{x:Bind ViewModel.OnImageTapped}" />
+                    <Border Padding="5"
+                            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                            Opacity=".75"
+                            RelativePanel.AlignRightWithPanel="True"
+                            RelativePanel.AlignTopWithPanel="True"
+                            Visibility="{x:Bind ViewModel.HasMultiPage.Value, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
+                        <controlsEx:TextBlockWithGlyph Glyph="&#xE8B9;"
+                                                       Text="{x:Bind ViewModel.PageCount.Value, Mode=OneWay}"
+                                                       TextStyle="{ThemeResource SubtitleTextBlockStyle}" />
+                    </Border>
+                </RelativePanel>
                 <StackPanel Padding="0,20,0,0" Orientation="Horizontal">
                     <StackPanel.Resources>
                         <Style BasedOn="{StaticResource CaptionTextBlockStyle}" TargetType="TextBlock">

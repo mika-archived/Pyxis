@@ -32,6 +32,8 @@ namespace Pyxis.ViewModels
         public ReadOnlyReactiveProperty<string> Title { get; }
         public ReadOnlyReactiveProperty<string> ThumbnailUrl { get; }
         public ReadOnlyReactiveProperty<Uri> OriginalUrl { get; }
+        public ReadOnlyReactiveProperty<bool> HasMultiPage { get; }
+        public ReadOnlyReactiveProperty<int> PageCount { get; }
         public ReadOnlyReactiveProperty<int> MaxHeight { get; }
         public ReadOnlyReactiveProperty<int> MaxWidth { get; }
         public ReadOnlyReactiveProperty<string> CreatedAt { get; }
@@ -58,6 +60,8 @@ namespace Pyxis.ViewModels
             OriginalUrl = connector.Select(w => new Uri(w.ImageUrls.Large))
                                    .ToReadOnlyReactiveProperty()
                                    .AddTo(this);
+            HasMultiPage = connector.Select(w => w.PageCount > 1).ToReadOnlyReactiveProperty().AddTo(this);
+            PageCount = connector.Select(w => w.PageCount).ToReadOnlyReactiveProperty().AddTo(this);
             MaxHeight = connector.Select(w => w.Height).ToReadOnlyReactiveProperty().AddTo(this);
             MaxWidth = connector.Select(w => w.Width).ToReadOnlyReactiveProperty().AddTo(this);
             CreatedAt = connector.Select(w => w.CreatedAt.ToString("d")).ToReadOnlyReactiveProperty().AddTo(this);

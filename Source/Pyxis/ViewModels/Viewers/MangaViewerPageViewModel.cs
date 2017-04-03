@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Linq;
 
@@ -15,18 +14,16 @@ using Reactive.Bindings.Extensions;
 
 using Sagitta.Models;
 
-using WinRTXamlToolkit.Tools;
-
 namespace Pyxis.ViewModels.Viewers
 {
     public class MangaViewerPageViewModel : ViewModel
     {
         private readonly PixivPostDetail<Illust> _postDetail;
-        public ObservableCollection<SingleIllustPageViewModel> OriginalImageUris { get; }
+        public List<SingleIllustPageViewModel> OriginalImageUris { get; }
 
         public MangaViewerPageViewModel()
         {
-            OriginalImageUris = new ObservableCollection<SingleIllustPageViewModel>();
+            OriginalImageUris = new List<SingleIllustPageViewModel>();
             SelectedIndex = 0;
             _postDetail = new PixivPostDetail<Illust>(null);
             _postDetail.ObserveProperty(w => w.Post)
@@ -34,7 +31,8 @@ namespace Pyxis.ViewModels.Viewers
                        .Subscribe(w =>
                        {
                            OriginalImageUris.Clear();
-                           Enumerable.Range(1, w.PageCount).ForEach(v => OriginalImageUris.Add(new SingleIllustPageViewModel(w, v)));
+                           for (var i = 0; i < w.MetaPages.Count(); i++)
+                               OriginalImageUris.Add(new SingleIllustPageViewModel(w, i + 1));
                        })
                        .AddTo(this);
         }
@@ -53,6 +51,18 @@ namespace Pyxis.ViewModels.Viewers
         {
             get { return _selectedIndex; }
             set { SetProperty(ref _selectedIndex, value); }
+        }
+
+        #endregion
+
+        #region SelectedItem
+
+        private SingleIllustPageViewModel _selectedItem;
+
+        public SingleIllustPageViewModel SelectedItem
+        {
+            get { return _selectedItem; }
+            set { SetProperty(ref _selectedItem, value); }
         }
 
         #endregion

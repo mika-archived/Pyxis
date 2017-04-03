@@ -21,7 +21,6 @@ namespace Pyxis.ViewModels.Contents
     {
         private readonly Illust _illust;
         public ReactiveCommand<SizeChangedEventArgs> OnScrollViewerSizeChangedCommand { get; }
-        public ReactiveCommand<SizeChangedEventArgs> OnSizeChangedCommand { get; }
         public ReactiveCommand<ImageExOpenedEventArgs> OnImageExOpenedCommand { get; }
 
         public SingleIllustPageViewModel(Illust illust, int page)
@@ -32,29 +31,15 @@ namespace Pyxis.ViewModels.Contents
             MaxWidth = illust.Width;
             OriginalImageUrl = new Uri(illust.MetaSinglePage.OriginalImageUrl ?? illust.MetaPages.ToList()[page - 1].ImageUrls.Original);
             OnScrollViewerSizeChangedCommand = new ReactiveCommand<SizeChangedEventArgs>();
-            OnScrollViewerSizeChangedCommand.Subscribe(w =>
-            {
-                if (w.PreviousSize == default(Size))
-                    return;
-                ApplyNewSize(w.NewSize);
-            }).AddTo(this);
-            OnSizeChangedCommand = new ReactiveCommand<SizeChangedEventArgs>();
-            OnSizeChangedCommand.Subscribe(w =>
-            {
-                if (w.PreviousSize != default(Size))
-                    return;
-                ApplyNewSize(w.NewSize);
-            }).AddTo(this);
+            OnScrollViewerSizeChangedCommand.Subscribe(w => ApplyNewSize(w.NewSize)).AddTo(this);
             OnImageExOpenedCommand = new ReactiveCommand<ImageExOpenedEventArgs>();
             OnImageExOpenedCommand.Subscribe(w => ScrollBarVisibility = ScrollBarVisibility.Auto).AddTo(this);
         }
 
         private void ApplyNewSize(Size size)
         {
-            if (_illust.Height > size.Height)
-                MaxHeight = size.Height;
-            if (_illust.Width > size.Width)
-                MaxWidth = size.Width;
+            MaxHeight = size.Height < _illust.Height ? size.Height : _illust.Height;
+            MaxWidth = size.Width < _illust.Width ? size.Width : _illust.Width;
         }
 
         #region ScrollBarVisibility
