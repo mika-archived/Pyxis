@@ -54,17 +54,5 @@ namespace Pyxis.ViewModels.Viewers
         }
 
         #endregion
-
-        #region SelectedItem
-
-        private SingleIllustPageViewModel _selectedItem;
-
-        public SingleIllustPageViewModel SelectedItem
-        {
-            get { return _selectedItem; }
-            set { SetProperty(ref _selectedItem, value); }
-        }
-
-        #endregion
     }
 }
