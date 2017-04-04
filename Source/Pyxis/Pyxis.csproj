@@ -188,7 +188,7 @@
     <Compile Include="Views\Contents\NovelItem.xaml.cs">
       <DependentUpon>NovelItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Contents\TagsArea.xaml.cs">
+    <Compile Include="Views\Partials\TagsArea.xaml.cs">
       <DependentUpon>TagsArea.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ErrorDialog.xaml.cs">
@@ -357,7 +357,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Contents\TagsArea.xaml">
+    <Page Include="Views\Partials\TagsArea.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

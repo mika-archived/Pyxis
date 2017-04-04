@@ -48,8 +48,8 @@ namespace Pyxis.ViewModels.Contents
 
         public ScrollBarVisibility ScrollBarVisibility
         {
-            get { return _scrollBarVisibility; }
-            set { SetProperty(ref _scrollBarVisibility, value); }
+            get => _scrollBarVisibility;
+            set => SetProperty(ref _scrollBarVisibility, value);
         }
 
         #endregion
@@ -60,8 +60,8 @@ namespace Pyxis.ViewModels.Contents
 
         public double MaxHeight
         {
-            get { return _maxHeight; }
-            set { SetProperty(ref _maxHeight, value); }
+            get => _maxHeight;
+            set => SetProperty(ref _maxHeight, value);
         }
 
         #endregion
@@ -72,8 +72,8 @@ namespace Pyxis.ViewModels.Contents
 
         public double MaxWidth
         {
-            get { return _maxWidth; }
-            set { SetProperty(ref _maxWidth, value); }
+            get => _maxWidth;
+            set => SetProperty(ref _maxWidth, value);
         }
 
         #endregion
@@ -84,8 +84,8 @@ namespace Pyxis.ViewModels.Contents
 
         public Uri OriginalImageUrl
         {
-            get { return _originalImageUrl; }
-            set { SetProperty(ref _originalImageUrl, value); }
+            get => _originalImageUrl;
+            set => SetProperty(ref _originalImageUrl, value);
         }
 
         #endregion

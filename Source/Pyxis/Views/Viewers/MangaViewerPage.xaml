@@ -9,7 +9,9 @@
       d:DataContext="{d:DesignInstance vm:MangaViewerPageViewModel}"
       prism:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d">
-    <FlipView ItemsSource="{x:Bind ViewModel.OriginalImageUris}" SelectedIndex="{x:Bind ViewModel.SelectedIndex, Mode=TwoWay}">
+    <FlipView ItemsSource="{x:Bind ViewModel.OriginalImageUris}"
+              SelectedIndex="{x:Bind ViewModel.SelectedIndex, Mode=TwoWay}"
+              VirtualizingStackPanel.VirtualizationMode="Standard">
         <FlipView.ItemTemplate>
             <DataTemplate>
                 <contents:SingleIllustPage DataContext="{Binding}" />
