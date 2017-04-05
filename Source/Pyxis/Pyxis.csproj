@@ -136,6 +136,8 @@
     <Compile Include="Models\Enum\TransitionMode.cs" />
     <Compile Include="Models\Parameters\IllustParameter.cs" />
     <Compile Include="Models\Parameters\UserParameter.cs" />
+    <Compile Include="Models\Pixiv\PixivComment.cs" />
+    <Compile Include="Models\Pixiv\PixivCommentSource.cs" />
     <Compile Include="Models\Pixiv\PixivModel.cs" />
     <Compile Include="Models\Pixiv\PixivPostDetail.cs" />
     <Compile Include="Models\Pixiv\PixivRanking.cs" />
@@ -160,6 +162,7 @@
     <Compile Include="Services\Interfaces\IDialogService.cs" />
     <Compile Include="ViewModels\AboutPageViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModel.cs" />
+    <Compile Include="ViewModels\Contents\CommentViewModel.cs" />
     <Compile Include="ViewModels\Contents\ContentViewModel.cs" />
     <Compile Include="ViewModels\Contents\IllustViewModel.cs" />
     <Compile Include="ViewModels\Contents\NovelViewModel.cs" />
@@ -176,6 +179,9 @@
     <Compile Include="Views\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Contents\CommentItem.xaml.cs">
+      <DependentUpon>CommentItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Contents\IllustItem.xaml.cs">
       <DependentUpon>IllustItem.xaml</DependentUpon>
     </Compile>
@@ -188,8 +194,11 @@
     <Compile Include="Views\Contents\NovelItem.xaml.cs">
       <DependentUpon>NovelItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Partials\TagsArea.xaml.cs">
-      <DependentUpon>TagsArea.xaml</DependentUpon>
+    <Compile Include="Views\Partials\CommentArea.xaml.cs">
+      <DependentUpon>CommentArea.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Partials\TagArea.xaml.cs">
+      <DependentUpon>TagArea.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ErrorDialog.xaml.cs">
       <DependentUpon>ErrorDialog.xaml</DependentUpon>
@@ -341,6 +350,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Contents\CommentItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Contents\IllustItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -357,7 +370,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Partials\TagsArea.xaml">
+    <Page Include="Views\Partials\CommentArea.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Partials\TagArea.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

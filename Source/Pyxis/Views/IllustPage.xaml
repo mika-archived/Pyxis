@@ -87,12 +87,17 @@
                     <TextBlock Padding="10,0,0,0" Text="{x:Bind ViewModel.Views.Value, Mode=OneWay}" />
                     <TextBlock Padding="10,0,0,0" Text="{x:Bind ViewModel.Bookmarks.Value, Mode=OneWay}" />
                 </StackPanel>
-                <partials:TagsArea Tags="{x:Bind ViewModel.Tags, Mode=OneWay}" />
-                <RichTextBlock Style="{ThemeResource BodyRichTextBlockStyle}">
+                <partials:TagArea DataContext="{x:Bind ViewModel.Tags, Mode=OneWay}" />
+                <RichTextBlock Padding="0,5" Style="{ThemeResource BodyRichTextBlockStyle}">
                     <i:Interaction.Behaviors>
                         <behaviors:RichTextBlockBindingBehavior BindingDocument="{x:Bind ViewModel.Description.Value, Mode=OneWay, Converter={StaticResource HtmlStringToBlockCollectionConverter}}" />
                     </i:Interaction.Behaviors>
                 </RichTextBlock>
+                <Border Padding="0,5"
+                        BorderBrush="{ThemeResource ButtonBorderThemeBrush}"
+                        BorderThickness="0,1,0,0">
+                    <partials:CommentArea DataContext="{x:Bind ViewModel.Comments, Mode=OneWay}" />
+                </Border>
             </StackPanel>
         </ScrollViewer>
     </Grid>

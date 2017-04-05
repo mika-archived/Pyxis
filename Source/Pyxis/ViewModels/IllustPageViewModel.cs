@@ -41,11 +41,14 @@ namespace Pyxis.ViewModels
         public ReadOnlyReactiveProperty<string> Bookmarks { get; }
         public ObservableCollection<TagViewModel> Tags { get; }
         public ReadOnlyReactiveProperty<string> Description { get; }
+        public ReadOnlyReactiveCollection<CommentViewModel> Comments { get; }
 
         public IllustPageViewModel(PixivClient pixivClient, IFileCacheService cacheService)
         {
             _postDetail = new PixivPostDetail<Illust>(pixivClient);
             Tags = new ObservableCollection<TagViewModel>();
+            var comment = new PixivComment(pixivClient);
+            Comments = comment.Comments.ToReadOnlyReactiveCollection(w => new CommentViewModel(w)).AddTo(this);
 
             var connector = _postDetail.ObserveProperty(w => w.Post).Where(w => w != null).Publish();
             AuthorIconUrl = connector.Select(w => new Uri(w.User.ProfileImageUrls.Medium)).ToReadOnlyReactiveProperty().AddTo(this);
@@ -73,6 +76,7 @@ namespace Pyxis.ViewModels
                 w.ForEach(v => Tags.Add(new TagViewModel(v)));
             });
             Description = connector.Select(w => w.Caption).ToReadOnlyReactiveProperty().AddTo(this);
+            connector.Subscribe(async w => await comment.FetchCommentAsync(w));
             connector.Connect().AddTo(this);
         }
 

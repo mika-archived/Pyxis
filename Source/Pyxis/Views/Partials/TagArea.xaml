@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Pyxis.Views.Partials.TagsArea"
+﻿<UserControl x:Class="Pyxis.Views.Partials.TagArea"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="using:WinRTXamlToolkit.Controls"
@@ -19,7 +19,7 @@
                   Glyph="&#xE8EC;" />
         <ItemsControl Grid.Column="1"
                       Margin="5,0,0,0"
-                      ItemsSource="{Binding Tags}">
+                      ItemsSource="{Binding}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <controls:WrapPanel />
@@ -35,6 +35,5 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-
     </Grid>
 </UserControl>

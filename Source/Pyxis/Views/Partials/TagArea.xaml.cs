@@ -4,9 +4,9 @@
 
 namespace Pyxis.Views.Partials
 {
-    public sealed partial class CommentArea : UserControl
+    public sealed partial class TagArea : UserControl
     {
-        public CommentArea()
+        public TagArea()
         {
             InitializeComponent();
         }

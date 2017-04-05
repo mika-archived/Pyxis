@@ -2,11 +2,11 @@
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Pyxis.Views.Partials
+namespace Pyxis.Views.Contents
 {
-    public sealed partial class CommentArea : UserControl
+    public sealed partial class CommentItem : UserControl
     {
-        public CommentArea()
+        public CommentItem()
         {
             InitializeComponent();
         }

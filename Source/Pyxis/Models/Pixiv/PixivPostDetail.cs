@@ -7,7 +7,7 @@ namespace Pyxis.Models.Pixiv
 {
     internal class PixivPostDetail<T> : PixivModel where T : Post
     {
-        public PixivPostDetail(PixivClient pixivClient) : base(pixivClient) {}
+        public PixivPostDetail(PixivClient pixivClient) : base(pixivClient) { }
 
         public async Task FetchAsync(int postId)
         {
@@ -17,7 +17,10 @@ namespace Pyxis.Models.Pixiv
                 Post = await PixivClient.Novel.DetailAsync(postId) as T;
         }
 
-        public void ApplyForce(T post) => Post = post;
+        public void ApplyForce(T post)
+        {
+            Post = post;
+        }
 
         #region Title
 
@@ -25,8 +28,8 @@ namespace Pyxis.Models.Pixiv
 
         public T Post
         {
-            get { return _post; }
-            set { SetProperty(ref _post, value); }
+            get => _post;
+            set => SetProperty(ref _post, value);
         }
 
         #endregion
