@@ -19,24 +19,16 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Padding="12,0,0,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="32" />
+                <ColumnDefinition Width="36" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Border Grid.Column="0"
-                    Width="32"
-                    Height="32"
-                    BorderBrush="{ThemeResource ButtonBorderThemeBrush}"
-                    BorderThickness="2"
-                    CornerRadius="1.7"
-                    RelativePanel.AlignHorizontalCenterWithPanel="True"
-                    RelativePanel.AlignTopWithPanel="True">
-                <controlsEx:ImageEx Width="32"
-                                    Height="32"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    PlaceholderSource="../Assets/Placeholders/Square-200.png"
+            <controlsEx:CircleImage Grid.Column="0"
+                                    Width="36"
+                                    Height="36"
+                                    CircleBorderBrush="{ThemeResource ButtonBorderThemeBrush}"
+                                    CircleBorderThickness="1.5"
+                                    CornerRadius="6"
                                     Source="{x:Bind ViewModel.AuthorIconUrl.Value, Mode=OneWay}" />
-            </Border>
             <StackPanel Grid.Column="1"
                         Padding="5,0,0,0"
                         VerticalAlignment="Center"

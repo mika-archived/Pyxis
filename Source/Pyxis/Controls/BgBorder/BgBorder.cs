@@ -19,20 +19,20 @@ namespace Pyxis.Controls
 
         public Brush BorderBackground
         {
-            get { return (Brush) GetValue(BorderBackgroundProperty); }
-            set { SetValue(BorderBackgroundProperty, value); }
+            get => (Brush) GetValue(BorderBackgroundProperty);
+            set => SetValue(BorderBackgroundProperty, value);
         }
 
         public CornerRadius CornerRadius
         {
-            get { return (CornerRadius) GetValue(CornerRadiusProperty); }
-            set { SetValue(CornerRadiusProperty, value); }
+            get => (CornerRadius) GetValue(CornerRadiusProperty);
+            set => SetValue(CornerRadiusProperty, value);
         }
 
         public double BorderOpacity
         {
-            get { return (double) GetValue(BorderOpacityProperty); }
-            set { SetValue(BorderOpacityProperty, value); }
+            get => (double) GetValue(BorderOpacityProperty);
+            set => SetValue(BorderOpacityProperty, value);
         }
 
         public BgBorder()

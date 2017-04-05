@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Pyxis.Views.HamburgerMenuUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:Pyxis.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:prism="using:Prism.Windows.Mvvm"
@@ -15,13 +16,10 @@
             <ColumnDefinition Width="48" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <Border Grid.Column="0"
-                Margin="5"
-                CornerRadius="19">
-            <Border.Background>
-                <ImageBrush ImageSource="{x:Bind ViewModel.Thumbnail, Mode=OneWay}" />
-            </Border.Background>
-        </Border>
+        <controls:CircleImage Grid.Column="0"
+                              Margin="5"
+                              CornerRadius="19"
+                              Source="{x:Bind ViewModel.Thumbnail, Mode=OneWay}" />
         <TextBlock Grid.Column="1"
                    VerticalAlignment="Center"
                    Text="{x:Bind ViewModel.Username, Mode=OneWay}" />

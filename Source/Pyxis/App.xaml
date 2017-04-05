@@ -10,6 +10,7 @@
                 <ResourceDictionary Source="Styles/Controls.xaml" />
                 <ResourceDictionary Source="Controls/AdaptiveGridViewEx/AdaptiveGridViewEx.xaml" />
                 <ResourceDictionary Source="Controls/BgBorder/BgBorder.xaml" />
+                <ResourceDictionary Source="Controls/CircleImage/CircleImage.xaml" />
                 <ResourceDictionary Source="Controls/ImageEx/ImageEx.xaml" />
                 <ResourceDictionary Source="Controls/IndexHub/IndexHub.xaml" />
                 <ResourceDictionary Source="Controls/TextBlockWithGlyph/TextBlockWithGlyph.xaml" />

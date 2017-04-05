@@ -9,30 +9,35 @@
              d:DesignHeight="300"
              d:DesignWidth="400"
              mc:Ignorable="d">
-    <Border Padding="0,2.5"
+    <Border Padding="0,5"
             BorderBrush="{ThemeResource ButtonBorderThemeBrush}"
             BorderThickness="0,0,0,0.5">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="60" />
+                <ColumnDefinition Width="48" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Border Grid.Column="0"
-                    Width="48"
-                    Height="48"
-                    Margin="5"
-                    VerticalAlignment="Top"
-                    BorderBrush="{ThemeResource ButtonBorderThemeBrush}"
-                    BorderThickness="2"
-                    CornerRadius="3">
-                <controls:ImageEx Source="{Binding IconUri}" />
-            </Border>
+            <controls:CircleImage Grid.Column="0"
+                                  Width="36"
+                                  Height="36"
+                                  VerticalAlignment="Top"
+                                  CircleBorderBrush="{ThemeResource ButtonBorderThemeBrush}"
+                                  CircleBorderThickness="1.5"
+                                  CornerRadius="6"
+                                  Source="{Binding IconUri}" />
             <StackPanel Grid.Column="1"
                         Margin="0,2.5"
+                        VerticalAlignment="Top"
                         Orientation="Vertical">
-                <TextBlock FontWeight="Bold"
-                           Style="{ThemeResource CaptionTextBlockStyle}"
-                           Text="{Binding Username}" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock FontWeight="Bold"
+                               Style="{ThemeResource CaptionTextBlockStyle}"
+                               Text="{Binding Username}" />
+                    <TextBlock Margin="5,0"
+                               Foreground="{ThemeResource ButtonDisabledForegroundThemeBrush}"
+                               Style="{ThemeResource CaptionTextBlockStyle}"
+                               Text="{Binding CreatedAt}" />
+                </StackPanel>
                 <TextBlock Style="{ThemeResource CaptionTextBlockStyle}"
                            Text="{Binding Body}"
                            TextWrapping="Wrap" />
