@@ -17,7 +17,7 @@ namespace Pyxis.ViewModels
 {
     public class AboutPageViewModel : ViewModel
     {
-        public string Name { get; private set; }
+        public string Name { get; }
         public string Version { get; }
         public List<Software> Softwares => PyxisConstants.Softwares.Value;
 
@@ -35,7 +35,10 @@ namespace Pyxis.ViewModels
         private ICommand _openFeedbackHubCommand;
         public ICommand OpenFeedBackHubCommand => _openFeedbackHubCommand ?? (_openFeedbackHubCommand = new DelegateCommand(OpenFeedbackHub));
 
-        private async void OpenFeedbackHub() => await StoreServicesFeedbackLauncher.GetDefault().LaunchAsync();
+        private async void OpenFeedbackHub()
+        {
+            await StoreServicesFeedbackLauncher.GetDefault().LaunchAsync();
+        }
 
         #endregion
 
@@ -44,8 +47,10 @@ namespace Pyxis.ViewModels
         private ICommand _openStoreReviewCommand;
         public ICommand OpenStoreReviewCommand => _openStoreReviewCommand ?? (_openStoreReviewCommand = new DelegateCommand(OpenStoreReview));
 
-        private async void OpenStoreReview() =>
+        private async void OpenStoreReview()
+        {
             await Launcher.LaunchUriAsync(new Uri($"ms-windows-store:REVIEW?PFN={Package.Current.Id.FamilyName}"));
+        }
 
         #endregion
     }

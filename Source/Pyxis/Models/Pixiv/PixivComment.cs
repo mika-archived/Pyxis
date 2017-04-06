@@ -28,7 +28,10 @@ namespace Pyxis.Models.Pixiv
                 commentCollection = await EffectiveCallAsync($"NovelComment-{post.Id}_p0", () => PixivClient.Novel.CommentsAsync(post.Id));
             Comments.Clear();
             commentCollection.Comments.Take(Pickup).ForEach(w => Comments.Add(w));
-            TotalComments = Comments.Any() ? commentCollection.TotalComments : 0;
+            if (commentCollection.Comments.Any() && commentCollection.Comments.Count() > 5)
+                TotalComments = commentCollection.TotalComments;
+            else
+                TotalComments = commentCollection.Comments.Count();
         }
 
         #region TotalComments
