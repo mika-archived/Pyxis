@@ -25,7 +25,7 @@
                        Text="{x:Bind ViewModel.Title.Value, Mode=OneWay}" />
         </Grid>
         <Border Height="200"
-                BorderBrush="{ThemeResource SystemControlForegroundChromeMediumBrush}"
+                BorderBrush="{ThemeResource ButtonBorderThemeBrush}"
                 BorderThickness="0,0,0,1">
             <Grid>
                 <controlsEx:ImageEx PlaceholderSource="../Assets/Placeholders/Banner-851.png"
@@ -40,21 +40,15 @@
                     </i:Interaction.Behaviors>
                 </controlsEx:ImageEx>
                 <RelativePanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Border x:Name="Icon"
-                            Width="64"
-                            Height="64"
-                            BorderBrush="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                            BorderThickness="2.5"
-                            CornerRadius="2.5"
-                            RelativePanel.AlignHorizontalCenterWithPanel="True"
-                            RelativePanel.AlignTopWithPanel="True">
-                        <controlsEx:ImageEx Width="64"
+                    <controlsEx:CircleImage x:Name="Icon"
+                                            Width="64"
                                             Height="64"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            PlaceholderSource="../Assets/Placeholders/Square-200.png"
+                                            CircleBorderBrush="{ThemeResource ButtonBorderThemeBrush}"
+                                            CircleBorderThickness="2.5"
+                                            CornerRadius="7.5"
+                                            RelativePanel.AlignHorizontalCenterWithPanel="True"
+                                            RelativePanel.AlignTopWithPanel="True"
                                             Source="{x:Bind ViewModel.ProfileIcon.Value, Mode=OneWay}" />
-                    </Border>
                     <controlsEx:BgBorder x:Name="Username"
                                          Margin="5,5,5,2.5"
                                          RelativePanel.AlignHorizontalCenterWithPanel="True"
