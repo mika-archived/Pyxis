@@ -12,7 +12,7 @@
       xmlns:prism="using:Prism.Windows.Mvvm"
       xmlns:vm="using:Pyxis.ViewModels"
       xmlns:vmc="using:Pyxis.ViewModels.Contents"
-      d:DataContext="{d:DesignInstance vm:AboutPageViewModel}"
+      d:DataContext="{d:DesignInstance vm:IllustPageViewModel}"
       prism:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d">
     <Grid>

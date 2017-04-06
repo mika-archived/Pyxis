@@ -177,6 +177,7 @@
     <Compile Include="ViewModels\HomePageViewModel.cs" />
     <Compile Include="ViewModels\IllustPageViewModel.cs" />
     <Compile Include="ViewModels\LoginPageViewModel.cs" />
+    <Compile Include="ViewModels\NovelPageViewModel.cs" />
     <Compile Include="ViewModels\Partials\CommentsAreaViewModel.cs" />
     <Compile Include="ViewModels\UserPageViewModel.cs" />
     <Compile Include="ViewModels\Viewers\IllustViewerPageViewModel.cs" />
@@ -201,6 +202,9 @@
     </Compile>
     <Compile Include="Views\Contents\NovelItem.xaml.cs">
       <DependentUpon>NovelItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NovelPage.xaml.cs">
+      <DependentUpon>NovelPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Partials\CommentArea.xaml.cs">
       <DependentUpon>CommentArea.xaml</DependentUpon>
@@ -384,6 +388,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Contents\NovelItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NovelPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,5 +1,7 @@
 ﻿using System;
 
+using Pyxis.Models.Parameters;
+
 using Sagitta.Models;
 
 namespace Pyxis.ViewModels.Contents
@@ -21,7 +23,7 @@ namespace Pyxis.ViewModels.Contents
 
         public override void NavigateTo()
         {
-            throw new NotImplementedException();
+            NavigateTo("Novel", new PostParameter<Novel> {Post = _novel});
         }
     }
 }
