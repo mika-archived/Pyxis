@@ -25,7 +25,7 @@ namespace Pyxis.Models.Pixiv
             _date = date;
         }
 
-        Task<IEnumerable<T>> IIncrementalSource<T>.GetPagedItemsAsync(int pageIndex, int pageSize, CancellationToken cancellationToken)
+        public Task<IEnumerable<T>> GetPagedItemsAsync(int pageIndex, int pageSize, CancellationToken cancellationToken)
         {
             return typeof(T) == typeof(Illust) ? GetPagedIllustsAsync() : GetPagedNovelsAsync();
         }

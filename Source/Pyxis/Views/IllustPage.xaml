@@ -87,8 +87,9 @@
                 </RichTextBlock>
                 <Border Padding="0,5"
                         BorderBrush="{ThemeResource ButtonBorderThemeBrush}"
-                        BorderThickness="0,1,0,0">
-                    <partials:CommentArea DataContext="{x:Bind ViewModel.Comments, Mode=OneWay}" />
+                        BorderThickness="0,1,0,0"
+                        Visibility="{x:Bind ViewModel.HasComments.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <partials:CommentArea DataContext="{x:Bind ViewModel.CommentsAreaViewModel, Mode=OneWay}" />
                 </Border>
             </StackPanel>
         </ScrollViewer>

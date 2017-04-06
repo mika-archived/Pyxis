@@ -12,6 +12,7 @@ using Pyxis.Navigation;
 using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Base;
 using Pyxis.ViewModels.Contents;
+using Pyxis.ViewModels.Partials;
 
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
@@ -39,16 +40,15 @@ namespace Pyxis.ViewModels
         public ReadOnlyReactiveProperty<string> CreatedAt { get; }
         public ReadOnlyReactiveProperty<string> Views { get; }
         public ReadOnlyReactiveProperty<string> Bookmarks { get; }
+        public ReadOnlyReactiveProperty<bool> HasComments { get; }
         public ObservableCollection<TagViewModel> Tags { get; }
         public ReadOnlyReactiveProperty<string> Description { get; }
-        public ReadOnlyReactiveCollection<CommentViewModel> Comments { get; }
 
         public IllustPageViewModel(PixivClient pixivClient, IFileCacheService cacheService)
         {
             _postDetail = new PixivPostDetail<Illust>(pixivClient);
             Tags = new ObservableCollection<TagViewModel>();
             var comment = new PixivComment(pixivClient);
-            Comments = comment.Comments.ToReadOnlyReactiveCollection(w => new CommentViewModel(w)).AddTo(this);
 
             var connector = _postDetail.ObserveProperty(w => w.Post).Where(w => w != null).Publish();
             AuthorIconUrl = connector.Select(w => new Uri(w.User.ProfileImageUrls.Medium)).ToReadOnlyReactiveProperty().AddTo(this);
@@ -76,22 +76,42 @@ namespace Pyxis.ViewModels
                 w.ForEach(v => Tags.Add(new TagViewModel(v)));
             });
             Description = connector.Select(w => w.Caption).ToReadOnlyReactiveProperty().AddTo(this);
-            connector.Subscribe(async w => await comment.FetchCommentAsync(w));
+            connector.Subscribe(async w =>
+            {
+                CommentsAreaViewModel = new CommentsAreaViewModel(w, comment);
+                await comment.FetchCommentAsync(w);
+            });
             connector.Connect().AddTo(this);
+
+            var commentConnector = comment.ObserveProperty(w => w.TotalComments).Publish();
+            HasComments = commentConnector.Select(w => w > 0).ToReadOnlyReactiveProperty().AddTo(this);
+            commentConnector.Connect().AddTo(this);
         }
 
         public override void OnNavigatedTo(PyxisNavigatedToEventArgs e, Dictionary<string, object> viewModelState)
         {
-            var parameter = e.ParsedQuery<IllustParameter>();
+            var parameter = e.ParsedQuery<PostParameter<Illust>>();
             if (parameter.HasObject)
-                _postDetail.ApplyForce(parameter.Illust);
+                _postDetail.ApplyForce(parameter.Post);
             else
                 RunHelper.RunAsync(() => _postDetail.FetchAsync(parameter.Id));
         }
 
         public void OnImageTapped()
         {
-            NavigateTo(_postDetail.Post.PageCount == 1 ? "Viewers.IllustViewer" : "Viewers.MangaViewer", new IllustParameter {Illust = _postDetail.Post});
+            NavigateTo(_postDetail.Post.PageCount == 1 ? "Viewers.IllustViewer" : "Viewers.MangaViewer", new PostParameter<Illust> {Post = _postDetail.Post});
         }
+
+        #region CommentsAreaViewModel
+
+        private CommentsAreaViewModel _commentsAreaViewModel;
+
+        public CommentsAreaViewModel CommentsAreaViewModel
+        {
+            get => _commentsAreaViewModel;
+            set => SetProperty(ref _commentsAreaViewModel, value);
+        }
+
+        #endregion
     }
 }

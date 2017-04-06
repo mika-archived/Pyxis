@@ -1,0 +1,59 @@
+﻿<Page x:Class="Pyxis.Views.CommentsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:contents="using:Pyxis.Views.Contents"
+      xmlns:controls="using:Pyxis.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:prism="using:Prism.Windows.Mvvm"
+      xmlns:vm="using:Pyxis.ViewModels"
+      d:DataContext="{d:DesignInstance vm:CommentsPageViewModel}"
+      prism:ViewModelLocator.AutoWireViewModel="True"
+      mc:Ignorable="d">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Padding="12,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="36" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <controls:CircleImage Grid.Column="0"
+                                  Width="36"
+                                  Height="36"
+                                  CircleBorderBrush="{ThemeResource ButtonBorderThemeBrush}"
+                                  CircleBorderThickness="1.5"
+                                  CornerRadius="6"
+                                  Source="{x:Bind ViewModel.AuthorIconUrl.Value, Mode=OneWay}" />
+            <StackPanel Grid.Column="1"
+                        Padding="5,0,0,0"
+                        VerticalAlignment="Center"
+                        Orientation="Vertical">
+                <TextBlock VerticalAlignment="Center"
+                           Foreground="{ThemeResource ButtonDisabledForegroundThemeBrush}"
+                           Style="{ThemeResource CaptionTextBlockStyle}"
+                           Text="{x:Bind ViewModel.AuthorName.Value, Mode=OneWay}" />
+                <TextBlock VerticalAlignment="Center"
+                           FontWeight="Bold"
+                           Style="{ThemeResource BodyTextBlockStyle}"
+                           Text="{x:Bind ViewModel.Title.Value, Mode=OneWay}"
+                           TextTrimming="CharacterEllipsis"
+                           TextWrapping="NoWrap" />
+            </StackPanel>
+        </Grid>
+        <ScrollViewer Grid.Row="1"
+                      Margin="5,0,0,0"
+                      HorizontalScrollBarVisibility="Disabled"
+                      VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{x:Bind ViewModel.Comments, Mode=OneWay}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <contents:CommentItem DataContext="{Binding}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</Page>

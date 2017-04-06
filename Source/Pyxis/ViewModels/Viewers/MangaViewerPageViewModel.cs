@@ -39,8 +39,8 @@ namespace Pyxis.ViewModels.Viewers
 
         public override void OnNavigatedTo(PyxisNavigatedToEventArgs e, Dictionary<string, object> viewModelState)
         {
-            var parameter = e.ParsedQuery<IllustParameter>();
-            _postDetail.ApplyForce(parameter.Illust);
+            var parameter = e.ParsedQuery<PostParameter<Illust>>();
+            _postDetail.ApplyForce(parameter.Post);
         }
 
         #region SelectedIndex
@@ -49,8 +49,8 @@ namespace Pyxis.ViewModels.Viewers
 
         public int SelectedIndex
         {
-            get { return _selectedIndex; }
-            set { SetProperty(ref _selectedIndex, value); }
+            get => _selectedIndex;
+            set => SetProperty(ref _selectedIndex, value);
         }
 
         #endregion

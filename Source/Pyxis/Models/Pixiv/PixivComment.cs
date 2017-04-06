@@ -9,7 +9,7 @@ using WinRTXamlToolkit.Tools;
 
 namespace Pyxis.Models.Pixiv
 {
-    internal class PixivComment : PixivModel
+    public class PixivComment : PixivModel
     {
         public ObservableCollection<Comment> Comments { get; }
         public int Pickup { get; set; } = 5;
@@ -23,11 +23,24 @@ namespace Pyxis.Models.Pixiv
         {
             CommentCollection commentCollection;
             if (post is Illust)
-                commentCollection = await EffectiveCallAsync($"IllustComment-{post.Id}", () => PixivClient.Illust.CommentAsync(post.Id));
+                commentCollection = await EffectiveCallAsync($"IllustComment-{post.Id}_p0", () => PixivClient.Illust.CommentAsync(post.Id));
             else
-                commentCollection = await EffectiveCallAsync($"NovelComment-{post.Id}", () => PixivClient.Novel.CommentsAsync(post.Id));
+                commentCollection = await EffectiveCallAsync($"NovelComment-{post.Id}_p0", () => PixivClient.Novel.CommentsAsync(post.Id));
             Comments.Clear();
             commentCollection.Comments.Take(Pickup).ForEach(w => Comments.Add(w));
+            TotalComments = Comments.Any() ? commentCollection.TotalComments : 0;
         }
+
+        #region TotalComments
+
+        private int _totalComments;
+
+        public int TotalComments
+        {
+            get => _totalComments;
+            set => SetProperty(ref _totalComments, value);
+        }
+
+        #endregion
     }
 }

@@ -4,15 +4,15 @@ using Sagitta.Models;
 
 namespace Pyxis.Models.Parameters
 {
-    internal class IllustParameter : TransitionParameter
+    internal class PostParameter<T> : TransitionParameter where T : Post
     {
-        public Illust Illust { get; set; }
+        public T Post { get; set; }
 
         public int Id { get; set; }
 
-        public bool HasObject => Illust != null;
+        public bool HasObject => Post != null;
 
-        public IllustParameter()
+        public PostParameter()
         {
             Mode = TransitionMode.Forward;
         }
