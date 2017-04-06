@@ -118,7 +118,7 @@ namespace Pyxis.Services
             if (await storageFolder.FileExistsAsync(name))
                 return;
             var storageFile = await storageFolder.CreateFileAsync(name);
-            var sourceFile = await LoadFileAsync(url);
+            var sourceFile = await SaveFileAsync(url);
             using (var stream = new FileStream(sourceFile, FileMode.Open))
             {
                 using (var transaction = await storageFile.OpenTransactedWriteAsync())

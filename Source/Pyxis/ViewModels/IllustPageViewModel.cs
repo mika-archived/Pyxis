@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reactive.Linq;
 
+using Windows.ApplicationModel.DataTransfer;
+
 using Microsoft.Toolkit.Uwp;
 
 using Pyxis.Helpers;
@@ -28,6 +30,7 @@ namespace Pyxis.ViewModels
 {
     public class IllustPageViewModel : ViewModel
     {
+        private readonly DataTransferManager _dataTransferManager = DataTransferManager.GetForCurrentView();
         private readonly PixivPostDetail<Illust> _postDetail;
 
         public ReadOnlyReactiveProperty<Uri> AuthorIconUrl { get; }
@@ -45,6 +48,8 @@ namespace Pyxis.ViewModels
         public ReadOnlyReactiveProperty<bool> HasComments { get; }
         public ObservableCollection<TagViewModel> Tags { get; }
         public ReadOnlyReactiveProperty<string> Description { get; }
+        public ReactiveCommand ShareCommand { get; }
+        public ReactiveCommand DownloadCommand { get; }
         public IncrementalLoadingCollection<PixivRelatedSource<IllustViewModel>, IllustViewModel> RelatedSource { get; }
 
         public IllustPageViewModel(PixivClient pixivClient, IFileCacheService cacheService)
@@ -64,9 +69,7 @@ namespace Pyxis.ViewModels
                     return await cacheService.LoadFileAsync(w.ImageUrls.SquareMedium);
                 return PyxisConstants.PlaceholderSquare;
             }).ToReadOnlyReactiveProperty(PyxisConstants.PlaceholderSquare).AddTo(this);
-            OriginalUrl = connector.Select(w => new Uri(w.ImageUrls.Large))
-                                   .ToReadOnlyReactiveProperty()
-                                   .AddTo(this);
+            OriginalUrl = connector.Select(w => new Uri(w.ImageUrls.Large)).ToReadOnlyReactiveProperty().AddTo(this);
             HasMultiPage = connector.Select(w => w.PageCount > 1).ToReadOnlyReactiveProperty().AddTo(this);
             PageCount = connector.Select(w => w.PageCount).ToReadOnlyReactiveProperty().AddTo(this);
             MaxHeight = connector.Select(w => w.Height).ToReadOnlyReactiveProperty().AddTo(this);
@@ -86,12 +89,36 @@ namespace Pyxis.ViewModels
                 await comment.FetchCommentAsync(w);
                 relatedSource.Apply(w, v => new IllustViewModel(v));
                 await RelatedSource.RefreshAsync();
+                _dataTransferManager.DataRequested -= DataTransferManagerOnDataRequested;
+                _dataTransferManager.DataRequested += DataTransferManagerOnDataRequested;
             });
             connector.Connect().AddTo(this);
 
             var commentConnector = comment.ObserveProperty(w => w.TotalComments).Publish();
             HasComments = commentConnector.Select(w => w > 0).ToReadOnlyReactiveProperty().AddTo(this);
             commentConnector.Connect().AddTo(this);
+
+            ShareCommand = new ReactiveCommand();
+            ShareCommand.Subscribe(w => DataTransferManager.ShowShareUI()).AddTo(this);
+            DownloadCommand = new ReactiveCommand();
+            DownloadCommand.Subscribe(w =>
+            {
+                /*
+                if (_postDetail.Post.MetaSinglePage.OriginalImageUrl != null)
+                    cacheService.SaveFileToLocalAsync(_postDetail.Post.MetaSinglePage.OriginalImageUrl, "");
+                else
+                    foreach (var url in _postDetail.Post.MetaPages.Select(v => v.ImageUrls.Original))
+                        cacheService.SaveFileToLocalAsync(url, "");
+                */
+            }).AddTo(this);
+        }
+
+        private void DataTransferManagerOnDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        {
+            var request = args.Request;
+            var post = _postDetail.Post;
+            request.Data.Properties.Title = "イラストを共有";
+            request.Data.SetText($"{post.Title} | {post.User.Name} #pixiv http://www.pixiv.net/member_illust.php?mode=medium&illust_id={post.Id}");
         }
 
         public override void OnNavigatedTo(PyxisNavigatedToEventArgs e, Dictionary<string, object> viewModelState)
