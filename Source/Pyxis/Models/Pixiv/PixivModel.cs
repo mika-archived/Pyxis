@@ -17,7 +17,7 @@ namespace Pyxis.Models.Pixiv
         private readonly IObjectCacheService _objectCacheService;
 
         protected PixivClient PixivClient { get; }
-        public TimeSpan? Expire { get; set; } = null;
+        public TimeSpan? Expire { get; set; }
 
         protected PixivModel(PixivClient pixivClient)
         {

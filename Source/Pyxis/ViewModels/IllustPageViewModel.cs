@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reactive.Linq;
 
+using Microsoft.Toolkit.Uwp;
+
 using Pyxis.Helpers;
 using Pyxis.Models;
 using Pyxis.Models.Parameters;
@@ -43,13 +45,15 @@ namespace Pyxis.ViewModels
         public ReadOnlyReactiveProperty<bool> HasComments { get; }
         public ObservableCollection<TagViewModel> Tags { get; }
         public ReadOnlyReactiveProperty<string> Description { get; }
+        public IncrementalLoadingCollection<PixivRelatedSource<IllustViewModel>, IllustViewModel> RelatedSource { get; }
 
         public IllustPageViewModel(PixivClient pixivClient, IFileCacheService cacheService)
         {
             _postDetail = new PixivPostDetail<Illust>(pixivClient);
             Tags = new ObservableCollection<TagViewModel>();
+            var relatedSource = new PixivRelatedSource<IllustViewModel>(pixivClient);
+            RelatedSource = new IncrementalLoadingCollection<PixivRelatedSource<IllustViewModel>, IllustViewModel>(relatedSource);
             var comment = new PixivComment(pixivClient);
-
             var connector = _postDetail.ObserveProperty(w => w.Post).Where(w => w != null).Publish();
             AuthorIconUrl = connector.Select(w => new Uri(w.User.ProfileImageUrls.Medium)).ToReadOnlyReactiveProperty().AddTo(this);
             AuthorName = connector.Select(w => w.User.Name).ToReadOnlyReactiveProperty().AddTo(this);
@@ -80,6 +84,8 @@ namespace Pyxis.ViewModels
             {
                 CommentsAreaViewModel = new CommentsAreaViewModel(w, comment);
                 await comment.FetchCommentAsync(w);
+                relatedSource.Apply(w, v => new IllustViewModel(v));
+                await RelatedSource.RefreshAsync();
             });
             connector.Connect().AddTo(this);
 

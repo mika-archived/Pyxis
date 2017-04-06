@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 using Sagitta;
 using Sagitta.Models;
@@ -7,7 +8,10 @@ namespace Pyxis.Models.Pixiv
 {
     internal class PixivPostDetail<T> : PixivModel where T : Post
     {
-        public PixivPostDetail(PixivClient pixivClient) : base(pixivClient) { }
+        public PixivPostDetail(PixivClient pixivClient) : base(pixivClient)
+        {
+            Expire = TimeSpan.FromHours(1); // cache 1 hour
+        }
 
         public async Task FetchAsync(int postId)
         {

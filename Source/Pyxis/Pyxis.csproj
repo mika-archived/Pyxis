@@ -145,6 +145,7 @@
     <Compile Include="Models\Pixiv\PixivRanking.cs" />
     <Compile Include="Models\Pixiv\PixivRankingSource.cs" />
     <Compile Include="Models\Pixiv\PixivRecommendSource.cs" />
+    <Compile Include="Models\Pixiv\PixivRelatedSource.cs" />
     <Compile Include="Models\Pixiv\PixivUser.cs" />
     <Compile Include="Models\Software.cs" />
     <Compile Include="Models\Parameters\TransitionParameter.cs" />

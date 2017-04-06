@@ -19,7 +19,10 @@ namespace Pyxis.Models.Pixiv
         private Post _post;
         private Cursorable<CommentCollection> _previousCommentCursor;
 
-        public PixivCommentSource(PixivClient pixivClient) : base(pixivClient) { }
+        public PixivCommentSource(PixivClient pixivClient) : base(pixivClient)
+        {
+            Expire = TimeSpan.FromMinutes(30); // cache 30 minutes
+        }
 
         async Task<IEnumerable<T>> IIncrementalSource<T>.GetPagedItemsAsync(int pageIndex, int pageSize, CancellationToken cancellationToken)
         {

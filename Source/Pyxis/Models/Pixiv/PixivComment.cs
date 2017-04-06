@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,6 +17,7 @@ namespace Pyxis.Models.Pixiv
 
         public PixivComment(PixivClient pixivClient) : base(pixivClient)
         {
+            Expire = TimeSpan.FromMinutes(30); // cache 30 minutes
             Comments = new ObservableCollection<Comment>();
         }
 
