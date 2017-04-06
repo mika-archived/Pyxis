@@ -74,7 +74,7 @@
                                     <behaviors:Blur x:Name="BlurBehavior"
                                                     AutomaticallyStart="True"
                                                     Delay="0"
-                                                    Value="2"
+                                                    Value="1"
                                                     Duration="10" />
                                 </i:Interaction.Behaviors>
                             </controlsEx:ImageEx>

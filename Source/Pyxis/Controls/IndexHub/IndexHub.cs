@@ -35,50 +35,50 @@ namespace Pyxis.Controls
 
         public string HubHeaderText
         {
-            get { return (string) GetValue(HubHeaderTextProperty); }
-            set { SetValue(HubHeaderTextProperty, value); }
+            get => (string) GetValue(HubHeaderTextProperty);
+            set => SetValue(HubHeaderTextProperty, value);
         }
 
         public string HeaderText
         {
-            get { return (string) GetValue(HeaderTextProperty); }
-            set { SetValue(HeaderTextProperty, value); }
+            get => (string) GetValue(HeaderTextProperty);
+            set => SetValue(HeaderTextProperty, value);
         }
 
         public object ItemsSource
         {
-            get { return GetValue(ItemsSourceProperty); }
-            set { SetValue(ItemsSourceProperty, value); }
+            get => GetValue(ItemsSourceProperty);
+            set => SetValue(ItemsSourceProperty, value);
         }
 
         public DataTemplate HubContentTemplate
         {
-            get { return (DataTemplate) GetValue(HubContentTemplateProperty); }
-            set { SetValue(HubContentTemplateProperty, value); }
+            get => (DataTemplate) GetValue(HubContentTemplateProperty);
+            set => SetValue(HubContentTemplateProperty, value);
         }
 
         public DataTemplate ItemTemplate
         {
-            get { return (DataTemplate) GetValue(ItemTemplateProperty); }
-            set { SetValue(ItemTemplateProperty, value); }
+            get => (DataTemplate) GetValue(ItemTemplateProperty);
+            set => SetValue(ItemTemplateProperty, value);
         }
 
         public double DesiredWidth
         {
-            get { return (double) GetValue(DesiredWidthProperty); }
-            set { SetValue(DesiredWidthProperty, value); }
+            get => (double) GetValue(DesiredWidthProperty);
+            set => SetValue(DesiredWidthProperty, value);
         }
 
         public double ItemHeight
         {
-            get { return (double) GetValue(ItemHeightProperty); }
-            set { SetValue(ItemHeightProperty, value); }
+            get => (double) GetValue(ItemHeightProperty);
+            set => SetValue(ItemHeightProperty, value);
         }
 
         public object SelectedItem
         {
-            get { return GetValue(SelectedItemProperty); }
-            set { SetValue(SelectedItemProperty, value); }
+            get => GetValue(SelectedItemProperty);
+            set => SetValue(SelectedItemProperty, value);
         }
 
         public IndexHub()

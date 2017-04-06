@@ -48,6 +48,7 @@ namespace Pyxis.ViewModels
         public ReadOnlyReactiveProperty<bool> HasComments { get; }
         public ObservableCollection<TagViewModel> Tags { get; }
         public ReadOnlyReactiveProperty<string> Description { get; }
+        public ReactiveProperty<object> SelectedItem { get; }
         public ReactiveCommand ShareCommand { get; }
         public ReactiveCommand DownloadCommand { get; }
         public IncrementalLoadingCollection<PixivRelatedSource<IllustViewModel>, IllustViewModel> RelatedSource { get; }
@@ -111,6 +112,9 @@ namespace Pyxis.ViewModels
                         cacheService.SaveFileToLocalAsync(url, "");
                 */
             }).AddTo(this);
+            SelectedItem = new ReactiveProperty<object>();
+            SelectedItem.Select(w => w as ContentViewModel).Where(w => w != null)
+                        .Subscribe(w => w.NavigateTo()).AddTo(this);
         }
 
         private void DataTransferManagerOnDataRequested(DataTransferManager sender, DataRequestedEventArgs args)

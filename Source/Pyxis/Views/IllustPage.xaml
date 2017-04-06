@@ -11,6 +11,7 @@
       xmlns:partials="using:Pyxis.Views.Partials"
       xmlns:prism="using:Prism.Windows.Mvvm"
       xmlns:vm="using:Pyxis.ViewModels"
+      xmlns:vmc="using:Pyxis.ViewModels.Contents"
       d:DataContext="{d:DesignInstance vm:AboutPageViewModel}"
       prism:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d">
@@ -62,6 +63,7 @@
                                    IsItemClickEnabled="True"
                                    ItemHeight="200"
                                    ItemsSource="{x:Bind ViewModel.RelatedSource, Mode=OneWay}"
+                                   SelectedItem="{x:Bind ViewModel.SelectedItem.Value, Mode=TwoWay}"
                                    SelectionMode="Single">
             <controls:AdaptiveGridView.Header>
                 <StackPanel Orientation="Vertical">
@@ -112,7 +114,7 @@
                 </StackPanel>
             </controls:AdaptiveGridView.Header>
             <controls:AdaptiveGridView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="vmc:IllustViewModel">
                     <contents:IllustItem DataContext="{Binding}" />
                 </DataTemplate>
             </controls:AdaptiveGridView.ItemTemplate>
