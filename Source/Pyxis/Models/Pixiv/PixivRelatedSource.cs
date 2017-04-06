@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -33,17 +32,10 @@ namespace Pyxis.Models.Pixiv
                 if (_illust == null)
                     return new List<T>(); // Empty
 
-                try
-                {
-                    if (_previousCursor != null)
-                        _previousCursor = await EffectiveCallAsync($"Related-{_illust.Id}_p{pageIndex}", () => _previousCursor.NextPageAsync());
-                    else
-                        _previousCursor = await EffectiveCallAsync($"Related-{_illust.Id}_p0", () => PixivClient.Illust.RelatedAsync(_illust.Id));
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine(e.Message);
-                }
+                if (_previousCursor != null)
+                    _previousCursor = await EffectiveCallAsync($"Related-{_illust.Id}_p{pageIndex}", () => _previousCursor.NextPageAsync());
+                else
+                    _previousCursor = await EffectiveCallAsync($"Related-{_illust.Id}_p0", () => PixivClient.Illust.RelatedAsync(_illust.Id));
                 return _previousCursor?.Illusts.Select(w => _converter.Invoke(w));
             }
         }
