@@ -16,9 +16,9 @@ namespace Pyxis.Models.Pixiv
         public async Task FetchAsync(int postId)
         {
             if (typeof(T) == typeof(Illust))
-                Post = await PixivClient.Illust.DetailAsync(postId) as T;
+                Post = (T) (Post) await EffectiveCallAsync($"IllustDetail-{postId}", () => PixivClient.Illust.DetailAsync(postId));
             else
-                Post = await PixivClient.Novel.DetailAsync(postId) as T;
+                Post = (T) (Post) await EffectiveCallAsync($"NovelDetail-{postId}", () => PixivClient.Novel.DetailAsync(postId));
         }
 
         public void ApplyForce(T post)

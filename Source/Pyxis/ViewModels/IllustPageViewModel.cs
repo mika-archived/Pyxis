@@ -4,6 +4,9 @@ using System.Collections.ObjectModel;
 using System.Reactive.Linq;
 
 using Windows.ApplicationModel.DataTransfer;
+using Windows.UI;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media;
 
 using Microsoft.Toolkit.Uwp;
 
@@ -48,7 +51,11 @@ namespace Pyxis.ViewModels
         public ReadOnlyReactiveProperty<bool> HasComments { get; }
         public ObservableCollection<TagViewModel> Tags { get; }
         public ReadOnlyReactiveProperty<string> Description { get; }
+        public ReadOnlyReactiveProperty<bool> IsBookmarked { get; }
+        public ReadOnlyReactiveProperty<string> BookmarkIcon { get; }
+        public ReadOnlyReactiveProperty<SolidColorBrush> BookmarkColor { get; }
         public ReactiveProperty<object> SelectedItem { get; }
+        public ReactiveCommand BookmarkCommand { get; }
         public ReactiveCommand ShareCommand { get; }
         public ReactiveCommand DownloadCommand { get; }
         public IncrementalLoadingCollection<PixivRelatedSource<IllustViewModel>, IllustViewModel> RelatedSource { get; }
@@ -84,6 +91,12 @@ namespace Pyxis.ViewModels
                 w.ForEach(v => Tags.Add(new TagViewModel(v)));
             });
             Description = connector.Select(w => w.Caption).ToReadOnlyReactiveProperty().AddTo(this);
+            IsBookmarked = connector.Select(w => w.IsBookmarked).ToReadOnlyReactiveProperty().AddTo(this);
+            BookmarkIcon = connector.Select(w => w.IsBookmarked ? "\uEB52" : "\uEB51").ToReadOnlyReactiveProperty().AddTo(this);
+            BookmarkColor = connector.Select(w => w.IsBookmarked
+                ? new SolidColorBrush(Colors.Salmon)
+                : (SolidColorBrush) Application.Current.Resources["ApplicationForegroundThemeBrush"])
+                                     .ToReadOnlyReactiveProperty().AddTo(this);
             connector.Subscribe(async w =>
             {
                 CommentsAreaViewModel = new CommentsAreaViewModel(w, comment);
@@ -99,6 +112,8 @@ namespace Pyxis.ViewModels
             HasComments = commentConnector.Select(w => w > 0).ToReadOnlyReactiveProperty().AddTo(this);
             commentConnector.Connect().AddTo(this);
 
+            BookmarkCommand = new ReactiveCommand();
+            BookmarkCommand.Subscribe(w => { }).AddTo(this);
             ShareCommand = new ReactiveCommand();
             ShareCommand.Subscribe(w => DataTransferManager.ShowShareUI()).AddTo(this);
             DownloadCommand = new ReactiveCommand();

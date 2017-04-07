@@ -25,14 +25,14 @@ namespace Pyxis.Models.Pixiv
             _objectCacheService = PrismUnityApplication.Current.Container.Resolve<IObjectCacheService>();
         }
 
-        protected Task<T> EffectiveCallAsync<T>(string identifier, Func<Task<T>> action)
+        protected Task<T> EffectiveCallAsync<T>(string identifier, Func<Task<T>> action, bool overwrite = false)
         {
-            return _objectCacheService.EffectiveCallAsync(identifier, action, Expire);
+            return _objectCacheService.EffectiveCallAsync(identifier, action, Expire, overwrite);
         }
 
-        protected T EffectiveCall<T>(string identifier, Func<T> action)
+        protected T EffectiveCall<T>(string identifier, Func<T> action, bool overwrite = false)
         {
-            return _objectCacheService.EffectiveCall(identifier, action, Expire);
+            return _objectCacheService.EffectiveCall(identifier, action, Expire, overwrite);
         }
     }
 }

@@ -42,11 +42,11 @@ namespace Pyxis.Services
         public TimeSpan Expire { get; set; } = TimeSpan.FromMinutes(5);
         public int MaxSize { get; set; } = byte.MaxValue;
 
-        public async Task<T> EffectiveCallAsync<T>(string identifier, Func<Task<T>> action, TimeSpan? expire = null)
+        public async Task<T> EffectiveCallAsync<T>(string identifier, Func<Task<T>> action, TimeSpan? expire = null, bool overwrite = false)
         {
             if (_cacheTimes.ContainsKey(identifier))
             {
-                if (_cacheTimes[identifier].AddMinutes((expire ?? Expire).TotalMinutes) > DateTime.Now)
+                if (_cacheTimes[identifier].AddMinutes((expire ?? Expire).TotalMinutes) > DateTime.Now && !overwrite)
                     return await Task.FromResult((T) _cacheObjects[identifier]);
                 _cacheTimes[identifier] = DateTime.Now;
                 _cacheObjects[identifier] = await action.Invoke();
@@ -56,11 +56,11 @@ namespace Pyxis.Services
             return (T) _cacheObjects.AddAndReturn(identifier, await action.Invoke());
         }
 
-        public T EffectiveCall<T>(string identifier, Func<T> action, TimeSpan? expire = null)
+        public T EffectiveCall<T>(string identifier, Func<T> action, TimeSpan? expire = null, bool overwrite = false)
         {
             if (_cacheTimes.ContainsKey(identifier))
             {
-                if (_cacheTimes[identifier].AddMinutes((expire ?? Expire).TotalMinutes) > DateTime.Now)
+                if (_cacheTimes[identifier].AddMinutes((expire ?? Expire).TotalMinutes) > DateTime.Now && !overwrite)
                     return (T) _cacheObjects[identifier];
                 _cacheTimes[identifier] = DateTime.Now;
                 _cacheObjects[identifier] = action.Invoke();
