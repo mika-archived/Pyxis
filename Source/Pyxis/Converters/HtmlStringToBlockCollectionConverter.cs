@@ -18,6 +18,10 @@ using Microsoft.Practices.Unity;
 using Prism.Unity.Windows;
 using Prism.Windows.Navigation;
 
+using Pyxis.Models.Parameters;
+
+using Sagitta.Models;
+
 namespace Pyxis.Converters
 {
     internal class HtmlStringToBlockCollectionConverter : DependencyObject, IValueConverter
@@ -120,7 +124,10 @@ namespace Pyxis.Converters
             return null;
         }
 
-        private string GeneratePlainText(HtmlNode node) => HtmlUtilities.ConvertToText(node.InnerText);
+        private string GeneratePlainText(HtmlNode node)
+        {
+            return HtmlUtilities.ConvertToText(node.InnerText);
+        }
 
         private Inline GenerateHyperlink(HtmlNode node)
         {
@@ -133,11 +140,13 @@ namespace Pyxis.Converters
                 {
                     if (uri.StartsWith("pixiv://illusts"))
                     {
-                        //
+                        var postId = int.Parse(uri.Replace("pixiv://illusts/", ""));
+                        _navigationService.Navigate("Illust", new PostParameter<Illust> {Id = postId});
                     }
                     else if (uri.StartsWith("pixiv://novels"))
                     {
-                        //
+                        var postId = int.Parse(uri.Replace("pixiv://novels/", ""));
+                        _navigationService.Navigate("Novel", new PostParameter<Novel> {Id = postId});
                     }
                     else if (uri.StartsWith("pixiv://users"))
                     {
