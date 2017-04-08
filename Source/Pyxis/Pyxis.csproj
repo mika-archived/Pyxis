@@ -114,6 +114,7 @@
     <Compile Include="Controls\BgBorder\BgBorder.cs" />
     <Compile Include="Controls\CircleImage\CircleImage.cs" />
     <Compile Include="Controls\DataTemplateCollection.cs" />
+    <Compile Include="Controls\ExpanderEx\ExpanderEx.cs" />
     <Compile Include="Controls\HamburgerMenuCustomViewItem.cs" />
     <Compile Include="Controls\HamburgerMenuImageItem.cs" />
     <Compile Include="Controls\TextBlockWithGlyph\TextBlockWithGlyph.cs" />
@@ -177,6 +178,7 @@
     <Compile Include="ViewModels\HomePageViewModel.cs" />
     <Compile Include="ViewModels\IllustPageViewModel.cs" />
     <Compile Include="ViewModels\LoginPageViewModel.cs" />
+    <Compile Include="ViewModels\NewArrivalsPageViewModel.cs" />
     <Compile Include="ViewModels\NovelPageViewModel.cs" />
     <Compile Include="ViewModels\Partials\CommentsAreaViewModel.cs" />
     <Compile Include="ViewModels\UserPageViewModel.cs" />
@@ -202,6 +204,12 @@
     </Compile>
     <Compile Include="Views\Contents\NovelItem.xaml.cs">
       <DependentUpon>NovelItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HamburgerMenuNewArrivalsControl.xaml.cs">
+      <DependentUpon>HamburgerMenuNewArrivalsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NewArrivalsPage.xaml.cs">
+      <DependentUpon>NewArrivalsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\NovelPage.xaml.cs">
       <DependentUpon>NovelPage.xaml</DependentUpon>
@@ -320,6 +328,11 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
+    <Page Include="Controls\ExpanderEx\ExpanderEx.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
     <Page Include="Controls\ImageEx\ImageEx.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -388,6 +401,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Contents\NovelItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HamburgerMenuNewArrivalsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NewArrivalsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

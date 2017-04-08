@@ -35,7 +35,7 @@
                         </Grid>
                     </DataTemplate>
                     <DataTemplate controlsEx:TypeNamedDataTemplateSelector.Target="controlsEx:HamburgerMenuCustomViewItem" x:DataType="controlsEx:HamburgerMenuCustomViewItem">
-                        <Grid Width="240" Height="48">
+                        <Grid Width="240">
                             <ContentPresenter Content="{Binding CustomView}" />
                         </Grid>
                     </DataTemplate>
@@ -55,7 +55,21 @@
                     <controls:HamburgerMenuGlyphItem Glyph="&#xE80F;"
                                                      Label="ホーム"
                                                      TargetPageType="views:HomePage" />
-                    <controls:HamburgerMenuGlyphItem Glyph="&#xE95A;" Label="新着" />
+                    <controlsEx:HamburgerMenuCustomViewItem>
+                        <controlsEx:HamburgerMenuCustomViewItem.CustomView>
+                            <controlsEx:ExpanderEx HorizontalContentAlignment="Stretch">
+                                <controlsEx:ExpanderEx.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <FontIcon Width="48"
+                                                  FontSize="24"
+                                                  Glyph="&#xE95A;" />
+                                        <TextBlock FontSize="16" Text="新着" />
+                                    </StackPanel>
+                                </controlsEx:ExpanderEx.Header>
+                                <views:HamburgerMenuNewArrivalsControl />
+                            </controlsEx:ExpanderEx>
+                        </controlsEx:HamburgerMenuCustomViewItem.CustomView>
+                    </controlsEx:HamburgerMenuCustomViewItem>
                     <controls:HamburgerMenuGlyphItem Glyph="&#xE7C5;" Label="検索" />
                     <controls:HamburgerMenuGlyphItem Glyph="&#xE8A5;" Label="投稿作品" />
                     <controls:HamburgerMenuGlyphItem Glyph="&#xE735;" Label="お気に入り" />
