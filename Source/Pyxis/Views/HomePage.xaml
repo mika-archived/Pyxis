@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
       xmlns:controlsEx="using:Pyxis.Controls"
+      xmlns:core="using:Microsoft.Xaml.Interactions.Core"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -37,6 +38,11 @@
                     <Grid Width="205"
                           Height="205"
                           Padding="2.5,0">
+                        <i:Interaction.Behaviors>
+                            <core:EventTriggerBehavior EventName="Tapped">
+                                <core:InvokeCommandAction Command="{Binding TappedCommand}" />
+                            </core:EventTriggerBehavior>
+                        </i:Interaction.Behaviors>
                         <controlsEx:ImageEx Source="{Binding Thumbnail}" />
                         <Border Height="153.75"
                                 Padding="15"
@@ -66,6 +72,11 @@
                     <Grid Width="205"
                           Height="205"
                           Padding="2.5,0">
+                        <i:Interaction.Behaviors>
+                            <core:EventTriggerBehavior EventName="Tapped">
+                                <core:InvokeCommandAction Command="{Binding TappedCommand}" />
+                            </core:EventTriggerBehavior>
+                        </i:Interaction.Behaviors>
                         <Border Background="{ThemeResource ApplicationForegroundThemeBrush}" Opacity=".5">
                             <controlsEx:ImageEx HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
