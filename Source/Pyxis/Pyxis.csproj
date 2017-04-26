@@ -139,6 +139,7 @@
     <Compile Include="Models\Enum\TransitionMode.cs" />
     <Compile Include="Models\Parameters\PostParameter.cs" />
     <Compile Include="Models\Parameters\UserParameter.cs" />
+    <Compile Include="Models\Pixiv\PixivBookmark.cs" />
     <Compile Include="Models\Pixiv\PixivComment.cs" />
     <Compile Include="Models\Pixiv\PixivCommentSource.cs" />
     <Compile Include="Models\Pixiv\PixivModel.cs" />
@@ -159,11 +160,13 @@
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Services\FileCacheService.cs" />
     <Compile Include="Services\DialogService.cs" />
+    <Compile Include="Services\Interfaces\ISessionObjectStorageService.cs" />
     <Compile Include="Services\ObjectCacheService.cs" />
     <Compile Include="Services\Interfaces\IAccountService.cs" />
     <Compile Include="Services\Interfaces\IObjectCacheService.cs" />
     <Compile Include="Services\Interfaces\IFileCacheService.cs" />
     <Compile Include="Services\Interfaces\IDialogService.cs" />
+    <Compile Include="Services\SessionObjectStorageService.cs" />
     <Compile Include="ViewModels\AboutPageViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModel.cs" />
     <Compile Include="ViewModels\CommentsPageViewModel.cs" />

@@ -77,6 +77,7 @@ namespace Pyxis
             Container.RegisterInstance<IAccountService>(accountService, new ContainerControlledLifetimeManager());
             Container.RegisterType<IFileCacheService, FileCacheService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IObjectCacheService, ObjectCacheService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<ISessionObjectStorageService, SessionObjectStorageService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IDialogService, DialogService>(new ContainerControlledLifetimeManager());
 
             // await accountService.ClearAsync();

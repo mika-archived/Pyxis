@@ -21,7 +21,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="36" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="48" />
+                <ColumnDefinition Width="96" />
             </Grid.ColumnDefinitions>
             <controlsEx:CircleImage Grid.Column="0"
                                     Width="36"
@@ -45,14 +45,24 @@
                            TextTrimming="CharacterEllipsis"
                            TextWrapping="NoWrap" />
             </StackPanel>
-            <Button Grid.Column="2" Background="Transparent">
-                <FontIcon Glyph="&#xE712;" />
-                <Button.Flyout>
-                    <MenuFlyout>
-                        <MenuFlyoutItem Command="{x:Bind ViewModel.ShareCommand, Mode=OneWay}">シェア</MenuFlyoutItem>
-                    </MenuFlyout>
-                </Button.Flyout>
-            </Button>
+            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <Button Width="48"
+                        Height="48"
+                        Background="Transparent"
+                        Command="{x:Bind ViewModel.BookmarkCommand, Mode=OneWay}">
+                    <FontIcon Foreground="{x:Bind ViewModel.BookmarkColor, Mode=OneWay}" Glyph="{x:Bind ViewModel.BookmarkIcon, Mode=OneWay}" />
+                </Button>
+                <Button Width="48"
+                        Height="48"
+                        Background="Transparent">
+                    <FontIcon Glyph="&#xE712;" />
+                    <Button.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Command="{x:Bind ViewModel.ShareCommand, Mode=OneWay}">シェア</MenuFlyoutItem>
+                        </MenuFlyout>
+                    </Button.Flyout>
+                </Button>
+            </StackPanel>
         </Grid>
         <ScrollViewer Grid.Row="1"
                       HorizontalScrollBarVisibility="Disabled"

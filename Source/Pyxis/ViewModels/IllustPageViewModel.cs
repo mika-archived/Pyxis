@@ -33,6 +33,7 @@ namespace Pyxis.ViewModels
 {
     public class IllustPageViewModel : ViewModel
     {
+        private readonly PixivBookmark _bookmark;
         private readonly DataTransferManager _dataTransferManager = DataTransferManager.GetForCurrentView();
         private readonly PixivPostDetail<Illust> _postDetail;
 
@@ -51,23 +52,23 @@ namespace Pyxis.ViewModels
         public ReadOnlyReactiveProperty<bool> HasComments { get; }
         public ObservableCollection<TagViewModel> Tags { get; }
         public ReadOnlyReactiveProperty<string> Description { get; }
-        public ReadOnlyReactiveProperty<bool> IsBookmarked { get; }
-        public ReadOnlyReactiveProperty<string> BookmarkIcon { get; }
-        public ReadOnlyReactiveProperty<SolidColorBrush> BookmarkColor { get; }
+
         public ReactiveProperty<object> SelectedItem { get; }
+
         public ReactiveCommand BookmarkCommand { get; }
         public ReactiveCommand ShareCommand { get; }
         public ReactiveCommand DownloadCommand { get; }
         public IncrementalLoadingCollection<PixivRelatedSource<IllustViewModel>, IllustViewModel> RelatedSource { get; }
 
-        public IllustPageViewModel(PixivClient pixivClient, IFileCacheService cacheService)
+        public IllustPageViewModel(PixivClient pixivClient, IFileCacheService cacheService, ISessionObjectStorageService objectStorage)
         {
             _postDetail = new PixivPostDetail<Illust>(pixivClient);
             Tags = new ObservableCollection<TagViewModel>();
+            _bookmark = new PixivBookmark(pixivClient, objectStorage);
             var relatedSource = new PixivRelatedSource<IllustViewModel>(pixivClient);
             RelatedSource = new IncrementalLoadingCollection<PixivRelatedSource<IllustViewModel>, IllustViewModel>(relatedSource);
             var comment = new PixivComment(pixivClient);
-            var connector = _postDetail.ObserveProperty(w => w.Post).Where(w => w != null).Publish();
+            var connector = _postDetail.ObserveProperty(w => w.Post).Where(w => w != null).Do(w => _bookmark.IsBookmarked(w)).Publish();
             AuthorIconUrl = connector.Select(w => new Uri(w.User.ProfileImageUrls.Medium)).ToReadOnlyReactiveProperty().AddTo(this);
             AuthorName = connector.Select(w => w.User.Name).ToReadOnlyReactiveProperty().AddTo(this);
             Title = connector.Select(w => $"{w.Title}").ToReadOnlyReactiveProperty().AddTo(this);
@@ -91,17 +92,12 @@ namespace Pyxis.ViewModels
                 w.ForEach(v => Tags.Add(new TagViewModel(v)));
             });
             Description = connector.Select(w => w.Caption).ToReadOnlyReactiveProperty().AddTo(this);
-            IsBookmarked = connector.Select(w => w.IsBookmarked).ToReadOnlyReactiveProperty().AddTo(this);
-            BookmarkIcon = connector.Select(w => w.IsBookmarked ? "\uEB52" : "\uEB51").ToReadOnlyReactiveProperty().AddTo(this);
-            BookmarkColor = connector.Select(w => w.IsBookmarked
-                ? new SolidColorBrush(Colors.Salmon)
-                : (SolidColorBrush) Application.Current.Resources["ApplicationForegroundThemeBrush"])
-                                     .ToReadOnlyReactiveProperty().AddTo(this);
             connector.Subscribe(async w =>
             {
                 CommentsAreaViewModel = new CommentsAreaViewModel(w, comment);
                 await comment.FetchCommentAsync(w);
                 relatedSource.Apply(w, v => new IllustViewModel(v));
+                UpdateBookmarkButton(w);
                 await RelatedSource.RefreshAsync();
                 _dataTransferManager.DataRequested -= DataTransferManagerOnDataRequested;
                 _dataTransferManager.DataRequested += DataTransferManagerOnDataRequested;
@@ -113,7 +109,15 @@ namespace Pyxis.ViewModels
             commentConnector.Connect().AddTo(this);
 
             BookmarkCommand = new ReactiveCommand();
-            BookmarkCommand.Subscribe(w => { }).AddTo(this);
+            BookmarkCommand.Subscribe(async w =>
+            {
+                var post = _postDetail.Post;
+                if (post.IsBookmarked || _bookmark.IsBookmarked(post))
+                    await _bookmark.UnBookmarkAsync(post);
+                else
+                    await _bookmark.BookmarkAsync(post);
+                UpdateBookmarkButton(post);
+            }).AddTo(this);
             ShareCommand = new ReactiveCommand();
             ShareCommand.Subscribe(w => DataTransferManager.ShowShareUI()).AddTo(this);
             DownloadCommand = new ReactiveCommand();
@@ -130,6 +134,14 @@ namespace Pyxis.ViewModels
             SelectedItem = new ReactiveProperty<object>();
             SelectedItem.Select(w => w as ContentViewModel).Where(w => w != null)
                         .Subscribe(w => w.NavigateTo()).AddTo(this);
+        }
+
+        private void UpdateBookmarkButton(Illust illust)
+        {
+            BookmarkIcon = _bookmark.IsBookmarked(illust) ? "\uEB52" : "\uEB51";
+            BookmarkColor = _bookmark.IsBookmarked(illust)
+                ? new SolidColorBrush(Colors.Salmon)
+                : (SolidColorBrush) Application.Current.Resources["ApplicationForegroundThemeBrush"];
         }
 
         private void DataTransferManagerOnDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
@@ -162,6 +174,30 @@ namespace Pyxis.ViewModels
         {
             get => _commentsAreaViewModel;
             set => SetProperty(ref _commentsAreaViewModel, value);
+        }
+
+        #endregion
+
+        #region BookmarkIcon
+
+        private string _bookmarkIcon;
+
+        public string BookmarkIcon
+        {
+            get => _bookmarkIcon;
+            set => SetProperty(ref _bookmarkIcon, value);
+        }
+
+        #endregion
+
+        #region BookmarkColor
+
+        private SolidColorBrush _bookmarkColor;
+
+        public SolidColorBrush BookmarkColor
+        {
+            get => _bookmarkColor;
+            set => SetProperty(ref _bookmarkColor, value);
         }
 
         #endregion

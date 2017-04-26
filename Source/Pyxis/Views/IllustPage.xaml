@@ -53,7 +53,7 @@
                         Height="48"
                         Background="Transparent"
                         Command="{x:Bind ViewModel.BookmarkCommand, Mode=OneWay}">
-                    <FontIcon Foreground="{x:Bind ViewModel.BookmarkColor.Value, Mode=OneWay}" Glyph="{x:Bind ViewModel.BookmarkIcon.Value, Mode=OneWay}" />
+                    <FontIcon Foreground="{x:Bind ViewModel.BookmarkColor, Mode=OneWay}" Glyph="{x:Bind ViewModel.BookmarkIcon, Mode=OneWay}" />
                 </Button>
                 <Button Width="48"
                         Height="48"

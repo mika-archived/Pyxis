@@ -4,6 +4,9 @@ using System.Collections.ObjectModel;
 using System.Reactive.Linq;
 
 using Windows.ApplicationModel.DataTransfer;
+using Windows.UI;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media;
 
 using Microsoft.Practices.ObjectBuilder2;
 
@@ -28,6 +31,7 @@ namespace Pyxis.ViewModels
 {
     public class NovelPageViewModel : ViewModel
     {
+        private readonly PixivBookmark _bookmark;
         private readonly DataTransferManager _dataTransferManager = DataTransferManager.GetForCurrentView();
         private readonly PixivPostDetail<Novel> _postDetail;
 
@@ -43,12 +47,14 @@ namespace Pyxis.ViewModels
         public ReadOnlyReactiveProperty<bool> HasComments { get; }
         public ObservableCollection<TagViewModel> Tags { get; }
         public ReadOnlyReactiveProperty<string> Description { get; }
+        public ReactiveCommand BookmarkCommand { get; }
         public ReactiveCommand ShareCommand { get; }
 
-        public NovelPageViewModel(PixivClient pixivClient, IFileCacheService cacheService)
+        public NovelPageViewModel(PixivClient pixivClient, IFileCacheService cacheService, ISessionObjectStorageService objectStorage)
         {
             _postDetail = new PixivPostDetail<Novel>(pixivClient);
             Tags = new ObservableCollection<TagViewModel>();
+            _bookmark = new PixivBookmark(pixivClient, objectStorage);
             var comment = new PixivComment(pixivClient);
             var connector = _postDetail.ObserveProperty(w => w.Post).Where(w => w != null).Publish();
             AuthorIconUrl = connector.Select(w => new Uri(w.User.ProfileImageUrls.Medium)).ToReadOnlyReactiveProperty().AddTo(this);
@@ -74,6 +80,7 @@ namespace Pyxis.ViewModels
             connector.Subscribe(async w =>
             {
                 CommentsAreaViewModel = new CommentsAreaViewModel(w, comment);
+                UpdateBookmarkButton(w);
                 await comment.FetchCommentAsync(w);
                 _dataTransferManager.DataRequested -= DataTransferManagerOnDataRequested;
                 _dataTransferManager.DataRequested += DataTransferManagerOnDataRequested;
@@ -84,8 +91,26 @@ namespace Pyxis.ViewModels
             HasComments = commentConnector.Select(w => w > 0).ToReadOnlyReactiveProperty().AddTo(this);
             commentConnector.Connect().AddTo(this);
 
+            BookmarkCommand = new ReactiveCommand();
+            BookmarkCommand.Subscribe(async w =>
+            {
+                var post = _postDetail.Post;
+                if (post.IsBookmarked || _bookmark.IsBookmarked(post))
+                    await _bookmark.UnBookmarkAsync(post);
+                else
+                    await _bookmark.BookmarkAsync(post);
+                UpdateBookmarkButton(post);
+            }).AddTo(this);
             ShareCommand = new ReactiveCommand();
             ShareCommand.Subscribe(w => DataTransferManager.ShowShareUI()).AddTo(this);
+        }
+
+        private void UpdateBookmarkButton(Novel illust)
+        {
+            BookmarkIcon = _bookmark.IsBookmarked(illust) ? "\uEB52" : "\uEB51";
+            BookmarkColor = _bookmark.IsBookmarked(illust)
+                ? new SolidColorBrush(Colors.Salmon)
+                : (SolidColorBrush) Application.Current.Resources["ApplicationForegroundThemeBrush"];
         }
 
         private void DataTransferManagerOnDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
@@ -118,6 +143,30 @@ namespace Pyxis.ViewModels
         {
             get => _commentsAreaViewModel;
             set => SetProperty(ref _commentsAreaViewModel, value);
+        }
+
+        #endregion
+
+        #region BookmarkIcon
+
+        private string _bookmarkIcon;
+
+        public string BookmarkIcon
+        {
+            get => _bookmarkIcon;
+            set => SetProperty(ref _bookmarkIcon, value);
+        }
+
+        #endregion
+
+        #region BookmarkColor
+
+        private SolidColorBrush _bookmarkColor;
+
+        public SolidColorBrush BookmarkColor
+        {
+            get => _bookmarkColor;
+            set => SetProperty(ref _bookmarkColor, value);
         }
 
         #endregion
