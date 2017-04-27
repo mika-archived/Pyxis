@@ -140,6 +140,7 @@
     <Compile Include="Models\Parameters\PostParameter.cs" />
     <Compile Include="Models\Parameters\UserParameter.cs" />
     <Compile Include="Models\Pixiv\PixivBookmark.cs" />
+    <Compile Include="Models\Pixiv\PixivBrowsingHistorySource.cs" />
     <Compile Include="Models\Pixiv\PixivComment.cs" />
     <Compile Include="Models\Pixiv\PixivCommentSource.cs" />
     <Compile Include="Models\Pixiv\PixivModel.cs" />
@@ -169,6 +170,7 @@
     <Compile Include="Services\SessionObjectStorageService.cs" />
     <Compile Include="ViewModels\AboutPageViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModel.cs" />
+    <Compile Include="ViewModels\BrowsingHistoryPageViewModel.cs" />
     <Compile Include="ViewModels\CommentsPageViewModel.cs" />
     <Compile Include="ViewModels\Contents\CommentViewModel.cs" />
     <Compile Include="ViewModels\Contents\ContentViewModel.cs" />
@@ -189,6 +191,9 @@
     <Compile Include="ViewModels\Viewers\MangaViewerPageViewModel.cs" />
     <Compile Include="Views\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BrowsingHistoryPage.xaml.cs">
+      <DependentUpon>BrowsingHistoryPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CommentsPage.xaml.cs">
       <DependentUpon>CommentsPage.xaml</DependentUpon>
@@ -380,6 +385,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\AboutPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BrowsingHistoryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

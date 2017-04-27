@@ -73,7 +73,9 @@
                     <controls:HamburgerMenuGlyphItem Glyph="&#xE7C5;" Label="検索" />
                     <controls:HamburgerMenuGlyphItem Glyph="&#xE8A5;" Label="投稿作品" />
                     <controls:HamburgerMenuGlyphItem Glyph="&#xE735;" Label="お気に入り" />
-                    <controls:HamburgerMenuGlyphItem Glyph="&#xE81C;" Label="閲覧履歴" />
+                    <controls:HamburgerMenuGlyphItem Glyph="&#xE81C;"
+                                                     Label="閲覧履歴"
+                                                     TargetPageType="views:BrowsingHistoryPage" />
                     <controls:HamburgerMenuGlyphItem Glyph="&#xE8A4;" Label="ブックマーク" />
                     <controls:HamburgerMenuGlyphItem Glyph="&#xE8CF;" Label="つながり" />
                     <controls:HamburgerMenuGlyphItem Glyph="&#xE722;" Label="定点観測" />
