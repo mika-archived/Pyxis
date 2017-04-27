@@ -213,6 +213,9 @@
     <Compile Include="Views\Contents\NovelItem.xaml.cs">
       <DependentUpon>NovelItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\HamburgerMenuConnectionControl.xaml.cs">
+      <DependentUpon>HamburgerMenuConnectionControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\HamburgerMenuNewArrivalsControl.xaml.cs">
       <DependentUpon>HamburgerMenuNewArrivalsControl.xaml</DependentUpon>
     </Compile>
@@ -413,6 +416,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Contents\NovelItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HamburgerMenuConnectionControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
