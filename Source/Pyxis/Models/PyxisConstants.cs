@@ -8,7 +8,7 @@ namespace Pyxis.Models
     public static class PyxisConstants
     {
         public static string ApplicationKey => "8B2D7393-617C-4836-AA0E-68B502D9B1C9";
-        public static string Branch => "Twilight";
+        public static string Branch => "chocolate-cookie";
         public static string PlaceholderSquare => "ms-appx:///Assets/Placeholders/Square-200.png";
         public static string PlaceholderBanner => "ms-appx:///Assets/Placeholders/Banner-851.png";
 
