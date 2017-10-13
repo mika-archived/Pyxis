@@ -1,0 +1,54 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+                    xmlns:controlsEx="using:Pyxis.Controls">
+    <Style TargetType="controlsEx:IndexHub">
+        <Setter Property="DesiredWidth" Value="200" />
+        <Setter Property="ItemHeight" Value="200" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controlsEx:IndexHub">
+                    <controls:AdaptiveGridView x:Name="Root"
+                                               DesiredWidth="{TemplateBinding DesiredWidth}"
+                                               IsItemClickEnabled="True"
+                                               ItemHeight="{TemplateBinding ItemHeight}"
+                                               ItemTemplate="{TemplateBinding ItemTemplate}"
+                                               ItemsSource="{TemplateBinding ItemsSource}"
+                                               SelectedItem="{Binding SelectedItem, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                               SelectionMode="Single">
+                        <controls:AdaptiveGridView.Header>
+                            <StackPanel Height="290">
+                                <Hub Height="240" Padding="0,0,0,0">
+                                    <HubSection Padding="0,0,15,0"
+                                                ContentTemplate="{TemplateBinding HubContentTemplate}"
+                                                IsHeaderInteractive="True">
+                                        <HubSection.Header>
+                                            <controlsEx:TextBlockWithGlyph Glyph="&#xE825;" Text="{TemplateBinding HubHeaderText}">
+                                                <controlsEx:TextBlockWithGlyph.GlyphStyle>
+                                                    <Style TargetType="FontIcon">
+                                                        <Setter Property="Foreground" Value="Orange" />
+                                                    </Style>
+                                                </controlsEx:TextBlockWithGlyph.GlyphStyle>
+                                            </controlsEx:TextBlockWithGlyph>
+                                        </HubSection.Header>
+                                    </HubSection>
+                                </Hub>
+                                <Grid Padding="0,10">
+                                    <controlsEx:TextBlockWithGlyph Glyph="&#xEB52;"
+                                                                   Text="{TemplateBinding HeaderText}"
+                                                                   TextStyle="{ThemeResource SubtitleTextBlockStyle}">
+                                        <controlsEx:TextBlockWithGlyph.GlyphStyle>
+                                            <Style TargetType="FontIcon">
+                                                <Setter Property="Foreground" Value="Pink" />
+                                            </Style>
+                                        </controlsEx:TextBlockWithGlyph.GlyphStyle>
+                                    </controlsEx:TextBlockWithGlyph>
+                                </Grid>
+                            </StackPanel>
+                        </controls:AdaptiveGridView.Header>
+                    </controls:AdaptiveGridView>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

@@ -1,22 +1,24 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
-using Pyxis.Beta.Interfaces.Models.v1;
-using Pyxis.Models;
+using Sagitta.Models;
 
 namespace Pyxis.Services.Interfaces
 {
     public interface IAccountService
     {
-        bool IsLoggedIn { get; }
+        Me Account { get; }
 
-        bool IsPremium { get; }
+        Task LoginAsync();
 
-        IAccount LoggedInAccount { get; }
+        Task LoginAsync(string username, string password);
 
-        void Clear();
+        Task LogoutAsync();
 
-        void Save(AccountInfo account);
+        Task ClearAsync();
 
-        Task Login();
+        event EventHandler OnLoggedIn;
+
+        event EventHandler OnLoggedOut;
     }
 }

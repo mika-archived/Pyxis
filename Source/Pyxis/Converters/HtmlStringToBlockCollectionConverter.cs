@@ -13,18 +13,26 @@ using Windows.UI.Xaml.Media;
 
 using HtmlAgilityPack;
 
+using Microsoft.Practices.Unity;
+
+using Prism.Unity.Windows;
 using Prism.Windows.Navigation;
 
 using Pyxis.Models.Parameters;
 
+using Sagitta.Models;
+
 namespace Pyxis.Converters
 {
-    // string から List<Block> を作成する。
-    // https://code.msdn.microsoft.com/Social-Media-Dashboard-135436da
     internal class HtmlStringToBlockCollectionConverter : DependencyObject, IValueConverter
     {
         private readonly Regex _colorCode = new Regex("#[0-9A-Fa-f]{3,6}", RegexOptions.Compiled);
-        private INavigationService _navigationService;
+        private readonly INavigationService _navigationService;
+
+        public HtmlStringToBlockCollectionConverter()
+        {
+            _navigationService = PrismUnityApplication.Current.Container.Resolve<INavigationService>();
+        }
 
         private List<Block> GenerateBlockContents(string html)
         {
@@ -116,7 +124,10 @@ namespace Pyxis.Converters
             return null;
         }
 
-        private string GeneratePlainText(HtmlNode node) => HtmlUtilities.ConvertToText(node.InnerText);
+        private string GeneratePlainText(HtmlNode node)
+        {
+            return HtmlUtilities.ConvertToText(node.InnerText);
+        }
 
         private Inline GenerateHyperlink(HtmlNode node)
         {
@@ -129,23 +140,24 @@ namespace Pyxis.Converters
                 {
                     if (uri.StartsWith("pixiv://illusts"))
                     {
-                        var parameter = new DetailByIdParameter {Id = uri.Replace("pixiv://illusts/", "")};
-                        _navigationService.Navigate("Detail.IllustDetail", parameter.ToJson());
+                        var postId = int.Parse(uri.Replace("pixiv://illusts/", ""));
+                        _navigationService.Navigate("Illust", new PostParameter<Illust> {Id = postId});
                     }
                     else if (uri.StartsWith("pixiv://novels"))
                     {
-                        var parameter = new DetailByIdParameter {Id = uri.Replace("pixiv://novels/", "")};
-                        _navigationService.Navigate("Detail.NovelDetail", parameter.ToJson());
+                        var postId = int.Parse(uri.Replace("pixiv://novels/", ""));
+                        _navigationService.Navigate("Novel", new PostParameter<Novel> {Id = postId});
                     }
                     else if (uri.StartsWith("pixiv://users"))
                     {
-                        var parameter = new DetailByIdParameter {Id = uri.Replace("pixiv://users/", "")};
-                        _navigationService.Navigate("Detail.UserDetail", parameter.ToJson());
+                        //
                     }
                 };
             }
             else
+            {
                 hyperlink = new Hyperlink {NavigateUri = new Uri(node.Attributes["href"].Value)};
+            }
             hyperlink.Inlines.Add(new Run {Text = GeneratePlainText(node)});
             return hyperlink;
         }
@@ -200,12 +212,9 @@ namespace Pyxis.Converters
 
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            var values = value as List<object>;
-            if (values == null)
+            if (!(value is string))
                 return null;
-            var html = values[0] as string;
-            _navigationService = values[1] as INavigationService;
-            return GenerateBlockContents($"<p>{html}</p>");
+            return GenerateBlockContents($"<p>{(string) value}</p>");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

@@ -310,6 +310,7 @@ Get users that user followed.
             + `all`
             + `public`
             + `private`
+    + filter: `for_ios` (string, optional) - Filter for store vendors.
     + offset: `30` (integer, optional) - Offset index.
 
 + Response 200 (application/json)
@@ -685,9 +686,29 @@ Get users that user's friends.
 
 + Parameters
     + user_id: `3623925` (integer, required) - User ID.
+    + filter: `for_ios` (string, optional) - Filter for store vendors.
     + offset: `30` (integer, optional) - Offset index.
 
 + Response 200 (application/json)
 
-        {
-        }
+            {
+              "user_previews": [
+                {
+                  "user": {
+                    "id": 17497118,
+                    "name": "exe.revo",
+                    "account": "exe-revo",
+                    "profile_image_urls": {
+                      "medium": "https://source.pixiv.net/common/images/no_profile.png"
+                    },
+                    "comment": "",
+                    "is_followed": false
+                  },
+                  "illusts": [],
+                  "novels": [],
+                  "is_muted": false
+                }
+              ],
+              "next_url": null
+            }
+

@@ -11,11 +11,5 @@ namespace Pyxis.Mvvm
             viewModel.CompositeDisposable.Add(disposable);
             return disposable;
         }
-
-        public static T AddTo<T>(this T disposable, DialogViewModel viewModel) where T : IDisposable
-        {
-            viewModel.CompositeDisposable.Add(disposable);
-            return disposable;
-        }
     }
 }

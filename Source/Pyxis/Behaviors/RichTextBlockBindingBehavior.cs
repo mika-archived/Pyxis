@@ -8,12 +8,10 @@ using Microsoft.Xaml.Interactivity;
 
 namespace Pyxis.Behaviors
 {
-    // 単純に Binding 可能にするだけ。
     internal class RichTextBlockBindingBehavior : Behavior<RichTextBlock>
     {
         public static readonly DependencyProperty BindingDocumentProperty =
-            DependencyProperty.Register(nameof(BindingDocument), typeof(List<Block>),
-                                        typeof(RichTextBlockBindingBehavior),
+            DependencyProperty.Register(nameof(BindingDocument), typeof(List<Block>), typeof(RichTextBlockBindingBehavior),
                                         new PropertyMetadata(null, PropertyChangedCallback));
 
         public List<Block> BindingDocument

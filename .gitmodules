@@ -1,0 +1,3 @@
+[submodule "Source/Sagitta"]
+	path = Source/Sagitta
+	url = git@github.com:mika-f/Sagitta.git

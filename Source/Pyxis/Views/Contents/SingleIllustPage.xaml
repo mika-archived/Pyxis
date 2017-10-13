@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="Pyxis.Views.Contents.SingleIllustPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controlsEx="using:Pyxis.Controls"
+             xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="using:Microsoft.Xaml.Interactivity"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="300"
+             d:DesignWidth="400"
+             mc:Ignorable="d">
+    <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                  HorizontalScrollBarVisibility="{Binding ScrollBarVisibility, Mode=OneWay}"
+                  VerticalScrollBarVisibility="{Binding ScrollBarVisibility, Mode=OneWay}"
+                  ZoomMode="Enabled">
+        <i:Interaction.Behaviors>
+            <core:EventTriggerBehavior EventName="SizeChanged">
+                <core:InvokeCommandAction Command="{Binding OnScrollViewerSizeChangedCommand, Mode=OneWay}" />
+            </core:EventTriggerBehavior>
+        </i:Interaction.Behaviors>
+        <controlsEx:ImageEx MaxWidth="{Binding MaxWidth, Mode=OneWay}"
+                            MaxHeight="{Binding MaxHeight, Mode=OneWay}"
+                            Source="{Binding OriginalImageUrl, Mode=OneWay}">
+            <i:Interaction.Behaviors>
+                <core:EventTriggerBehavior EventName="ImageExOpened">
+                    <core:InvokeCommandAction Command="{Binding OnImageExOpenedCommand, Mode=OneWay}" />
+                </core:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </controlsEx:ImageEx>
+    </ScrollViewer>
+</UserControl>
