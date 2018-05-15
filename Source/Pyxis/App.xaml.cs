@@ -17,7 +17,10 @@ using Prism.Windows.AppModel;
 
 using Pyxis.Constants;
 using Pyxis.Services;
+using Pyxis.Services.Interfaces;
 using Pyxis.Views;
+
+using Sagitta;
 
 namespace Pyxis
 {
@@ -33,19 +36,24 @@ namespace Pyxis
         public App()
         {
             InitializeComponent();
-            AppCenter.Start(ClientSecrets.AppCenterId, typeof(Analytics));
+            AppCenter.Start(PyxisConstants.AppCenterId, typeof(Analytics));
         }
 
         protected override void ConfigureContainer()
         {
             // register a singleton using Container.RegisterType<IInterface, Type>(new ContainerControlledLifetimeManager());
             base.ConfigureContainer();
+
+            var pixivClient = new PixivClient(PyxisConstants.PixivClientId, PyxisConstants.PixivClientSecret);
             Container.RegisterInstance<IResourceLoader>(new ResourceLoaderAdapter(new ResourceLoader()));
+            Container.RegisterInstance(pixivClient, new ContainerControlledLifetimeManager());
+            Container.RegisterType<IAccountService, AccountService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IFileCacheStorage, PixivCacheStorage>(new ContainerControlledLifetimeManager());
         }
 
         protected override Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)
         {
-            return LaunchApplicationAsync(PageTokens.MainPage, null);
+            return LaunchApplicationAsync(PageTokens.LoginPage, null);
         }
 
         private async Task LaunchApplicationAsync(string page, object launchParam)
