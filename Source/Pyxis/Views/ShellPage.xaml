@@ -11,7 +11,8 @@
       xmlns:prism="using:Prism.Windows.Mvvm"
       prism:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d">
-    <NavigationView x:Name="navigationView"
+    <NavigationView x:Name="NavigationView"
+                    AlwaysShowHeader="False"
                     Background="{ThemeResource SystemControlBackgroundAltHighBrush}"
                     Header="{x:Bind ViewModel.Selected.Content, Mode=OneWay}"
                     IsSettingsVisible="True"

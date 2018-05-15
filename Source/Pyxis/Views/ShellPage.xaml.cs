@@ -25,13 +25,13 @@ namespace Pyxis.Views
         public void SetRootFrame(Frame frame)
         {
             shellFrame.Content = frame;
-            ViewModel.Initialize(frame, navigationView);
+            ViewModel.Initialize(frame, NavigationView);
         }
 
         private void HideNavViewBackButton()
         {
             if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 6))
-                navigationView.IsBackButtonVisible = NavigationViewBackButtonVisible.Collapsed;
+                NavigationView.IsBackButtonVisible = NavigationViewBackButtonVisible.Collapsed;
         }
     }
 }

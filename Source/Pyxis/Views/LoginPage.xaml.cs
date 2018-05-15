@@ -9,11 +9,11 @@ namespace Pyxis.Views
     /// <summary>
     ///     それ自体で使用できる空白ページまたはフレーム内に移動できる空白ページ。
     /// </summary>
-    public sealed partial class MainPage : Page
+    public sealed partial class LoginPage : Page
     {
-        private MainViewModel ViewModel => DataContext as MainViewModel;
+        private LoginViewModel ViewModel => DataContext as LoginViewModel;
 
-        public MainPage()
+        public LoginPage()
         {
             InitializeComponent();
         }

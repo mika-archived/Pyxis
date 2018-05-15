@@ -5,8 +5,9 @@
       xmlns:local="using:Pyxis.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:prism="using:Prism.Windows.Mvvm"
+      xmlns:xaml="using:Windows.UI.Xaml"
       prism:ViewModelLocator.AutoWireViewModel="True"
-      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+      Style="{StaticResource PageStyle}"
       mc:Ignorable="d">
     <Grid />
 </Page>
