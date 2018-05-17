@@ -100,6 +100,8 @@
     <Compile Include="Constants\PageTokens.cs" />
     <Compile Include="Controls\PixivImage.cs" />
     <Compile Include="Controls\PixivImageEx.cs" />
+    <Compile Include="Controls\PixivSlideshow.cs" />
+    <Compile Include="Controls\Slideshow.cs" />
     <Compile Include="Helpers\EnumToBooleanConverter.cs" />
     <Compile Include="Helpers\Json.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
@@ -254,6 +256,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\PixivImageEx.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PixivSlideshow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Slideshow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -17,6 +17,8 @@
 
                 <ResourceDictionary Source="/Controls/PixivImage.xaml" />
                 <ResourceDictionary Source="/Controls/PixivImageEx.xaml" />
+                <ResourceDictionary Source="/Controls/PixivSlideshow.xaml" />
+                <ResourceDictionary Source="/Controls/Slideshow.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </prism:PrismUnityApplication.Resources>

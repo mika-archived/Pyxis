@@ -22,14 +22,14 @@ namespace Pyxis.Controls
             DependencyProperty.Register(nameof(Source), typeof(object), typeof(PixivImage), new PropertyMetadata(default(object), OnSourceChanged));
 
         public static readonly DependencyProperty StretchProperty
-            = DependencyProperty.Register(nameof(Stretch), typeof(Stretch), typeof(PixivImage), new PropertyMetadata(Stretch.Uniform));
+            = DependencyProperty.Register(nameof(Stretch), typeof(Stretch), typeof(PixivImage), new PropertyMetadata(Stretch.Fill));
 
         private readonly IFileCacheStorage _cacheService;
 
         private Image _image;
         private bool _isInitialized;
 
-        public Stretch PlaceholderStretch
+        public Stretch Stretch
         {
             get => (Stretch) GetValue(StretchProperty);
             set => SetValue(StretchProperty, value);
@@ -75,6 +75,8 @@ namespace Pyxis.Controls
             if (!_isInitialized || source == null)
                 return;
             var uri = source as Uri;
+            if (source is string str)
+                uri = new Uri(str);
             if (uri == null || IsHttpUri(uri) && !uri.Host.EndsWith("pximg.net"))
                 _image.Source = CreateImageSource(source.ToString());
             else
