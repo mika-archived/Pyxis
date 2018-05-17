@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,15 +14,15 @@ namespace Pyxis.ViewModels
     {
         private readonly PixivClient _pixivClient;
         private List<Illust> _illustCollection;
-        public ReactiveProperty<Illust> Background1 { get; set; }
-        public ReactiveProperty<Illust> Background2 { get; set; }
+        public ReactiveProperty<Uri> Background1 { get; set; }
+        public ReactiveProperty<Uri> Background2 { get; set; }
 
         public LoginViewModel(PixivClient pixivClient)
         {
             _pixivClient = pixivClient;
 
-            Background1 = new ReactiveProperty<Illust>();
-            Background2 = new ReactiveProperty<Illust>();
+            Background1 = new ReactiveProperty<Uri>();
+            Background2 = new ReactiveProperty<Uri>();
 
             Task.Run(LoadBackgrounds);
         }
@@ -29,8 +30,7 @@ namespace Pyxis.ViewModels
         private async Task LoadBackgrounds()
         {
             _illustCollection = (await _pixivClient.Walkthrough.IllustsAsync()).Illusts.ToList();
-            Background1.Value = _illustCollection[0];
-            Background2.Value = _illustCollection[1];
+            Background1.Value = new Uri(_illustCollection[0].ImageUrls.Medium);
         }
     }
 }
