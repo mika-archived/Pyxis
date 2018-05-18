@@ -44,7 +44,7 @@ namespace Pyxis.Controls
 
         public PixivSlideshow()
         {
-            _counter = 0;
+            _counter = -1;
             _currentImage = 0;
         }
 
