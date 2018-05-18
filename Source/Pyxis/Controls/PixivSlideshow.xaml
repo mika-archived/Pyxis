@@ -13,13 +13,6 @@
                                 <VisualState x:Name="Image1ToImage2">
                                     <Storyboard>
                                         <DoubleAnimation AutoReverse="False"
-                                                         BeginTime="0:0:1"
-                                                         Storyboard.TargetName="Image1"
-                                                         Storyboard.TargetProperty="Opacity"
-                                                         From="1"
-                                                         To="0"
-                                                         Duration="0:0:1" />
-                                        <DoubleAnimation AutoReverse="False"
                                                          BeginTime="0:0:0"
                                                          Storyboard.TargetName="Image2"
                                                          Storyboard.TargetProperty="Opacity"
@@ -32,18 +25,11 @@
                                     <Storyboard>
                                         <DoubleAnimation AutoReverse="False"
                                                          BeginTime="0:0:0"
-                                                         Storyboard.TargetName="Image1"
-                                                         Storyboard.TargetProperty="Opacity"
-                                                         From="0"
-                                                         To="1"
-                                                         Duration="0:0:1" />
-                                        <DoubleAnimation AutoReverse="False"
-                                                         BeginTime="0:0:1"
                                                          Storyboard.TargetName="Image2"
                                                          Storyboard.TargetProperty="Opacity"
                                                          From="1"
                                                          To="0"
-                                                         Duration="0:0:1" />
+                                                         Duration="0:0:0.01" />
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>

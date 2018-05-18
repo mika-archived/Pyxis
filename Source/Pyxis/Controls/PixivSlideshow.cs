@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Reactive.Linq;
 
 using Windows.UI.Core;
@@ -25,10 +26,11 @@ namespace Pyxis.Controls
             DependencyProperty.Register(nameof(IntervalProperty), typeof(double), typeof(Slideshow), new PropertyMetadata(default(double)));
 
         private int _counter;
-        private byte _currentImage;
         private IDisposable _disposable;
+
         private PixivImage _image1;
         private PixivImage _image2;
+        private byte _processMode;
 
         public IList<string> ImageCollection
         {
@@ -45,7 +47,7 @@ namespace Pyxis.Controls
         public PixivSlideshow()
         {
             _counter = -1;
-            _currentImage = 0;
+            _processMode = 0;
         }
 
         protected override void OnApplyTemplate()
@@ -74,26 +76,28 @@ namespace Pyxis.Controls
             _image2.Source = imageCollection[Next(imageCollection)];
 
             var interval = TimeSpan.FromSeconds(Interval);
-            _disposable = Observable.Timer(interval, interval).Subscribe(async w =>
+            _disposable = Observable.Timer(interval, interval / 3).Subscribe(async w =>
             {
-                if (_currentImage == 0)
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                    Debug.WriteLine(_processMode);
+                    if (_processMode == 0)
                     {
-                        _image1.Source = imageCollection[Next(imageCollection)];
                         VisualStateManager.GoToState(this, "Image1ToImage2", true);
-                    });
-                    _currentImage = 1;
-                }
-                else
-                {
-                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                        _processMode = 1;
+                    }
+                    else if (_processMode == 1)
                     {
-                        _image2.Source = imageCollection[Next(imageCollection)];
+                        _image1.Source = imageCollection[_counter];
+                        _processMode = 2;
+                    }
+                    else
+                    {
                         VisualStateManager.GoToState(this, "Image2ToImage1", true);
-                    });
-                    _currentImage = 0;
-                }
+                        _image2.Source = imageCollection[Next(imageCollection)];
+                        _processMode = 0;
+                    }
+                });
             });
         }
 
