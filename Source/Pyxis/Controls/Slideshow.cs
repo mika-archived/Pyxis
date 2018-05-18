@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Reactive.Linq;
 
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace Pyxis.Controls
@@ -11,10 +13,9 @@ namespace Pyxis.Controls
     /// <summary>
     ///     スライドショーコントロール
     /// </summary>
-    [TemplateVisualState(Name = "Image1ToImage2", GroupName = "CommonState")]
-    [TemplateVisualState(Name = "Image2ToImage1", GroupName = "CommonState")]
     [TemplatePart(Name = "Image1", Type = typeof(Image))]
     [TemplatePart(Name = "Image2", Type = typeof(Image))]
+    [TemplatePart(Name = "RootGrid", Type = typeof(Grid))]
     public sealed class Slideshow : Control
     {
         public static readonly DependencyProperty ImageCollectionProperty =
@@ -25,10 +26,12 @@ namespace Pyxis.Controls
             DependencyProperty.Register(nameof(IntervalProperty), typeof(double), typeof(Slideshow), new PropertyMetadata(default(double)));
 
         private int _counter;
-        private byte _currentImage;
         private IDisposable _disposable;
+
         private Image _image1;
         private Image _image2;
+        private byte _processMode;
+        private Grid _rootGrid;
 
         public IList<string> ImageCollection
         {
@@ -44,21 +47,22 @@ namespace Pyxis.Controls
 
         public Slideshow()
         {
-            _counter = 0;
-            _currentImage = 0;
+            _counter = -1;
+            _processMode = 0;
         }
 
         protected override void OnApplyTemplate()
         {
             _image1 = (Image) GetTemplateChild("Image1");
             _image2 = (Image) GetTemplateChild("Image2");
+            _rootGrid = (Grid) GetTemplateChild("RootGrid");
             base.OnApplyTemplate();
         }
 
         private static void OnItemCollectionChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             var control = sender as Slideshow;
-            if (e.OldValue.Equals(e.NewValue))
+            if (e.OldValue != null && e.OldValue.Equals(e.NewValue))
                 return;
 
             control?.StopSlideshow();
@@ -67,22 +71,34 @@ namespace Pyxis.Controls
 
         private void StartSlideshow(object source)
         {
-            _disposable = Observable.Timer(TimeSpan.FromSeconds(Interval)).Subscribe(w =>
+            var imageCollection = (IList<string>) source;
+
+            // First load
+            _image1.Source = new BitmapImage(new Uri(imageCollection[Next(imageCollection)]));
+            _image2.Source = new BitmapImage(new Uri(imageCollection[Next(imageCollection)]));
+
+            var interval = TimeSpan.FromSeconds(Interval);
+            _disposable = Observable.Timer(interval, interval / 3).Subscribe(async w =>
             {
-                if (_currentImage == 0)
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    _image1.Source = new BitmapImage(new Uri(ImageCollection[Next()]));
-                    _image2.Source = new BitmapImage(new Uri(ImageCollection[Next()]));
-                    VisualStateManager.GoToState(this, "Image1ToImage2", true);
-                    _currentImage = 1;
-                }
-                else
-                {
-                    _image1.Source = new BitmapImage(new Uri(ImageCollection[Next()]));
-                    _image2.Source = new BitmapImage(new Uri(ImageCollection[Next()]));
-                    VisualStateManager.GoToState(this, "Image2ToImage1", true);
-                    _currentImage = 0;
-                }
+                    if (_processMode == 0)
+                    {
+                        (_rootGrid.Resources["ImageFadeOut"] as Storyboard)?.Begin();
+                        _processMode = 1;
+                    }
+                    else if (_processMode == 1)
+                    {
+                        _image1.Source = new BitmapImage(new Uri(imageCollection[_counter]));
+                        _processMode = 2;
+                    }
+                    else
+                    {
+                        _image2.Opacity = 0;
+                        _image2.Source = new BitmapImage(new Uri(imageCollection[Next(imageCollection)]));
+                        _processMode = 0;
+                    }
+                });
             });
         }
 
@@ -91,9 +107,9 @@ namespace Pyxis.Controls
             _disposable?.Dispose();
         }
 
-        private int Next()
+        private int Next(ICollection<string> imageCollection)
         {
-            if (ImageCollection.Count <= _counter + 1)
+            if (imageCollection.Count <= _counter + 1)
                 _counter = 0;
             else
                 _counter++;

@@ -1,29 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Reactive.Linq;
 
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Animation;
 
 namespace Pyxis.Controls
 {
     /// <summary>
     ///     スライドショーコントロール
     /// </summary>
-    [TemplateVisualState(Name = "Image1ToImage2", GroupName = "CommonState")]
-    [TemplateVisualState(Name = "Image2ToImage1", GroupName = "CommonState")]
     [TemplatePart(Name = "Image1", Type = typeof(PixivImage))]
     [TemplatePart(Name = "Image2", Type = typeof(PixivImage))]
+    [TemplatePart(Name = "RootGrid", Type = typeof(Grid))]
     public sealed class PixivSlideshow : Control
     {
         public static readonly DependencyProperty ImageCollectionProperty =
-            DependencyProperty.Register(nameof(ImageCollection), typeof(IList<string>), typeof(Slideshow),
+            DependencyProperty.Register(nameof(ImageCollection), typeof(IList<string>), typeof(PixivSlideshow),
                                         new PropertyMetadata(default(IList<string>), OnItemCollectionChanged));
 
         public static readonly DependencyProperty IntervalProperty =
-            DependencyProperty.Register(nameof(IntervalProperty), typeof(double), typeof(Slideshow), new PropertyMetadata(default(double)));
+            DependencyProperty.Register(nameof(IntervalProperty), typeof(double), typeof(PixivSlideshow), new PropertyMetadata(default(double)));
 
         private int _counter;
         private IDisposable _disposable;
@@ -31,6 +30,7 @@ namespace Pyxis.Controls
         private PixivImage _image1;
         private PixivImage _image2;
         private byte _processMode;
+        private Grid _rootGrid;
 
         public IList<string> ImageCollection
         {
@@ -54,6 +54,7 @@ namespace Pyxis.Controls
         {
             _image1 = (PixivImage) GetTemplateChild("Image1");
             _image2 = (PixivImage) GetTemplateChild("Image2");
+            _rootGrid = (Grid) GetTemplateChild("RootGrid");
             base.OnApplyTemplate();
         }
 
@@ -80,10 +81,9 @@ namespace Pyxis.Controls
             {
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    Debug.WriteLine(_processMode);
                     if (_processMode == 0)
                     {
-                        VisualStateManager.GoToState(this, "Image1ToImage2", true);
+                        (_rootGrid.Resources["ImageFadeOut"] as Storyboard)?.Begin();
                         _processMode = 1;
                     }
                     else if (_processMode == 1)
@@ -93,7 +93,7 @@ namespace Pyxis.Controls
                     }
                     else
                     {
-                        VisualStateManager.GoToState(this, "Image2ToImage1", true);
+                        _image2.Opacity = 0;
                         _image2.Source = imageCollection[Next(imageCollection)];
                         _processMode = 0;
                     }
@@ -106,7 +106,7 @@ namespace Pyxis.Controls
             _disposable?.Dispose();
         }
 
-        private int Next(IList<string> imageCollection)
+        private int Next(ICollection<string> imageCollection)
         {
             if (imageCollection.Count <= _counter + 1)
                 _counter = 0;

@@ -7,53 +7,23 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:Slideshow">
-                    <Grid Background="{TemplateBinding Background}">
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup x:Name="CommonStates">
-                                <VisualState x:Name="Image1ToImage2">
-                                    <Storyboard>
-                                        <DoubleAnimation AutoReverse="False"
-                                                         BeginTime="0"
-                                                         Storyboard.TargetName="Image1"
-                                                         Storyboard.TargetProperty="Opacity"
-                                                         From="1"
-                                                         To="0"
-                                                         Duration="0:0:1" />
-                                        <DoubleAnimation AutoReverse="False"
-                                                         BeginTime="0"
-                                                         Storyboard.TargetName="Image2"
-                                                         Storyboard.TargetProperty="Opacity"
-                                                         From="0"
-                                                         To="1"
-                                                         Duration="0:0:1" />
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="Image2ToImage1">
-                                    <Storyboard>
-                                        <DoubleAnimation AutoReverse="False"
-                                                         BeginTime="0"
-                                                         Storyboard.TargetName="Image1"
-                                                         Storyboard.TargetProperty="Opacity"
-                                                         From="0"
-                                                         To="1"
-                                                         Duration="0:0:1" />
-                                        <DoubleAnimation AutoReverse="False"
-                                                         BeginTime="0"
-                                                         Storyboard.TargetName="Image2"
-                                                         Storyboard.TargetProperty="Opacity"
-                                                         From="1"
-                                                         To="0"
-                                                         Duration="0:0:1" />
-                                    </Storyboard>
-                                </VisualState>
-                            </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
+                    <Grid Name="RootGrid"
+                          Background="{TemplateBinding Background}">
+                        <Grid.Resources>
+                            <Storyboard x:Name="ImageFadeOut">
+                                <DoubleAnimation AutoReverse="False"
+                                                 BeginTime="0:0:0"
+                                                 Storyboard.TargetName="Image2"
+                                                 Storyboard.TargetProperty="Opacity"
+                                                 From="0"
+                                                 To="1"
+                                                 Duration="0:0:1" />
+                            </Storyboard>
+                        </Grid.Resources>
                         <Image Name="Image1"
-                               Opacity="1.0"
-                               Stretch="{TemplateBinding Stretch}" />
+                               Opacity="1.0" />
                         <Image Name="Image2"
-                               Opacity="0.0"
-                               Stretch="{TemplateBinding Stretch}" />
+                               Opacity="0.0" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
