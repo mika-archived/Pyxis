@@ -1,9 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 
+using Pyxis.Services.Interfaces;
+
 using Reactive.Bindings;
+using Reactive.Bindings.Extensions;
 
 using Sagitta;
 using Sagitta.Models;
@@ -12,25 +15,44 @@ namespace Pyxis.ViewModels
 {
     public class LoginViewModel : ViewModel
     {
+        private readonly IAccountService _accountService;
+        private readonly IDialogService _dialogService;
         private readonly PixivClient _pixivClient;
         private List<Illust> _illustCollection;
-        public ReactiveProperty<Uri> Background1 { get; set; }
-        public ReactiveProperty<Uri> Background2 { get; set; }
+        public ReactiveProperty<List<string>> ImageCollection { get; set; }
+        public ReactiveProperty<string> Username { get; }
+        public ReactiveProperty<string> Password { get; }
+        public AsyncReactiveCommand LoginCommand { get; }
 
-        public LoginViewModel(PixivClient pixivClient)
+        public LoginViewModel(PixivClient pixivClient, IAccountService accountService, IDialogService dialogService)
         {
             _pixivClient = pixivClient;
-
-            Background1 = new ReactiveProperty<Uri>();
-            Background2 = new ReactiveProperty<Uri>();
+            _accountService = accountService;
+            _dialogService = dialogService;
+            ImageCollection = new ReactiveProperty<List<string>>();
+            Username = new ReactiveProperty<string>();
+            Password = new ReactiveProperty<string>();
+            LoginCommand = new[]
+            {
+                Username.Select(string.IsNullOrWhiteSpace),
+                Password.Select(string.IsNullOrWhiteSpace)
+            }.CombineLatestValuesAreAllFalse().ToAsyncReactiveCommand();
+            LoginCommand.Subscribe(async w => await LoginAsync()).AddTo(CompositeDisposable);
 
             Task.Run(LoadBackgrounds);
+        }
+
+        private async Task LoginAsync()
+        {
+            await _accountService.LoginAsync(Username.Value, Password.Value);
+            if (_accountService.CurrentUser == null)
+                await _dialogService.ShowErrorDialogAsync("認証エラー", "メールアドレスもしくはパスワードが間違えているため、ログインに失敗しました。");
         }
 
         private async Task LoadBackgrounds()
         {
             _illustCollection = (await _pixivClient.Walkthrough.IllustsAsync()).Illusts.ToList();
-            Background1.Value = new Uri(_illustCollection[0].ImageUrls.Medium);
+            ImageCollection.Value = _illustCollection.Select(w => w.ImageUrls.Medium).ToList();
         }
     }
 }

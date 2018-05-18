@@ -48,6 +48,7 @@ namespace Pyxis
             Container.RegisterInstance<IResourceLoader>(new ResourceLoaderAdapter(new ResourceLoader()));
             Container.RegisterInstance(pixivClient, new ContainerControlledLifetimeManager());
             Container.RegisterType<IAccountService, AccountService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IDialogService, DialogService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IFileCacheStorage, PixivCacheStorage>(new ContainerControlledLifetimeManager());
         }
 
