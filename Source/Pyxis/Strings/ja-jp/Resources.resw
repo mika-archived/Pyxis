@@ -129,106 +129,32 @@
     <value>ホーム</value>
     <comment>Navigation view item name for Main</comment>
   </data>
-  <data name="Shell_WebView.Content" xml:space="preserve">
-    <value>WebView</value>
-    <comment>Navigation view item name for WebView</comment>
-  </data>
-  <data name="Shell_TelerikDataGrid.Content" xml:space="preserve">
-    <value>TelerikDataGrid</value>
-    <comment>Navigation view item name for TelerikDataGrid</comment>
-  </data>
-  <data name="MasterDetail_NoSelection.Text" xml:space="preserve">
-    <value>Select an item from the list.</value>
-    <comment>No selection text for MasterDetail</comment>
-  </data>
-  <data name="Shell_MasterDetail.Content" xml:space="preserve">
-    <value>MasterDetail</value>
-    <comment>Navigation view item name for MasterDetail</comment>
-  </data>
-  <data name="Shell_MediaPlayer.Content" xml:space="preserve">
-    <value>MediaPlayer</value>
-    <comment>Navigation view item name for MediaPlayer</comment>
-  </data>
-  <data name="Shell_Chart.Content" xml:space="preserve">
-    <value>Chart</value>
-    <comment>Navigation view item name for Chart</comment>
-  </data>
-  <data name="Tabbed_PivotItem1.Header" xml:space="preserve">
-    <value>Item 1</value>
-    <comment>First Pivot item title for Tabbed</comment>
-  </data>
-  <data name="Tabbed_PivotItem2.Header" xml:space="preserve">
-    <value>Item 2</value>
-    <comment>Second Pivot item title for Tabbed</comment>
-  </data>
-  <data name="Shell_Tabbed.Content" xml:space="preserve">
-    <value>Tabbed</value>
-    <comment>Navigation view item name for Tabbed</comment>
-  </data>
-  <data name="Map_YourLocation" xml:space="preserve">
-    <value>Your location</value>
-    <comment>Your location text on map page</comment>
-  </data>
   <data name="ExceptionLocationServiceStartListeningCanNotBeCalled" xml:space="preserve">
     <value>The StartListening method cannot be called before the InitializeAsync method.</value>
     <comment>Start listening cannot be called before the initialize in location service</comment>
-  </data>
-  <data name="Shell_Map.Content" xml:space="preserve">
-    <value>Map</value>
-    <comment>Navigation view item name for Map</comment>
   </data>
   <data name="ExceptionSettingsStorageExtensionsFileNameIsNullOrEmpty" xml:space="preserve">
     <value>File name is null or empty. Specify a valid file name</value>
     <comment>File name is null or empty to save file in settings storage extensions</comment>
   </data>
-  <data name="Shell_ImageGallery.Content" xml:space="preserve">
-    <value>ImageGallery</value>
-    <comment>Navigation view item name for ImageGallery</comment>
-  </data>
-  <data name="Camera_Exception_UnauthorizedAccess" xml:space="preserve">
-    <value>The app was denied access to the camera or microphone.</value>
-  </data>
-  <data name="Camera_Exception_NotSupported" xml:space="preserve">
-    <value>No video capture devices found.</value>
-  </data>
-  <data name="CameraControl_CameraButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Take a photo</value>
-    <comment>Camera control button automation name property</comment>
-  </data>
-  <data name="CameraControl_CameraButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
-    <value>Take a photo</value>
-    <comment>Camera control button automation tooltip property</comment>
-  </data>
-  <data name="CameraControl_SwitchCameraButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Switch camera</value>
-    <comment>Camera control switch camera button automation name property</comment>
-  </data>
-  <data name="CameraControl_SwitchCameraButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
-    <value>Switch camera</value>
-    <comment>Camera control switch camera button automation tooltip property</comment>
-  </data>
-  <data name="Shell_Camera.Content" xml:space="preserve">
-    <value>Camera</value>
-    <comment>Navigation view item name for Camera</comment>
-  </data>
   <data name="Settings_Theme.Text" xml:space="preserve">
-    <value>Choose Theme</value>
+    <value>アプリテーマ</value>
     <comment>Choose theme text for Settings</comment>
   </data>
   <data name="Settings_Theme_Dark.Content" xml:space="preserve">
-    <value>Dark</value>
+    <value>暗い</value>
     <comment>Dark theme text for Settings</comment>
   </data>
   <data name="Settings_Theme_Default.Content" xml:space="preserve">
-    <value>Windows default</value>
+    <value>Windows デフォルト</value>
     <comment>Windows default theme text for Settings</comment>
   </data>
   <data name="Settings_Theme_Light.Content" xml:space="preserve">
-    <value>Light</value>
+    <value>明るい</value>
     <comment>Light theme text for Settings</comment>
   </data>
   <data name="Settings_About.Text" xml:space="preserve">
-    <value>About this application</value>
+    <value>このアプリについて</value>
     <comment>About this application title for Settings</comment>
   </data>
   <data name="Settings_AboutDescription.Text" xml:space="preserve">
@@ -236,15 +162,15 @@
     <comment>About this application description for Settings</comment>
   </data>
   <data name="Settings_PrivacyTermsLink.Content" xml:space="preserve">
-    <value>Privacy Statement</value>
+    <value>プライバシーポリシー</value>
     <comment>Privacy Statement link content for Settings</comment>
   </data>
   <data name="Settings_PrivacyTermsLink.NavigateUri" xml:space="preserve">
-    <value>https://YourPrivacyUrlGoesHere/</value>
+    <value>https://pyxis.mochizuki.moe/privacy</value>
     <comment>Here is your Privacy Statement url for Settings</comment>
   </data>
   <data name="Settings_Personalization.Text" xml:space="preserve">
-    <value>Personalization</value>
+    <value>個人設定</value>
     <comment>Personalization text for Settings</comment>
   </data>
   <data name="ExceptionEnumToBooleanConverterValueMustBeAnEnum" xml:space="preserve">
@@ -256,11 +182,11 @@
     <comment>Parameter must be an Enum name in enum to boolean converter</comment>
   </data>
   <data name="Shell_Settings.Content" xml:space="preserve">
-    <value>Settings</value>
+    <value>設定</value>
     <comment>Navigation view item name for Settings</comment>
   </data>
   <data name="FeedbackHub_Link.Content" xml:space="preserve">
-    <value>Feedback</value>
+    <value>フィードバック</value>
     <comment>Displayed as the link to launching the Feedback Hub.</comment>
   </data>
   <data name="ExceptionShareSourceDataTitleIsNullOrEmpty" xml:space="preserve">
