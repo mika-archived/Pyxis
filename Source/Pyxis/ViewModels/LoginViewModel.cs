@@ -3,6 +3,11 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 
+using Prism.Windows.Navigation;
+
+using Pyxis.Constants;
+using Pyxis.Enums;
+using Pyxis.Models;
 using Pyxis.Services.Interfaces;
 
 using Reactive.Bindings;
@@ -17,6 +22,7 @@ namespace Pyxis.ViewModels
     {
         private readonly IAccountService _accountService;
         private readonly IDialogService _dialogService;
+        private readonly INavigationService _navigationService;
         private readonly PixivClient _pixivClient;
         private List<Illust> _illustCollection;
         public ReactiveProperty<List<string>> ImageCollection { get; set; }
@@ -24,11 +30,12 @@ namespace Pyxis.ViewModels
         public ReactiveProperty<string> Password { get; }
         public AsyncReactiveCommand LoginCommand { get; }
 
-        public LoginViewModel(PixivClient pixivClient, IAccountService accountService, IDialogService dialogService)
+        public LoginViewModel(PixivClient pixivClient, IAccountService accountService, IDialogService dialogService, INavigationService navigationService)
         {
             _pixivClient = pixivClient;
             _accountService = accountService;
             _dialogService = dialogService;
+            _navigationService = navigationService;
             ImageCollection = new ReactiveProperty<List<string>>();
             Username = new ReactiveProperty<string>();
             Password = new ReactiveProperty<string>();
@@ -46,7 +53,11 @@ namespace Pyxis.ViewModels
         {
             await _accountService.LoginAsync(Username.Value, Password.Value);
             if (_accountService.CurrentUser == null)
+            {
                 await _dialogService.ShowErrorDialogAsync("認証エラー", "メールアドレスもしくはパスワードが間違えているため、ログインに失敗しました。");
+                return;
+            }
+            _navigationService.Navigate(PageTokens.MainPage, new TransitionParameter {Mode = TransitionMode.LoginRedirect}.ToQueryString());
         }
 
         private async Task LoadBackgrounds()

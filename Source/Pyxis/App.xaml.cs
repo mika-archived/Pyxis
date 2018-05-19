@@ -52,9 +52,11 @@ namespace Pyxis
             Container.RegisterType<IFileCacheStorage, PixivCacheStorage>(new ContainerControlledLifetimeManager());
         }
 
-        protected override Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)
+        protected override async Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)
         {
-            return LaunchApplicationAsync(PageTokens.LoginPage, null);
+            var accountService = Container.Resolve<IAccountService>();
+            await accountService.LoginAsync();
+            await LaunchApplicationAsync(accountService.CurrentUser == null ? PageTokens.LoginPage : PageTokens.MainPage, null);
         }
 
         private async Task LaunchApplicationAsync(string page, object launchParam)
