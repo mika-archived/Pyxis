@@ -27,11 +27,14 @@ namespace Pyxis.Services
             try
             {
                 var vault = new PasswordVault();
+                vault.RetrieveAll();
                 var credentials = vault.FindAllByResource(PyxisConstants.ResourceId);
                 var credential = credentials.FirstOrDefault(w => !w.UserName.EndsWith("$deviceToken"));
                 if (credential == null)
                     return false;
+                credential.RetrievePassword();
                 var deviceToken = credentials.FirstOrDefault(w => w.UserName == $"{credential.UserName}$deviceToken");
+                deviceToken?.RetrievePassword();
 
                 var tokens = await _pixivClient.Authentication.LoginAsync(credential.UserName, credential.Password, deviceToken?.Password);
                 vault.Add(new PasswordCredential(PyxisConstants.ResourceId, $"{credential.UserName}$deviceToken", tokens.DeviceToken));
@@ -41,6 +44,7 @@ namespace Pyxis.Services
             }
             catch (Exception e)
             {
+                await LogoutAsync();
                 Debug.WriteLine(e.Message);
             }
             return false;
@@ -56,7 +60,7 @@ namespace Pyxis.Services
 
                 var vault = new PasswordVault();
                 vault.Add(new PasswordCredential(PyxisConstants.ResourceId, username, password));
-                vault.Add(new PasswordCredential(PyxisConstants.ResourceId, $"{username}$deviceIoken", tokens.DeviceToken));
+                vault.Add(new PasswordCredential(PyxisConstants.ResourceId, $"{username}$deviceToken", tokens.DeviceToken));
 
                 CurrentUser = tokens.User;
                 return true;
