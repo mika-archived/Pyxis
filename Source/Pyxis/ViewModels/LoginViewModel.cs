@@ -57,7 +57,7 @@ namespace Pyxis.ViewModels
                 await _dialogService.ShowErrorDialogAsync("認証エラー", "メールアドレスもしくはパスワードが間違えているため、ログインに失敗しました。");
                 return;
             }
-            _navigationService.Navigate(PageTokens.MainPage, new TransitionParameter {Mode = TransitionMode.LoginRedirect}.ToQueryString());
+            _navigationService.Navigate(PageTokens.HomePage, new TransitionParameter {Mode = TransitionMode.LoginRedirect}.ToQueryString());
         }
 
         private async Task LoadBackgrounds()

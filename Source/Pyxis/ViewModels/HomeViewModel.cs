@@ -7,11 +7,11 @@ using Pyxis.Models;
 
 namespace Pyxis.ViewModels
 {
-    public class MainViewModel : ViewModelBase
+    public class HomeViewModel : ViewModelBase
     {
         private readonly INavigationService _navigationService;
 
-        public MainViewModel(INavigationService navigationService)
+        public HomeViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
         }

@@ -56,7 +56,7 @@ namespace Pyxis
         {
             var accountService = Container.Resolve<IAccountService>();
             await accountService.LoginAsync();
-            await LaunchApplicationAsync(accountService.CurrentUser == null ? PageTokens.LoginPage : PageTokens.MainPage, null);
+            await LaunchApplicationAsync(accountService.CurrentUser == null ? PageTokens.LoginPage : PageTokens.HomePage, null);
         }
 
         private async Task LaunchApplicationAsync(string page, object launchParam)

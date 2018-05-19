@@ -125,8 +125,8 @@
     <value>Pyxis</value>
     <comment>Application description</comment>
   </data>
-  <data name="Shell_Main.Content" xml:space="preserve">
-    <value>Main</value>
+  <data name="Shell_Home.Content" xml:space="preserve">
+    <value>ホーム</value>
     <comment>Navigation view item name for Main</comment>
   </data>
   <data name="Shell_WebView.Content" xml:space="preserve">
