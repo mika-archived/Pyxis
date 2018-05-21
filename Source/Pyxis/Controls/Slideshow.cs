@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Reactive.Linq;
 
-using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
@@ -78,27 +77,24 @@ namespace Pyxis.Controls
             _image2.Source = new BitmapImage(new Uri(imageCollection[Next(imageCollection)]));
 
             var interval = TimeSpan.FromSeconds(Interval);
-            _disposable = Observable.Timer(interval, interval / 3).Subscribe(async w =>
+            _disposable = Observable.Timer(interval, interval / 3).ObserveOn(Dispatcher).Subscribe(w =>
             {
-                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                if (_processMode == 0)
                 {
-                    if (_processMode == 0)
-                    {
-                        (_rootGrid.Resources["ImageFadeOut"] as Storyboard)?.Begin();
-                        _processMode = 1;
-                    }
-                    else if (_processMode == 1)
-                    {
-                        _image1.Source = new BitmapImage(new Uri(imageCollection[_counter]));
-                        _processMode = 2;
-                    }
-                    else
-                    {
-                        _image2.Opacity = 0;
-                        _image2.Source = new BitmapImage(new Uri(imageCollection[Next(imageCollection)]));
-                        _processMode = 0;
-                    }
-                });
+                    (_rootGrid.Resources["ImageFadeOut"] as Storyboard)?.Begin();
+                    _processMode = 1;
+                }
+                else if (_processMode == 1)
+                {
+                    _image1.Source = new BitmapImage(new Uri(imageCollection[_counter]));
+                    _processMode = 2;
+                }
+                else
+                {
+                    _image2.Opacity = 0;
+                    _image2.Source = new BitmapImage(new Uri(imageCollection[Next(imageCollection)]));
+                    _processMode = 0;
+                }
             });
         }
 
