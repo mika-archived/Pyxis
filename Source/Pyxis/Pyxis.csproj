@@ -322,6 +322,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Behaviors\" />
+    <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="Microsoft.Services.Store.Engagement, Version=10.0">

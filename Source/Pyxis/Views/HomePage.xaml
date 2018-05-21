@@ -9,5 +9,11 @@
       prism:ViewModelLocator.AutoWireViewModel="True"
       Style="{StaticResource PageStyle}"
       mc:Ignorable="d">
-    <Grid />
+    <Grid>
+        <Pivot>
+            <PivotItem x:Uid="Home_Illust" />
+            <PivotItem x:Uid="Home_Manga" />
+            <PivotItem x:Uid="Home_Novel" />
+        </Pivot>
+    </Grid>
 </Page>

@@ -209,4 +209,13 @@
     <value>URI Scheme Example</value>
     <comment>Page Title for URI Scheme Example</comment>
   </data>
+  <data name="Home_Illust.Header" xml:space="preserve">
+    <value>Illust</value>
+  </data>
+  <data name="Home_Manga.Header" xml:space="preserve">
+    <value>Manga</value>
+  </data>
+  <data name="Home_Novel.Header" xml:space="preserve">
+    <value>Novel</value>
+  </data>
 </root>
