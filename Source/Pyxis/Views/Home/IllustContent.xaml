@@ -43,7 +43,9 @@
                             </StackPanel.Resources>
                             <TextBlock FontSize="18"
                                        FontWeight="Bold"
-                                       Text="{Binding Title}" />
+                                       Text="{Binding Title}"
+                                       TextTrimming="CharacterEllipsis"
+                                       TextWrapping="NoWrap" />
                             <StackPanel Height="32"
                                         Orientation="Horizontal">
                                 <controls:PixivPersonPicture Width="24"
@@ -53,7 +55,9 @@
                                 <TextBlock Margin="5,0,0,0"
                                            VerticalAlignment="Center"
                                            HorizontalTextAlignment="Center"
-                                           Text="{Binding Username}" />
+                                           Text="{Binding Username}"
+                                           TextTrimming="CharacterEllipsis"
+                                           TextWrapping="NoWrap" />
                             </StackPanel>
                         </StackPanel>
                     </Grid>
