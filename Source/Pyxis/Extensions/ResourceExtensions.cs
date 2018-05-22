@@ -1,6 +1,6 @@
 ﻿using Windows.ApplicationModel.Resources;
 
-namespace Pyxis.Helpers
+namespace Pyxis.Extensions
 {
     internal static class ResourceExtensions
     {

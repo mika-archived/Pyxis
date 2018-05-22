@@ -2,6 +2,8 @@
 
 using Windows.UI.Xaml.Data;
 
+using Pyxis.Extensions;
+
 namespace Pyxis.Helpers
 {
     public class EnumToBooleanConverter : IValueConverter

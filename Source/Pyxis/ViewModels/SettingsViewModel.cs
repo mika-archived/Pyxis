@@ -11,7 +11,7 @@ using Prism.Commands;
 using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
 
-using Pyxis.Helpers;
+using Pyxis.Extensions;
 using Pyxis.Services;
 
 namespace Pyxis.ViewModels

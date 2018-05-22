@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.UI.Xaml;
 
-using Pyxis.Helpers;
+using Pyxis.Extensions;
 
 namespace Pyxis.Services
 {
