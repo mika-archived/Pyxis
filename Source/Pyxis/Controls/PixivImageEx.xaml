@@ -10,7 +10,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:PixivImageEx">
-                    <toolkit:ImageEx Name="ImageEx"
+                    <toolkit:ImageEx Name="ImageControl"
                                      NineGrid="{TemplateBinding NineGrid}"
                                      PlaceholderSource="{TemplateBinding PlaceholderSource}"
                                      PlaceholderStretch="{TemplateBinding PlaceholderStretch}"
