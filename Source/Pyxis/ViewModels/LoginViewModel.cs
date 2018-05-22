@@ -7,6 +7,7 @@ using Prism.Windows.Navigation;
 
 using Pyxis.Constants;
 using Pyxis.Enums;
+using Pyxis.Extensions;
 using Pyxis.Models;
 using Pyxis.Services.Interfaces;
 
@@ -44,7 +45,7 @@ namespace Pyxis.ViewModels
                 Username.Select(string.IsNullOrWhiteSpace),
                 Password.Select(string.IsNullOrWhiteSpace)
             }.CombineLatestValuesAreAllFalse().ToAsyncReactiveCommand();
-            LoginCommand.Subscribe(async w => await LoginAsync()).AddTo(CompositeDisposable);
+            LoginCommand.Subscribe(async w => await LoginAsync()).AddTo(this);
 
             Task.Run(LoadBackgrounds);
         }
