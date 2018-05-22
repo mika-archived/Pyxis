@@ -37,8 +37,7 @@
                                     Orientation="Vertical">
                             <StackPanel.Resources>
                                 <Style TargetType="TextBlock">
-                                    <Setter Property="Foreground"
-                                            Value="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+                                    <Setter Property="Foreground" Value="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
                                 </Style>
                             </StackPanel.Resources>
                             <TextBlock Text="{Binding Title}" />
