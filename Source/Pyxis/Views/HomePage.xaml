@@ -11,6 +11,19 @@
       mc:Ignorable="d">
     <Grid>
         <Pivot SelectedIndex="{x:Bind ViewModel.SelectedTab.Value, Mode=TwoWay}">
+            <Pivot.Resources>
+                <Style TargetType="PivotItem">
+                    <Setter Property="Padding" Value="0,5,0,0" />
+                </Style>
+            </Pivot.Resources>
+            <Pivot.HeaderTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <TextBlock FontSize="14"
+                                   Text="{Binding}" />
+                    </Grid>
+                </DataTemplate>
+            </Pivot.HeaderTemplate>
             <PivotItem x:Uid="Home_Illust">
                 <local:IllustContent DataContext="{x:Bind ViewModel.IllustContentViewModel}" />
             </PivotItem>

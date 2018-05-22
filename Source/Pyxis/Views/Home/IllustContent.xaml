@@ -13,9 +13,9 @@
              d:DesignWidth="400"
              mc:Ignorable="d">
     <StackPanel Orientation="Vertical">
-        <msControls:AdaptiveGridView DesiredWidth="300"
+        <msControls:AdaptiveGridView DesiredWidth="250"
                                      IsItemClickEnabled="True"
-                                     ItemHeight="300"
+                                     ItemHeight="250"
                                      ItemsSource="{Binding RankingIllusts}"
                                      OneRowModeEnabled="True"
                                      SelectionMode="Single">
@@ -33,16 +33,27 @@
                                 </LinearGradientBrush>
                             </Border.Background>
                         </Border>
-                        <StackPanel VerticalAlignment="Bottom"
+                        <StackPanel Padding="10"
+                                    VerticalAlignment="Bottom"
                                     Orientation="Vertical">
                             <StackPanel.Resources>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="Foreground" Value="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
                                 </Style>
                             </StackPanel.Resources>
-                            <TextBlock Text="{Binding Title}" />
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Username}" />
+                            <TextBlock FontSize="18"
+                                       FontWeight="Bold"
+                                       Text="{Binding Title}" />
+                            <StackPanel Height="32"
+                                        Orientation="Horizontal">
+                                <controls:PixivPersonPicture Width="24"
+                                                             Height="24"
+                                                             VerticalAlignment="Center"
+                                                             Source="{Binding UserIcon}" />
+                                <TextBlock Margin="5,0,0,0"
+                                           VerticalAlignment="Center"
+                                           HorizontalTextAlignment="Center"
+                                           Text="{Binding Username}" />
                             </StackPanel>
                         </StackPanel>
                     </Grid>

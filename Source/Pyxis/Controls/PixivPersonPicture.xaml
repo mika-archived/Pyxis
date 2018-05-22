@@ -7,7 +7,9 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:PixivPersonPicture">
-                    <PersonPicture Name="ImageControl" />
+                    <PersonPicture Name="ImageControl"
+                                   Width="{TemplateBinding Width}"
+                                   Height="{TemplateBinding Height}" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
