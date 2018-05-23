@@ -157,7 +157,6 @@
     </AppxManifest>
     <None Include="Pyxis_StoreKey.pfx" />
     <None Include="Pyxis_TemporaryKey.pfx" />
-    <PRIResource Include="Strings\ja-jp\Resources.resw" />
     <PRIResource Include="Strings\en-us\Resources.resw" />
   </ItemGroup>
   <ItemGroup>

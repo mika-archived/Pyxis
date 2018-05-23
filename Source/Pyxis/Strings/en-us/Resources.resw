@@ -218,4 +218,16 @@
   <data name="Home_Novel.Header" xml:space="preserve">
     <value>Novel</value>
   </data>
+  <data name="Home_Illust_Header.Text" xml:space="preserve">
+    <value>Top Illusts</value>
+  </data>
+  <data name="Home_Illust_Live.Text" xml:space="preserve">
+    <value>Popular Lives</value>
+  </data>
+  <data name="Home_Illust_Recommend.Text" xml:space="preserve">
+    <value>For You</value>
+  </data>
+  <data name="Home_Illust_ShowMoreButton.Content" xml:space="preserve">
+    <value>Show more &gt;</value>
+  </data>
 </root>

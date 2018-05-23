@@ -13,6 +13,16 @@
              d:DesignWidth="400"
              mc:Ignorable="d">
     <StackPanel Orientation="Vertical">
+        <Grid Margin="0,0,0,5">
+            <TextBlock x:Uid="Home_Illust_Header"
+                       FontWeight="Bold"
+                       Style="{ThemeResource SubtitleTextBlockStyle}" />
+            <HyperlinkButton x:Uid="Home_Illust_ShowMoreButton"
+                             Margin="0,5,0,0"
+                             Padding="0"
+                             HorizontalAlignment="Right"
+                             Style="{ThemeResource TextBlockButtonStyle}" />
+        </Grid>
         <msControls:AdaptiveGridView DesiredWidth="250"
                                      IsItemClickEnabled="True"
                                      ItemHeight="250"
@@ -64,5 +74,15 @@
                 </DataTemplate>
             </msControls:AdaptiveGridView.ItemTemplate>
         </msControls:AdaptiveGridView>
+
+        <TextBlock x:Uid="Home_Illust_Live"
+                   Margin="0,5"
+                   FontWeight="Bold"
+                   Style="{ThemeResource SubtitleTextBlockStyle}" />
+
+        <TextBlock x:Uid="Home_Illust_Recommend"
+                   Margin="0,5"
+                   FontWeight="Bold"
+                   Style="{ThemeResource SubtitleTextBlockStyle}" />
     </StackPanel>
 </UserControl>
