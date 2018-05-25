@@ -15,6 +15,7 @@ namespace Pyxis.ViewModels.Home
     {
         private readonly PixivRanking _ranking;
         public ReadOnlyReactiveCollection<IllustViewModel> RankingIllusts { get; }
+        public ReadOnlyReactiveCollection<IllustViewModel> RecommendIllusts { get; }
 
         public IllustContentViewModel(PixivClient pixivClient)
         {
