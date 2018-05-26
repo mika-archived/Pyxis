@@ -12,85 +12,89 @@
              d:DesignHeight="300"
              d:DesignWidth="400"
              mc:Ignorable="d">
-    <StackPanel Orientation="Vertical">
-        <msControls:AdaptiveGridView DesiredWidth="100"
-                                     IsItemClickEnabled="True"
-                                     ItemHeight="100"
-                                     ItemsSource="{Binding}"
-                                     SelectionMode="Single">
-            <msControls:AdaptiveGridView.HeaderTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Vertical">
-                        <Grid Margin="0,0,0,5">
-                            <TextBlock x:Uid="Home_Illust_Header"
-                                       FontWeight="Bold"
-                                       Style="{ThemeResource SubtitleTextBlockStyle}" />
-                            <HyperlinkButton x:Uid="Home_Illust_ShowMoreButton"
-                                             Margin="0,5,0,0"
-                                             Padding="0"
-                                             HorizontalAlignment="Right"
-                                             Style="{ThemeResource TextBlockButtonStyle}" />
-                        </Grid>
-                        <msControls:AdaptiveGridView Height="265"
-                                                     DesiredWidth="250"
-                                                     IsItemClickEnabled="True"
-                                                     ItemHeight="250"
-                                                     ItemsSource="{Binding RankingIllusts}"
-                                                     OneRowModeEnabled="True"
-                                                     SelectionMode="Single">
-                            <msControls:AdaptiveGridView.ItemTemplate>
-                                <DataTemplate d:DataContext="{d:DesignInstance cvm:IllustViewModel}">
-                                    <Grid>
-                                        <controls:PixivImageEx Source="{Binding ThumbnailUrl, Mode=OneWay}"
-                                                               Stretch="UniformToFill" />
-                                        <Border Height="300"
-                                                VerticalAlignment="Bottom">
-                                            <Border.Background>
-                                                <LinearGradientBrush StartPoint="0,0.5" EndPoint="0,1">
-                                                    <GradientStop Offset="0.0" Color="Transparent" />
-                                                    <GradientStop Offset="1.1" Color="{ThemeResource SystemBaseHighColor}" />
-                                                </LinearGradientBrush>
-                                            </Border.Background>
-                                        </Border>
-                                        <StackPanel Padding="10"
-                                                    VerticalAlignment="Bottom"
-                                                    Orientation="Vertical">
-                                            <StackPanel.Resources>
-                                                <Style TargetType="TextBlock">
-                                                    <Setter Property="Foreground" Value="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
-                                                </Style>
-                                            </StackPanel.Resources>
-                                            <TextBlock FontSize="18"
-                                                       FontWeight="Bold"
-                                                       Text="{Binding Title}"
-                                                       TextTrimming="CharacterEllipsis"
-                                                       TextWrapping="NoWrap" />
-                                            <StackPanel Height="32"
-                                                        Orientation="Horizontal">
-                                                <controls:PixivPersonPicture Width="24"
-                                                                             Height="24"
-                                                                             VerticalAlignment="Center"
-                                                                             Source="{Binding UserIcon}" />
-                                                <TextBlock Margin="5,0,0,0"
-                                                           VerticalAlignment="Center"
-                                                           HorizontalTextAlignment="Center"
-                                                           Text="{Binding Username}"
-                                                           TextTrimming="CharacterEllipsis"
-                                                           TextWrapping="NoWrap" />
-                                            </StackPanel>
-                                        </StackPanel>
-                                    </Grid>
-                                </DataTemplate>
-                            </msControls:AdaptiveGridView.ItemTemplate>
-                        </msControls:AdaptiveGridView>
-
-                        <TextBlock x:Uid="Home_Illust_Recommend"
-                                   Margin="0,5"
+    <msControls:AdaptiveGridView DesiredWidth="150"
+                                 IsItemClickEnabled="True"
+                                 ItemHeight="150"
+                                 ItemsSource="{Binding RecommendIllusts, Mode=OneWay}"
+                                 SelectionMode="Single">
+        <msControls:AdaptiveGridView.HeaderTemplate>
+            <DataTemplate>
+                <StackPanel Orientation="Vertical">
+                    <Grid Margin="0,0,0,5">
+                        <TextBlock x:Uid="Home_Illust_Header"
                                    FontWeight="Bold"
                                    Style="{ThemeResource SubtitleTextBlockStyle}" />
-                    </StackPanel>
-                </DataTemplate>
-            </msControls:AdaptiveGridView.HeaderTemplate>
-        </msControls:AdaptiveGridView>
-    </StackPanel>
+                        <HyperlinkButton x:Uid="Home_Illust_ShowMoreButton"
+                                         Margin="0,5,0,0"
+                                         Padding="0"
+                                         HorizontalAlignment="Right"
+                                         Style="{ThemeResource TextBlockButtonStyle}" />
+                    </Grid>
+                    <msControls:AdaptiveGridView Height="265"
+                                                 DesiredWidth="250"
+                                                 IsItemClickEnabled="True"
+                                                 ItemHeight="250"
+                                                 ItemsSource="{Binding RankingIllusts}"
+                                                 OneRowModeEnabled="True"
+                                                 SelectionMode="Single">
+                        <msControls:AdaptiveGridView.ItemTemplate>
+                            <DataTemplate d:DataContext="{d:DesignInstance cvm:IllustViewModel}">
+                                <Grid>
+                                    <controls:PixivImageEx Source="{Binding ThumbnailUrl, Mode=OneWay}"
+                                                           Stretch="UniformToFill" />
+                                    <Border Height="300"
+                                            VerticalAlignment="Bottom">
+                                        <Border.Background>
+                                            <LinearGradientBrush StartPoint="0,0.5" EndPoint="0,1">
+                                                <GradientStop Offset="0.0" Color="Transparent" />
+                                                <GradientStop Offset="1.1" Color="{ThemeResource SystemBaseHighColor}" />
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+                                    </Border>
+                                    <StackPanel Padding="10"
+                                                VerticalAlignment="Bottom"
+                                                Orientation="Vertical">
+                                        <StackPanel.Resources>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Foreground" Value="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+                                            </Style>
+                                        </StackPanel.Resources>
+                                        <TextBlock FontSize="18"
+                                                   FontWeight="Bold"
+                                                   Text="{Binding Title}"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   TextWrapping="NoWrap" />
+                                        <StackPanel Height="32"
+                                                    Orientation="Horizontal">
+                                            <controls:PixivPersonPicture Width="24"
+                                                                         Height="24"
+                                                                         VerticalAlignment="Center"
+                                                                         Source="{Binding UserIcon}" />
+                                            <TextBlock Margin="5,0,0,0"
+                                                       VerticalAlignment="Center"
+                                                       HorizontalTextAlignment="Center"
+                                                       Text="{Binding Username}"
+                                                       TextTrimming="CharacterEllipsis"
+                                                       TextWrapping="NoWrap" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </msControls:AdaptiveGridView.ItemTemplate>
+                    </msControls:AdaptiveGridView>
+
+                    <TextBlock x:Uid="Home_Illust_Recommend"
+                               Margin="0,5"
+                               FontWeight="Bold"
+                               Style="{ThemeResource SubtitleTextBlockStyle}" />
+                </StackPanel>
+            </DataTemplate>
+        </msControls:AdaptiveGridView.HeaderTemplate>
+        <msControls:AdaptiveGridView.ItemTemplate>
+            <DataTemplate d:DataContext="{d:DesignInstance cvm:IllustViewModel}">
+                <controls:PixivImageEx Source="{Binding ThumbnailUrl, Mode=OneWay}"
+                                       Stretch="UniformToFill" />
+            </DataTemplate>
+        </msControls:AdaptiveGridView.ItemTemplate>
+    </msControls:AdaptiveGridView>
 </UserControl>

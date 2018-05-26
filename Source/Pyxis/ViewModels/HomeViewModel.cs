@@ -5,6 +5,7 @@ using Prism.Windows.Navigation;
 
 using Pyxis.Extensions;
 using Pyxis.Models;
+using Pyxis.Services.Interfaces;
 using Pyxis.ViewModels.Home;
 
 using Reactive.Bindings;
@@ -19,10 +20,10 @@ namespace Pyxis.ViewModels
         public IllustContentViewModel IllustContentViewModel { get; }
         public ReactiveProperty<int> SelectedTab { get; }
 
-        public HomeViewModel(PixivClient pixivClient, INavigationService navigationService)
+        public HomeViewModel(PixivClient pixivClient, INavigationService navigationService, IObjectCacheStorage objectCacheStorage)
         {
             _navigationService = navigationService;
-            IllustContentViewModel = new IllustContentViewModel(pixivClient);
+            IllustContentViewModel = new IllustContentViewModel(pixivClient, objectCacheStorage);
             SelectedTab = new ReactiveProperty<int>();
             SelectedTab.Subscribe(async w =>
             {
