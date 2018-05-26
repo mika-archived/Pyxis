@@ -112,6 +112,7 @@
     <Compile Include="Helpers\EnumToBooleanConverter.cs" />
     <Compile Include="Helpers\Json.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
+    <Compile Include="Models\ObjectCache.cs" />
     <Compile Include="Models\Pixiv\PixivModel.cs" />
     <Compile Include="Models\Pixiv\PixivRanking.cs" />
     <Compile Include="Models\TransitionParameter.cs" />
@@ -121,6 +122,8 @@
     <Compile Include="Services\Interfaces\IAccountService.cs" />
     <Compile Include="Services\Interfaces\IDialogService.cs" />
     <Compile Include="Services\Interfaces\IFileCacheStorage.cs" />
+    <Compile Include="Services\Interfaces\IObjectCacheStorage.cs" />
+    <Compile Include="Services\SessionObjectCacheStorage.cs" />
     <Compile Include="Services\PixivCacheStorage.cs" />
     <Compile Include="Services\ThemeSelectorService.cs" />
     <Compile Include="ViewModels\Contents\IllustViewModel.cs" />
