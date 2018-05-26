@@ -50,6 +50,7 @@ namespace Pyxis
             Container.RegisterType<IAccountService, AccountService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IDialogService, DialogService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IFileCacheStorage, PixivCacheStorage>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IObjectCacheStorage, SessionObjectCacheStorage>(new ContainerControlledLifetimeManager());
         }
 
         protected override async Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)
