@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Input;
 
 using Windows.ApplicationModel;
 using Windows.UI.Xaml;
-
-using Microsoft.Services.Store.Engagement;
 
 using Prism.Commands;
 using Prism.Windows.Mvvm;
@@ -13,6 +10,8 @@ using Prism.Windows.Navigation;
 
 using Pyxis.Extensions;
 using Pyxis.Services;
+
+// using Microsoft.Services.Store.Engagement;
 
 namespace Pyxis.ViewModels
 {
@@ -26,7 +25,7 @@ namespace Pyxis.ViewModels
 
         private string _versionDescription;
 
-        public Visibility FeedbackLinkVisibility => StoreServicesFeedbackLauncher.IsSupported() ? Visibility.Visible : Visibility.Collapsed;
+        // public Visibility FeedbackLinkVisibility => StoreServicesFeedbackLauncher.IsSupported() ? Visibility.Visible : Visibility.Collapsed;
 
         public ICommand LaunchFeedbackHubCommand => _launchFeedbackHubCommand ?? (_launchFeedbackHubCommand = new DelegateCommand(LaunchFeedbackHub));
 
@@ -60,8 +59,8 @@ namespace Pyxis.ViewModels
         private async void LaunchFeedbackHub()
         {
             // This launcher is part of the Store Services SDK https://docs.microsoft.com/en-us/windows/uwp/monetize/microsoft-store-services-sdk
-            var launcher = StoreServicesFeedbackLauncher.GetDefault();
-            await launcher.LaunchAsync();
+            // var launcher = StoreServicesFeedbackLauncher.GetDefault();
+            // await launcher.LaunchAsync();
         }
 
         private string GetVersionDescription()
