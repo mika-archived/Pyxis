@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 
 using Microsoft.Practices.ObjectBuilder2;
 
+using Pyxis.Services.Interfaces;
+
 using Sagitta;
 using Sagitta.Enum;
 using Sagitta.Models;
@@ -16,7 +18,7 @@ namespace Pyxis.Models.Pixiv
         public ObservableCollection<Illust> MangaRanking { get; }
         public ObservableCollection<Novel> NovelRanking { get; }
 
-        public PixivRanking(PixivClient pixivClient) : base(pixivClient)
+        public PixivRanking(PixivClient pixivClient, IObjectCacheStorage objectCacheStorage) : base(pixivClient, objectCacheStorage)
         {
             IllustRanking = new ObservableCollection<Illust>();
             MangaRanking = new ObservableCollection<Illust>();
@@ -25,7 +27,7 @@ namespace Pyxis.Models.Pixiv
 
         public async Task FetchIllustRankingAsync(RankingMode mode, DateTime? date)
         {
-            var illusts = await PixivClient.Illust.RankingAsync(mode, date?.ToString("yyyy/MM/dd"));
+            var illusts = await CacheInvokeAsync("ranking", async () => await PixivClient.Illust.RankingAsync(mode, date?.ToString("yyyy/MM/dd")));
             IllustRanking.Clear();
             illusts.Illusts.ForEach(w => IllustRanking.Add(w));
         }

@@ -20,12 +20,12 @@ namespace Pyxis.ViewModels.Home
         public ReadOnlyReactiveCollection<IllustViewModel> RankingIllusts { get; }
         public IncrementalLoadingCollection<IllustRecommendSource<IllustViewModel>, IllustViewModel> RecommendIllusts { get; }
 
-        public IllustContentViewModel(PixivClient pixivClient, IObjectCacheStorage objectCacheStorage)
+        public IllustContentViewModel(PixivClient pixivClient, IObjectCacheStorage objectCacheStorage, IllustType illustType)
         {
-            _ranking = new PixivRanking(pixivClient);
+            _ranking = new PixivRanking(pixivClient, objectCacheStorage);
             RankingIllusts = _ranking.IllustRanking.ToReadOnlyReactiveCollection(w => new IllustViewModel(w)).AddTo(this);
             RecommendIllusts = new IncrementalLoadingCollection<IllustRecommendSource<IllustViewModel>, IllustViewModel>(
-                new IllustRecommendSource<IllustViewModel>(pixivClient, objectCacheStorage, IllustType.Illust, w => new IllustViewModel(w)));
+                new IllustRecommendSource<IllustViewModel>(pixivClient, objectCacheStorage, illustType, w => new IllustViewModel(w)));
         }
 
         public override async Task InitializeAsync()

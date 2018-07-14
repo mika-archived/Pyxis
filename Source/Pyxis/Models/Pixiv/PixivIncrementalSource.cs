@@ -16,7 +16,8 @@ namespace Pyxis.Models.Pixiv
         protected IObjectCacheStorage ObjectCacheStorage { get; }
         protected Func<T, TU> Converter { get; }
 
-        protected PixivIncrementalSource(PixivClient pixivClient, IObjectCacheStorage objectCacheStorage, Func<T, TU> converter = null) : base(pixivClient)
+        protected PixivIncrementalSource(PixivClient pixivClient, IObjectCacheStorage objectCacheStorage, Func<T, TU> converter = null)
+            : base(pixivClient, objectCacheStorage)
         {
             ObjectCacheStorage = objectCacheStorage;
             Converter = converter ?? (w => (TU) Activator.CreateInstance(typeof(TU), w));
