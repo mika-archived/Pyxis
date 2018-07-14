@@ -30,7 +30,7 @@ namespace Pyxis.Services
             if (_cacheStorage.ContainsKey(cacheKey))
             {
                 var objectCahe = _cacheStorage[cacheKey];
-                if (objectCahe.ExpiredAt <= DateTime.Now)
+                if (objectCahe.ExpiredAt >= DateTime.Now)
                     return objectCahe.Value as T;
             }
             var value = await action.Invoke();
