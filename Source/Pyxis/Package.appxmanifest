@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="8466Mikazuki.Pyxis" Publisher="CN=4B89ED43-2C38-4903-9436-87B359C3677D" Version="2.0.0.0" />
+  <Identity Name="8466Mikazuki.Pyxis" Publisher="CN=Mikazuki" Version="2.0.0.0" />
   <mp:PhoneIdentity PhoneProductId="81abd28c-ed6b-4384-950f-e61fa1fa356c" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Pyxis</DisplayName>
