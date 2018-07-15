@@ -20,6 +20,9 @@ using Pyxis.Services;
 using Pyxis.Services.Interfaces;
 using Pyxis.Views;
 
+using PyxisControls;
+using PyxisControls.Services;
+
 using Sagitta;
 
 namespace Pyxis
@@ -45,11 +48,14 @@ namespace Pyxis
             base.ConfigureContainer();
 
             var pixivClient = new PixivClient(PyxisConstants.PixivClientId, PyxisConstants.PixivClientSecret);
+            var cacheStorage = new PixivCacheStorage(pixivClient);
+            PyxisInjector.Instance.Register<IFileCacheStorage>(cacheStorage);
+
             Container.RegisterInstance<IResourceLoader>(new ResourceLoaderAdapter(new ResourceLoader()));
             Container.RegisterInstance(pixivClient, new ContainerControlledLifetimeManager());
+            Container.RegisterInstance<IFileCacheStorage>(cacheStorage, new ContainerControlledLifetimeManager());
             Container.RegisterType<IAccountService, AccountService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IDialogService, DialogService>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<IFileCacheStorage, PixivCacheStorage>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IObjectCacheStorage, SessionObjectCacheStorage>(new ContainerControlledLifetimeManager());
         }
 

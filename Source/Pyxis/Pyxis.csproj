@@ -104,12 +104,6 @@
     </Compile>
     <Compile Include="Constants\PyxisConstants.cs" />
     <Compile Include="Constants\PageTokens.cs" />
-    <Compile Include="Controls\PixivControl.cs" />
-    <Compile Include="Controls\PixivImage.cs" />
-    <Compile Include="Controls\PixivImageEx.cs" />
-    <Compile Include="Controls\PixivPersonPicture.cs" />
-    <Compile Include="Controls\PixivSlideshow.cs" />
-    <Compile Include="Controls\Slideshow.cs" />
     <Compile Include="Enums\TransitionMode.cs" />
     <Compile Include="Extensions\IDisposableExtensions.cs" />
     <Compile Include="Extensions\ResourceExtensions.cs" />
@@ -129,10 +123,8 @@
     <Compile Include="Services\DialogService.cs" />
     <Compile Include="Services\Interfaces\IAccountService.cs" />
     <Compile Include="Services\Interfaces\IDialogService.cs" />
-    <Compile Include="Services\Interfaces\IFileCacheStorage.cs" />
     <Compile Include="Services\Interfaces\IObjectCacheStorage.cs" />
     <Compile Include="Services\SessionObjectCacheStorage.cs" />
-    <Compile Include="Services\PixivCacheStorage.cs" />
     <Compile Include="Services\ThemeSelectorService.cs" />
     <Compile Include="ViewModels\Contents\IllustViewModel.cs" />
     <Compile Include="ViewModels\ErrorDialogViewModel.cs" />
@@ -281,26 +273,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Controls\PixivImage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\PixivImageEx.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\PixivPersonPicture.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\PixivSlideshow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Slideshow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Styles\Image.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -360,6 +332,16 @@
     <SDKReference Include="Microsoft.VCLibs, Version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
     </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PyxisControls\Source\PyxisControls.Extend\PyxisControls.Extend.csproj">
+      <Project>{0300027b-e43c-4e31-8264-ea92bee574c7}</Project>
+      <Name>PyxisControls.Extend</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PyxisControls\Source\PyxisControls\PyxisControls.csproj">
+      <Project>{09967f4c-74ce-4528-8cbf-c8c214f2d202}</Project>
+      <Name>PyxisControls</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

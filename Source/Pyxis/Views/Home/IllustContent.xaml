@@ -1,7 +1,8 @@
 ﻿<UserControl x:Class="Pyxis.Views.Home.IllustContent"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:controls="using:Pyxis.Controls"
+             xmlns:controls="using:PyxisControls"
+             xmlns:controlsEx="using:PyxisControls.Extend"
              xmlns:cvm="using:Pyxis.ViewModels.Contents"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="using:Pyxis.Views.Home"
@@ -40,8 +41,8 @@
                         <msControls:AdaptiveGridView.ItemTemplate>
                             <DataTemplate d:DataContext="{d:DesignInstance cvm:IllustViewModel}">
                                 <Grid>
-                                    <controls:PixivImageEx Source="{Binding ThumbnailUrl, Mode=OneWay}"
-                                                           Stretch="UniformToFill" />
+                                    <controlsEx:PixivImageEx Source="{Binding ThumbnailUrl, Mode=OneWay}"
+                                                             Stretch="UniformToFill" />
                                     <Border Height="300"
                                             VerticalAlignment="Bottom">
                                         <Border.Background>
@@ -92,8 +93,8 @@
         </msControls:AdaptiveGridView.HeaderTemplate>
         <msControls:AdaptiveGridView.ItemTemplate>
             <DataTemplate d:DataContext="{d:DesignInstance cvm:IllustViewModel}">
-                <controls:PixivImageEx Source="{Binding ThumbnailUrl, Mode=OneWay}"
-                                       Stretch="UniformToFill" />
+                <controlsEx:PixivImageEx Source="{Binding ThumbnailUrl, Mode=OneWay}"
+                                         Stretch="UniformToFill" />
             </DataTemplate>
         </msControls:AdaptiveGridView.ItemTemplate>
     </msControls:AdaptiveGridView>
