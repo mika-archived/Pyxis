@@ -15,11 +15,11 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <TextBlock Padding="12,0"
+            <TextBlock x:Uid="Login_Title"
+                       Padding="12,0"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Center"
-                       Style="{StaticResource TitleTextBlockStyle}"
-                       Text="ログイン" />
+                       Style="{StaticResource TitleTextBlockStyle}" />
         </Grid>
         <Grid Grid.Row="1">
             <controls:PixivSlideshow ImageCollection="{x:Bind ViewModel.ImageCollection.Value, Mode=OneWay}"

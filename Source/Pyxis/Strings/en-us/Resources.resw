@@ -230,4 +230,7 @@
   <data name="Home_Illust_ShowMoreButton.Content" xml:space="preserve">
     <value>Show more &gt;</value>
   </data>
+  <data name="Login_Title.Text" xml:space="preserve">
+    <value>Login</value>
+  </data>
 </root>
