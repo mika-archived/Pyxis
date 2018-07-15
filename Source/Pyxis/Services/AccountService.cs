@@ -39,7 +39,15 @@ namespace Pyxis.Services
                 var tokens = await _pixivClient.Authentication.LoginAsync(credential.UserName, credential.Password, deviceToken?.Password);
                 vault.Add(new PasswordCredential(PyxisConstants.ResourceId, $"{credential.UserName}$deviceToken", tokens.DeviceToken));
 
-                CurrentUser = tokens.User;
+                if (tokens.User != null)
+                {
+                    CurrentUser = tokens.User;
+                }
+                else
+                {
+                    await LogoutAsync();
+                    return false;
+                }
                 return true;
             }
             catch (Exception e)

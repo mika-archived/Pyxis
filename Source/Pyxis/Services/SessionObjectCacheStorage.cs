@@ -32,6 +32,7 @@ namespace Pyxis.Services
                 var objectCahe = _cacheStorage[cacheKey];
                 if (objectCahe.ExpiredAt >= DateTime.Now)
                     return objectCahe.Value as T;
+                _cacheStorage.Remove(cacheKey);
             }
             var value = await action.Invoke();
             var expiredAt = DateTime.Now + (expire ?? Expire);
