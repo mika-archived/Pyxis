@@ -25,8 +25,8 @@ namespace Pyxis.ViewModels
         public HomeViewModel(PixivClient pixivClient, INavigationService navigationService, IObjectCacheStorage objectCacheStorage)
         {
             _navigationService = navigationService;
-            IllustContentViewModel = new IllustContentViewModel(pixivClient, objectCacheStorage, IllustType.Illust);
-            MangaContentViewModel = new IllustContentViewModel(pixivClient, objectCacheStorage, IllustType.Manga);
+            IllustContentViewModel = new IllustContentViewModel(pixivClient, IllustType.Illust, navigationService, objectCacheStorage);
+            MangaContentViewModel = new IllustContentViewModel(pixivClient, IllustType.Manga, navigationService, objectCacheStorage);
             SelectedTab = new ReactiveProperty<int>();
             SelectedTab.Subscribe(async w =>
             {

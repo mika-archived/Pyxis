@@ -2,6 +2,8 @@
 
 using Microsoft.Toolkit.Uwp;
 
+using Prism.Windows.Navigation;
+
 using Pyxis.Extensions;
 using Pyxis.Models.Pixiv;
 using Pyxis.Services.Interfaces;
@@ -20,12 +22,12 @@ namespace Pyxis.ViewModels.Home
         public ReadOnlyReactiveCollection<IllustViewModel> RankingIllusts { get; }
         public IncrementalLoadingCollection<IllustRecommendSource<IllustViewModel>, IllustViewModel> RecommendIllusts { get; }
 
-        public IllustContentViewModel(PixivClient pixivClient, IObjectCacheStorage objectCacheStorage, IllustType illustType)
+        public IllustContentViewModel(PixivClient pixivClient, IllustType illustType, INavigationService navigationService, IObjectCacheStorage objectCacheStorage)
         {
             _ranking = new PixivRanking(pixivClient, objectCacheStorage);
-            RankingIllusts = _ranking.IllustRanking.ToReadOnlyReactiveCollection(w => new IllustViewModel(w)).AddTo(this);
+            RankingIllusts = _ranking.IllustRanking.ToReadOnlyReactiveCollection(w => new IllustViewModel(w, navigationService)).AddTo(this);
             RecommendIllusts = new IncrementalLoadingCollection<IllustRecommendSource<IllustViewModel>, IllustViewModel>(
-                new IllustRecommendSource<IllustViewModel>(pixivClient, objectCacheStorage, illustType, w => new IllustViewModel(w)));
+                new IllustRecommendSource<IllustViewModel>(pixivClient, objectCacheStorage, illustType, w => new IllustViewModel(w, navigationService)));
         }
 
         public override async Task InitializeAsync()

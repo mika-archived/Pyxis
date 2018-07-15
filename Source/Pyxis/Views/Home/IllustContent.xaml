@@ -5,7 +5,8 @@
              xmlns:controlsEx="using:PyxisControls.Extend"
              xmlns:cvm="using:Pyxis.ViewModels.Contents"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="using:Pyxis.Views.Home"
+             xmlns:i="using:Microsoft.Xaml.Interactivity"
+             xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:msControls="using:Microsoft.Toolkit.Uwp.UI.Controls"
              xmlns:vm="using:Pyxis.ViewModels.Home"
@@ -94,7 +95,13 @@
         <msControls:AdaptiveGridView.ItemTemplate>
             <DataTemplate d:DataContext="{d:DesignInstance cvm:IllustViewModel}">
                 <controlsEx:PixivImageEx Source="{Binding ThumbnailUrl, Mode=OneWay}"
-                                         Stretch="UniformToFill" />
+                                         Stretch="UniformToFill">
+                    <i:Interaction.Behaviors>
+                        <ic:EventTriggerBehavior EventName="Tapped">
+                            <ic:InvokeCommandAction Command="{Binding OnTappedCommand}" />
+                        </ic:EventTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                </controlsEx:PixivImageEx>
             </DataTemplate>
         </msControls:AdaptiveGridView.ItemTemplate>
     </msControls:AdaptiveGridView>

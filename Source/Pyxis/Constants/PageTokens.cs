@@ -3,6 +3,7 @@
     internal static class PageTokens
     {
         public const string HomePage = "Home";
+        public const string DetailsPage = "Details";
         public const string LoginPage = "Login";
         public const string SettingsPage = "Settings";
     }
