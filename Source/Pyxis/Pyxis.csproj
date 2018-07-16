@@ -105,7 +105,6 @@
     <Compile Include="Behaviors\RichTextBlockBindingBehavior.cs" />
     <Compile Include="Behaviors\UniformToParentControlBehavior.cs" />
     <Compile Include="Bindings\TypeToTemplate.cs" />
-    <Compile Include="Bindings\TypeToTemplateCollection.cs" />
     <Compile Include="Bindings\TypeToTemplateSelector.cs" />
     <Compile Include="Constants\PyxisConstants.cs" />
     <Compile Include="Constants\PageTokens.cs" />

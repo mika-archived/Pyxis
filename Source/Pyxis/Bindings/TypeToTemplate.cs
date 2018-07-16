@@ -10,6 +10,6 @@ namespace Pyxis.Bindings
     {
         public DataTemplate Template { get; set; }
         public string DataType { get; set; }
-        public Type TargeType => DataType != null ? Type.GetType(DataType) : null;
+        public Type TargetType => DataType != null ? Type.GetType(DataType) : null;
     }
 }

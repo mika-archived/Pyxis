@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -9,14 +10,15 @@ namespace Pyxis.Bindings
     [ContentProperty(Name = "Templates")]
     public class TypeToTemplateSelector : DataTemplateSelector
     {
-        public TypeToTemplateCollection Templates { get; set; } = new TypeToTemplateCollection();
+        // ReSharper disable once CollectionNeverUpdated.Global
+        public List<TypeToTemplate> Templates { get; set; } = new List<TypeToTemplate>();
 
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
         {
             if (item == null)
                 return default(DataTemplate);
 
-            var template = Templates.Where(w => w.TargeType != null && item.GetType() == w.TargeType)
+            var template = Templates.Where(w => w.TargetType != null && item.GetType() == w.TargetType)
                                     .Select(w => w.Template)
                                     .FirstOrDefault();
             return template ?? base.SelectTemplateCore(item, container);
