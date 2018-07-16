@@ -30,7 +30,7 @@
         </NavigationView.MenuItems>
         <NavigationView.HeaderTemplate>
             <DataTemplate>
-                <TextBlock Margin="12,0,0,0"
+                <TextBlock Margin="12,-10,0,0"
                            VerticalAlignment="Center"
                            Style="{StaticResource TitleTextBlockStyle}"
                            Text="{Binding}" />
