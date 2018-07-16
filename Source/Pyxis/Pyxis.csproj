@@ -102,11 +102,14 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Behaviors\RichTextBlockBindingBehavior.cs" />
+    <Compile Include="Behaviors\UniformToParentControlBehavior.cs" />
     <Compile Include="Bindings\TypeToTemplate.cs" />
     <Compile Include="Bindings\TypeToTemplateCollection.cs" />
     <Compile Include="Bindings\TypeToTemplateSelector.cs" />
     <Compile Include="Constants\PyxisConstants.cs" />
     <Compile Include="Constants\PageTokens.cs" />
+    <Compile Include="Converters\HtmlStringToBlockCollectionConverter.cs" />
     <Compile Include="Enums\TransitionMode.cs" />
     <Compile Include="Exceptions\InvalidParametersException.cs" />
     <Compile Include="Extensions\IDisposableExtensions.cs" />
@@ -251,6 +254,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack">
+      <Version>1.8.5</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.AppCenter.Analytics">
       <Version>1.7.0</Version>
     </PackageReference>
@@ -346,9 +352,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Behaviors\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <SDKReference Include="Microsoft.Services.Store.Engagement, Version=10.0">
       <Name>Microsoft Engagement Framework</Name>
