@@ -137,6 +137,7 @@
     <Compile Include="Services\TitleService.cs" />
     <Compile Include="ViewModels\Contents\ContentViewModel.cs" />
     <Compile Include="ViewModels\Contents\IllustViewModel.cs" />
+    <Compile Include="ViewModels\Contents\TagViewModel.cs" />
     <Compile Include="ViewModels\DetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\IllustContentViewModel.cs" />
     <Compile Include="ViewModels\ErrorDialogViewModel.cs" />

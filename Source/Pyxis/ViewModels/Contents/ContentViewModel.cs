@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Linq;
+using System.Windows.Input;
 
 using Prism.Commands;
 using Prism.Windows.Navigation;
@@ -14,7 +15,9 @@ namespace Pyxis.ViewModels.Contents
         protected Work Work { get; }
 
         public string Title => Work.Title;
+        public string Description => Work.Caption;
         public string ThumbnailUrl => Work.ImageUrls.Medium;
+        public object Tags => Work.Tags.Select(w => w).ToList();
         public string Username => Work.User.Name;
         public string UserIcon => Work.User.ProfileImageUrls.Medium;
         public ICommand OnTappedCommand => _onTappedCommand ?? (_onTappedCommand = new DelegateCommand(OnTapped));
