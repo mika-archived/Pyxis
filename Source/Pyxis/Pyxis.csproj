@@ -108,6 +108,7 @@
     <Compile Include="Constants\PyxisConstants.cs" />
     <Compile Include="Constants\PageTokens.cs" />
     <Compile Include="Enums\TransitionMode.cs" />
+    <Compile Include="Exceptions\InvalidParametersException.cs" />
     <Compile Include="Extensions\IDisposableExtensions.cs" />
     <Compile Include="Extensions\ResourceExtensions.cs" />
     <Compile Include="Extensions\SettingsStorageExtensions.cs" />
@@ -128,8 +129,10 @@
     <Compile Include="Services\Interfaces\IAccountService.cs" />
     <Compile Include="Services\Interfaces\IDialogService.cs" />
     <Compile Include="Services\Interfaces\IObjectCacheStorage.cs" />
+    <Compile Include="Services\Interfaces\ITitleService.cs" />
     <Compile Include="Services\SessionObjectCacheStorage.cs" />
     <Compile Include="Services\ThemeSelectorService.cs" />
+    <Compile Include="Services\TitleService.cs" />
     <Compile Include="ViewModels\Contents\ContentViewModel.cs" />
     <Compile Include="ViewModels\Contents\IllustViewModel.cs" />
     <Compile Include="ViewModels\DetailsViewModel.cs" />
@@ -345,7 +348,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Behaviors\" />
-    <Folder Include="ViewModels\Details\" />
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="Microsoft.Services.Store.Engagement, Version=10.0">

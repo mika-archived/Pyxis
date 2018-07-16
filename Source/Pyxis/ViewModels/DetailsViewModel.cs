@@ -5,8 +5,10 @@ using Prism.Windows.Navigation;
 using Pyxis.Models;
 using Pyxis.Models.Parameters;
 using Pyxis.Services.Interfaces;
+using Pyxis.ViewModels.Details;
 
 using Sagitta;
+using Sagitta.Models;
 
 namespace Pyxis.ViewModels
 {
@@ -14,7 +16,7 @@ namespace Pyxis.ViewModels
     {
         private readonly INavigationService _navigationService;
         private readonly IObjectCacheStorage _objectCacheStorage;
-        private PixivClient _pixivClient;
+        private readonly PixivClient _pixivClient;
 
         public DetailsViewModel(PixivClient pixivClient, INavigationService navigationService, IObjectCacheStorage objectCacheStorage)
         {
@@ -28,10 +30,25 @@ namespace Pyxis.ViewModels
             if (e.Parameter != null)
             {
                 var parameter = TransitionParameter.FromQueryString<DetailsParameter>(e.Parameter as string);
-                parameter?.ProcessTransitionHistory(_navigationService);
+                parameter.ProcessTransitionHistory(_navigationService);
+
+                if (parameter.Type == typeof(Illust))
+                    ContentViewModel = new IllustContentViewModel(_pixivClient, parameter, _navigationService, _objectCacheStorage);
             }
 
             base.OnNavigatedTo(e, viewModelState);
         }
+
+        #region ContentViewModel
+
+        private ViewModel _contentViewModel;
+
+        public ViewModel ContentViewModel
+        {
+            get => _contentViewModel;
+            set => SetProperty(ref _contentViewModel, value);
+        }
+
+        #endregion
     }
 }

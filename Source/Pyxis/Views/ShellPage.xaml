@@ -14,7 +14,7 @@
     <NavigationView x:Name="NavigationView"
                     AlwaysShowHeader="False"
                     Background="{ThemeResource SystemControlBackgroundAltHighBrush}"
-                    Header="{x:Bind ViewModel.Selected.Content, Mode=OneWay}"
+                    Header="{x:Bind ViewModel.ViewTitle.Value, Mode=OneWay}"
                     IsSettingsVisible="True"
                     SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}">
         <NavigationView.MenuItems>
