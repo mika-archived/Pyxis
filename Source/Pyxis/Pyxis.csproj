@@ -102,6 +102,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Bindings\TypeToTemplate.cs" />
+    <Compile Include="Bindings\TypeToTemplateCollection.cs" />
+    <Compile Include="Bindings\TypeToTemplateSelector.cs" />
     <Compile Include="Constants\PyxisConstants.cs" />
     <Compile Include="Constants\PageTokens.cs" />
     <Compile Include="Enums\TransitionMode.cs" />
@@ -127,8 +130,10 @@
     <Compile Include="Services\Interfaces\IObjectCacheStorage.cs" />
     <Compile Include="Services\SessionObjectCacheStorage.cs" />
     <Compile Include="Services\ThemeSelectorService.cs" />
+    <Compile Include="ViewModels\Contents\ContentViewModel.cs" />
     <Compile Include="ViewModels\Contents\IllustViewModel.cs" />
     <Compile Include="ViewModels\DetailsViewModel.cs" />
+    <Compile Include="ViewModels\Details\IllustContentViewModel.cs" />
     <Compile Include="ViewModels\ErrorDialogViewModel.cs" />
     <Compile Include="ViewModels\Home\HomeContentViewModel.cs" />
     <Compile Include="ViewModels\Home\IllustContentViewModel.cs" />

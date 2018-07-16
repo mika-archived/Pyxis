@@ -1,20 +1,27 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Windows.Input;
 
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 using Prism.Commands;
-using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
 
+using Pyxis.Extensions;
 using Pyxis.Helpers;
+using Pyxis.Services;
+using Pyxis.Services.Interfaces;
 using Pyxis.Views;
+
+using Reactive.Bindings;
+using Reactive.Bindings.Extensions;
 
 namespace Pyxis.ViewModels
 {
-    public class ShellViewModel : ViewModelBase
+    public class ShellViewModel : ViewModel
     {
         private readonly INavigationService _navigationService;
         private NavigationView _navigationView;
@@ -22,16 +29,26 @@ namespace Pyxis.ViewModels
 
         public ICommand ItemInvokedCommand { get; }
 
+        public ReactiveProperty<string> AppTitle { get; }
+        public ReactiveProperty<string> ViewTitle { get; }
+
         public NavigationViewItem Selected
         {
             get => _selected;
             set => SetProperty(ref _selected, value);
         }
 
-        public ShellViewModel(INavigationService navigationServiceInstance)
+        public ShellViewModel(INavigationService navigationServiceInstance, ITitleService titleService)
         {
             _navigationService = navigationServiceInstance;
             ItemInvokedCommand = new DelegateCommand<NavigationViewItemInvokedEventArgs>(OnItemInvoked);
+
+            AppTitle = (titleService as TitleService).ObserveProperty(w => w.AppTitle).Where(w => !string.IsNullOrWhiteSpace(w)).ToReactiveProperty().AddTo(this);
+            ViewTitle = (titleService as TitleService).ObserveProperty(w => w.ViewTitle).Where(w => !string.IsNullOrWhiteSpace(w)).ToReactiveProperty().AddTo(this);
+            ViewTitle.Subscribe(w => { Debug.WriteLine(w); });
+
+            titleService.AppTitle = "Home";
+            titleService.ViewTitle = "Home";
         }
 
         public void Initialize(Frame frame, NavigationView navigationView)
