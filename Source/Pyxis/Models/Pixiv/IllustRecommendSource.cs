@@ -36,14 +36,14 @@ namespace Pyxis.Models.Pixiv
 
             if (_illustCollection != null)
             {
-                _illustCollection = await _illustCollection.NextAsync();
+                _illustCollection = await CacheInvokeAsync(_illustCollection.NextUrl, async () => await _illustCollection.NextAsync());
             }
             else
             {
                 if (_illustType == IllustType.Illust)
-                    _illustCollection = await PixivClient.Illust.RecommendedAsync();
+                    _illustCollection = await CacheInvokeAsync("IllustRecommend", async () => await PixivClient.Illust.RecommendedAsync());
                 else
-                    _illustCollection = await PixivClient.Manga.RecommendedAsync();
+                    _illustCollection = await CacheInvokeAsync("MangaRecommend", async () => await PixivClient.Manga.RecommendedAsync());
             }
 
             _illustCollection.Illusts.ForEach(w => _items.Add(w));
