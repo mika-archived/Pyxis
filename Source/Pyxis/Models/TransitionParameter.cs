@@ -3,6 +3,7 @@
 using Prism.Windows.Navigation;
 
 using Pyxis.Enums;
+using Pyxis.Exceptions;
 
 namespace Pyxis.Models
 {
@@ -17,6 +18,8 @@ namespace Pyxis.Models
 
         public string ToQueryString()
         {
+            if (!Validate())
+                throw new InvalidParametersException();
             return JsonConvert.SerializeObject(this);
         }
 
@@ -24,6 +27,11 @@ namespace Pyxis.Models
         {
             if (Mode == TransitionMode.LoginRedirect)
                 navigationService.RemoveAllPages();
+        }
+
+        protected virtual bool Validate()
+        {
+            return true;
         }
     }
 }

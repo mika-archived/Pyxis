@@ -13,11 +13,14 @@ namespace Pyxis.ViewModels
     public class DetailsViewModel : ViewModel
     {
         private readonly INavigationService _navigationService;
+        private readonly IObjectCacheStorage _objectCacheStorage;
+        private PixivClient _pixivClient;
 
         public DetailsViewModel(PixivClient pixivClient, INavigationService navigationService, IObjectCacheStorage objectCacheStorage)
         {
+            _pixivClient = pixivClient;
             _navigationService = navigationService;
-            _navigationService = navigationService;
+            _objectCacheStorage = objectCacheStorage;
         }
 
         public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
