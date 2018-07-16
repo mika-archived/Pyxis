@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Windows.Input;
@@ -45,7 +44,6 @@ namespace Pyxis.ViewModels
 
             AppTitle = (titleService as TitleService).ObserveProperty(w => w.AppTitle).Where(w => !string.IsNullOrWhiteSpace(w)).ToReactiveProperty().AddTo(this);
             ViewTitle = (titleService as TitleService).ObserveProperty(w => w.ViewTitle).Where(w => !string.IsNullOrWhiteSpace(w)).ToReactiveProperty().AddTo(this);
-            ViewTitle.Subscribe(w => { Debug.WriteLine(w); });
 
             titleService.AppTitle = "Home";
             titleService.ViewTitle = "Home";
