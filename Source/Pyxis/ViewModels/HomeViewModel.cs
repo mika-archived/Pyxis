@@ -18,13 +18,15 @@ namespace Pyxis.ViewModels
     public class HomeViewModel : ViewModel
     {
         private readonly INavigationService _navigationService;
+        private readonly ITitleService _titleService;
         public IllustContentViewModel IllustContentViewModel { get; }
         public IllustContentViewModel MangaContentViewModel { get; }
         public ReactiveProperty<int> SelectedTab { get; }
 
-        public HomeViewModel(PixivClient pixivClient, INavigationService navigationService, IObjectCacheStorage objectCacheStorage)
+        public HomeViewModel(PixivClient pixivClient, INavigationService navigationService, IObjectCacheStorage objectCacheStorage, ITitleService titleService)
         {
             _navigationService = navigationService;
+            _titleService = titleService;
             IllustContentViewModel = new IllustContentViewModel(pixivClient, IllustType.Illust, navigationService, objectCacheStorage);
             MangaContentViewModel = new IllustContentViewModel(pixivClient, IllustType.Manga, navigationService, objectCacheStorage);
             SelectedTab = new ReactiveProperty<int>();
@@ -40,6 +42,7 @@ namespace Pyxis.ViewModels
             if (e.Parameter != null)
                 TransitionParameter.FromQueryString<TransitionParameter>(e.Parameter as string)?.ProcessTransitionHistory(_navigationService);
 
+            _titleService.ViewTitle = "Shell_Home/Content".GetLocalized();
             base.OnNavigatedTo(e, viewModelState);
         }
     }

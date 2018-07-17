@@ -13,11 +13,13 @@ using Prism.Windows.Navigation;
 
 using Pyxis.Extensions;
 using Pyxis.Services;
+using Pyxis.Services.Interfaces;
 
 namespace Pyxis.ViewModels
 {
     public class SettingsViewModel : ViewModelBase
     {
+        private readonly ITitleService _titleService;
         private ElementTheme _elementTheme = ThemeSelectorService.Theme;
 
         private ICommand _launchFeedbackHubCommand;
@@ -44,10 +46,16 @@ namespace Pyxis.ViewModels
 
         public ICommand SwitchThemeCommand => _switchThemeCommand ?? (_switchThemeCommand = new DelegateCommand<object>(SwitchTheme));
 
+        public SettingsViewModel(ITitleService titleService)
+        {
+            _titleService = titleService;
+        }
+
         public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
         {
             base.OnNavigatedTo(e, viewModelState);
             VersionDescription = GetVersionDescription();
+            _titleService.ViewTitle = "Shell_Settings/Content".GetLocalized();
         }
 
         private async void SwitchTheme(object param)
