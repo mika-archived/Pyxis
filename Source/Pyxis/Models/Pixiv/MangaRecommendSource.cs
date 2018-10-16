@@ -13,12 +13,12 @@ using Sagitta.Models;
 
 namespace Pyxis.Models.Pixiv
 {
-    public class IllustRecommendSource<T> : PixivIncrementalSource<Illust, T>
+    public class MangaRecommendSource<T> : PixivIncrementalSource<Illust, T>
     {
         private readonly List<Illust> _items;
         private IllustCollection _illustCollection;
 
-        public IllustRecommendSource(PixivClient pixivClient, IObjectCacheStorage objectCacheStorage, Func<Illust, T> converter = null) : base(pixivClient, objectCacheStorage, converter)
+        public MangaRecommendSource(PixivClient pixivClient, IObjectCacheStorage objectCacheStorage, Func<Illust, T> converter = null) : base(pixivClient, objectCacheStorage, converter)
         {
             _items = new List<Illust>();
         }
@@ -32,7 +32,7 @@ namespace Pyxis.Models.Pixiv
             if (_illustCollection != null)
                 _illustCollection = await CacheInvokeAsync(_illustCollection.NextUrl, async () => await _illustCollection.NextAsync());
             else
-                _illustCollection = await CacheInvokeAsync("IllustRecommendSource", async () => await PixivClient.Illust.RecommendedAsync());
+                _illustCollection = await CacheInvokeAsync("MangaRecommendSource", async () => await PixivClient.Manga.RecommendedAsync());
 
             _illustCollection.Illusts.ForEach(w => _items.Add(w));
             return _items.Skip(items).Take(pageSize).Select(w => Converter.Invoke(w));

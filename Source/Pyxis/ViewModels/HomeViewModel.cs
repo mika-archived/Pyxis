@@ -11,7 +11,6 @@ using Pyxis.ViewModels.Home;
 using Reactive.Bindings;
 
 using Sagitta;
-using Sagitta.Enum;
 
 namespace Pyxis.ViewModels
 {
@@ -20,20 +19,22 @@ namespace Pyxis.ViewModels
         private readonly INavigationService _navigationService;
         private readonly ITitleService _titleService;
         public IllustContentViewModel IllustContentViewModel { get; }
-        public IllustContentViewModel MangaContentViewModel { get; }
+        public MangaContentViewModel MangaContentViewModel { get; }
         public ReactiveProperty<int> SelectedTab { get; }
 
         public HomeViewModel(PixivClient pixivClient, INavigationService navigationService, IObjectCacheStorage objectCacheStorage, ITitleService titleService)
         {
             _navigationService = navigationService;
             _titleService = titleService;
-            IllustContentViewModel = new IllustContentViewModel(pixivClient, IllustType.Illust, navigationService, objectCacheStorage);
-            MangaContentViewModel = new IllustContentViewModel(pixivClient, IllustType.Manga, navigationService, objectCacheStorage);
+            IllustContentViewModel = new IllustContentViewModel(pixivClient, navigationService, objectCacheStorage);
+            MangaContentViewModel = new MangaContentViewModel(pixivClient, navigationService, objectCacheStorage);
             SelectedTab = new ReactiveProperty<int>();
             SelectedTab.Subscribe(async w =>
             {
                 if (w == 0)
                     await IllustContentViewModel.InitializeAsync();
+                else if (w == 1)
+                    await MangaContentViewModel.InitializeAsync();
             }).AddTo(this);
         }
 

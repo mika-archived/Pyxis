@@ -18,6 +18,7 @@ namespace Pyxis.ViewModels.Contents
         public string Description => Work.Caption;
         public string ThumbnailUrl => Work.ImageUrls.Medium;
         public object Tags => Work.Tags.Select(w => w).ToList();
+        public string TagLine => string.Join(", ", Work.Tags.Select(w => w.Name).ToList());
         public string Username => Work.User.Name;
         public string UserIcon => Work.User.ProfileImageUrls.Medium;
         public ICommand OnTappedCommand => _onTappedCommand ?? (_onTappedCommand = new DelegateCommand(OnTapped));

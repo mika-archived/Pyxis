@@ -25,9 +25,11 @@
                 </DataTemplate>
             </Pivot.HeaderTemplate>
             <PivotItem x:Uid="Home_Illust">
-                <local:IllustContent DataContext="{x:Bind ViewModel.IllustContentViewModel}" />
+                <local:IllustContents DataContext="{x:Bind ViewModel.IllustContentViewModel}" />
             </PivotItem>
-            <PivotItem x:Uid="Home_Manga" />
+            <PivotItem x:Uid="Home_Manga">
+                <local:MangaContents DataContext="{x:Bind ViewModel.MangaContentViewModel}" />
+            </PivotItem>
             <PivotItem x:Uid="Home_Novel" />
         </Pivot>
     </Grid>

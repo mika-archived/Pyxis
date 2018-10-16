@@ -4,9 +4,9 @@
 
 namespace Pyxis.Views.Home
 {
-    public sealed partial class IllustContent : UserControl
+    public sealed partial class IllustContents : UserControl
     {
-        public IllustContent()
+        public IllustContents()
         {
             InitializeComponent();
         }
